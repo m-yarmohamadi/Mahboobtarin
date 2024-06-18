@@ -32,7 +32,7 @@ const register = () => {
 		passportNumber: Yup.string().required('تکمیل این گزینه اجباری است'),
 		birthDay: Yup.string().required('تکمیل این گزینه اجباری است'),
 		mobile: Yup.string().required('تکمیل این گزینه اجباری است'),
-		email: Yup.string().required('تکمیل این گزینه اجباری است'),
+		email: Yup.string().email("لطفا یک ایمیل معتبر وارد کنید").required('تکمیل این گزینه اجباری است'),
 	});
 
 	const formik = useFormik({
