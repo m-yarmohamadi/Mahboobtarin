@@ -1,9 +1,6 @@
-const { default: theme } = require('@material-tailwind/react/theme');
-
 /** @type {import('tailwindcss').Config} */
-const withTM = require('next-transpile-modules')(['@material-tailwind/react']);
-module.exports = withTM({
-	content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}', 'path-to-your-node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}', 'path-to-your-node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}'],
+module.exports = {
+	content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -20,7 +17,7 @@ module.exports = withTM({
 					'02': '#eff0f2',
 				},
 				oorange: '#FF0000',
-				error: '#dc2626'
+				error: '#dc2626',
 			},
 			screens: {
 				xs: '475px',
@@ -32,4 +29,4 @@ module.exports = withTM({
 		},
 	},
 	plugins: [require('tailwind-scrollbar')],
-});
+};
