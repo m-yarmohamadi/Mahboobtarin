@@ -16,24 +16,24 @@ import Store from '@/components/Store';
 import Resume from '@/components/Resume';
 
 const index = () => {
-	return (
-		<div className='w-full  max-w-full h-full max-h-full '>
-			<Header /> //منوی بالا
-			<Slider /> // 
-			<Baner />
-			<PopularMounth />
-			<Services />
-			<Baner02 />
-			<FrequentSearches />
-			<Baner03 />
-			<Recommended />
-			<News />
-			<Baner04 />
-			<Store />
-			<Resume />
-			<Footer />
-		</div>
-	);
+    return (
+        <div className="w-full  max-w-full h-full max-h-full ">
+            <Header />
+            <Slider />
+            <Baner />
+            <PopularMounth />
+            <Services />
+            <Baner02 />
+            <FrequentSearches />
+            <Baner03 />
+            <Recommended />
+            <News />
+            <Baner04 />
+            <Store />
+            <Resume />
+            <Footer />
+        </div>
+    );
 };
 
 export default index;
