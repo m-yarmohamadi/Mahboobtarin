@@ -18,8 +18,8 @@ import Resume from '@/components/Resume';
 const index = () => {
 	return (
 		<div className='w-full  max-w-full h-full max-h-full '>
-			<Header />
-			<Slider />
+			<Header /> //منوی بالا
+			<Slider /> // 
 			<Baner />
 			<PopularMounth />
 			<Services />

@@ -3,6 +3,7 @@ import { TiStopwatch } from 'react-icons/ti';
 import PN from 'persian-number';
 import { FaChevronLeft } from 'react-icons/fa';
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
+import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
 const data = [
 	{
 		id: 1,
@@ -84,15 +85,7 @@ const Store = () => {
 								<TiStopwatch />
 							</span>
 						</div>
-						<div className='flex justify-center items-center gap-1'>
-							<span className='text-xl  text-gray-700 border border-gray-700 rounded-md p-2'>
-								<FaArrowRightLong />
-							</span>
-
-							<span className='text-xl  text-gray-700 border border-gray-700 rounded-md p-2'>
-								<FaArrowLeftLong />
-							</span>
-						</div>
+						<LeftAndRightArrows />
 					</div>
 				</div>
 				<div className='grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4'>
