@@ -17,7 +17,7 @@ import Resume from '@/components/Resume';
 
 const index = () => {
     return (
-        <div className="w-full  max-w-full h-full max-h-full ">
+        <div className="w-full  max-w-full h-full max-h-full box-content">
             <Header />
             <Slider />
             <Baner />

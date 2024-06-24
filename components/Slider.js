@@ -9,7 +9,7 @@ const Slider = () => {
 				<div className='text-white w-2/3 md:w-1/3 mx-auto flex flex-col justify-center items-center pt-8 pb-24 gap-3 text-sm'>
 					{/* <div className='  font-bold text-2xl'>محبــوب ترین</div> */}
 					<div>دسترسی آسان به برترین ها در هر مکان و زمان</div>
-<SearchBox />
+					<SearchBox />
 				</div>
 			</div>
 		</div>

@@ -85,7 +85,6 @@ const Store = () => {
 								<TiStopwatch />
 							</span>
 						</div>
-						<LeftAndRightArrows />
 					</div>
 				</div>
 				<div className='grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4'>
