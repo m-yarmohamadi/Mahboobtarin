@@ -12,7 +12,7 @@ const SearchBox = () => {
 					defaultValue='جستجو...'
 				/>
 			</div>
-			<div className='rounded-e-full flex justify-center items-center gap-2  p-1 text-gray-400'>
+			<div className='w-full rounded-e-full flex justify-end items-center gap-2  p-1 text-gray-400'>
 				<div className='flex justify-center items-center text-xl font-bold gap-1'>
 					<span className=' rotate-90'>
 						<BiSlider />

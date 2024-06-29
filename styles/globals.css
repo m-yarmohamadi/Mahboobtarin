@@ -8,6 +8,7 @@
 :root {
 	background-color: #eff0f2;
 	direction: rtl;
+	/* box-sizing: content-box; */
 }
 
 body {

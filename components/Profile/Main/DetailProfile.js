@@ -8,6 +8,44 @@ import { FcGlobe } from 'react-icons/fc';
 import TitleItems from './TitleItems';
 import ViewMore from './ViewMore';
 import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
+import { enToFaNumber } from '@/utils/enToFa';
+const ideas = [
+	{
+		id: 1,
+		name: 'بهمن مرادی خامنه',
+		time: '53 روز قبل',
+		score: 5,
+		comment: 'بسیار عالی',
+	},
+	{
+		id: 2,
+		name: 'مرجان محمدلو',
+		time: '62 روز قبل',
+		score: 3,
+		comment: 'خیلی صبور و بادقت',
+	},
+	{
+		id: 3,
+		name: 'معصومه کیانی',
+		time: '20 روز قبل',
+		score: 1,
+		comment: 'واقعا دکتر خوبی بود',
+	},
+	{
+		id: 4,
+		name: 'عطیه جعفری برنجی',
+		time: '76 روز قبل',
+		score: 4,
+		comment: 'از هر لحاظ عالی هستند',
+	},
+	{
+		id: 5,
+		name: 'مهدی مولایی',
+		time: '32 روز قبل',
+		score: 3,
+		comment: 'بسیار دکتر کاربلد و...',
+	},
+];
 const mostPopular = [
 	{
 		id: 1,
@@ -178,7 +216,7 @@ const DetailProfile = () => {
 	const [score, setScore] = useState(0);
 	console.log(score);
 	return (
-		<div>
+		<div className=''>
 			<div className='w-full grid grid-cols-4 -mt-14'>
 				<div className='flex flex-col justify-end items-center gap-2'>
 					<div className='w-28 h-28 '>
@@ -196,7 +234,7 @@ const DetailProfile = () => {
 					<span className='py-2  text-xs text-gray-700'>مشاوره خانواده و ازدواج</span>
 				</div>
 				<div className='flex flex-col justify-end items-center text-xs'>
-					<span className='py-1 flex justify-around items-center w-full'>
+					<span className='p-2 flex justify-around items-center w-full'>
 						<span className='flex justify-center items-center gap-1'>
 							<FaLocationArrow />
 							<span>قم</span>
@@ -211,14 +249,14 @@ const DetailProfile = () => {
 						<span>
 							<FaCalendar />
 						</span>
-						<span>تاریخ پیوستن: آذر 1401</span>
+						<span>{enToFaNumber('تاریخ پیوستن: آذر 1401')}</span>
 					</span>
-					<span className='pt-2  '>تجربه: 12 سال</span>
+					<span className='pt-2  '>{enToFaNumber('تجربه: 12 سال')}</span>
 				</div>
 				<div className='flex flex-col justify-end items-start gap-1 text-xs ps-10'>
 					<span className='flex justify-center items-center gap-1'>
 						<FaStar />
-						<span>4.90 (از 24 نظر)</span>
+						<span>{enToFaNumber('4.90 (از 24 نظر)')}</span>
 					</span>
 					<span className='flex justify-center items-center gap-1'>
 						<span>
@@ -236,9 +274,9 @@ const DetailProfile = () => {
 			</div>
 
 			{/* بیوگرافی */}
-			<div>
+			<div className='pt-16'>
 				<TitleItems title={'بیوگرافی'} />
-				<p className='ps-4 line-clamp-5 text-justify'>
+				<p className='line-clamp-5 text-justify'>
 					زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا
 					نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است.
 				</p>
@@ -246,31 +284,30 @@ const DetailProfile = () => {
 			</div>
 
 			{/* نشانی */}
-			<div>
+			<div className='pt-16'>
 				<TitleItems title={'نشانی'} />
-				<div className='ps-4 grid grid-cols-12 gap-2'>
+				<div className=' grid grid-cols-12 gap-2'>
 					<div className=' col-span-3 py-2'>
 						<iframe
 							className='w-full border border-primary-01 rounded-md'
 							src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12965.515589214649!2d51.45349569305417!3d35.667671352622676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f91fd8c5df094a3%3A0x9838892b68822f61!2z2YXYrNmF2YjYudmHINmI2LHYsti024wg2KLbjNiqINin2YTZhNmHINiz2LnbjNiv24w!5e0!3m2!1sfa!2s!4v1719175469337!5m2!1sfa!2s'></iframe>
 					</div>
-					<div className=' col-span-9 flex flex-col py-4'>
-						<span className='font-bold'>آدرس:</span>
-						<span className=' text-justify'>تهران، خیابان پاسداران، بوستان نهم (جعفری) پلاک 121، طبقه 5، واحد 21، مرکز زیبایی مرکز زیبایی پریستسن</span>
-						<div className='flex justify-start items-center pt-8 gap-2'>
+					<div className='w-full col-span-9 flex flex-col py-4'>
+						<span className='w-full font-bold'>آدرس:</span>
+						<span className='w-full  text-justify'>{enToFaNumber('تهران، خیابان پاسداران، بوستان نهم (جعفری) پلاک 121، طبقه 5، واحد 21، مرکز زیبایی مرکز زیبایی پریستسن')}</span>
+						<div className='w-full max-w-full flex justify-start items-center pt-8 gap-2'>
 							<span className='font-bold'>تلفن:</span>
-							<span>021-22222222</span>
-							<span>021-33333333</span>
-							<span>021-44444444</span>
+							<span>{enToFaNumber('021-22222222')} </span>
+							<span>{enToFaNumber('021-33333333')}</span>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			{/* تخصص و مهارت */}
-			<div>
+			<div className='pt-16'>
 				<TitleItems title={'تخصص و مهارت'} />
-				<div className='ps-4 '>
+				<div className=' '>
 					<ul>
 						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
 						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
@@ -283,9 +320,9 @@ const DetailProfile = () => {
 			</div>
 
 			{/* آثار و افتخارات */}
-			<div>
+			<div className='pt-16'>
 				<TitleItems title={'آثار و افتخارات'} />
-				<div className='ps-4 '>
+				<div className=' '>
 					<ul>
 						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
 						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
@@ -298,9 +335,9 @@ const DetailProfile = () => {
 			</div>
 
 			{/* محبوب ترین های .... */}
-			<div>
+			<div className='pt-16'>
 				<TitleItems title={'محبوب ترین های زهرا حاجی رضایی'} />
-				<div className='grid grid-cols-3 ps-4'>
+				<div className='grid grid-cols-3 '>
 					{mostPopular.map((item) => {
 						return (
 							<div
@@ -316,8 +353,8 @@ const DetailProfile = () => {
 			</div>
 
 			{/* گالری */}
-			<div>
-				<div className='grid grid-cols-3 w-full gap-4  pt-16'>
+			<div className='pt-16'>
+				<div className='grid grid-cols-3 w-full gap-4  pt-16 '>
 					<div>
 						<img
 							src='/images/galery.jpg'
@@ -335,7 +372,7 @@ const DetailProfile = () => {
 									className=' hover:grayscale hover:cursor-pointer object-cover w-full h-40 rounded-md'
 									alt=''
 								/>
-								<span className='flex justify-center items-center absolute bottom-0 right-0 w-full p-1 bg-gray-800 text-white bg-opacity-80 rounded-b-md'>{item.title}</span>
+								<span className='flex justify-center items-center absolute bottom-0 right-0 w-full text-xs font-semibold p-1 bg-gray-800 text-white bg-opacity-80 rounded-b-md'>{item.title}</span>
 							</div>
 						);
 					})}
@@ -343,16 +380,16 @@ const DetailProfile = () => {
 				<ViewMore />
 			</div>
 			{/* لینکدونی */}
-			<div>
+			<div className='pt-16'>
 				<TitleItems title={'لینکدونی'} />
-				<div className='ps-4 '>
+				<div className=' '>
 					{News.map((item, index) => {
 						return (
 							<div
 								key={item.id}
-								className={`ps-4 grid grid-cols-12 py-3 ${!(index % 2) && `bg-gray-100`}`}>
+								className={` grid grid-cols-12 py-3 ${!(index % 2) && `bg-gray-100`}`}>
 								<div className=' col-span-7'>{item.title}</div>
-								<div className=' col-span-3'>{item.time}</div>
+								<div className=' col-span-3'>{enToFaNumber(`${item.time}`)}</div>
 								<div className=' col-span-2'>{item.refrence}</div>
 							</div>
 						);
@@ -364,13 +401,13 @@ const DetailProfile = () => {
 
 			{/* غرفه */}
 
-			<div>
+			<div className='pt-16'>
 				<div className='flex justify-between items-end py-2'>
 					<TitleItems title={'غرفه'} />
 					<LeftAndRightArrows />
 				</div>
 
-				<div className='w-full'>
+				<div className='w-full '>
 					<div className='w-full grid xs:grid-cols-2 md:grid-cols-3  gap-4'>
 						{product.map((item) => {
 							return (
@@ -408,23 +445,67 @@ const DetailProfile = () => {
 				<ViewMore />
 			</div>
 			{/* نظرات کاربران */}
-			<div>
+			<div className='pt-16'>
 				<TitleItems title={'نظرات کاربران'} />
-				<div className=' border border-gray-700 rounded-lg w-full'>
-					<div className=' flex justify-start items-center gap-4 w-full  p-4'>
-						<span>به این پزشک چه امتیازی می دهید؟</span>
-						<span className=' cursor-pointer'>{score >= 1 ? <FaStar onClick={() => setScore(1)} /> : <FaRegStar onClick={() => setScore(1)} />}</span>
-						<span className=' cursor-pointer'>{score >= 2 ? <FaStar onClick={() => setScore(2)} /> : <FaRegStar onClick={() => setScore(2)} />}</span>
-						<span className=' cursor-pointer'>{score >= 3 ? <FaStar onClick={() => setScore(3)} /> : <FaRegStar onClick={() => setScore(3)} />}</span>
-						<span className=' cursor-pointer'>{score >= 4 ? <FaStar onClick={() => setScore(4)} /> : <FaRegStar onClick={() => setScore(4)} />}</span>
-						<span className=' cursor-pointer'>{score >= 5 ? <FaStar onClick={() => setScore(5)} /> : <FaRegStar onClick={() => setScore(5)} />}</span>
+				<div className='w-full '>
+					<div className=' border border-gray-400 rounded-lg w-full '>
+						<div className=' flex justify-start items-center gap-4 w-full  p-4'>
+							<span>به این پزشک چه امتیازی می دهید؟</span>
+							<span className={` cursor-pointer ${score >= 1 ? `text-gray-800` : ` text-gray-300`}`}>
+								<FaStar onClick={() => setScore(1)} />
+							</span>
+							<span className={` cursor-pointer ${score >= 2 ? `text-gray-800` : ` text-gray-300`}`}>
+								<FaStar onClick={() => setScore(2)} />
+							</span>
+							<span className={` cursor-pointer ${score >= 3 ? `text-gray-800` : ` text-gray-300`}`}>
+								<FaStar onClick={() => setScore(3)} />
+							</span>
+							<span className={` cursor-pointer ${score >= 4 ? `text-gray-800` : ` text-gray-300`}`}>
+								<FaStar onClick={() => setScore(4)} />
+							</span>
+							<span className={` cursor-pointer ${score >= 5 ? `text-gray-800` : ` text-gray-300`}`}>
+								<FaStar onClick={() => setScore(5)} />
+							</span>
+						</div>
+						<div>
+							<form className='p-4'>
+								<label htmlFor='Opinion'></label>
+								<textarea
+									rows='8'
+									className=' w-full  text-sm   focus:ring-0 border border-gray-300 rounded-md p-2'
+									placeholder='لطفا نظر خود را درج فرمایید...'
+									required></textarea>
+								<div className='flex justify-end items-center'>
+									<button
+										className=' bg-primary-01 px-8 text-white font-bold py-2 rounded-md'
+										type=''>
+										ثبت
+									</button>
+								</div>
+							</form>
+						</div>
+						<div>
+							{ideas.map((item) => {
+								return (
+									<div key={item.id} className='p-4 flex flex-col justify-center items-start gap-1'>
+										<span className='font-bold'>{item.name}</span>
+										<div className=' flex justify-start items-center gap-4 text-gray-500 text-sm'>
+											<span className='flex justify-start items-center gap-1 text-primary-01'>
+												<FaStar />
+												<FaStar />
+												<FaStar />
+												<FaStar />
+												<FaStar />
+											</span>
+											<span>{enToFaNumber(`${item.time}`)} </span>
+										</div>
+										<span className='text-gray-600 text-xs font-thin'>{item.comment}</span>
+									</div>
+								);
+							})}
+						</div>
+						<ViewMore />
 					</div>
-                    <div>
-                        <form className='p-4'>
-                            <label for="Opinion"></label>
-                            <input className='w-full h-32 border border-gray-500 rounded-md' type="textarea" name="Opinion" value="" placeholder='لطفا نظر خود را درج فرمایید'/>
-                        </form>
-                    </div>
 				</div>
 			</div>
 		</div>

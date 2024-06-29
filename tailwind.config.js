@@ -15,6 +15,7 @@ module.exports = {
 				primary: {
 					'01': '#0693a4',
 					'02': '#eff0f2',
+					'03':'#cbcbcb',
 				},
 				oorange: '#FF0000',
 				error: '#dc2626',
