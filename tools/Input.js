@@ -14,7 +14,7 @@ const Input = ({ name, title, type, formik }) => {
 				name={name}
 				{...formik.getFieldProps(name)}
 			/>
-			{formik.errors.name && formik.touched.name && <div>{formik.errors.name}</div>}
+			<div className=' text-start h-4'>{formik.errors[name] && formik.touched[name] && <p className=' text-xs text-start text-rose-400'>{t(formik.errors[name])}</p>}</div>
 		</div>
 	);
 };

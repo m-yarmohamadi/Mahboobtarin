@@ -1,49 +1,16 @@
 import React, { useState } from 'react';
-import * as Yup from 'yup';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Step01 from '@/components/steps/Step01';
 import Step02 from '@/components/steps/Step02';
 import Step03 from '@/components/steps/Step03';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
-import { useFormik } from 'formik';
 
 const register = () => {
-	const initialValues = {
-		firstName: '',
-		lastName: '',
-		sex: '',
-		nationality: '',
-		melliCode: '',
-		passportNumber: '',
-		birthDay: '',
-		mobile: '',
-		email: '',
-	};
-	const onSubmit = (values) => {
-		console.log(values);
-	};
-	const validationSchema = Yup.object({
-		firstName: Yup.string().required('تکمیل این گزینه اجباری است'),
-		lastName: Yup.string().required('تکمیل این گزینه اجباری است'),
-		sex: Yup.string().required('تکمیل این گزینه اجباری است'),
-		nationality: Yup.string().required('تکمیل این گزینه اجباری است'),
-		melliCode: Yup.string().required('تکمیل این گزینه اجباری است'),
-		passportNumber: Yup.string().required('تکمیل این گزینه اجباری است'),
-		birthDay: Yup.string().required('تکمیل این گزینه اجباری است'),
-		mobile: Yup.string().required('تکمیل این گزینه اجباری است'),
-		email: Yup.string().email("لطفا یک ایمیل معتبر وارد کنید").required('تکمیل این گزینه اجباری است'),
-	});
 
-	const formik = useFormik({
-		initialValues,
-		onSubmit,
-		validationSchema,
-	});
 	const [step, setStep] = useState(1);
 	const nextStep = () => {
 		if (step < 4) {
-			formik.handleSubmit();
 			const newStep = step + 1;
 			setStep(newStep);
 		}
@@ -67,10 +34,10 @@ const register = () => {
 						<div className={`w-full h-3 ${step > 3 ? `bg-primary-01` : `bg-gray-300`} shadow-md rounded-full`}></div>
 					</div>
 					<div className='py-8 md:h-96 md:max-h-96'>
-						{step === 1 && <Step01 formik={formik} />}
-						{step === 2 && <Step01 formik={formik} />}
-						{step === 3 && <Step01 formik={formik} />}
-						{step === 4 && <Step01 formik={formik} />}
+						{step === 1 && <Step01  />}
+						{step === 2 && <Step02  />}
+						{step === 3 && <Step03  />}
+						{step === 4 && <Step04  />}
 					</div>
 					<div className='flex justify-between items-center '>
 						<div
