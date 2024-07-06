@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import Step01 from '@/components/steps/Step01';
-import Step02 from '@/components/steps/Step02';
-import Step03 from '@/components/steps/Step03';
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
+import Step01 from '@/components/Register/steps/Step01';
+import Step02 from '@/components/Register/steps/Step02';
+import Step03 from '@/components/Register/steps/Step03';
+import Step04 from '@/components/Register/steps/Step04';
 
 const register = () => {
-
 	const [step, setStep] = useState(1);
+	console.log(step);
+
 	const nextStep = () => {
 		if (step < 4) {
 			const newStep = step + 1;
@@ -33,30 +34,11 @@ const register = () => {
 						<div className={`w-full h-3 ${step > 2 ? `bg-primary-01` : `bg-gray-300`} shadow-md rounded-full`}></div>
 						<div className={`w-full h-3 ${step > 3 ? `bg-primary-01` : `bg-gray-300`} shadow-md rounded-full`}></div>
 					</div>
-					<div className='py-8 md:h-96 md:max-h-96'>
-						{step === 1 && <Step01  />}
-						{step === 2 && <Step02  />}
-						{step === 3 && <Step03  />}
-						{step === 4 && <Step04  />}
-					</div>
-					<div className='flex justify-between items-center '>
-						<div
-							onClick={prevStep}
-							className='px-4 py-2 bg-primary-01 flex justify-between items-center gap-4 cursor-pointer hover:shadow-md hover:bg-opacity-85 font-semibold text-xl text-white rounded-md'>
-							<span>
-								<FaArrowAltCircleRight />
-							</span>
-
-							<span>مرحله قبل</span>
-						</div>
-						<div
-							onClick={nextStep}
-							className='px-4 py-2 bg-primary-01 flex justify-between items-center gap-4 cursor-pointer hover:shadow-md hover:bg-opacity-85 font-semibold text-xl text-white rounded-md'>
-							<span>مرحله بعد</span>
-							<span>
-								<FaArrowAltCircleLeft />
-							</span>
-						</div>
+					<div className='pt-8 md:h-96 md:max-h-96'>
+						{step === 1 && (<Step04 nextStep={nextStep} prevStep={prevStep}/>)}
+						{step === 2 && (<Step02 nextStep={nextStep} prevStep={prevStep}/>)}
+						{step === 3 && (<Step03 nextStep={nextStep} prevStep={prevStep}/>)}
+						{step === 4 && (<Step02 nextStep={nextStep} prevStep={prevStep}/>)}
 					</div>
 				</div>
 			</div>

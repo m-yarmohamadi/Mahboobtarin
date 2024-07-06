@@ -7,7 +7,10 @@ module.exports = {
 				sans: ['vazir'],
 			},
 			colors: {
-				tertiary: '#f1be49',
+				tertiary: {
+					'01': '#f1be49',
+					'02': '#dc2626',
+				},
 				secondary: {
 					'01': '#15aa7f',
 					'02': '#15aa7f',
@@ -15,7 +18,9 @@ module.exports = {
 				primary: {
 					'01': '#0693a4',
 					'02': '#eff0f2',
-					'03':'#cbcbcb',
+					'03': '#cbcbcb',
+					'04': '#dc2626',
+
 				},
 				oorange: '#FF0000',
 				error: '#dc2626',
