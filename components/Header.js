@@ -3,6 +3,7 @@ import { Dialog, DialogPanel, Disclosure, DisclosureButton, DisclosurePanel, Pop
 import { ArrowPathIcon, Bars3Icon, ChartPieIcon, CursorArrowRaysIcon, FingerPrintIcon, SquaresPlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
 import { FaBorderTopLeft } from 'react-icons/fa6';
+import { FaPowerOff } from 'react-icons/fa';
 
 const products = [
 	{ name: 'پزشکان', description: 'مشاهده بهترین پزشکان در حوزه های مختلف', href: '#', icon: ChartPieIcon },
@@ -131,9 +132,12 @@ export default function Header() {
 							);
 						})}
 					</PopoverGroup>
-					<div className='hidden md:flex md:flex-1 md:justify-end gap-x-3 w-full'>
-						<div className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex items-center justify-center '>ورود متخصصان</div>
-						<div className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex items-center justify-center '>ورود کاربران</div>
+					<div className='hidden md:flex md:flex-1 md:justify-end gap-x-1 w-full'>
+						<div className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex items-center justify-center items-center '>ثبت نام متخصصان</div>
+						<div className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex items-center justify-center items-center '>ثبت نام کاربران</div>
+						<div className=' bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex  justify-center items-center '>
+							<FaPowerOff />
+						</div>
 					</div>
 				</nav>
 				<Dialog
@@ -210,8 +214,11 @@ export default function Header() {
 										href='#'
 										className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'>
 										<div className=' w-full  flex justify-center items-center gap-x-2'>
-											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>ورود متخصصان</div>
-											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>ورود کاربران</div>
+											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>ثبت نام متخصصان</div>
+											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>ثبت نام کاربران</div>
+											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>
+												<FaPowerOff />
+											</div>
 										</div>
 									</a>
 								</div>
