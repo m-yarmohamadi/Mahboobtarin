@@ -18,7 +18,7 @@ const Select = ({ name, label, options, formik }) => {
 					{options.map((item) => {
 						return (
 							<option
-								value={item.value}
+								value={item.label}
 								key={item.id}>
 								{item.label}
 							</option>

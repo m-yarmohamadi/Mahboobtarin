@@ -4,6 +4,7 @@ import { ArrowPathIcon, Bars3Icon, ChartPieIcon, CursorArrowRaysIcon, FingerPrin
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
 import { FaBorderTopLeft } from 'react-icons/fa6';
 import { FaPowerOff } from 'react-icons/fa';
+import LoginModal from '@/Login/LoginModal';
 
 const products = [
 	{ name: 'پزشکان', description: 'مشاهده بهترین پزشکان در حوزه های مختلف', href: '#', icon: ChartPieIcon },
@@ -31,12 +32,13 @@ function classNames(...classes) {
 
 export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const [openLoginModal, setOpenLoginModal] = useState(false);
 
 	return (
 		<div className='w-full bg-primary-02 z-50 fixed  top-0 left-0 right-0'>
 			<header className=' md:mx-auto md:container'>
 				<nav
-					className='mx-auto flex max-w-full items-center justify-between p-2 md:px-8 '
+					className='mx-auto flex max-w-full items-center justify-between p-2 '
 					aria-label='Global'>
 					<div className='flex md:flex-1'>
 						<a
@@ -135,7 +137,9 @@ export default function Header() {
 					<div className='hidden md:flex md:flex-1 md:justify-end gap-x-1 w-full'>
 						<div className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex items-center justify-center items-center '>ثبت نام متخصصان</div>
 						<div className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex items-center justify-center items-center '>ثبت نام کاربران</div>
-						<div className=' bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex  justify-center items-center '>
+						<div
+							onClick={() => setOpenLoginModal(!openLoginModal)}
+							className=' bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex  justify-center items-center '>
 							<FaPowerOff />
 						</div>
 					</div>
@@ -216,9 +220,11 @@ export default function Header() {
 										<div className=' w-full  flex justify-center items-center gap-x-2'>
 											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>ثبت نام متخصصان</div>
 											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>ثبت نام کاربران</div>
-											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>
+											<button
+												onClick={() => setOpenLoginModal(!openLoginModal)}
+												className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>
 												<FaPowerOff />
-											</div>
+											</button>
 										</div>
 									</a>
 								</div>
@@ -227,6 +233,10 @@ export default function Header() {
 					</DialogPanel>
 				</Dialog>
 			</header>
+			<LoginModal
+				openLoginModal={openLoginModal}
+				setOpenLoginModal={setOpenLoginModal}
+			/>
 		</div>
 	);
 }

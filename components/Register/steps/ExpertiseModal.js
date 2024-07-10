@@ -11,10 +11,14 @@ const Expertise = [
 	{ id: 4, label: 'معماری', value: 'architecture' },
 ];
 
-const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal }) => {
-	const initialValues = [];
+const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, setExpertise,expertise }) => {
+	const initialValues = {
+		expertise: '',
+		expertiseName: '',
+	};
+
 	const onSubmit = (values) => {
-		console.log(values);
+		setExpertise([...expertise, values]);
 		setOpenExpertiseModal(false);
 	};
 	const validationSchema = Yup.object({
@@ -63,7 +67,6 @@ const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal }) => {
 							<div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
 								<button
 									type='submit'
-									data-autofocus
 									className='mt-3 inline-flex w-full justify-center rounded-md bg-primary-01 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'>
 									ثبت
 								</button>

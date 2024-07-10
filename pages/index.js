@@ -1,4 +1,4 @@
-import 'tw-elements-react/dist/css/tw-elements-react.min.css';
+// import 'tw-elements-react/dist/css/tw-elements-react.min.css';
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
