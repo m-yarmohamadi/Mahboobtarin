@@ -15,16 +15,16 @@ const Grade = [
 
 const GradeModal = ({ openGradeModal, setOpenGradeModal, setGrade, grade }) => {
 	const initialValues = {
-		grade: '',
-		educationPlace: '',
+		title: '',
+		subject: '',
 	};
 	const onSubmit = (values) => {
 		setGrade([...grade, values]);
 		setOpenGradeModal(false);
 	};
 	const validationSchema = Yup.object({
-		grade: Yup.string().required('وارد کردن مقطع تحصیلی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		educationPlace: Yup.string().required('وارد کردن نام محل تحصیل اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		title: Yup.string().required('وارد کردن مقطع تحصیلی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		subject: Yup.string().required('وارد کردن نام محل تحصیل اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
 	});
 
 	const formik = useFormik({
@@ -54,21 +54,21 @@ const GradeModal = ({ openGradeModal, setOpenGradeModal, setGrade, grade }) => {
 							onSubmit={formik.handleSubmit}
 							className='w-full bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
 							<Select
-								name={'grade'}
+								name={'title'}
 								label={'مقطع تحصیلی'}
 								options={Grade}
 								formik={formik}
 							/>
 							<Input
-								name={'educationPlace'}
+								name={'subject'}
 								label={'نام محل تحصیل'}
 								type={'text'}
 								formik={formik}
 							/>
-							<div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
-								<button
+							<div className='bg-gray-50 ps-4 py-3 sm:flex sm:flex-row-reverse '>
+							<button
 									type='submit'
-									className='mt-3 inline-flex w-full justify-center rounded-md bg-primary-01 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'>
+									className='mt-3 inline-flex w-full justify-center rounded-md bg-primary-01 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-opacity-85 sm:mt-0 sm:w-auto'>
 									ثبت
 								</button>
 								<button

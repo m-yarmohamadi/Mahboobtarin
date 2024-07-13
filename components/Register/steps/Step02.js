@@ -2,30 +2,45 @@ import Input from '@/tools/Input';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import NextPrev from '../NextPrev';
+import axios from 'axios';
+import { useState } from 'react';
 
-const Step02 = ({nextStep,prevStep}) => {
+
+
+const Step02 = ({nextStep,prevStep,nationalCode}) => {
+	const [error, setError] = useState([]);
+
 	const initialValues = {
 		country: '',
-		state: '',
-		city: '',
-		posrcode: '',
-		homeAddress: '',
-		officeAddress: '',
+		province_id: '',
+		city_id: '',
+		postalcode: '',
+		address: '',
+		address_work: '',
 	};
-	const onSubmit = (values) => {
-		console.log(values);
-		nextStep()
-
+	const onSubmit = async (values) => {
+		try {
+			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
+				...values,
+				national_code:nationalCode,
+				step: '2',
+			});
+			console.log(response.data);
+			nextStep();
+		} catch (error) {
+			console.log(error);
+			setError(error.response.data.message);
+		}
 	};
 	const validationSchema = Yup.object({
 		country: Yup.string().required('وارد کردن کشور محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		state: Yup.string().required('وارد کردن استان محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		city: Yup.string().required('وارد کردن شهر محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		posrcode: Yup.string()
+		province_id: Yup.string().required('وارد کردن استان محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		city_id: Yup.string().required('وارد کردن شهر محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		postalcode: Yup.string()
 			.required('وارد کردن کدپستی اجباری است')
 			.matches(/^[0-9]{10}$/, 'لطفاً کدپستی معتبر 10 رقمی وارد کنید'),
-		homeAddress: Yup.string().required('وارد کردن آدرس محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		officeAddress: Yup.string().required('وارد کردن آدرس محل کار اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		address: Yup.string().required('وارد کردن آدرس محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		address_work: Yup.string().required('وارد کردن آدرس محل کار اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
 	});
 
 	const formik = useFormik({
@@ -49,31 +64,31 @@ const Step02 = ({nextStep,prevStep}) => {
 						type={'text'}
 					/>
 					<Input
-						name={'state'}
+						name={'province_id'}
 						label={'استان محل سکونت'}
 						formik={formik}
 						type={'text'}
 					/>
 					<Input
-						name={'city'}
+						name={'city_id'}
 						label={'شهر محل سکونت'}
 						formik={formik}
 						type={'text'}
 					/>
 					<Input
-						name={'posrcode'}
+						name={'postalcode'}
 						label={'کدپستی'}
 						formik={formik}
 						type={'text'}
 					/>
 					<Input
-						name={'homeAddress'}
+						name={'address'}
 						label={'آدرس محل سکونت'}
 						formik={formik}
 						type={'text'}
 					/>
 					<Input
-						name={'officeAddress'}
+						name={'address_work'}
 						label={'آدرس محل کار'}
 						formik={formik}
 						type={'text'}
@@ -82,6 +97,11 @@ const Step02 = ({nextStep,prevStep}) => {
 				<NextPrev prevStep={prevStep}/>
 
 			</form>
+			{error &&
+				error.map((item, index) => {
+					return <div key={index}>{item}</div>;
+				})}
+
 		</div>
 	);
 };

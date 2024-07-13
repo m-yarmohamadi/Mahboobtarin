@@ -24,16 +24,16 @@ const Proficiency = [
 
 const LanguageModal = ({ openLanguageModal, setOpenLanguageModal, setLanguage, language }) => {
 	const initialValues = {
-		language: '',
-		proficiency: '',
+		title: '',
+		subject: '',
 	};
 	const onSubmit = (values) => {
 		setLanguage([...language, values]);
 		setOpenLanguageModal(false);
 	};
 	const validationSchema = Yup.object({
-		language: Yup.string().required('وارد کردن زبان و گویش اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		proficiency: Yup.string().required('وارد کردن میزان تسلط اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		title: Yup.string().required('وارد کردن زبان و گویش اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		subject: Yup.string().required('وارد کردن میزان تسلط اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
 	});
 
 	const formik = useFormik({
@@ -63,21 +63,21 @@ const LanguageModal = ({ openLanguageModal, setOpenLanguageModal, setLanguage, l
 							onSubmit={formik.handleSubmit}
 							className='w-full bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
 						<Select
-							name={'language'}
+							name={'title'}
 							label={'زبان و گویش'}
 							options={Language}
 							formik={formik}
 						/>
 						<Select
-							name={'proficiency'}
+							name={'subject'}
 							label={'میزان تسلط'}
 							options={Proficiency}
 							formik={formik}
 						/>
-							<div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
-								<button
+							<div className='bg-gray-50 ps-4 py-3 sm:flex sm:flex-row-reverse '>
+							<button
 									type='submit'
-									className='mt-3 inline-flex w-full justify-center rounded-md bg-primary-01 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'>
+									className='mt-3 inline-flex w-full justify-center rounded-md bg-primary-01 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-opacity-85 sm:mt-0 sm:w-auto'>
 									ثبت
 								</button>
 								<button

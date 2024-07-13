@@ -5,6 +5,8 @@ import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/
 import { FaBorderTopLeft } from 'react-icons/fa6';
 import { FaPowerOff } from 'react-icons/fa';
 import LoginModal from '@/Login/LoginModal';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const products = [
 	{ name: 'پزشکان', description: 'مشاهده بهترین پزشکان در حوزه های مختلف', href: '#', icon: ChartPieIcon },
@@ -31,6 +33,8 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+	const router = useRouter();
+
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [openLoginModal, setOpenLoginModal] = useState(false);
 
@@ -45,7 +49,9 @@ export default function Header() {
 							href='#'
 							className='-m-1.5 p-1.5'>
 							<span className='sr-only'>Your Company</span>
+
 							<img
+								onClick={() => router.push(`/`)}
 								className='h-12 w-auto'
 								src='/images/logo.webp'
 								alt=''
@@ -135,8 +141,12 @@ export default function Header() {
 						})}
 					</PopoverGroup>
 					<div className='hidden md:flex md:flex-1 md:justify-end gap-x-1 w-full'>
-						<div className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex items-center justify-center items-center '>ثبت نام متخصصان</div>
-						<div className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex items-center justify-center items-center '>ثبت نام کاربران</div>
+						<div
+							onClick={() => router.push(`/users/register`)}
+							className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex  justify-center items-center '>
+							ثبت نام متخصصان
+						</div>
+						<div className='   hover:bg-white cursor-pointer font-extrabold  shadow-lg border border-white p-2 rounded-md text-black flex  justify-center items-center '>ثبت نام کاربران</div>
 						<div
 							onClick={() => setOpenLoginModal(!openLoginModal)}
 							className=' bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex  justify-center items-center '>
@@ -218,7 +228,9 @@ export default function Header() {
 										href='#'
 										className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'>
 										<div className=' w-full  flex justify-center items-center gap-x-2'>
-											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>ثبت نام متخصصان</div>
+											<Link href='/users/register.js'>
+												<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>ثبت نام متخصصان</div>
+											</Link>
 											<div className='w-full bg-primary-01 text-white shadow-md   hover:opacity-80 cursor-pointer font-extrabold   border border-white p-2 rounded-md  flex flex-shrink items-center justify-center '>ثبت نام کاربران</div>
 											<button
 												onClick={() => setOpenLoginModal(!openLoginModal)}

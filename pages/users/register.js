@@ -5,8 +5,12 @@ import Step01 from '@/components/Register/steps/Step01';
 import Step02 from '@/components/Register/steps/Step02';
 import Step03 from '@/components/Register/steps/Step03';
 import Step04 from '@/components/Register/steps/Step04';
+import { useRouter } from 'next/router';
+
 
 const register = () => {
+	const router = useRouter();
+const [nationalCode,setNationalCode]=useState()
 	const [step, setStep] = useState(1);
 	console.log(step);
 
@@ -22,6 +26,9 @@ const register = () => {
 			setStep(newStep); 
 		}
 	};
+	const endRegister = ()=>{
+		to
+	}
 	return (
 		<div className='w-full  max-w-full h-full max-h-full box-content'>
 			<Header />
@@ -37,25 +44,31 @@ const register = () => {
 					<div className='pt-8 md:h-96 md:max-h-96'>
 						{step === 1 && (
 							<Step01
+							setNationalCode={setNationalCode}
 								nextStep={nextStep}
 								prevStep={prevStep}
 							/>
 						)}
 						{step === 2 && (
 							<Step02
+							nationalCode={nationalCode}
 								nextStep={nextStep}
 								prevStep={prevStep}
 							/>
 						)}
 						{step === 3 && (
 							<Step03
+							nationalCode={nationalCode}
+
 								nextStep={nextStep}
 								prevStep={prevStep}
 							/>
 						)}
 						{step === 4 && (
-							<Step02
-								nextStep={nextStep}
+							<Step04
+							nationalCode={nationalCode}
+
+								nextStep={endRegister}
 								prevStep={prevStep}
 							/>
 						)}

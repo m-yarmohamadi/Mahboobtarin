@@ -1,5 +1,6 @@
 import Input from '@/tools/Input';
-import Select from '@/tools/Select';
+import axios from 'axios';
+
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -9,12 +10,11 @@ import ExpertiseModal from './ExpertiseModal';
 import GradeModal from './GradeModal';
 import LanguageModal from './LanguageModal';
 import { enToFaNumber } from '@/utils/enToFa';
-import { FaDeleteLeft } from 'react-icons/fa6';
-import { MdDelete, MdDeleteOutline } from 'react-icons/md';
 import { AiTwotoneDelete } from 'react-icons/ai';
-import MultiRecordeStep03 from '../MultiRecordeStep03';
 
-const Step03 = ({ nextStep, prevStep }) => {
+const Step03 = ({ nextStep, prevStep,nationalCode }) => {
+	const [error, setError] = useState([]);
+
 	const [expertise, setExpertise] = useState([]);
 	const [grade, setGrade] = useState([]);
 	const [language, setLanguage] = useState([]);
@@ -22,28 +22,41 @@ const Step03 = ({ nextStep, prevStep }) => {
 		expertise,
 		grade,
 		language,
-		specializedSystemCode: '',
-		identificationCode: '',
+		specialized_system_code: '',
+		identificationcode: '',
 		password: '',
 		confirmPassword: '',
 		picture: '',
 	};
-	const onSubmit = (values) => {
-		console.log(values);
-		nextStep()
+	const onSubmit = async (values) => {
+		try {
+			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
+				...values,
+				national_code:nationalCode,
+				expertise,
+				grade,
+				language,
+				specialized_system_code: '',
+				identificationcode: '',
+				password: '',
+				step: '3',
+			});
+			console.log(response.data);
+			nextStep();
+		} catch (error) {
+			console.log(error);
+			setError(error.response.data.message);
+		}
 	};
 	const validationSchema = Yup.object({
-		expertise: Yup.string().required('وارد کردن موضوع تخصص اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		expertiseName: Yup.string().required('وارد کردن عنوان تخصص اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		grade: Yup.string().required('وارد کردن مقطع تحصیلی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		educationPlace: Yup.string().required('وارد کردن نام محل تحصیل اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		language: Yup.string().required('وارد کردن زبان و گویش اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		proficiency: Yup.string().required('وارد کردن میزان تسلط اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		specializedSystemCode: Yup.string().required('وارد کردن کد نظام تخصصی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		identificationCode: Yup.string().required('وارد کردن کد معرف اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		specialized_system_code: Yup.string().required('وارد کردن کد نظام تخصصی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		identificationcode: Yup.string().required('وارد کردن کد معرف اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
 		password: Yup.string().required('وارد کردن کلمه عبور اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		confirmPassword: Yup.string().required('وارد کردن تکرار کلمه عبور اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		picture: Yup.string().required('وارد کردن عکس پروفایل اجباری است'),
+		confirmPassword: Yup.string()
+			.required('وارد کردن تکرار کلمه عبور اجباری است')
+			.oneOf([Yup.ref('password'), null], 'کلمه عبور و تکرار آن باید یکسان باشند '),
+
+		picture: Yup.string(),
 	});
 
 	const formik = useFormik({
@@ -216,13 +229,13 @@ const Step03 = ({ nextStep, prevStep }) => {
 
 					<div className='grid grid-cols-1 md:grid-cols-5 gap-4 w-full items-start '>
 						<Input
-							name={'specializedSystemCode'}
+							name={'specialized_system_code'}
 							label={'کد نظام تخصصی'}
 							type={'text'}
 							formik={formik}
 						/>
 						<Input
-							name={'identificationCode'}
+							name={'identificationcode'}
 							label={'کد معرف'}
 							type={'text'}
 							formik={formik}
@@ -230,13 +243,13 @@ const Step03 = ({ nextStep, prevStep }) => {
 						<Input
 							name={'password'}
 							label={'کلمه عبور'}
-							type={'text'}
+							type={'password'}
 							formik={formik}
 						/>
 						<Input
 							name={'confirmPassword'}
 							label={'تکرار کلمه عبور'}
-							type={'text'}
+							type={'password'}
 							formik={formik}
 						/>
 
@@ -252,6 +265,11 @@ const Step03 = ({ nextStep, prevStep }) => {
 					<NextPrev prevStep={prevStep} />
 				</div>
 			</form>
+			{error &&
+				error.map((item, index) => {
+					return <div key={index}>{item}</div>;
+				})}
+
 		</div>
 	);
 };
