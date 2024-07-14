@@ -27,10 +27,10 @@ const [nationalCode,setNationalCode]=useState()
 		}
 	};
 	const endRegister = ()=>{
-		to
+		router.push('/')
 	}
 	return (
-		<div className='w-full  max-w-full h-full max-h-full box-content'>
+		<div className='w-full  max-w-full h-full max-h-full box-content pt-12'>
 			<Header />
 			<div className='  w-full h-full pb-8 '>
 				<div className='w-full p-4 my-8 bg-primary-01 flex justify-center items-center text-white font-bold text-2xl '>ثبت نام متخصصین</div>

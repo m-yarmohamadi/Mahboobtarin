@@ -35,7 +35,7 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 				national_code:nationalCode,
 				expertise,
 				grade,
-				language,
+				language, 
 				specialized_system_code: '',
 				identificationcode: '',
 				password: '',
@@ -51,7 +51,7 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 	const validationSchema = Yup.object({
 		specialized_system_code: Yup.string().required('وارد کردن کد نظام تخصصی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
 		identificationcode: Yup.string().required('وارد کردن کد معرف اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		password: Yup.string().required('وارد کردن کلمه عبور اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		password: Yup.string().required('وارد کردن کلمه عبور اجباری است').min(6, 'حداقل 6 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
 		confirmPassword: Yup.string()
 			.required('وارد کردن تکرار کلمه عبور اجباری است')
 			.oneOf([Yup.ref('password'), null], 'کلمه عبور و تکرار آن باید یکسان باشند '),
