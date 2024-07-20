@@ -14,6 +14,8 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 
 const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 	const [error, setError] = useState([]);
+	const [loading, setLoading] = useState(0);
+
 
 	const [expertise, setExpertise] = useState([]);
 	const [grade, setGrade] = useState([]);
@@ -23,12 +25,12 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 		grade,
 		language,
 		specialized_system_code: '',
-		identificationcode: '',
 		password: '',
 		confirmPassword: '',
 		picture: '',
 	};
 	const onSubmit = async (values) => {
+		setLoading(1)
 		try {
 			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
 				...values,
@@ -37,20 +39,22 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 				grade,
 				language, 
 				specialized_system_code: '',
-				identificationcode: '',
 				password: '',
 				step: '3',
+				type:'expert'
+
 			});
 			console.log(response.data);
+			setLoading(0)
 			nextStep();
 		} catch (error) {
 			console.log(error);
+			setLoading(0)
 			setError(error.response.data.message);
 		}
 	};
 	const validationSchema = Yup.object({
-		specialized_system_code: Yup.string().required('وارد کردن کد نظام تخصصی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		identificationcode: Yup.string().required('وارد کردن کد معرف اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		specialized_system_code: Yup.string(),
 		password: Yup.string().required('وارد کردن کلمه عبور اجباری است').min(6, 'حداقل 6 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
 		confirmPassword: Yup.string()
 			.required('وارد کردن تکرار کلمه عبور اجباری است')
@@ -113,9 +117,9 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 									<div
 										key={index}
 										className='flex justify-between items-center bg-primary-01 bg-opacity-10 px-4'>
-										<div>{item.expertise}</div>
+										<div>{item.title}</div>
 										<div className='flex justify-center items-center gap-2 '>
-											<span className='flex justify-center items-center pt-2'>{item.expertiseName}</span>
+											<span className='flex justify-center items-center pt-2'>{item.subject}</span>
 											<span
 												onClick={() => handleDeleteExpertise(index)}
 												className='text-error flex justify-center items-center text-xl'>
@@ -162,9 +166,9 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 									<div
 										key={index}
 										className='flex justify-between items-center bg-primary-01 bg-opacity-10 px-4'>
-										<div>{item.grade}</div>
+										<div>{item.title}</div>
 										<div className='flex justify-center items-center gap-2 '>
-											<span className='flex justify-center items-center pt-2'>{item.educationPlace}</span>
+											<span className='flex justify-center items-center pt-2'>{item.subject}</span>
 											<span
 												onClick={() => handleDeleteGrade(index)}
 												className='text-error flex justify-center items-center text-xl'>
@@ -212,9 +216,9 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 									<div
 										key={index}
 										className='flex justify-between items-center bg-primary-01 bg-opacity-10 px-4'>
-										<div>{item.language}</div>
+										<div>{item.title}</div>
 										<div className='flex justify-center items-center gap-2 '>
-											<span className='flex justify-center items-center pt-2'>{item.proficiency}</span>
+											<span className='flex justify-center items-center pt-2'>{item.subject}</span>
 											<span
 												onClick={() => handleDeleteLanguage(index)}
 												className='text-error flex justify-center items-center text-xl'>
@@ -227,16 +231,10 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 						</div>
 					</div>
 
-					<div className='grid grid-cols-1 md:grid-cols-5 gap-4 w-full items-start '>
+					<div className='grid grid-cols-1 md:grid-cols-4 gap-4 w-full items-start '>
 						<Input
 							name={'specialized_system_code'}
 							label={'کد نظام تخصصی'}
-							type={'text'}
-							formik={formik}
-						/>
-						<Input
-							name={'identificationcode'}
-							label={'کد معرف'}
 							type={'text'}
 							formik={formik}
 						/>
@@ -262,7 +260,7 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 					</div>
 				</div>
 				<div>
-					<NextPrev prevStep={prevStep} />
+					<NextPrev prevStep={prevStep} loading={loading} step={3}/>
 				</div>
 			</form>
 			{error &&

@@ -22,8 +22,8 @@ const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, setExpertis
 		setOpenExpertiseModal(false);
 	};
 	const validationSchema = Yup.object({
-		title: Yup.string().required('وارد کردن موضوع تخصص اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		subject: Yup.string().required('وارد کردن عنوان تخصص اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		title: Yup.string().required('وارد کردن موضوع تخصص اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(30, 'حداکثر 30 حرف وارد کنید'),
+		subject: Yup.string().required('وارد کردن عنوان تخصص اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(30, 'حداکثر 30 حرف وارد کنید'),
 	});
 
 	const formik = useFormik({

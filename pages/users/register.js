@@ -6,6 +6,7 @@ import Step02 from '@/components/Register/steps/Step02';
 import Step03 from '@/components/Register/steps/Step03';
 import Step04 from '@/components/Register/steps/Step04';
 import { useRouter } from 'next/router';
+import Step05 from '@/components/Register/steps/Step05';
 
 
 const register = () => {
@@ -15,7 +16,7 @@ const [nationalCode,setNationalCode]=useState()
 	console.log(step);
 
 	const nextStep = () => {
-		if (step < 4) {
+		if (step < 5) {
 			const newStep = step + 1;
 			setStep(newStep);
 		}
@@ -27,7 +28,7 @@ const [nationalCode,setNationalCode]=useState()
 		}
 	};
 	const endRegister = ()=>{
-		router.push('/')
+		router.push('/users/login')
 	}
 	return (
 		<div className='w-full  max-w-full h-full max-h-full box-content pt-12'>
@@ -40,6 +41,7 @@ const [nationalCode,setNationalCode]=useState()
 						<div className={`w-full h-3 ${step > 1 ? `bg-primary-01` : `bg-gray-300`} shadow-md rounded-full`}></div>
 						<div className={`w-full h-3 ${step > 2 ? `bg-primary-01` : `bg-gray-300`} shadow-md rounded-full`}></div>
 						<div className={`w-full h-3 ${step > 3 ? `bg-primary-01` : `bg-gray-300`} shadow-md rounded-full`}></div>
+						<div className={`w-full h-3 ${step > 4 ? `bg-primary-01` : `bg-gray-300`} shadow-md rounded-full`}></div>
 					</div>
 					<div className='pt-8 md:h-96 md:max-h-96'>
 						{step === 1 && (
@@ -66,6 +68,14 @@ const [nationalCode,setNationalCode]=useState()
 						)}
 						{step === 4 && (
 							<Step04
+							nationalCode={nationalCode}
+
+								nextStep={nextStep}
+								prevStep={prevStep}
+							/>
+						)}
+						{step === 5 && (
+							<Step05
 							nationalCode={nationalCode}
 
 								nextStep={endRegister}

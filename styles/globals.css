@@ -21,3 +21,6 @@ color: #dc2626;
 font-size: x-small;
 
 }
+.react-tel-input .flag-dropdown-button {
+    height: 4rem; /* ارتفاع مورد نظر را در این قسمت تعیین کنید */
+}

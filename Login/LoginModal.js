@@ -23,13 +23,6 @@ const LoginModal = ({ openLoginModal, setOpenLoginModal }) => {
         password: '',
     };
     const onSubmit = async (values) => {
-        // try {
-        //     const data = await mutateAsync({ values });
-        //     console.log(data)
-        //     toast.success(data.message)
-        // } catch (error) {
-        //     toast?.error?.response?.data?.message
-        // }
 
         try {
             const response = await axios.post(
@@ -44,7 +37,6 @@ const LoginModal = ({ openLoginModal, setOpenLoginModal }) => {
             toast.success(data.message);
         } catch (error) {
             console.log(error);
-            // setError(error.response.data.message);
             toast?.error?.response?.data?.message;
         }
     };

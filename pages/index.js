@@ -15,28 +15,29 @@ import Baner04 from '@/components/Baner04';
 import Store from '@/components/Store';
 import Resume from '@/components/Resume';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from 'react-hot-toast';
-
+import Head from 'next/head';
 
 const index = () => {
-    return (
-            <div className="w-full  max-w-full h-full max-h-full box-content mt-20">
-                <Header />
-                <Slider />
-                <Baner />
-                <PopularMounth />
-                <Services />
-                <Baner02 />
-                <FrequentSearches />
-                <Baner03 />
-                <Recommended />
-                <News />
-                <Baner04 />
-                <Store />
-                <Resume />
-                <Footer />
-            </div>
-    );
+	return (
+		<>
+			<div className='w-full  max-w-full h-full max-h-full box-content mt-20 transition-all duration-1000 ease-in-out'>
+				<Header />
+				<Slider />
+				<Baner />
+				<PopularMounth />
+				<Services />
+				<Baner02 />
+				<FrequentSearches />
+				<Baner03 />
+				<Recommended />
+				<News />
+				<Baner04 />
+				<Store />
+				<Resume />
+				<Footer />
+			</div>
+		</>
+	);
 };
 
 export default index;
