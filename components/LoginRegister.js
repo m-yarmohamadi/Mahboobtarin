@@ -3,7 +3,7 @@ import { BiLogOut } from 'react-icons/bi';
 import Link from 'next/link';
 
 
-const LoginRegister = ({ token ,setOpenRegisterModal}) => {
+const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
 	return (
 		<div>
 			{token ? (
