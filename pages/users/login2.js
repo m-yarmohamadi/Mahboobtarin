@@ -10,33 +10,38 @@ import { enToFaNumber } from '@/utils/enToFa';
 import { toastFunction } from '@/utils/toast';
 import Cookies from 'js-cookie';
 import LoginComponentByPassword from '@/Login/LoginComponentByPassword';
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 const login = () => {
+
 	const router = useRouter();
 	const [phone, setPhone] = useState();
 	const [status, setStatus] = useState();
 	const [accessToken, setAccessToken] = useState('');
 	const [otp, setOtp] = useState();
-	const [error, setError] = useState([]);
+	const [error2, setError] = useState([]);
 	const [loading, setLoading] = useState(false);
 
 	const faPhone = enToFaNumber(phone);
 	const [loginByPassword, setLoginByPassword] = useState(0);
-	
-
+	const { isPending, error, data, mutateAsync } = useMutation({
+		mutationFn: login,
+	});
 	const handleSubmitMobile = async (e) => {
 		e.preventDefault();
 		setLoading(true);
 		try {
-			const res = await axios.post('https://mahboobtarin.mostafaomrani.ir/api/v1/login', { username: phone, otp: 0, type:'otp' });
+			const data =  await mutateAsync({ username: phone, otp: 0, type: 'otp' })
 			setLoading(false);
-			setStatus(res.data.status);
-			console.log(res.data);
+			setStatus(data.status);
+			console.log(data.message);
 		} catch (err) {
 			setLoading(false);
-			setError(err.response.data.message);
-			console.log(err.response.data.message);
-			toastFunction(error, 'error');
+			toast.error(err?.response?.data?.message)
+			// setError(err.response.data.message);
+			// console.log(err.response.data.message);
+			// toastFunction(error2, 'error');
 
 			console.log(err);
 		}
@@ -45,12 +50,17 @@ const login = () => {
 		e.preventDefault();
 		setLoading(true);
 		try {
-			const res = await axios.post('https://mahboobtarin.mostafaomrani.ir/api/v1/login', { username: phone, otp: otp, type:'otp' });
+			const res = await axios.post('https://mahboobtarin.mostafaomrani.ir/api/v1/login', { username: phone, otp: otp, type: 'otp' });
 
 			setLoading(false);
 			console.log(res);
 			if (res.data.status === 200) {
+				console.log(res.data.user);
+				console.log(res.data.user.lastname);
 				Cookies.set('accessToken', res.data.access_token, { expires: 1 });
+				Cookies.set('firstname', res.data.user.name, { expires: 1 });
+				Cookies.set('lastname', res.data.user.lastname, { expires: 1 });
+				Cookies.set('gender', res.data.user.gender, { expires: 1 });
 				router.push('/');
 			}
 			setStatus(100);
@@ -102,7 +112,7 @@ const login = () => {
 						<span
 							onClick={() => setLoginByPassword(1)}
 							className=' hover:text-primary-01 font-bold hover:cursor-pointer'>
-							ورود با موبایل و کلمه عبور
+							ورود با ایمیل و کلمه عبور
 						</span>
 					</div>
 				</div>

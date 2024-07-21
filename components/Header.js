@@ -2,15 +2,11 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, DialogPanel, Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverGroup, PopoverPanel, Transition } from '@headlessui/react';
 import { ArrowPathIcon, Bars3Icon, ChartPieIcon, CursorArrowRaysIcon, FingerPrintIcon, SquaresPlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
-import { FaBorderTopLeft } from 'react-icons/fa6';
-import { FaPowerOff } from 'react-icons/fa';
-import LoginModal from '@/Login/LoginModal';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { setRequestMeta } from 'next/dist/server/request-meta';
 import RegisterModal from './Register/registermodal';
 import Cookies from 'js-cookie';
 import { BiLogOut } from 'react-icons/bi';
+import LoginRegister from './LoginRegister';
 
 const products = [
 	{
@@ -62,42 +58,35 @@ function classNames(...classes) {
 }
 
 export default function Header() {
-	const router = useRouter();
-
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-	const [openLoginModal, setOpenLoginModal] = useState(false);
 	const [openRegisterModal, setOpenRegisterModal] = useState(false);
 	const [token, setToken] = useState('');
 	useEffect(() => {
 		const tokenCooke = Cookies.get('accessToken') ? Cookies.get('accessToken') : null;
 		setToken(tokenCooke);
-		console.log('tokenCooke');
 		console.log(tokenCooke);
 	}, []);
-		const handleLogOut = () => {
-			Cookies.remove('accessToken');
-			window.location.reload()
-		};
+	const handleLogOut = () => {
+		Cookies.remove('accessToken');
+		window.location.reload();
+	};
 
 	return (
 		<div className='w-full bg-primary-02 z-50 fixed  top-0 left-0 right-0'>
 			<header className=' md:mx-auto md:container'>
 				<nav
-					className='mx-auto flex max-w-full items-center justify-between p-2 '
+					className='w-full mx-auto flex max-w-full items-center justify-between p-2 '
 					aria-label='Global'>
-					<div className='flex md:flex-1'>
-						<a
-							href='#'
-							className='-m-1.5 p-1.5'>
+					<div className='flex '>
+						<Link href='/'>
 							<span className='sr-only'>Your Company</span>
 
 							<img
-								onClick={() => router.push(`/`)}
 								className='h-12 w-auto'
 								src='/images/logo.webp'
 								alt=''
 							/>
-						</a>
+						</Link>
 					</div>
 					<div className='flex md:hidden'>
 						<button
@@ -181,35 +170,10 @@ export default function Header() {
 							);
 						})}
 					</PopoverGroup>
-					{token ? (
-						<div className='hidden md:flex md:flex-1 md:justify-end bg-primary-01 text-primary-02 ms-10 py-2 rounded-md  justify-center items-center  w-full'>
-							<span className='w-full text-center text-md'>
-								جناب آقای <span className='font-bold text-white'>.........</span> خوش آمدید
-							</span>
-							<span
-								onClick={() => {
-									handleLogOut();
-								}}
-								className='text-white text-2xl px-2 hover:cursor-pointer '>
-								<BiLogOut />
-							</span>
-						</div>
-					) : (
-						<div className='hidden md:flex md:flex-1 md:justify-end  w-full'>
-							<div
-								className='py-2 rounded-ss-3xl bg-primary-01 text-white font-bold px-3 hover:opacity-95 cursor-pointer'
-								onClick={() => router.push(`/users/login`)}>
-								ورود
-							</div>
-							<div
-								onClick={() => {
-									setOpenRegisterModal(true);
-								}}
-								className='py-2 rounded-ee-3xl bg-primary-01 text-white font-bold px-3 hover:opacity-95 cursor-pointer'>
-								ثبت نام
-							</div>
-						</div>
-					)}
+					<LoginRegister
+						token={token}
+						setOpenRegisterModal={setOpenRegisterModal}
+					/>
 				</nav>
 				<Dialog
 					className='md:hidden'
@@ -280,16 +244,11 @@ export default function Header() {
 										);
 									})}
 								</div>
-								<div className='py-6'>
-									<a
-										href='#'
-										className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'>
-										<div className=' w-full  flex justify-center items-center gap-x-2'>
-											<div>ورود</div>
-											<div>ثبت نام</div>
-										</div>
-									</a>
-								</div>
+
+								<LoginRegister
+									token={token}
+									setOpenRegisterModal={setOpenRegisterModal}
+								/>
 							</div>
 						</div>
 					</DialogPanel>
@@ -298,11 +257,6 @@ export default function Header() {
 			<RegisterModal
 				openRegisterModal={openRegisterModal}
 				setOpenRegisterModal={setOpenRegisterModal}
-			/>
-
-			<LoginModal
-				openLoginModal={openLoginModal}
-				setOpenLoginModal={setOpenLoginModal}
 			/>
 		</div>
 	);

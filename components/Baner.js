@@ -98,34 +98,34 @@ const Baner = () => {
 						</span>
 					</div>
 				</div>
-				<div className='grid md:grid-cols-3  '>
+				<div className='grid md:grid-cols-3 gap-1  '>
 					<div className=' hidden md:block w-full h-36 relative  '>
 						<img
 							className='absolute top-0 right-0 object-cover object-left-bottom h-36 w-full -2xl z-0'
 							src='/images/img001.jpg'
 							alt=''
 						/>
-						<div className=' absolute top-0 right-0 w-full bg-gradient-to-l from-[#e4d4b2] via-[#e4d4b2] to-transparent h-full -2xl border-2 border-white z-10'>
+						{/* <div className=' absolute top-0 right-0 w-full bg-gradient-to-l from-[#e4d4b2] via-[#e4d4b2] to-transparent h-full -2xl border-2 border-white z-10'>
 							<div className='flex flex-col justify-center items-center gap-2 w-4/5 h-full'>
 								<div className='text-lg font-extrabold'>دنیاتو زندگی کن</div>
 								<div>نقاشی ساختمان با آچاره</div>
 								<button className='py-1 px-3 shadow-sm hover:shadow-md bg-white text-gray-700 hover:text-gray-950 font-semibold text-md rounded-md'>ثبت سفارش</button>
 							</div>
-						</div>
+						</div> */}
 					</div>
 					<div className='w-full h-72 relative col-span-2 row-span-2 '>
 						<img
-							className='absolute top-0 right-0 object-cover object-left-bottom h-72 w-full rounded-b-2xl md:rounded-ee-2xl z-0'
+							className=' absolute top-0 right-0 object-cover object-left-bottom h-72 w-full rounded-b-2xl md:rounded-ee-2xl z-0'
 							src='/images/img002.jpg'
 							alt=''
 						/>
-						<div className=' absolute top-0 right-0 w-full bg-gradient-to-l from-[#e8ecef] via-[#e8ecef] to-transparent h-full rounded-b-2xl md:rounded-ee-2xl border-2 border-white z-10'>
+						{/* <div className=' absolute top-0 right-0 w-full bg-gradient-to-l from-[#e8ecef] via-[#e8ecef] to-transparent h-full rounded-b-2xl md:rounded-ee-2xl border-2 border-white z-10'>
 							<div className='flex flex-col justify-center items-center gap-6 w-3/5 h-full'>
 								<div className='text-2xl font-extrabold'>نقاشی با قیمت قطعی</div>
 								<div>خدمات نقاشی ساختمان</div>
 								<button className='py-1 px-3 shadow-sm hover:shadow-md bg-white text-gray-700 hover:text-gray-950 font-semibold text-md rounded-md'>ثبت سفارش</button>
 							</div>
-						</div>
+						</div> */}
 					</div>
 					<div className='hidden md:block w-full h-36 relative  '>
 						<img
@@ -133,13 +133,13 @@ const Baner = () => {
 							src='/images/img003.jpg'
 							alt=''
 						/>
-						<div className=' absolute top-0 right-0 w-full bg-gradient-to-l from-white via-white to-transparent h-full rounded-es-2xl border-2 border-white z-10'>
+						{/* <div className=' absolute top-0 right-0 w-full bg-gradient-to-l from-white via-white to-transparent h-full rounded-es-2xl border-2 border-white z-10'>
 							<div className='flex flex-col justify-center items-center gap-2 w-4/5 h-full'>
 								<div className='text-lg font-extrabold'>وانت اختصاصی - کارگر حرفه ای</div>
 								<div>خدمات اسباب کشی با وانت</div>
 								<button className='py-1 px-3 shadow-sm hover:shadow-md bg-white text-gray-700 hover:text-gray-950 font-semibold text-md rounded-md'>ثبت سفارش</button>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>
