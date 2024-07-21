@@ -10,6 +10,8 @@ export const enToFaMessages = (msg) => {
 			return 'درج کدملی الزامی است.';
 		case 'user not found':
 			return 'کاربری با این شماره یافت نشد.';
+		case 'OPT sent':
+			return 'کد تأیید به تلفن همراه شما ارسال گردید.';
 
 		default:
 			return msg;

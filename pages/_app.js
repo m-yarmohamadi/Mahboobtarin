@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }) {
 				<Toaster />
 				<Component {...pageProps} />
 			</QueryClientProvider>
-			;
+			
 		</>
 	);
 }

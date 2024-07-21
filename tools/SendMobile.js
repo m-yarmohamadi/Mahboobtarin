@@ -3,7 +3,7 @@ import React from 'react';
 import { PhoneInput } from 'react-international-phone';
 import Loading from './Loading';
 
-const SendMobile = ({ phone, faPhone, setPhone, handleSubmitMobile,loading }) => {
+const SendMobile = ({ phone,  setPhone, handleSubmitMobile,loading }) => {
 	const buttonStyle = {
 		color: 'white',
 		backgroundColor: 'green',
@@ -14,7 +14,7 @@ const SendMobile = ({ phone, faPhone, setPhone, handleSubmitMobile,loading }) =>
 			<form
 				onSubmit={handleSubmitMobile}
 				className='rtl:mr-3  w-full p-20 flex flex-col justify-center items-center gap-2 transition-all duration-1000 ease-in-out'>
-				<p className=' w-full flex justify-center items-center py-2 font-bold text-primary-01'>لطفا جهت ورود به وبسایت و استفاده از امکانات بیشتر شماره تلفن همراه خود را وارد کنید.</p>
+				<p className=' w-full flex justify-center items-center pb-2 font-bold '>لطفا جهت ورود به وبسایت  شماره تلفن همراه خود را وارد کنید.</p>
 
 				<PhoneInput
 					defaultCountry='ir'

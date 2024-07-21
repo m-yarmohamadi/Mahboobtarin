@@ -1,114 +1,25 @@
-import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import React, { useState } from 'react';
-import 'react-international-phone/style.css';
-import axios from 'axios';
-import CheckOtp from '@/tools/CheckOtp';
-import SendMobile from '@/tools/SendMobile';
-import { useRouter } from 'next/router';
-import { enToFaNumber } from '@/utils/enToFa';
-import { toastFunction } from '@/utils/toast';
-import Cookies from 'js-cookie';
-import LoginComponentByPassword from '@/Login/LoginComponentByPassword';
+import Login from '@/Login/Login';
+import Login2 from '@/Login/Login2';
 
 const login = () => {
-	const router = useRouter();
-	const [phone, setPhone] = useState();
-	const [status, setStatus] = useState();
-	const [accessToken, setAccessToken] = useState('');
-	const [otp, setOtp] = useState();
-	const [error, setError] = useState([]);
-	const [loading, setLoading] = useState(false);
-
-	const faPhone = enToFaNumber(phone);
-	const [loginByPassword, setLoginByPassword] = useState(0);
-	
-
-	const handleSubmitMobile = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		try {
-			const res = await axios.post('https://mahboobtarin.mostafaomrani.ir/api/v1/login', { username: phone, otp: 0, type:'otp' });
-			setLoading(false);
-			setStatus(res.data.status);
-			console.log(res.data);
-		} catch (err) {
-			setLoading(false);
-			setError(err.response.data.message);
-			console.log(err.response.data.message);
-			toastFunction(error, 'error');
-
-			console.log(err);
-		}
-	};
-	const handleSubmitOtp = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		try {
-			const res = await axios.post('https://mahboobtarin.mostafaomrani.ir/api/v1/login', { username: phone, otp: otp, type:'otp' });
-
-			setLoading(false);
-			console.log(res);
-			if (res.data.status === 200) {
-				Cookies.set('accessToken', res.data.access_token, { expires: 1 });
-				router.push('/');
-			}
-			setStatus(100);
-			console.log('token');
-			console.log(token);
-		} catch (err) {
-			setLoading(false);
-
-			console.log(err);
-		}
-	};
-
 	return (
-		<div className='mt-20 transition-all duration-1000 ease-in-out'>
+		<div>
 			<Header />
-
-			{loginByPassword ? (
-				<div className='px-10 pt-10 container flex flex-col justify-between items-center w-full  bg-primary-01 bg-opacity-10'>
-					<LoginComponentByPassword />
-					<div className='p-8'>
-						<span
-							onClick={() => setLoginByPassword(0)}
-							className=' hover:text-primary-01 font-bold hover:cursor-pointer'>
-							ورود با کد یکبار مصرف
-						</span>
-					</div>
+					<div className='w-full h-screen p-4 md:p-24  transition-all duration-1000 ease-in-out'>
+			<div className='w-full h-full bg-white rounded-md shadow-md p-4'>
+				<div className='w-full md:w-1/2  border-4 border-double border-primary-04 shadow-sm shadow-primary-01 h-full px-10 pt-10 mx-auto flex flex-col justify-between items-center rounded-lg  bg-primary-01 bg-opacity-10'>
+					<Login2 />
 				</div>
-			) : (
-				<div className='px-10 pt-10 container flex flex-col justify-between items-center w-full  bg-primary-01 bg-opacity-10'>
-					{!status && (
-						<SendMobile
-							phone={phone}
-							faPhone={faPhone}
-							setPhone={setPhone}
-							handleSubmitMobile={handleSubmitMobile}
-							loading={loading}
-						/>
-					)}
-					{status === 200 && (
-						<CheckOtp
-							otp={otp}
-							setOtp={setOtp}
-							handleSubmitOtp={handleSubmitOtp}
-							loading={loading}
-						/>
-					)}
+			</div>
+			<div className='w-full flex justify-end items-end pt-1'>
+							<span className='text-xs font-bold text-primary-06 text-opacity-30'>کلیه حقوق این سرویس (وبسایت و اپلیکیشن های موبایل) محفوظ و متعلق به شرکت هنر ایرانیان می باشد
 
-					<div className='p-8'>
-						<span
-							onClick={() => setLoginByPassword(1)}
-							className=' hover:text-primary-01 font-bold hover:cursor-pointer'>
-							ورود با موبایل و کلمه عبور
-						</span>
-					</div>
-				</div>
-			)}
+</span>
 
-			<Footer />
+			</div>
+		</div>
+
 		</div>
 	);
 };
