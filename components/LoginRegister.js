@@ -1,15 +1,17 @@
 import React from 'react';
 import { BiLogOut } from 'react-icons/bi';
 import Link from 'next/link';
+import { useUserDataContext } from '@/context/UserDataContext';
 
 
 const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
+	const { userData } = useUserDataContext();
 	return (
 		<div>
 			{token ? (
 				<div className='hidden md:flex md:flex-1 md:justify-end bg-primary-01 text-primary-02 ms-10 py-2 rounded-md  justify-center items-center  w-full'>
 					<span className='w-full text-center text-md'>
-						جناب آقای <span className='font-bold text-white'></span> خوش آمدید
+						{userData?.gender === "مرد" ? "جناب آقای" : "سرکار خانوم"} <span className='font-bold text-white'>{userData?.name} {userData?.lastname}</span> خوش آمدید
 					</span>
 					<span
 						onClick={() => {
@@ -38,3 +40,5 @@ const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
 };
 
 export default LoginRegister;
+
+

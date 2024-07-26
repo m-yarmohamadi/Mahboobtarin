@@ -61,13 +61,16 @@ export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [openRegisterModal, setOpenRegisterModal] = useState(false);
 	const [token, setToken] = useState('');
+	
 	useEffect(() => {
 		const tokenCooke = Cookies.get('accessToken') ? Cookies.get('accessToken') : null;
 		setToken(tokenCooke);
 		console.log(tokenCooke);
 	}, []);
+
 	const handleLogOut = () => {
 		Cookies.remove('accessToken');
+		localStorage.removeItem("USER_DATA");
 		window.location.reload();
 	};
 
