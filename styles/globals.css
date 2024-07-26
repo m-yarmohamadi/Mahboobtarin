@@ -24,3 +24,21 @@ font-size: x-small;
 .react-tel-input .flag-dropdown-button {
     height: 4rem; /* ارتفاع مورد نظر را در این قسمت تعیین کنید */
 }
+
+
+/* react-phone-number-input styles */
+
+.react-international-phone-input-container 
+.react-international-phone-country-selector 
+.react-international-phone-country-selector-button {
+    height: 3rem;
+	padding: 0 16px;
+	border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.react-international-phone-input-container 
+.react-international-phone-country-selector 
+.react-international-phone-country-selector-dropdown{
+	top: 54px;
+	left: 3px;
+}

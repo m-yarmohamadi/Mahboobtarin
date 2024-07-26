@@ -6,22 +6,26 @@ import toast from 'react-hot-toast';
 
 const LoginComponentByPassword = () => {
 	const initialValues = {
-		username: '',
+		username: '+98',
 		password: '',
 	};
 	const onSubmit = async (values) => {
 		try {
-			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/login`, {
+			const {data} = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/login`, {
 				...values,
 				type: 'pass',
 				otp: '0',
 			});
-			console.log(response.data);
+			console.log(data);
 
-			toast.success(data.message);
+			if(data.status !== 200){
+				toast.error(data.message);
+			} else {
+				toast.success(data.message);
+			}
 		} catch (error) {
 			console.log(error);
-			toast?.error?.response?.data?.message;
+			toast.error(error?.response?.data?.message);
 		}
 	};
 	const validationSchema = Yup.object({
@@ -45,7 +49,7 @@ const LoginComponentByPassword = () => {
 			className='w-full flex flex-col justify-between items-center gap-2 transition-all duration-1000 ease-in-out'>
 			<div className='w-full'>
 				<Input
-					name={'mobile'}
+					name={'username'}
 					label={'شماره تلفن همراه'}
 					formik={formik}
 					type={'text'}

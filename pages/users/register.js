@@ -12,7 +12,7 @@ import Step05 from '@/components/Register/steps/Step05';
 const register = () => {
 	const router = useRouter();
 const [nationalCode,setNationalCode]=useState()
-	const [step, setStep] = useState(1);
+	const [step, setStep] = useState(5);
 	console.log(step);
 
 	const nextStep = () => {
