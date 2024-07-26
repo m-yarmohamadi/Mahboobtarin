@@ -7,12 +7,13 @@ import Step03 from '@/components/Register/steps/Step03';
 import Step04 from '@/components/Register/steps/Step04';
 import { useRouter } from 'next/router';
 import Step05 from '@/components/Register/steps/Step05';
+import Head from 'next/head';
 
 
 const register = () => {
 	const router = useRouter();
 const [nationalCode,setNationalCode]=useState()
-	const [step, setStep] = useState(5);
+	const [step, setStep] = useState(1);
 	console.log(step);
 
 	const nextStep = () => {
@@ -32,6 +33,9 @@ const [nationalCode,setNationalCode]=useState()
 	}
 	return (
 		<div className='w-full  max-w-full h-full max-h-full box-content pt-12'>
+			<Head>
+				<title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | ثبت نام`}</title>
+			</Head>
 			<Header />
 			<div className='  w-full h-full pb-8 '>
 				<div className='w-full p-4 my-8 bg-primary-01 flex justify-center items-center text-white font-bold text-2xl '>ثبت نام متخصصین</div>
