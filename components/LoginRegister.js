@@ -1,16 +1,52 @@
-import React from 'react';
-import { BiLogOut } from 'react-icons/bi';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import { BiEditAlt, BiLogOut, BiUser } from 'react-icons/bi';
 import Link from 'next/link';
-
+import { useUserDataContext } from '@/context/UserDataContext';
 
 const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
+	const { userData } = useUserDataContext();
+	const [openMenuOptions, setOpenMenuOptions] = useState(false);
+	const menuOptionsRef = useRef(null);
+
+	useEffect(()=>{
+		function closeMenuHandler (e) {
+			if(menuOptionsRef.current && !menuOptionsRef.current.contains(e.target)){
+				setOpenMenuOptions(false);
+			}
+		}
+
+		document.addEventListener("click", closeMenuHandler, true);
+
+		return () => document.removeEventListener("click", closeMenuHandler, true);
+	},[setOpenMenuOptions])
+
 	return (
 		<div>
 			{token ? (
-				<div className='hidden md:flex md:flex-1 md:justify-end bg-primary-01 text-primary-02 ms-10 py-2 rounded-md  justify-center items-center  w-full'>
-					<span className='w-full text-center text-md'>
-						جناب آقای <span className='font-bold text-white'></span> خوش آمدید
-					</span>
+				<div className='hidden relative md:flex md:flex-1 md:justify-end bg-primary-01 text-primary-02 ms-10 py-2 rounded-md  justify-center items-center  w-full'>
+					<button onClick={()=>setOpenMenuOptions(!openMenuOptions)} className='w-full text-center text-md'>
+						{userData?.gender === "مرد" ? "جناب آقای" : "سرکار خانوم"} <span className='font-bold text-white'>{userData?.name} {userData?.lastname}</span> خوش آمدید
+					</button>
+					<MenuOptions ref={menuOptionsRef} open={openMenuOptions}>
+						<MenuOptionsItem 
+							link="/profile" 
+							text="پروفایل"
+							icon={<BiUser className='w-6 h-6'/>}
+						/>
+						<MenuOptionsItem 
+							link="/" 
+							text="ویرایش پروفایل"
+							icon={<BiEditAlt className='w-6 h-6'/>}
+						/>
+						<button onClick={handleLogOut} className='px-4 hover:bg-gray-200 duration-200 group'>
+							<div className='text-gray-800 flex items-center gap-3'>
+								<BiLogOut className='w-6 h-6'/>
+								<span className='border-b text-right border-gray-200 flex-1 py-3 group-last:border-none'>
+									خروج از حساب کاربری
+								</span>
+							</div>
+						</button>
+					</MenuOptions>
 					<span
 						onClick={() => {
 							handleLogOut();
@@ -38,3 +74,27 @@ const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
 };
 
 export default LoginRegister;
+
+
+const MenuOptions = forwardRef(function MenuOptionsComponent({children, open}, ref){
+	if(open) return(
+		<div ref={ref} className='absolute top-12 w-60 overflow-hidden right-0 bg-white shadow-2xl rounded-md'>
+			<ul className='flex flex-col'>
+				{children}
+			</ul>
+		</div>
+	)
+})
+
+function MenuOptionsItem({text, link, icon}){
+	return(
+		<li className='px-4 hover:bg-gray-200 duration-200 group'>
+			<Link href={link} className='text-gray-800 flex items-center gap-3'>
+				{icon}
+				<span className='border-b border-gray-200 flex-1 py-3 group-last:border-none'>
+					{text}
+				</span>
+			</Link>
+		</li>
+	)
+}

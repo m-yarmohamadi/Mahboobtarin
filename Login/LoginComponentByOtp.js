@@ -7,6 +7,7 @@ import { login } from '@/services/authService';
 import { useRouter } from 'next/router';
 import { toastFunction } from '@/utils/toast';
 import Cookies from 'js-cookie';
+import { useUserDataContext } from '@/context/UserDataContext';
 const resend_time = 20;
 
 const LoginComponentByOtp = () => {
@@ -15,6 +16,8 @@ const LoginComponentByOtp = () => {
 	const [time, setTime] = useState(resend_time);
 	const [otp, setOtp] = useState();
 	const router = useRouter();
+	const {saveUserDataHandler} = useUserDataContext();
+
 	const { isPending, error, data, mutateAsync } = useMutation({
 		mutationFn: login,
 	});
@@ -40,7 +43,8 @@ const LoginComponentByOtp = () => {
 			if (data.data.status === 200) {
 				toastFunction(data.data.message, 'success');
 				Cookies.set("accessToken", data.data.access_token, {expires:1/48});
-				router.push('/profile');
+				saveUserDataHandler(data.data.user);
+				window.location.href = "/";
 			} else {
 				toastFunction('خطای ناشناخته', 'error');
 			}
