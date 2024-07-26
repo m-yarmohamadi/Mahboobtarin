@@ -6,6 +6,7 @@ import 'react-international-phone/style.css';
 import { login } from '@/services/authService';
 import { useRouter } from 'next/router';
 import { toastFunction } from '@/utils/toast';
+import Cookies from 'js-cookie';
 const resend_time = 20;
 
 const LoginComponentByOtp = () => {
@@ -38,7 +39,8 @@ const LoginComponentByOtp = () => {
 			const data = await mutateAsync({ username: phone, otp: otp, type: 'otp' });
 			if (data.data.status === 200) {
 				toastFunction(data.data.message, 'success');
-				router.push('/');
+				Cookies.set("accessToken", data.data.access_token, {expires:1/48});
+				router.push('/profile');
 			} else {
 				toastFunction('خطای ناشناخته', 'error');
 			}

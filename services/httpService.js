@@ -2,7 +2,7 @@ import axios from 'axios';
 const BASE_URL = 'https://mahboobtarin.mostafaomrani.ir';
 const app = axios.create({
 	baseURL: BASE_URL,
-	withCredentials: true,
+	// withCredentials: true,
 });
 
 app.interceptors.request.use(

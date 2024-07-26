@@ -24,10 +24,16 @@ const SendMobile = ({ phone,  setPhone, handleSubmitMobile,loading }) => {
 						fontSize: '26px',
 						width: '100%',
 						height: '3rem',
-						borderRadius:'0.5rem'
+						borderStartEndRadius:'0.5rem',
+						borderEndEndRadius:'0.5rem'
 					}}
 					style={{ width: '80%', height: '4rem', direction: 'ltr' }}
-					buttonStyle={buttonStyle}
+					// buttonStyle={{
+					// 	borderRadius: '0.5rem',
+					// 	backgroundColor: '#f0f0f0', // رنگ پس زمینه
+					// 	border: '1px solid #ccc',   // رنگ و ضخامت حاشیه
+					// 	padding: '0.5rem',          // پدینگ داخلی
+					// }}
 				/>
 				<button
 					type='submit'
