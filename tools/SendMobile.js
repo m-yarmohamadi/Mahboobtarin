@@ -16,7 +16,7 @@ const SendMobile = ({ phone,  setPhone, handleSubmitMobile,loading }) => {
 					value={phone}
 					onChange={(phone) => setPhone(phone)}
 					inputStyle={{
-						fontSize: '26px',
+						fontSize: '18px',
 						width: '100%',
 						height: '3rem',
 						borderStartEndRadius:'0.5rem',

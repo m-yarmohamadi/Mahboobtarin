@@ -17,7 +17,7 @@ const LoginComponentByOtp = () => {
 	const [otp, setOtp] = useState();
 	const router = useRouter();
 	const {saveUserDataHandler} = useUserDataContext();
-
+	console.log(phone);
 	const { isPending, error, data, mutateAsync } = useMutation({
 		mutationFn: login,
 	});

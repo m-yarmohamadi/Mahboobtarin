@@ -16,7 +16,13 @@ const CheckOtp = ({ otp, setOtp, handleSubmitOtp, loading, setStep, time,onResen
 					onChange={setOtp}
 					numInputs={5}
 					renderSeparator={<span>-</span>}
-					containerStyle={`flex items-center  gap-x-5 justify-center`}
+					containerStyle={{
+						display:"flex",
+						flexDirection:"row-reverse",
+						alignItems:"center",
+						justifyContent:"center",
+						gap:"8px"
+					}}
 					renderInput={(props) => (
 						<input
 							type='number'
