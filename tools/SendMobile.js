@@ -4,11 +4,6 @@ import { PhoneInput } from 'react-international-phone';
 import Loading from './Loading';
 
 const SendMobile = ({ phone,  setPhone, handleSubmitMobile,loading }) => {
-	const buttonStyle = {
-		color: 'white',
-		backgroundColor: 'green',
-		// Add any other CSS properties you want to customize the button
-	};
 	return (
 		<div className='w-1/5 mx-auto'>
 			<form
@@ -28,12 +23,6 @@ const SendMobile = ({ phone,  setPhone, handleSubmitMobile,loading }) => {
 						borderEndEndRadius:'0.5rem'
 					}}
 					style={{ width: '80%', height: '4rem', direction: 'ltr' }}
-					// buttonStyle={{
-					// 	borderRadius: '0.5rem',
-					// 	backgroundColor: '#f0f0f0', // رنگ پس زمینه
-					// 	border: '1px solid #ccc',   // رنگ و ضخامت حاشیه
-					// 	padding: '0.5rem',          // پدینگ داخلی
-					// }}
 				/>
 				<button
 					type='submit'
