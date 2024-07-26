@@ -5,7 +5,7 @@ import Loading from './Loading';
 
 const SendMobile = ({ phone,  setPhone, handleSubmitMobile,loading }) => {
 	return (
-		<div className='w-1/5 mx-auto'>
+		<div className='w-full mx-auto'>
 			<form
 				onSubmit={handleSubmitMobile}
 				className='rtl:mr-3  w-full p-20 flex flex-col justify-center items-center gap-2 transition-all duration-1000 ease-in-out'>

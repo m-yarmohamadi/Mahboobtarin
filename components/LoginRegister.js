@@ -25,7 +25,7 @@ const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
 			{token ? (
 				<div className='hidden relative md:flex md:flex-1 md:justify-end bg-primary-01 text-primary-02 ms-10 py-2 rounded-md  justify-center items-center  w-full'>
 					<button onClick={()=>setOpenMenuOptions(!openMenuOptions)} className='w-full text-center text-md'>
-						{userData?.gender === "مرد" ? "جناب آقای" : "سرکار خانوم"} <span className='font-bold text-white'>{userData?.name} {userData?.lastname}</span> خوش آمدید
+						{userData?.gender === "مرد" ? "جناب آقای" : "سرکار خانم"} <span className='font-bold text-white'>{userData?.name} {userData?.lastname}</span> خوش آمدید
 					</button>
 					<MenuOptions ref={menuOptionsRef} open={openMenuOptions}>
 						<MenuOptionsItem 
@@ -47,13 +47,6 @@ const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
 							</div>
 						</button>
 					</MenuOptions>
-					<span
-						onClick={() => {
-							handleLogOut();
-						}}
-						className='text-white text-2xl px-2 hover:cursor-pointer '>
-						<BiLogOut />
-					</span>
 				</div>
 			) : (
 				<div className='hidden md:flex md:flex-1 md:justify-end  w-full'>
