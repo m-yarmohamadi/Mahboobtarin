@@ -71,7 +71,7 @@ export default function Header() {
 	const handleLogOut = () => {
 		Cookies.remove('accessToken');
 		localStorage.removeItem("USER_DATA");
-		window.location.reload();
+		window.location.href = "/";
 	};
 
 	return (

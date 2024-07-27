@@ -20,7 +20,7 @@ import Head from 'next/head';
 const index = () => {
 	return (
 		<>
-			<div className='w-full  max-w-full h-full max-h-full box-content mt-20 transition-all duration-1000 ease-in-out'>
+			<div className='w-full  max-w-full h-full max-h-full box-content transition-all duration-1000 ease-in-out'>
 				<Header />
 				<Slider />
 				<Baner />

@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaPortrait } from "react-icons/fa";
 import { GiWallet } from "react-icons/gi";
 
@@ -13,7 +15,7 @@ const dataMenu = [
     {
         id: 2,
         title: 'اطلاعات من',
-        value: 'myInfo',
+        value: 'personalInfo',
         quanity: '',
         icon: '',
     },
@@ -132,6 +134,8 @@ const dataMenu = [
 ];
 
 export default function Sidebar({ activeStep, setActiveStep, open, onClose }) {
+    const pathname = usePathname();
+
     return (
         <>
         <div onClick={onClose} className={`${open ? "block" : "hidden"} lg:!hidden w-full h-full fixed top-0 right-0 z-50 bg-slate-900/50`}></div>
@@ -191,19 +195,16 @@ export default function Sidebar({ activeStep, setActiveStep, open, onClose }) {
             <div>
                 {dataMenu.map((item, index) => {
                     return (
-                        <div
+                        <Link
                             key={index}
-                            onClick={() => {
-                                setActiveStep(item.value);
-                                onClose();
-                            }}
-                            className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer ${activeStep.toLowerCase() === (item.value).toLowerCase() && `text-secondary-01 font-bold`}`}>
+                            href={item.value}
+                            className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer ${pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-bold`}`}>
                             <span>
                                 <FaPortrait />
                             </span>
                             <span>{item.title}</span>
                             {item.quanity && <span className='bg-primary-01 w-6 h-6 text-white flex justify-center items-center rounded-full'>{item.quanity}</span>}
-                        </div>
+                        </Link>
                     );
                 })}
             </div>

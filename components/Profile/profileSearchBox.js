@@ -6,7 +6,7 @@ import { FaLeftRight } from 'react-icons/fa6';
 
 const ProfileSearchBox = () => {
 	return (
-		<div className='mt-20'>
+		<div className=''>
 			<div className='w-full container  bg-primary-01 md:rounded-b-3xl'>
 				<div className='text-white w-full   md:flex justify-between items-start pt-4 pb-48 gap-8 text-md'>
 					<div className='hidden md:flex justify-center items-center gap-1'>

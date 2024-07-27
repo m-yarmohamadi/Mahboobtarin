@@ -34,7 +34,7 @@ const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
 							icon={<BiUser className='w-6 h-6'/>}
 						/>
 						<MenuOptionsItem 
-							link="/" 
+							link="/admin/personalInfo" 
 							text="ویرایش پروفایل"
 							icon={<BiEditAlt className='w-6 h-6'/>}
 						/>
@@ -71,7 +71,7 @@ export default LoginRegister;
 
 const MenuOptions = forwardRef(function MenuOptionsComponent({children, open}, ref){
 	if(open) return(
-		<div ref={ref} className='absolute top-12 w-60 overflow-hidden right-0 bg-white shadow-2xl rounded-md'>
+		<div ref={ref} className='absolute top-12 w-60 min-w-full overflow-hidden left-0 bg-white shadow-2xl rounded-md'>
 			<ul className='flex flex-col'>
 				{children}
 			</ul>

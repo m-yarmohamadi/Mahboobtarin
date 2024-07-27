@@ -5,7 +5,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 import Dashboard from "./adminProfileSteps/Dashboard";
 import MyInfo from "./adminProfileSteps/myInfo/MyInfo";
 
-const ExpertDashboard = () => {
+const ExpertDashboard = ({ children }) => {
   const [activeStep, setActiveStep] = useState("myInfo");
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -42,7 +42,7 @@ const ExpertDashboard = () => {
             onClose={() => setOpenSidebar(false)}
           />
           <div className="col-span-12 lg:col-span-9 p-4 lg:p-6 w-full lg:overflow-y-auto">
-            {handleStep()}
+            {children}
           </div>
         </div>
       </div>
