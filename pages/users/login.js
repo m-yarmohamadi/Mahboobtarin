@@ -10,7 +10,7 @@ const login = () => {
         <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | ورود به سایت`}</title>
       </Head>
       <Header />
-      <div className="w-full h-screen p-4 md:p-24  transition-all duration-1000 ease-in-out">
+      <div className="w-full h-screen p-4 md:p-10  transition-all duration-1000 ease-in-out">
         <div className="w-full h-full bg-white rounded-md shadow-md p-4">
           <div className="w-full md:w-1/2  border-4 border-double border-secondary-01 shadow-sm shadow-primary-01 h-full px-10 pt-10 mx-auto flex flex-col justify-between items-center rounded-lg  bg-primary-01 bg-opacity-10">
             <Login2 />

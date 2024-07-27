@@ -21,11 +21,9 @@ const Step05 = ({ nextStep, prevStep, nationalCode }) => {
 			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
 				...values,
 				national_code: nationalCode,
-
 				verifycode: values.verifycode,
 				step: '5',
-				type:'expert'
-
+				type: 'expert',
 			});
 			console.log(response.data);
 			setLoading(0);

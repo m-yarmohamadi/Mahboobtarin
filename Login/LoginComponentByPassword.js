@@ -3,25 +3,35 @@ import { useFormik } from 'formik';
 import Input from '@/tools/Input';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import { toastFunction } from '@/utils/toast';
+import { useUserDataContext } from '@/context/UserDataContext';
 
 const LoginComponentByPassword = () => {
+	const router = useRouter();
+	const { saveUserDataHandler } = useUserDataContext();
+
 	const initialValues = {
 		username: '+98',
 		password: '',
 	};
 	const onSubmit = async (values) => {
 		try {
-			const {data} = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/login`, {
+			const { data } = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/login`, {
 				...values,
 				type: 'pass',
 				otp: '0',
 			});
 			console.log(data);
 
-			if(data.status !== 200){
+			if (data.status !== 200) {
 				toast.error(data.message);
 			} else {
-				toast.success(data.message);
+				toastFunction(data?.message, 'success');
+				Cookies.set('accessToken', data.access_token, { expires: 1 / 48 });
+				saveUserDataHandler(data.user);
+				window.location.href = '/';
 			}
 		} catch (error) {
 			console.log(error);

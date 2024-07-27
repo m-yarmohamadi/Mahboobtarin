@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useUserDataContext } from '@/context/UserDataContext';
 import { FaAnglesLeft } from 'react-icons/fa6';
 
-const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut }) => {
+const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 	const { userData } = useUserDataContext();
 	const [openMenuOptions, setOpenMenuOptions] = useState(false);
 	const menuOptionsRef = useRef(null);
@@ -24,7 +24,7 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut }) => {
 	return (
 		<div>
 			{token ? (
-				<div className='hidden relative md:flex md:flex-1 md:justify-start bg-primary-01 text-primary-02  p-2 rounded-md  justify-center items-center  w-full'>
+				<div className={`${size==='sm' ?  `block` :  `hidden md:flex md:flex-1 md:justify-start`} relative  bg-primary-01 text-primary-02  p-2 rounded-md  justify-center items-center  w-full`}>
 					<button
 						onClick={() => setOpenMenuOptions(!openMenuOptions)}
 						className='w-full flex justify-between items-center text-center text-md'>
@@ -59,17 +59,16 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut }) => {
 					</MenuOptions>
 				</div>
 			) : (
-				<div className='hidden md:flex md:flex-1 md:justify-end  w-full'>
+				<div className={`${size==='sm' ?  `w-full flex flex-col  justify-center  text-center gap-1` :  `hidden md:flex md:flex-1 md:justify-start`}  w-full`}>
 					<Link href='/users/login'>
 						<div className='py-2 rounded-ss-3xl bg-primary-01 text-white font-bold px-3 hover:opacity-95 cursor-pointer'>ورود</div>
 					</Link>
+					<Link href={'/users/registerType'}>
 					<div
-						onClick={() => {
-							setOpenRegisterModal(true);
-						}}
 						className='py-2 rounded-ee-3xl bg-primary-01 text-white font-bold px-3 hover:opacity-95 cursor-pointer'>
 						ثبت نام
 					</div>
+					</Link>
 				</div>
 			)}
 		</div>

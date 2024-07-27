@@ -177,6 +177,8 @@ export default function Header() {
 						token={token}
 						setOpenRegisterModal={setOpenRegisterModal}
 						handleLogOut={handleLogOut}
+						size={'md'}
+
 					/>
 				</nav>
 				<Dialog
@@ -253,6 +255,7 @@ export default function Header() {
 									token={token}
 									setOpenRegisterModal={setOpenRegisterModal}
 									handleLogOut={handleLogOut}
+									size={'sm'}
 								/>
 							</div>
 						</div>
