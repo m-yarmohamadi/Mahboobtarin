@@ -209,7 +209,7 @@ const product = [
 	},
 ];
 
-const DetailProfile = () => {
+const DetailProfile = ({userData}) => {
 	const DiscountCalculation = (i, d) => {
 		return i - (i * d) / 100;
 	};
@@ -229,7 +229,7 @@ const DetailProfile = () => {
 					<span className='bg-green-300 rounded-full px-4'>فعال</span>
 				</div>
 				<div className='flex flex-col justify-end items-center'>
-					<span className=' font-bold text-md'>زهرا حاجی رضایی</span>
+					<span className=' font-bold text-md'>  {userData?.name}{` `}{userData?.lastname}</span>
 					<span className=' text-xs text-gray-700'>Zahrahajiewzaei@</span>
 					<span className='py-2  text-xs text-gray-700'>مشاوره خانواده و ازدواج</span>
 				</div>

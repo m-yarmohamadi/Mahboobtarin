@@ -3,7 +3,7 @@ import RightMenu from './RightMenu';
 import DetailProfile from './DetailProfile';
 import LeftProfile from './LeftProfile';
 
-const MainProfile = () => {
+const MainProfile = ({userData}) => {
 	return (
 		<div className='container pe-0 content-box'>
 			<div className='   h-full w-full rounded-ss-3xl  -mt-48'>
@@ -13,7 +13,7 @@ const MainProfile = () => {
 							<RightMenu />
 						</div>
 						<div className=' md:col-span-6 bg-white w-full h-full'>
-							<DetailProfile />
+							<DetailProfile userData={userData} />
 						</div>
 						<div className=' md:col-span-4  w-full h-full'>
 							<LeftProfile />

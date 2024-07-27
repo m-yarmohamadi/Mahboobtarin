@@ -16,7 +16,7 @@ const Step02 = ({nextStep,prevStep,nationalCode}) => {
 		country: '',
 		province_id: '',
 		city_id: '',
-		postalcode: '',
+		// postalcode: '',
 		address: '',
 		address_work: '',
 	};
@@ -45,9 +45,9 @@ const Step02 = ({nextStep,prevStep,nationalCode}) => {
 		country: Yup.string().required('وارد کردن کشور محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(20, 'حداکثر 20 حرف وارد کنید'),
 		province_id: Yup.string().required('وارد کردن استان محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(20, 'حداکثر 20 حرف وارد کنید'),
 		city_id: Yup.string().required('وارد کردن شهر محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(20, 'حداکثر 20 حرف وارد کنید'),
-		postalcode: Yup.string()
-			.required('وارد کردن کدپستی اجباری است')
-			.matches(/^[0-9]{10}$/, 'لطفاً کدپستی معتبر 10 رقمی وارد کنید'),
+		// postalcode: Yup.string()
+		// 	.required('وارد کردن کدپستی اجباری است')
+		// 	.matches(/^[0-9]{10}$/, 'لطفاً کدپستی معتبر 10 رقمی وارد کنید'),
 		address: Yup.string().required('وارد کردن آدرس محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(100, 'حداکثر 100 حرف وارد کنید'),
 		address_work: Yup.string().required('وارد کردن آدرس محل کار اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(100, 'حداکثر 100 حرف وارد کنید'),
 	});
@@ -65,7 +65,7 @@ const Step02 = ({nextStep,prevStep,nationalCode}) => {
 			<form
 				onSubmit={formik.handleSubmit}
 				className='w-full h-full flex flex-col justify-between '>
-				<div className='grid grid-cols-1 md:grid-cols-2 gap-4 w-full items-start '>
+				<div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-start '>
 					<Input
 						name={'country'}
 						label={'کشور محل سکونت'}
@@ -84,12 +84,15 @@ const Step02 = ({nextStep,prevStep,nationalCode}) => {
 						formik={formik}
 						type={'text'}
 					/>
-					<Input
+					{/* <Input
 						name={'postalcode'}
 						label={'کدپستی'}
 						formik={formik}
 						type={'text'}
-					/>
+					/> */}
+					</div>
+					<div className='grid grid-cols-1  gap-4 w-full items-start '>
+
 					<Input
 						name={'address'}
 						label={'آدرس محل سکونت'}

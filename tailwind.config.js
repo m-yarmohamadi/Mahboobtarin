@@ -3,7 +3,7 @@ export const content = ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{
 export const theme = {
 	extend: {
 		fontFamily: {
-			sans: ['vazir'],
+			sans: ['IRANSans'],
 		},
 		colors: {
 			tertiary: {

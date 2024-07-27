@@ -1,7 +1,6 @@
 import Input from '@/tools/Input';
 import axios from 'axios';
 
-
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import NextPrev from '../NextPrev';
@@ -12,10 +11,9 @@ import LanguageModal from './LanguageModal';
 import { enToFaNumber } from '@/utils/enToFa';
 import { AiTwotoneDelete } from 'react-icons/ai';
 
-const Step03 = ({ nextStep, prevStep,nationalCode }) => {
+const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 	const [error, setError] = useState([]);
 	const [loading, setLoading] = useState(0);
-
 
 	const [expertise, setExpertise] = useState([]);
 	const [grade, setGrade] = useState([]);
@@ -24,37 +22,36 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 		expertise,
 		grade,
 		language,
-		specialized_system_code: '',
 		password: '',
 		confirmPassword: '',
 		picture: '',
 	};
 	const onSubmit = async (values) => {
-		setLoading(1)
+		setLoading(1);
 		try {
 			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
 				...values,
-				national_code:nationalCode,
+				national_code: nationalCode,
 				expertise,
 				grade,
-				language, 
-				specialized_system_code: '',
+				language,
 				password: '',
 				step: '3',
-				type:'expert'
-
+				type: 'expert',
 			});
 			console.log(response.data);
-			setLoading(0)
+			setLoading(0);
 			nextStep();
 		} catch (error) {
 			console.log(error);
-			setLoading(0)
+			setLoading(0);
 			setError(error.response.data.message);
 		}
 	};
 	const validationSchema = Yup.object({
-		specialized_system_code: Yup.string(),
+		expertise: Yup.array().min(1, 'وارد کردن تخصص اجباری است'),
+		grade: Yup.array().min(1, 'وارد کردن مقطع تحصیلی اجباری است'),
+		language: Yup.array().min(1, 'وارد کردن زبان و گویش اجباری است'),
 		password: Yup.string().required('وارد کردن کلمه عبور اجباری است').min(6, 'حداقل 6 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
 		confirmPassword: Yup.string()
 			.required('وارد کردن تکرار کلمه عبور اجباری است')
@@ -108,6 +105,7 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 									expertise={expertise}
 								/>
 							</div>
+							<div className='w-full flex justify-start items-start'>{formik.errors.expertise && formik.touched.expertise && <p className='error_Message'>{enToFaNumber(`${formik.errors.expertise}`)}</p>}</div>
 							{expertise.map((item, index) => {
 								const handleDeleteExpertise = (index) => {
 									setExpertise((prevExpertise) => prevExpertise.filter((item, i) => i !== index));
@@ -151,6 +149,7 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 										</button>
 									)}
 								</div>
+
 								<GradeModal
 									openGradeModal={openGradeModal}
 									setOpenGradeModal={setOpenGradeModal}
@@ -158,6 +157,8 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 									grade={grade}
 								/>
 							</div>
+							<div className='w-full flex justify-start items-start'>{formik.errors.grade && formik.touched.grade && <p className='error_Message'>{enToFaNumber(`${formik.errors.grade}`)}</p>}</div>
+
 							{grade.map((item, index) => {
 								const handleDeleteGrade = (index) => {
 									setGrade((prevGrade) => prevGrade.filter((item, i) => i !== index));
@@ -207,6 +208,7 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 									language={language}
 								/>
 							</div>
+							<div className='w-full flex justify-start items-start'>{formik.errors.language && formik.touched.language && <p className='error_Message'>{enToFaNumber(`${formik.errors.language}`)}</p>}</div>
 							{language.map((item, index) => {
 								const handleDeleteLanguage = (index) => {
 									setLanguage((prevLanguage) => prevLanguage.filter((item, i) => i !== index));
@@ -231,13 +233,7 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 						</div>
 					</div>
 
-					<div className='grid grid-cols-1 md:grid-cols-4 gap-4 w-full items-start '>
-						<Input
-							name={'specialized_system_code'}
-							label={'کد نظام تخصصی'}
-							type={'text'}
-							formik={formik}
-						/>
+					<div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-start '>
 						<Input
 							name={'password'}
 							label={'کلمه عبور'}
@@ -260,14 +256,17 @@ const Step03 = ({ nextStep, prevStep,nationalCode }) => {
 					</div>
 				</div>
 				<div>
-					<NextPrev prevStep={prevStep} loading={loading} step={3}/>
+					<NextPrev
+						prevStep={prevStep}
+						loading={loading}
+						step={3}
+					/>
 				</div>
 			</form>
 			{error &&
 				error.map((item, index) => {
 					return <div key={index}>{item}</div>;
 				})}
-
 		</div>
 	);
 };
