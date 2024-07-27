@@ -14,26 +14,12 @@ import ProfessionalLicense from './ProfessionalLicense';
 import SocialMedia from './SocialMedia';
 import Address from './Address';
 import DateOfBirth from './DateOfBirth';
+import { useQuery } from '@tanstack/react-query';
+import { getProfile } from '@/services/authService';
+import useProfile from '@/hooks/useProfile';
+import Loading from '@/tools/Loading';
 
-const initialValues = {
-    name: '',
-    lastname: '',
-    national_code: '',
-    passport_number: '',
-    tel: "",
-    tel2: "",
 
-    gender: '',
-    taahol: "",
-    birthday: '',
-    email: '',
-
-    nationality: '',
-    country: '',
-    ostan: '',
-    address: "",
-    picture: ""
-};
 
 const gender = [
     { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -47,60 +33,36 @@ const taaholStatus = [
     { id: 3, label: 'متاهل', value: 'married' },
 ];
 
+const nationality = [
+    { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
+    { id: 2, label: 'ایرانی', value: 'iran' },
+    { id: 3, label: 'اتباع خارجی', value: 'noiran' },
+];
+
 export default function MyInfo() {
-    const fields = [
-        {
-            name: "name",
-            label: "نام",
-            required: true
-        },
-        {
-            name: "lastname",
-            label: "نام خانوادگی",
-            required: true
-        },
-        {
-            name: "national_code",
-            label: "کد ملی",
-            required: true
-        },
-        {
-            name: "mobile",
-            label: "شماره موبایل",
-            required: true
-        },
-        {
-            name: "tel",
-            label: "تلفن ثابت"
-        },
-        {
-            name: "tel2",
-            label: "تلفن اضطراری"
-        },
-    ];
+    const { user, expertise, grade, language, isLoading } = useProfile();
 
 
+    const initialValues = {
+        name: user?.name || "",
+        lastname: user?.lastname || "",
+        national_code: user?.national_code || "",
+        mobile: user?.mobile || "",
+        gender: user?.gender || "1",
+        nationality: user?.nationality || "1",
+        birthday: user?.birthday || "",
+        email: user?.email || "",
+        country: user?.country || "",
+        province_id: user?.province_id || "",
+        city_id: user?.city_id || "",
+        address: user?.address || "",
+        specialized_system_code: user?.specialized_system_code || "",
+        passport_number: user?.passport_number || "",
+        picture: '',
+    };
 
     const onSubmit = async (values) => {
-        setError2([]);
-        setLoading(1)
-        try {
-            const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
-                ...values,
-                step: '1',
-                type: 'expert'
-            });
-            console.log(response.data);
-            setNationalCode(values.national_code);
-            setLoading(0)
-            nextStep();
-        } catch (error) {
-            console.log(error);
-            setLoading(0)
-            setError2(error.response.data.message);
 
-            toastFunction(error2, 'error');
-        }
     };
 
     const validationSchema = Yup.object({
@@ -134,6 +96,45 @@ export default function MyInfo() {
         enableReinitialize: true,
     });
 
+    const fields = [
+        {
+            name: "name",
+            label: "نام",
+            required: true
+        },
+        {
+            name: "lastname",
+            label: "نام خانوادگی",
+            required: true
+        },
+        {
+            name: (formik.values.nationality === "ایرانی" ? "national_code" : "passport_number"),
+            label: (formik.values.nationality === "ایرانی" ? "کد ملی" : "شماره پاسپورت"),
+            required: true
+        },
+        {
+            name: "mobile",
+            label: "شماره موبایل",
+            required: true
+        },
+        {
+            name: "tel",
+            label: "تلفن ثابت"
+        },
+        {
+            name: "tel2",
+            label: "تلفن اضطراری"
+        },
+    ];
+
+
+
+    if (isLoading) return (
+        <div className='w-full h-full flex items-center justify-center'>
+            <Loading customeColor="#0693a4"/>
+        </div>
+    )
+
     return (
         <div>
             <div>
@@ -156,7 +157,7 @@ export default function MyInfo() {
                                 type="file"
                                 id="userProfilePic"
                                 accept="image/*"
-                                onChange={({target}) => formik.setFieldValue("picture", target.files[0])}
+                                onChange={({ target }) => formik.setFieldValue("picture", target.files[0])}
                                 hidden
                             />
                             <img
@@ -202,7 +203,14 @@ export default function MyInfo() {
                         options={taaholStatus}
                     />
 
-                    <DateOfBirth formik={formik} />
+                    <Input
+                        label="تاریخ تولد"
+                        name="birthday"
+                        formik={formik}
+                        type="date"
+                    />
+
+                    {/* <DateOfBirth formik={formik} /> */}
 
                     <Input
                         label="پست الکترونیک"
@@ -211,17 +219,26 @@ export default function MyInfo() {
                         required={true}
                     />
 
+                    <Select
+                        label="ملیت"
+                        options={nationality}
+                        formik={formik}
+                        name="nationality"
+                    />
+
                     <Address formik={formik} />
 
                     <WorkAddress />
 
-                    <Language />
+                    <Language languageData={language}/>
 
-                    <Expertise />
+                    <Expertise expertiseData={expertise}/>
 
-                    <Grade />
+                    <Grade gradeData={grade}/>
 
-                    <ProfessionalLicense />
+
+
+                    {/* <ProfessionalLicense /> */}
 
                     <SocialMedia />
 
@@ -238,6 +255,11 @@ export default function MyInfo() {
                                 label="کد معرف"
                             />
                         </div>
+                    </div>
+                    <div className='lg:col-span-2'>
+                        <Input
+                            label="کد نظام تخصصی"
+                        />
                     </div>
                 </div>
 

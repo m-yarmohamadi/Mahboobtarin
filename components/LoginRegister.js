@@ -2,9 +2,11 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { BiEditAlt, BiLogOut, BiUser } from 'react-icons/bi';
 import Link from 'next/link';
 import { useUserDataContext } from '@/context/UserDataContext';
+import useProfile from '@/hooks/useProfile';
 
 const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
 	const { userData } = useUserDataContext();
+	const { user, isLoading } = useProfile();
 	const [openMenuOptions, setOpenMenuOptions] = useState(false);
 	const menuOptionsRef = useRef(null);
 
@@ -20,12 +22,13 @@ const LoginRegister = ({ token ,setOpenRegisterModal,handleLogOut}) => {
 		return () => document.removeEventListener("click", closeMenuHandler, true);
 	},[setOpenMenuOptions])
 
+
 	return (
-		<div>
-			{token ? (
+		<div className={`${isLoading ? "blur-sm opacity-50" : ""} duration-100`}>
+			{user  ? (
 				<div className='hidden relative md:flex md:flex-1 md:justify-end bg-primary-01 text-primary-02 ms-10 py-2 rounded-md  justify-center items-center  w-full'>
 					<button onClick={()=>setOpenMenuOptions(!openMenuOptions)} className='w-full text-center text-md'>
-						{userData?.gender === "مرد" ? "جناب آقای" : "سرکار خانم"} <span className='font-bold text-white'>{userData?.name} {userData?.lastname}</span> خوش آمدید
+						{user?.gender === "مرد" ? "جناب آقای" : "سرکار خانم"} <span className='font-bold text-white'>{user?.name} {user?.lastname}</span> خوش آمدید
 					</button>
 					<MenuOptions ref={menuOptionsRef} open={openMenuOptions}>
 						<MenuOptionsItem 
@@ -71,7 +74,7 @@ export default LoginRegister;
 
 const MenuOptions = forwardRef(function MenuOptionsComponent({children, open}, ref){
 	if(open) return(
-		<div ref={ref} className='absolute top-12 w-60 min-w-full overflow-hidden left-0 bg-white shadow-2xl rounded-md'>
+		<div ref={ref} className='absolute top-12 w-60 overflow-hidden left-0 bg-white shadow-2xl rounded-md'>
 			<ul className='flex flex-col'>
 				{children}
 			</ul>

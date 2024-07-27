@@ -7,6 +7,7 @@ import RegisterModal from './Register/registermodal';
 import Cookies from 'js-cookie';
 import { BiLogOut } from 'react-icons/bi';
 import LoginRegister from './LoginRegister';
+import useLogout from '@/hooks/useLogout';
 
 const products = [
 	{
@@ -61,18 +62,13 @@ export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [openRegisterModal, setOpenRegisterModal] = useState(false);
 	const [token, setToken] = useState('');
+	const logout = useLogout();
 	
 	useEffect(() => {
 		const tokenCooke = Cookies.get('accessToken') ? Cookies.get('accessToken') : null;
 		setToken(tokenCooke);
 		console.log(tokenCooke);
 	}, []);
-
-	const handleLogOut = () => {
-		Cookies.remove('accessToken');
-		localStorage.removeItem("USER_DATA");
-		window.location.href = "/";
-	};
 
 	return (
 		<div className='w-full bg-primary-02 z-50 sticky shadow-md  top-0 left-0 right-0'>
@@ -176,7 +172,7 @@ export default function Header() {
 					<LoginRegister
 						token={token}
 						setOpenRegisterModal={setOpenRegisterModal}
-						handleLogOut={handleLogOut}
+						handleLogOut={logout}
 					/>
 				</nav>
 				<Dialog
@@ -252,7 +248,7 @@ export default function Header() {
 								<LoginRegister
 									token={token}
 									setOpenRegisterModal={setOpenRegisterModal}
-									handleLogOut={handleLogOut}
+									handleLogOut={logout}
 								/>
 							</div>
 						</div>

@@ -43,8 +43,7 @@ const LoginComponentByOtp = () => {
 			if (data.data.status === 200) {
 				toastFunction(data.data.message, 'success');
 				Cookies.set("accessToken", data.data.access_token, {expires:1/48});
-				saveUserDataHandler(data.data.user);
-				window.location.href = "/";
+				router.replace("/");
 			} else {
 				toastFunction('خطای ناشناخته', 'error');
 			}

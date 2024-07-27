@@ -14,8 +14,8 @@ const grade = [
     { id: 6, label: 'دکتری', value: 'P.H.D' },
 ];
 
-export default function Grade() {
-    const [list, setList] = useState([]);
+export default function Grade({ gradeData }) {
+    const [list, setList] = useState(gradeData || []);
     const [selected, setSelected] = useState({ title: 0, subject: "" });
 
     const addGrade = () => {

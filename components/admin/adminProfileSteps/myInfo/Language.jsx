@@ -22,8 +22,8 @@ const proficiency = [
     { id: 6, label: 'عالی', value: 'Excellent' },
 ];
 
-export default function Language() {
-    const [list, setList] = useState([]);
+export default function Language({ languageData }) {
+    const [list, setList] = useState(languageData || []);
     const [selected, setSelected] = useState({ title: 0, subject: 0 });
 
     const addLanguage = () => {

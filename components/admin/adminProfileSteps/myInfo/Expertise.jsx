@@ -13,8 +13,8 @@ const expertise = [
     { id: 4, label: 'معماری', value: 'architecture' },
 ];
 
-export default function Expertise() {
-    const [list, setList] = useState([]);
+export default function Expertise({ expertiseData }) {
+    const [list, setList] = useState(expertiseData || []);
     const [selected, setSelected] = useState({ title: 0, subject: "" });
 
     const addExpertise = () => {
