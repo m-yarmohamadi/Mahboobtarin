@@ -4,7 +4,7 @@ import { enToFaNumber } from '@/utils/enToFa';
 import { GiWallet } from 'react-icons/gi';
 import { FaPortrait } from 'react-icons/fa';
 import MyInfo from './adminProfileSteps/MyInfo';
-import Dashboard from './adminProfileSteps/dashboard';
+import Dashboard from './adminProfileSteps/Dashboard';
 const dataMenu = [
 	{
 		id: 1,
