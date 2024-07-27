@@ -1,27 +1,25 @@
 import Input from "@/tools/Input";
 import Select from "@/tools/Select";
 
-export default function Address({formik}) {
+export default function Address({ formik }) {
     return (
         <>
-            <Select
-                label="ملیت"
-                options={[]}
-            />
-
-            <Select
+            <Input
                 label="کشور محل سکونت"
-                options={[]}
+                name="country"
+                formik={formik}
             />
 
-            <Select
+            <Input
                 label="استان محل سکونت"
-                options={[]}
+                name="province_id"
+                formik={formik}
             />
 
-            <Select
+            <Input
                 label="شهر محل سکونت"
-                options={[]}
+                name="city_id"
+                formik={formik}
             />
 
             <div className='lg:col-span-2'>
