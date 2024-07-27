@@ -71,11 +71,11 @@ export default function Header() {
 	const handleLogOut = () => {
 		Cookies.remove('accessToken');
 		localStorage.removeItem("USER_DATA");
-		window.location.reload();
+		window.location.href = "/";
 	};
 
 	return (
-		<div className='w-full bg-primary-02 z-50 fixed shadow-md  top-0 left-0 right-0'>
+		<div className='w-full bg-primary-02 z-50 sticky shadow-md  top-0 left-0 right-0'>
 			<header className=' md:mx-auto md:container'>
 				<nav
 					className='w-full mx-auto flex max-w-full items-center justify-between p-2 '

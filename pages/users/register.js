@@ -32,7 +32,7 @@ const [nationalCode,setNationalCode]=useState()
 		router.push('/users/login')
 	}
 	return (
-		<div className='w-full  max-w-full h-full max-h-full box-content pt-12'>
+		<div className='w-full  max-w-full h-full max-h-full box-content'>
 			<Head>
 				<title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | ثبت نام`}</title>
 			</Head>
