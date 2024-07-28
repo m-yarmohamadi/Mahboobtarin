@@ -64,7 +64,7 @@ export default function Header() {
 	const [openRegisterModal, setOpenRegisterModal] = useState(false);
 	const [token, setToken] = useState('');
 	const logout = useLogout();
-	
+
 	useEffect(() => {
 		const tokenCooke = Cookies.get('accessToken') ? Cookies.get('accessToken') : null;
 		setToken(tokenCooke);
@@ -103,8 +103,9 @@ export default function Header() {
 					<PopoverGroup className='hidden md:flex md:gap-x-4'>
 						<Popover className='relative flex justify-center items-center'>
 							<PopoverButton className='flex justify-center items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900'>
-							<span className='text-lg text-primary-01'><FaLayerGroup /></span>
-
+								<span className='text-lg text-primary-01'>
+									<FaLayerGroup />
+								</span>
 								دسته بندی ها
 								<ChevronDownIcon
 									className='h-5 w-5 flex-none text-gray-400'
@@ -215,6 +216,9 @@ export default function Header() {
 										{({ open }) => (
 											<>
 												<DisclosureButton className='flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'>
+													<span className='text-lg text-primary-01'>
+														<FaLayerGroup />
+													</span>
 													دسته بندی ها
 													<ChevronDownIcon
 														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}

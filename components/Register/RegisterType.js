@@ -19,7 +19,7 @@ const RegisterType = () => {
 						<div className='bg-primary-01 shadow-md hover:bg-opacity-90 text-white font-bold px-4 py-2 rounded-md'>ثبت نام متخصصین</div>
 					</Link>
 					<Link
-						href={{
+						href={{ 
 							pathname: '/users/register',
 							query: { type: 'user' },
 						}}>
