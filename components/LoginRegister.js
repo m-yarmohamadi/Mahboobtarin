@@ -6,7 +6,6 @@ import { FaAnglesLeft } from 'react-icons/fa6';
 import useProfile from '@/hooks/useProfile';
 
 const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
-	const { userData } = useUserDataContext();
 	const { user, isLoading } = useProfile();
 	const [openMenuOptions, setOpenMenuOptions] = useState(false);
 	const menuOptionsRef = useRef(null);
@@ -42,7 +41,7 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 						ref={menuOptionsRef}
 						open={openMenuOptions}>
 						<MenuOptionsItem
-							link='/profile'
+							link={`/profile/${user?.id}`}
 							text='پروفایل'
 							icon={<BiUser className='w-6 h-6' />}
 						/>

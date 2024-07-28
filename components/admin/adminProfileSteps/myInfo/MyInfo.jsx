@@ -17,58 +17,6 @@ import { updateProfile } from '@/services/authService';
 import toast from 'react-hot-toast';
 
 
-// {
-//     "name" : "required|string",
-//     "lastname" :  "required|string",
-//     "email" : "test@tt.com",
-//     "gender" :  "required|string",
-//     "phone" :  "string",
-//     "emergency_phone" :  "string",
-//     "marital_status" :  "string",
-//     "birthday" :  "required|string",
-//     "nationality" :  "required|string",
-//     "expert_description" :  "string",
-//     "honors_description" :  "string",
-//         "expertise": [
-//         {
-//             "title": "111",
-//             "subject": "2222"
-//         },
-//         {
-//             "title": "33",
-//             "subject": "44"
-//         }
-//     ],
-//     "grade": [
-//         {
-//             "title": "111",
-//             "subject": "2222"
-//         },
-//         {
-//             "title": "33",
-//             "subject": "44"
-//         }
-//     ],
-//     "language": [
-//         {
-//             "title": "111",
-//             "subject": "2222"
-//         },
-//         {
-//             "title": "33",
-//             "subject": "44"
-//         }
-//     ],
-//     "address" :  [
-//         {
-//             "address": "tehran"
-//         },
-//         {
-//             "address": "yazd"
-//         }
-//     ]
-// }
-
 const gender = [
     { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
     { id: 2, label: 'زن', value: 'woman' },
