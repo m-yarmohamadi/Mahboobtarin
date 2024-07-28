@@ -5,7 +5,7 @@ import CheckOtp from '@/tools/CheckOtp';
 import SendMobile from '@/tools/SendMobile';
 import { useRouter } from 'next/router';
 import { enToFaNumber } from '@/utils/enToFa';
-import { toastFunction } from '@/utils/toast';
+import { toastFunction } from '@/utils/Toast';
 import Cookies from 'js-cookie';
 import LoginComponentByPassword from '@/Login/LoginComponentByPassword';
 

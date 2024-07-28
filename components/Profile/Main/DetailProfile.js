@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { FaAngleDown, FaCalendar, FaChevronLeft, FaLocationArrow, FaRegHeart, FaRegStar, FaSortDown, FaStar } from 'react-icons/fa';
+import { FaCalendar, FaLocationArrow, FaRegHeart, FaStar } from 'react-icons/fa';
 import { IoShareSocialOutline } from 'react-icons/io5';
 import PN from 'persian-number';
 
-import { FaClover, FaFlag } from 'react-icons/fa6';
+import { FaFlag } from 'react-icons/fa6';
 import { FcGlobe } from 'react-icons/fc';
 import TitleItems from './TitleItems';
 import ViewMore from './ViewMore';
@@ -208,8 +208,7 @@ const product = [
 		SupplierUrl: '/images/KavehBehbahani.jpg',
 	},
 ];
-
-const DetailProfile = ({userData}) => {
+const DetailProfile = ({ userData }) => {
 	const DiscountCalculation = (i, d) => {
 		return i - (i * d) / 100;
 	};
@@ -221,16 +220,21 @@ const DetailProfile = ({userData}) => {
 				<div className='flex flex-col justify-end items-center gap-2'>
 					<div className='w-28 h-28 rounded-full bg-primary-03 overflow-hidden flex items-center justify-center'>
 						<img
-							className={!userData?.photo && "w-14 h-14"}
-							src={userData?.photo || "/images/defaultUser.png"}
-							alt={`${userData?.name} ${userData?.lastname}`}
+							className={!userData?.photo && 'w-14 h-14'}
+							src={userData?.photo || '/images/defaultUser.png'}
+							alt={`${userData?.name} ${userData?.lastname} `}
 						/>
 					</div>
 					<span className='bg-green-300 rounded-full px-4'>فعال</span>
 				</div>
 				<div className='flex flex-col justify-end items-center'>
-					<span className=' font-bold text-md'>  {userData?.name}{` `}{userData?.lastname}</span>
-					<span className=' text-xs text-gray-700'>Zahrahajiewzaei@</span>
+					<span className=' font-bold text-md'>
+						{' '}
+						{userData?.name}
+						{` `}
+						{userData?.lastname}
+					</span>
+					<span className=' text-xs text-gray-700'>{userData?.email}</span>
 					<span className='py-2  text-xs text-gray-700'>مشاوره خانواده و ازدواج</span>
 				</div>
 				<div className='flex flex-col justify-end items-center text-xs'>
@@ -249,9 +253,9 @@ const DetailProfile = ({userData}) => {
 						<span>
 							<FaCalendar />
 						</span>
-						<span>{enToFaNumber('تاریخ پیوستن: آذر 1401')}</span>
+						<span>{`تاریخ پیوستن: ${userData.created_at}`}</span>
 					</span>
-					<span className='pt-2  '>{enToFaNumber('تجربه: 12 سال')}</span>
+					<span className='pt-2  '>{'تجربه: 12 سال'}</span>
 				</div>
 				<div className='flex flex-col justify-end items-start gap-1 text-xs ps-10'>
 					<span className='flex justify-center items-center gap-1'>
@@ -294,7 +298,7 @@ const DetailProfile = ({userData}) => {
 					</div>
 					<div className='w-full col-span-9 flex flex-col py-4'>
 						<span className='w-full font-bold'>آدرس:</span>
-						<span className='w-full  text-justify'>{enToFaNumber('تهران، خیابان پاسداران، بوستان نهم (جعفری) پلاک 121، طبقه 5، واحد 21، مرکز زیبایی مرکز زیبایی پریستسن')}</span>
+						<span className='w-full  text-justify'>{userData?.address || 'تهران، خیابان پاسداران، بوستان نهم (جعفری) پلاک 121، طبقه 5، واحد 21، مرکز زیبایی مرکز زیبایی پریستسن'} </span>
 						<div className='w-full max-w-full flex justify-start items-center pt-8 gap-2'>
 							<span className='font-bold'>تلفن:</span>
 							<span>{enToFaNumber('021-22222222')} </span>
@@ -486,7 +490,9 @@ const DetailProfile = ({userData}) => {
 						<div>
 							{ideas.map((item) => {
 								return (
-									<div key={item.id} className='p-4 flex flex-col justify-center items-start gap-1'>
+									<div
+										key={item.id}
+										className='p-4 flex flex-col justify-center items-start gap-1'>
 										<span className='font-bold'>{item.name}</span>
 										<div className=' flex justify-start items-center gap-4 text-gray-500 text-sm'>
 											<span className='flex justify-start items-center gap-1 text-primary-01'>

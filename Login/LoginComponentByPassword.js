@@ -5,7 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import { toastFunction } from '@/utils/toast';
+import { toastFunction } from '@/utils/Toast';
 import { useUserDataContext } from '@/context/UserDataContext';
 
 const LoginComponentByPassword = () => {

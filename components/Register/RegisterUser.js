@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import Step01 from '@/components/Register/steps/Step01';
-import Step02 from '@/components/Register/steps/Step02';
-import Step03 from '@/components/Register/steps/Step03';
-import Step04 from '@/components/Register/steps/Step04';
 import { useRouter } from 'next/router';
-import Step05 from '@/components/Register/steps/Step05';
 import Head from 'next/head';
 import UserStep from './steps/UserStep';
 

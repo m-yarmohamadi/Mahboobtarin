@@ -2,7 +2,7 @@ import Input from '@/tools/Input';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import axios from 'axios';
-import { toastFunction } from '@/utils/toast';
+import { toastFunction } from '@/utils/Toast';
 import { useState } from 'react';
 import Loading from '@/tools/Loading';
 import { Router, useRouter } from 'next/router';

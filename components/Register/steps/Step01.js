@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import NextPrev from '../NextPrev';
 import axios from 'axios';
-import { toastFunction } from '@/utils/toast';
+import { toastFunction } from '@/utils/Toast';
 import { useState } from 'react';
 import { Countries } from '@/data/countries';
 

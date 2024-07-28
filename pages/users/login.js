@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Login from "@/Login/Login";
 import Login2 from "@/Login/Login2";
 import Head from "next/head";
 

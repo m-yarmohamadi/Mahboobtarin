@@ -15,6 +15,13 @@ export function getProfile() {
 		}
 	});
 }
+export function getMainPage() {
+	return http.get('/api/v1/main-page', {
+		headers:{
+			Authorization: `Bearer ${Cookies.get("accessToken")}`
+		}
+	});
+}
 
 export function updateProfile(data) {
 	return http.post('/api/v1/users/update', data,{

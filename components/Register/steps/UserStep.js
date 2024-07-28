@@ -1,16 +1,8 @@
-import Input from '@/tools/Input';
-import Select from '@/tools/Select';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import NextPrev from '../NextPrev';
 import axios from 'axios';
-import { toastFunction } from '@/utils/toast';
+import { toastFunction } from '@/utils/Toast';
 import { useState } from 'react';
-import Loading from '@/tools/Loading';
-import CheckOtp from '@/tools/CheckOtp';
-import OTPInput from 'react-otp-input';
-import { enToFaNumber } from '@/utils/enToFa';
-import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import UserStep02 from './UserStep02';
 import UserStep01 from './UserStep01';
 

@@ -9,7 +9,7 @@ export default function useProfile() {
     refetchOnWindowFocus: true,
   });
 
-  const { user, grade, language, expertise, address } = data?.data || {};
+  const { user, grade, language, expertise } = data?.data || {};
 
-  return { user, isLoading, grade, language, expertise, address };
+  return { user, isLoading, grade, language, expertise };
 }

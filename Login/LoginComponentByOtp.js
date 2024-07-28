@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import 'react-international-phone/style.css';
 import { login } from '@/services/authService';
 import { useRouter } from 'next/router';
-import { toastFunction } from '@/utils/toast';
+import { toastFunction } from '@/utils/Toast';
 import Cookies from 'js-cookie';
 import { useUserDataContext } from '@/context/UserDataContext';
 const resend_time = 20;
