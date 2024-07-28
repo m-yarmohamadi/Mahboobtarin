@@ -17,11 +17,11 @@ const Select = ({ name, label, options, formik, onChange, value }) => {
 					value={value}
 					onChange={onChange}
 					{...formik?.getFieldProps(name)}>
-					{options.map((item) => {
+					{options.map((item, index) => {
 						return (
 							<option
 								value={item.label}
-								key={item.id}>
+								key={index}>
 								{item.label}
 							</option>
 						);

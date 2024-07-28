@@ -35,7 +35,6 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 				expertise,
 				grade,
 				language,
-				password: '',
 				step: '3',
 				type: 'expert',
 			});

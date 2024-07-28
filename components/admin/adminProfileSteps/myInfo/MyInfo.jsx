@@ -12,7 +12,62 @@ import Address from './Address';
 import useProfile from '@/hooks/useProfile';
 import Loading from '@/tools/Loading';
 import { Countries } from '@/data/countries';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateProfile } from '@/services/authService';
+import toast from 'react-hot-toast';
 
+
+// {
+//     "name" : "required|string",
+//     "lastname" :  "required|string",
+//     "email" : "test@tt.com",
+//     "gender" :  "required|string",
+//     "phone" :  "string",
+//     "emergency_phone" :  "string",
+//     "marital_status" :  "string",
+//     "birthday" :  "required|string",
+//     "nationality" :  "required|string",
+//     "expert_description" :  "string",
+//     "honors_description" :  "string",
+//         "expertise": [
+//         {
+//             "title": "111",
+//             "subject": "2222"
+//         },
+//         {
+//             "title": "33",
+//             "subject": "44"
+//         }
+//     ],
+//     "grade": [
+//         {
+//             "title": "111",
+//             "subject": "2222"
+//         },
+//         {
+//             "title": "33",
+//             "subject": "44"
+//         }
+//     ],
+//     "language": [
+//         {
+//             "title": "111",
+//             "subject": "2222"
+//         },
+//         {
+//             "title": "33",
+//             "subject": "44"
+//         }
+//     ],
+//     "address" :  [
+//         {
+//             "address": "tehran"
+//         },
+//         {
+//             "address": "yazd"
+//         }
+//     ]
+// }
 
 const gender = [
     { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -21,20 +76,22 @@ const gender = [
 ];
 
 const taaholStatus = [
-    { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
-    { id: 2, label: 'مجرد', value: 'single' },
-    { id: 3, label: 'متاهل', value: 'married' },
+    { id: 1, label: 'مجرد', value: 'single' },
+    { id: 2, label: 'متاهل', value: 'married' },
 ];
 
 
 export default function MyInfo() {
-    const { user, expertise, grade, language, isLoading } = useProfile();
+    const { user, expertise, grade, language, isLoading, address } = useProfile();
 
     const initialValues = {
         name: user?.name || "",
         lastname: user?.lastname || "",
         national_code: user?.national_code || "",
         mobile: user?.mobile || "",
+        phone: user?.phone || "",
+        emergency_phone: user?.emergency_phone || "",
+        marital_status: user?.marital_status || "1",
         gender: user?.gender || "1",
         nationality: user?.nationality || "ایران",
         birthday: user?.birthday || "",
@@ -46,24 +103,63 @@ export default function MyInfo() {
         specialized_system_code: user?.specialized_system_code || "",
         passport_number: user?.passport_number || "",
         picture: '',
+        expert_description: user?.expert_description || "",
+        expertise: expertise || [],
+        workAddress: address || [],
+        language: language || [],
+        grade: grade || [],
+        honors_description: user?.honors_description || ""
     };
 
-    const onSubmit = async (values) => {
+    const { mutateAsync: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
+    const queryClient = useQueryClient();
 
+    const onSubmit = async (values) => {
+        const { name,
+            lastname,
+            email,
+            gender,
+            phone,
+            emergency_phone,
+            marital_status,
+            birthday,
+            nationality,
+            expert_description,
+            expertise,
+            language,
+            grade,
+            workAddress,
+            honors_description,
+        } = values;
+
+        try {
+            const { data } = await mutateUpdateProfile({
+                name, lastname, email, gender, phone, emergency_phone, marital_status, birthday, nationality, expert_description,
+                honors_description,
+                language, grade, address: workAddress, expertise
+            });
+            if (data.status === 200) {
+                toast.success("پروفایل شما با موفقیت ویرایش شد");
+                queryClient.invalidateQueries({queryKey:["get-profile"]});
+            }
+        } catch (error) {
+            if(error) toast.error("خطایی رخ داده")
+        }
     };
 
     const validationSchema = Yup.object({
         name: Yup.string().required('وارد کردن نام اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
         lastname: Yup.string().required('وارد کردن نام خانوادگی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+        email: Yup.string().email("ایمیل نامعتبر است"),
         gender: Yup.string().required('وارد کردن جنسیت اجباری است'),
         nationality: Yup.string().required('وارد کردن ملیت اجباری است'),
         national_code: Yup.string().when('nationality', {
-            is: (value) => value === 'ایرانی',
+            is: (value) => value === 'ایران',
             then: (schema) => schema.required('وارد کردن کدملی اجباری است').matches(/^[0-9]{10}$/, 'لطفاً کد ملی معتبر 10 رقمی وارد کنید'),
             otherwise: (schema) => schema,
         }),
         passport_number: Yup.string().when('nationality', {
-            is: (value) => value === 'اتباع خارجی',
+            is: (value) => value !== 'ایران',
             then: (schema) => schema.required('وارد کردن شماره پاسپورت اجباری است').matches(/^[0-9]{8}$/, 'لطفاً شماره پاسپورت معتبر 8 رقمی وارد کنید'),
             otherwise: (schema) => schema,
         }),
@@ -72,7 +168,8 @@ export default function MyInfo() {
         mobile: Yup.string()
             .required('وارد کردن شماره تلفن همراه اجباری است')
             .matches(/^\+[0-9]{11,13}$/, 'لطفاً شماره موبایل معتبر وارد کنید'),
-        email: Yup.string().email('لطفا یک ایمیل معتبر وارد کنید').required('وارد کردن ایمیل اجباری است').email('لطفاً یک ایمیل معتبر وارد کنید'),
+        phone: Yup.string()
+            .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید")
     });
 
     const formik = useFormik({
@@ -105,18 +202,18 @@ export default function MyInfo() {
             required: true
         },
         {
-            name: "tel",
+            name: "phone",
             label: "تلفن ثابت"
         },
         {
-            name: "tel2",
+            name: "emergency_phone",
             label: "تلفن اضطراری"
         },
     ];
 
     if (isLoading) return (
         <div className='w-full h-full flex items-center justify-center'>
-            <Loading customeColor="#0693a4"/>
+            <Loading customeColor="#0693a4" />
         </div>
     )
 
@@ -131,7 +228,7 @@ export default function MyInfo() {
                 </p>
             </div>
 
-            <form className='space-y-4'>
+            <form className='space-y-4' onSubmit={formik.handleSubmit}>
                 <div className='mt-6 flex flex-col gap-2 lg:gap-10 lg:flex-row'>
                     <div className='flex flex-col items-center gap-4'>
                         <h5 className='text-gray-600 font-bold self-start'>
@@ -159,6 +256,8 @@ export default function MyInfo() {
                         <TextArea
                             label="درباره شما"
                             row={6}
+                            name="expert_description"
+                            formik={formik}
                         />
                     </div>
                 </div>
@@ -183,7 +282,7 @@ export default function MyInfo() {
 
                     <Select
                         label="وضعیت تاهل"
-                        name="taahol"
+                        name="marital_status"
                         formik={formik}
                         options={taaholStatus}
                     />
@@ -193,6 +292,7 @@ export default function MyInfo() {
                         name="birthday"
                         formik={formik}
                         type="date"
+                        required={true}
                     />
 
                     {/* <DateOfBirth formik={formik} /> */}
@@ -201,7 +301,6 @@ export default function MyInfo() {
                         label="پست الکترونیک"
                         name="email"
                         formik={formik}
-                        required={true}
                     />
 
                     <Select
@@ -213,13 +312,13 @@ export default function MyInfo() {
 
                     <Address formik={formik} />
 
-                    <WorkAddress />
+                    <WorkAddress formik={formik} />
 
-                    <Language languageData={language}/>
+                    <Language formik={formik} />
 
-                    <Expertise expertiseData={expertise}/>
+                    <Expertise formik={formik} />
 
-                    <Grade gradeData={grade}/>
+                    <Grade formik={formik} />
 
 
 
@@ -256,6 +355,8 @@ export default function MyInfo() {
                     <TextArea
                         label="آثار و افتخارات"
                         row={9}
+                        formik={formik}
+                        name="honors_description"
                     />
                 </div>
 
@@ -280,9 +381,16 @@ export default function MyInfo() {
                 </div>
 
 
-                <button className='btn btn--success !px-14'>
-                    ذخیره تغییرات
-                </button>
+                {
+                    isUpdating ?
+                        <div className='max-w-max btn btn--success !px-14'>
+                            <Loading />
+                        </div>
+                        :
+                        <button type='submit' className='btn btn--success !px-14'>
+                            ذخیره تغییرات
+                        </button>
+                }
             </form>
         </div>
     )

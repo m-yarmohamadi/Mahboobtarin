@@ -10,7 +10,6 @@ import { useUserDataContext } from '@/context/UserDataContext';
 
 const LoginComponentByPassword = () => {
 	const router = useRouter();
-	const { saveUserDataHandler } = useUserDataContext();
 
 	const initialValues = {
 		username: '+98',
@@ -31,8 +30,7 @@ const LoginComponentByPassword = () => {
 			} else {
 				toastFunction(data?.message, 'success');
 				Cookies.set('accessToken', data.access_token, { expires: 1 / 48 });
-				saveUserDataHandler(data.user);
-				window.location.href = '/';
+				router.replace("/");
 			}
 		} catch (error) {
 			console.log(error);
