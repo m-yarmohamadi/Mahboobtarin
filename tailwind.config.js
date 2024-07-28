@@ -23,6 +23,7 @@ export const theme = {
 				'02': '#eff0f2',
 				'03': '#cbcbcb',
 				'04': '#dc2626',
+				'05': '#ededed',
 			},
 			oorange: '#FF0000',
 			error: '#dc2626',

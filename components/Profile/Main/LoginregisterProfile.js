@@ -2,7 +2,7 @@ import React from 'react';
 
 const LoginregisterProfile = () => {
 	return (
-		<div className='w-full grid md:grid-cols-2 gap-4 md:gap-32 container box-content  my-16'>
+		<div className='w-full grid md:grid-cols-2 gap-4 md:gap-16 justify-center items-center container box-content  my-16'>
 			<div className=' w-full '>
 				<div className='md:h-64 w-full flex flex-col justify-center items-start gap-8 bg-primary-01 bg-opacity-30 px-12 py-6 rounded-xl'>
 					<span className='text-primary-01 font-bold text-lg'>کاربر هستید؟</span>
