@@ -32,6 +32,10 @@
 	.btn--success{
 		@apply bg-green-600 text-white
 	}
+
+	.btn--danger{
+		@apply bg-error text-white
+	}
 }
 
 body {
