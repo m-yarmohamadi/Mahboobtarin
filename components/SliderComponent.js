@@ -27,7 +27,7 @@ const SliderComponent = ({sliderImg, slidesPerView ,width,heigth }) => {
 			scrollbar={{ draggable: true }}
 			onSwiper={(swiper) => console.log(swiper)}
 			onSlideChange={() => console.log('slide change')}>
-			{slider.map((item,index) => {
+			{sliderImg.map((item,index) => {
 				return (
 					<SwiperSlide key={index}>
 						<img
