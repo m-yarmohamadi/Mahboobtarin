@@ -6,6 +6,8 @@ import NextPrev from '../NextPrev';
 import axios from 'axios';
 import { toastFunction } from '@/utils/toast';
 import { useState } from 'react';
+import countries from '@/data/countries';
+
 
 const Nationality = [
 	{ id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
