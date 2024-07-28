@@ -41,7 +41,7 @@ const ExpertDashboard = ({ children }) => {
             open={openSidebar}
             onClose={() => setOpenSidebar(false)}
           />
-          <div className="col-span-12 lg:col-span-9 p-4 lg:p-6 w-full lg:overflow-y-auto">
+          <div className="col-span-12 lg:col-span-9 p-4 lg:p-6 w-full lg:overflow-y-auto overflow-x-hidden">
             {children}
           </div>
         </div>
