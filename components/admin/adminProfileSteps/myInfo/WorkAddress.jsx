@@ -3,19 +3,19 @@ import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 import { IoMdAdd } from "react-icons/io";
 
-export default function WorkAddress() {
+export default function WorkAddress({ formik }) {
     const [addressText, setAddressText] = useState("");
-    const [addressList, setAddressList] = useState([]);
+    const { workAddress } = formik.values;
 
     const addAddressHandler = () => {
         if (addressText) {
-            setAddressList((pervList) => [...addressList, addressText]);
+            formik.setFieldValue("workAddress", [...workAddress, {address:addressText}]);
             setAddressText("");
         }
     }
 
     const removeAddressHandler = (value) => {
-        setAddressList((pervList) => pervList.filter((i) => addressList.indexOf(i) !== addressList.indexOf(value)))
+        formik.setFieldValue("workAddress", workAddress.filter((i) => workAddress.indexOf(i) !== workAddress.indexOf(value)))
     }
 
     return (
@@ -31,12 +31,12 @@ export default function WorkAddress() {
                     <IoMdAdd className="w-6 h-6" />
                 </button>
             </div>
-            {addressList.length !== 0 &&
+            {workAddress.length !== 0 &&
                 <div className="w-full border border-slate-300 rounded-md mt-3">
-                    {addressList.map((item, index) => (
+                    {workAddress.map((item, index) => (
                         <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0">
                             <p className="flex-1 text-xs truncate">
-                                {item}
+                                {item.address}
                             </p>
                             <button onClick={() => removeAddressHandler(item)} type="button" >
                                 <HiOutlineTrash className="w-5 h-5 text-red-600" />

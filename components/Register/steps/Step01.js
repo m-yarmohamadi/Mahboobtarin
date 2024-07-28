@@ -6,6 +6,7 @@ import NextPrev from '../NextPrev';
 import axios from 'axios';
 import { toastFunction } from '@/utils/toast';
 import { useState } from 'react';
+import { Countries } from '@/data/countries';
 
 const Nationality = [
 	{ id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -21,12 +22,12 @@ const gender = [
 const Step01 = ({ nextStep, prevStep, setNationalCode }) => {
 	const [error2, setError2] = useState([]);
 	const [loading, setLoading] = useState(0);
-	console.log();
+	
 	const initialValues = {
 		name: '',
 		lastname: '',
 		gender: '',
-		nationality: '',
+		nationality: 'ایران',
 		national_code: '',
 		passport_number: '',
 		birthday: '',
@@ -113,13 +114,13 @@ const Step01 = ({ nextStep, prevStep, setNationalCode }) => {
 						<Select
 							name={'nationality'}
 							label={'ملیت'}
-							options={Nationality}
+							options={Countries}
 							formik={formik}
 						/>
 					</div>
 
 					<div className='flex justify-between items-start gap-4'>
-						{formik.values.nationality !== 'اتباع خارجی' && (
+						{formik.values.nationality === 'ایران' && (
 							<Input
 								name={'national_code'}
 								label={'کد ملی'}
@@ -127,7 +128,7 @@ const Step01 = ({ nextStep, prevStep, setNationalCode }) => {
 								type={'text'}
 							/>
 						)}
-						{formik.values.nationality === 'اتباع خارجی' && (
+						{formik.values.nationality !== 'ایران' && (
 							<Input
 								name={'passport_number'}
 								label={'شماره پاسپورت'}

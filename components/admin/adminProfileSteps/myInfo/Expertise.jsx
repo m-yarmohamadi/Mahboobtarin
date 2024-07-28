@@ -1,6 +1,6 @@
 import Input from "@/tools/Input";
 import Select from "@/tools/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { IoMdAdd } from "react-icons/io";
 
@@ -13,22 +13,20 @@ const expertise = [
     { id: 4, label: 'معماری', value: 'architecture' },
 ];
 
-export default function Expertise({ expertiseData }) {
-    const [list, setList] = useState(expertiseData || []);
+export default function Expertise({ formik }) {
+    const [list, setList] = useState(formik.values.expertise || []);
     const [selected, setSelected] = useState({ title: 0, subject: "" });
 
     const addExpertise = () => {
         if (selected.title !== 0 && selected.subject !== 0) {
-            setList((pervList) => [
-                ...pervList,
-                { title: selected.title, subject: selected.subject }
-            ]);
+            formik.setFieldValue("expertise", [...formik.values.expertise, { title: selected.title, subject: selected.subject }]);
             setSelected({ title: 0, subject: "" });
+            // formik.setFieldValue("expertise", list);
         }
     }
 
     const removeExpertise = (value) => {
-        setList((pervList) => pervList.filter((i) => list.indexOf(i) !== list.indexOf(value)))
+        formik.setFieldValue("expertise", formik.values.expertise.filter((i) => formik.values.expertise.indexOf(i) !== formik.values.expertise.indexOf(value)));
     }
 
     return (
@@ -51,9 +49,9 @@ export default function Expertise({ expertiseData }) {
                     <IoMdAdd className="w-6 h-6" />
                 </button>
             </div>
-            {list.length !== 0 &&
+            {formik.values.expertise.length !== 0 && formik.values.expertise &&
                 <div className="w-full border border-slate-300 rounded-md mt-3">
-                    {list.map((item, index) => (
+                    {formik.values.expertise.map((item, index) => (
                         <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0">
                             <div className="flex-1 flex items-center gap-1">
                                 <p className="text-sm font-medium">

@@ -219,11 +219,11 @@ const DetailProfile = ({userData}) => {
 		<div className=''>
 			<div className='w-full grid grid-cols-4 -mt-14'>
 				<div className='flex flex-col justify-end items-center gap-2'>
-					<div className='w-28 h-28 '>
+					<div className='w-28 h-28 rounded-full bg-primary-03 overflow-hidden flex items-center justify-center'>
 						<img
-							className='rounded-full'
-							src='/images/FaribaEghdami.jpg'
-							alt=''
+							className={!userData?.photo && "w-14 h-14"}
+							src={userData?.photo || "/images/defaultUser.png"}
+							alt={`${userData?.name} ${userData?.lastname}`}
 						/>
 					</div>
 					<span className='bg-green-300 rounded-full px-4'>فعال</span>
@@ -309,12 +309,11 @@ const DetailProfile = ({userData}) => {
 				<TitleItems title={'تخصص و مهارت'} />
 				<div className=' '>
 					<ul>
-						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
-						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
-						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
-						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
-						<li>جام جهانی آلمان 1998</li>
-						<li>مسابقات جهانی ادمونتون - کانادا 1999</li>
+						{userData?.expertises.map((item, index) => (
+							<li key={index}>
+								{item.title} - {item.subject}
+							</li>
+						))}
 					</ul>{' '}
 				</div>
 			</div>

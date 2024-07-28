@@ -16,3 +16,11 @@ export function getProfile() {
 	});
 }
 
+export function updateProfile(data) {
+	return http.post('/api/v1/users/update', data,{
+		headers:{
+			Authorization: `Bearer ${Cookies.get("accessToken")}`
+		}
+	});
+}
+

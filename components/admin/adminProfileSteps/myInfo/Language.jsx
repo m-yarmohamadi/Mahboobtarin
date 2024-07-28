@@ -3,7 +3,7 @@ import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { IoMdAdd } from "react-icons/io";
 
-const language = [
+const languageList = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
     { id: 1, label: 'ترکی', value: 'torki' },
     { id: 2, label: 'کردی', value: 'kordi' },
@@ -22,22 +22,19 @@ const proficiency = [
     { id: 6, label: 'عالی', value: 'Excellent' },
 ];
 
-export default function Language({ languageData }) {
-    const [list, setList] = useState(languageData || []);
+export default function Language({ formik }) {
     const [selected, setSelected] = useState({ title: 0, subject: 0 });
+    const { language } = formik.values;
 
     const addLanguage = () => {
         if (selected.title !== 0 && selected.subject !== 0) {
-            setList((pervList) => [
-                ...pervList,
-                { title: selected.title, subject: selected.subject }
-            ]);
+            formik.setFieldValue("language", [...language, { title: selected.title, subject: selected.subject }]);
             setSelected({ title: 0, subject: 0 });
         }
     }
 
     const removeLanguage = (value) => {
-        setList((pervList) => pervList.filter((i) => list.indexOf(i) !== list.indexOf(value)))
+        formik.setFieldValue("language", language.filter((i) => language.indexOf(i) !== language.indexOf(value)))
     }
 
     return (
@@ -46,7 +43,7 @@ export default function Language({ languageData }) {
                 <div className="flex-1 flex flex-col lg:flex-row gap-4">
                     <Select
                         label="زبان خارجی"
-                        options={language}
+                        options={languageList}
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
                     />
@@ -61,9 +58,9 @@ export default function Language({ languageData }) {
                     <IoMdAdd className="w-6 h-6" />
                 </button>
             </div>
-            {list.length !== 0 &&
+            {language.length !== 0 &&
                 <div className="w-full border border-slate-300 rounded-md mt-3">
-                    {list.map((item, index) => (
+                    {language.map((item, index) => (
                         <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0">
                             <div className="flex-1 flex items-center gap-1">
                                 <p className="text-sm font-medium">

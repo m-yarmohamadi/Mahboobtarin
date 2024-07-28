@@ -4,7 +4,7 @@ import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { IoMdAdd } from "react-icons/io";
 
-const grade = [
+const gradeOptions = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
     { id: 1, label: 'زیر دیپلم', value: 'underDiploma' },
     { id: 2, label: 'دیپلم', value: 'diploma' },
@@ -14,22 +14,19 @@ const grade = [
     { id: 6, label: 'دکتری', value: 'P.H.D' },
 ];
 
-export default function Grade({ gradeData }) {
-    const [list, setList] = useState(gradeData || []);
+export default function Grade({ formik }) {
     const [selected, setSelected] = useState({ title: 0, subject: "" });
+    const { grade } = formik.values;
 
     const addGrade = () => {
         if (selected.title !== 0 && selected.subject !== 0) {
-            setList((pervList) => [
-                ...pervList,
-                { title: selected.title, subject: selected.subject }
-            ]);
+            formik.setFieldValue("grade", [...grade, { title: selected.title, subject: selected.subject }]);
             setSelected({ title: 0, subject: "" });
         }
     }
 
     const removeGrade = (value) => {
-        setList((pervList) => pervList.filter((i) => list.indexOf(i) !== list.indexOf(value)))
+        formik.setFieldValue("grade", grade.filter((i) => grade.indexOf(i) !== grade.indexOf(value)))
     }
 
     return (
@@ -38,7 +35,7 @@ export default function Grade({ gradeData }) {
                 <div className="flex-1 flex flex-col lg:flex-row gap-4">
                     <Select
                         label="مقطع تحصیلی"
-                        options={grade}
+                        options={gradeOptions}
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
                     />
@@ -52,9 +49,9 @@ export default function Grade({ gradeData }) {
                     <IoMdAdd className="w-6 h-6" />
                 </button>
             </div>
-            {list.length !== 0 &&
+            {grade.length !== 0 &&
                 <div className="w-full border border-slate-300 rounded-md mt-3">
-                    {list.map((item, index) => (
+                    {grade.map((item, index) => (
                         <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0">
                             <div className="flex-1 flex items-center gap-1">
                                 <p className="text-sm font-medium">

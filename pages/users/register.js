@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 const register = () => {
 	const router = useRouter();
 	const { query } = router;
-
+	
 	const userType = query.type;
 	return <div>{userType === 'expert' ? <RegisterExpert /> : <RegisterUser />}</div>;
 };
