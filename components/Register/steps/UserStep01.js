@@ -195,7 +195,7 @@ const UserStep01 = ({setActiveOtp,setNationalCode}) => {
 					</div>
 				</div>
 				<button
-					className='w-full px-4 py-2 bg-primary-01 rounded-md shadow-md text-white font-bold'
+					className=' mt-6 w-full px-4 py-2 bg-primary-01 rounded-md shadow-md text-white font-bold hover:opacity-90'
 					type='submit'>
 					{loading ? (
 						<span className='w-full flex justify-center items-center'>
@@ -204,7 +204,7 @@ const UserStep01 = ({setActiveOtp,setNationalCode}) => {
 					) : (
 						<span className='w-full flex justify-center items-center'>ثبت و دریافت کد تأیید</span>
 					)}
-				</button>{' '}
+				</button>
 			</form>
 		</div>
 	);

@@ -26,7 +26,8 @@ const LoginComponentByPassword = () => {
 			console.log(data);
 
 			if (data.status !== 200) {
-				toast.error(data.message);
+				toastFunction(data?.message, 'error');
+
 			} else {
 				toastFunction(data?.message, 'success');
 				Cookies.set('accessToken', data.access_token, { expires: 1 / 48 });

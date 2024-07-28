@@ -12,6 +12,8 @@ export const enToFaMessages = (msg) => {
 			return 'کاربری با این شماره یافت نشد.';
 		case 'OPT sent':
 			return 'کد تأیید به تلفن همراه شما ارسال گردید.';
+		case 'Unauthorized':
+			return 'نام کاربری یا کلمه عبور اشتباه می باشد.';
 
 		default:
 			return msg;
