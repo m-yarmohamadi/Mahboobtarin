@@ -8,6 +8,7 @@ import { GoLaw } from 'react-icons/go';
 import { GiHiking, GiBugleCall } from 'react-icons/gi';
 import { PiBuildingOfficeBold } from 'react-icons/pi';
 import { AiTwotoneExperiment } from 'react-icons/ai';
+import SliderComponent from './SliderComponent';
 
 const iconMap = {
 	FaSackDollar,
@@ -25,6 +26,12 @@ const iconMap = {
 	AiTwotoneExperiment,
 	GiBugleCall,
 };
+const sliderImg = [
+	{ title: 'slider01', url: '/images/img001.jpg' },
+	{ title: 'slider02', url: '/images/img002.jpg' },
+	{ title: 'slider03', url: '/images/img003.jpg' },
+];
+
 const data = [
 	{
 		id: 1,
@@ -114,11 +121,12 @@ const Baner = () => {
 						</div> */}
 					</div>
 					<div className='w-full h-72 relative col-span-2 row-span-2 '>
-						<img
+<SliderComponent sliderImg={sliderImg} slidesPerView={1} width={'w-full'} heigth={'h-72'}/>
+						{/* <img
 							className=' absolute top-0 right-0 object-cover object-left-bottom h-72 w-full rounded-b-2xl md:rounded-ee-2xl z-0'
 							src='/images/img002.jpg'
 							alt=''
-						/>
+						/> */}
 						{/* <div className=' absolute top-0 right-0 w-full bg-gradient-to-l from-[#e8ecef] via-[#e8ecef] to-transparent h-full rounded-b-2xl md:rounded-ee-2xl border-2 border-white z-10'>
 							<div className='flex flex-col justify-center items-center gap-6 w-3/5 h-full'>
 								<div className='text-2xl font-extrabold'>نقاشی با قیمت قطعی</div>

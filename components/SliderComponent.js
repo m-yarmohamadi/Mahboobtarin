@@ -13,14 +13,8 @@ import 'swiper/css';
 const modules = [Navigation, Pagination, Scrollbar, A11y];
 const width = 'w-full';
 const heigth = 'h-56';
-const slider = [
-	{ title: 'slider01', url: '/images/News001.png' },
-	{ title: 'slider02', url: '/images/News002.png' },
-	{ title: 'slider03', url: '/images/News003.png' },
-	{ title: 'slider04', url: '/images/News001.png' },
-];
 const slidesPerView = 1;
-const SliderComponent = ({slider, slidesPerView ,width,heigth }) => {
+const SliderComponent = ({sliderImg, slidesPerView ,width,heigth }) => {
 	return (
 		<Swiper
 			modules={modules}
