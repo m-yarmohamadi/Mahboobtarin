@@ -46,7 +46,7 @@ const GroupList = () => {
 							<span>
 								<FaAngleLeft />
 							</span>
-							<span>روانشناسی</span>
+							<span>روانشناسی</span> 
 							<span>
 								<FaAngleLeft />
 							</span>

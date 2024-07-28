@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import { BiLogOut } from 'react-icons/bi';
 import LoginRegister from './LoginRegister';
 import useLogout from '@/hooks/useLogout';
+import { FaLayerGroup } from 'react-icons/fa';
 
 const products = [
 	{
@@ -78,7 +79,7 @@ export default function Header() {
 					aria-label='Global'>
 					<div className='flex '>
 						<Link href='/'>
-							<span className='sr-only'>Your Company</span>
+							<span className='sr-only'>محبوبترین</span>
 
 							<img
 								className='h-12 w-auto'
@@ -102,6 +103,8 @@ export default function Header() {
 					<PopoverGroup className='hidden md:flex md:gap-x-4'>
 						<Popover className='relative flex justify-center items-center'>
 							<PopoverButton className='flex justify-center items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900'>
+							<span className='text-lg text-primary-01'><FaLayerGroup /></span>
+
 								دسته بندی ها
 								<ChevronDownIcon
 									className='h-5 w-5 flex-none text-gray-400'
