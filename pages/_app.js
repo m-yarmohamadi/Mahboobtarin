@@ -14,6 +14,11 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <title>سامانه جامع محبوب‌ترین | دسترسی آسان به برترین‌ها </title>
+        <meta name="description" content="سامانه جامع محبوبترین برای دسترسی آسان به برترین ها در هر حوزه و شغل"></meta>
+        <meta property="og:title" content="سامانه جامع محبوب‌ترین"></meta>
+        <meta property="og:site_name" content="محبوب‌ترین"></meta>
+        <meta property="og:locale" content="fa_IR"></meta>
+
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
       <QueryClientProvider client={queryClient}>
