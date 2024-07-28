@@ -31,7 +31,7 @@ const SliderComponent = ({sliderImg, slidesPerView ,width,heigth }) => {
 				return (
 					<SwiperSlide key={index}>
 						<img
-							className={`${width} ${heigth}`}
+							className={`${width} ${heigth} object-cover`}
 							src={item.url}
 							alt={item.title}
 						/>

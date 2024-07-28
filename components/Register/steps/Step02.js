@@ -4,6 +4,8 @@ import { useFormik } from 'formik';
 import NextPrev from '../NextPrev';
 import axios from 'axios';
 import { useState } from 'react';
+import { Countries } from '@/data/countries';
+import Select from '@/tools/Select';
 
 
 
@@ -13,7 +15,7 @@ const Step02 = ({nextStep,prevStep,nationalCode}) => {
 
 
 	const initialValues = {
-		country: '',
+		country: 'ایران',
 		province_id: '',
 		city_id: '',
 		// postalcode: '',
@@ -48,8 +50,8 @@ const Step02 = ({nextStep,prevStep,nationalCode}) => {
 		// postalcode: Yup.string()
 		// 	.required('وارد کردن کدپستی اجباری است')
 		// 	.matches(/^[0-9]{10}$/, 'لطفاً کدپستی معتبر 10 رقمی وارد کنید'),
-		address: Yup.string().required('وارد کردن آدرس محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(100, 'حداکثر 100 حرف وارد کنید'),
-		address_work: Yup.string().required('وارد کردن آدرس محل کار اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(100, 'حداکثر 100 حرف وارد کنید'),
+		address: Yup.string().required('وارد کردن آدرس محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(200, 'حداکثر 200 حرف وارد کنید'),
+		address_work: Yup.string().required('وارد کردن آدرس محل کار اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(200, 'حداکثر 200 حرف وارد کنید'),
 	});
 
 	const formik = useFormik({
@@ -66,15 +68,15 @@ const Step02 = ({nextStep,prevStep,nationalCode}) => {
 				onSubmit={formik.handleSubmit}
 				className='w-full h-full flex flex-col justify-between '>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-start '>
-					<Input
-						name={'country'}
-						label={'کشور محل سکونت'}
-						formik={formik}
-						type={'text'}
-					/>
+				<Select
+							name={'country'}
+							label={'ملیت'}
+							options={Countries}
+							formik={formik}
+						/>
 					<Input
 						name={'province_id'}
-						label={'استان محل سکونت'}
+						label={'استان محل سکونت'} 
 						formik={formik}
 						type={'text'}
 					/>
