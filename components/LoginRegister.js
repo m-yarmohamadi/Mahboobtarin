@@ -25,7 +25,7 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 
 
 	return (
-		<div>
+		<div className={`${isLoading ? "blur-sm opacity-45" : ""} duration-100`}>
 			{token ? (
 				<div className={`${size==='sm' ?  `block` :  `hidden md:flex md:flex-1 md:justify-start`} relative  bg-primary-01 text-primary-02  p-2 rounded-md  justify-center items-center  w-full`}>
 					<button
