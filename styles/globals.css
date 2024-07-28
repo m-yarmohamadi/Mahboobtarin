@@ -11,9 +11,7 @@
 	/* box-sizing: content-box; */
 }
 
-<<<<<<< HEAD
-/* body {
-=======
+
 @layer components{
 	.btn{
 		@apply py-3 px-4 flex items-center justify-center font-bold rounded-lg text-sm
@@ -37,10 +35,9 @@
 }
 
 body {
->>>>>>> origin/faramarzi
 	font-family: 'IRANSans';
 	direction: rtl;
-} */
+}
 
 .error_Message{
 color: #dc2626;
