@@ -1,24 +1,17 @@
 import { useFormik } from 'formik';
-import Image from 'next/image';
 import * as Yup from "yup";
 import Input from "@/tools/Input"
 import TextArea from '@/tools/TextArea';
 import Select from '@/tools/Select';
-import { useState } from 'react';
-import moment from 'jalali-moment';
 import WorkAddress from './WorkAddress';
 import Language from './Language';
 import Grade from './Grade';
 import Expertise from './Expertise';
-import ProfessionalLicense from './ProfessionalLicense';
 import SocialMedia from './SocialMedia';
 import Address from './Address';
-import DateOfBirth from './DateOfBirth';
-import { useQuery } from '@tanstack/react-query';
-import { getProfile } from '@/services/authService';
 import useProfile from '@/hooks/useProfile';
 import Loading from '@/tools/Loading';
-
+import { Countries } from '@/data/countries';
 
 
 const gender = [
@@ -33,15 +26,9 @@ const taaholStatus = [
     { id: 3, label: 'متاهل', value: 'married' },
 ];
 
-const nationality = [
-    { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
-    { id: 2, label: 'ایرانی', value: 'iran' },
-    { id: 3, label: 'اتباع خارجی', value: 'noiran' },
-];
 
 export default function MyInfo() {
     const { user, expertise, grade, language, isLoading } = useProfile();
-
 
     const initialValues = {
         name: user?.name || "",
@@ -49,7 +36,7 @@ export default function MyInfo() {
         national_code: user?.national_code || "",
         mobile: user?.mobile || "",
         gender: user?.gender || "1",
-        nationality: user?.nationality || "1",
+        nationality: user?.nationality || "ایران",
         birthday: user?.birthday || "",
         email: user?.email || "",
         country: user?.country || "",
@@ -108,8 +95,8 @@ export default function MyInfo() {
             required: true
         },
         {
-            name: (formik.values.nationality === "ایرانی" ? "national_code" : "passport_number"),
-            label: (formik.values.nationality === "ایرانی" ? "کد ملی" : "شماره پاسپورت"),
+            name: (formik.values.nationality === "ایران" ? "national_code" : "passport_number"),
+            label: (formik.values.nationality === "ایران" ? "کد ملی" : "شماره پاسپورت"),
             required: true
         },
         {
@@ -126,8 +113,6 @@ export default function MyInfo() {
             label: "تلفن اضطراری"
         },
     ];
-
-
 
     if (isLoading) return (
         <div className='w-full h-full flex items-center justify-center'>
@@ -221,7 +206,7 @@ export default function MyInfo() {
 
                     <Select
                         label="ملیت"
-                        options={nationality}
+                        options={Countries}
                         formik={formik}
                         name="nationality"
                     />

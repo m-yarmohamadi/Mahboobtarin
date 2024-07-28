@@ -13,6 +13,7 @@ import { enToFaNumber } from '@/utils/enToFa';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import UserStep02 from './UserStep02';
 import UserStep01 from './UserStep01';
+
 const time = 90;
 const Nationality = [
 	{ id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
