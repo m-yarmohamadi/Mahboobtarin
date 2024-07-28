@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 export default function ProfilePage() {
   const { query } = useRouter();
   const { data, isLoading } = useGetExpertiseUser(query.expertiseId);
-
+  
   if (isLoading)
     return (
       <div className="w-full h-screen flex items-center justify-center">
