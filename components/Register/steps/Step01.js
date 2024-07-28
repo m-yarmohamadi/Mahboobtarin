@@ -6,8 +6,6 @@ import NextPrev from '../NextPrev';
 import axios from 'axios';
 import { toastFunction } from '@/utils/toast';
 import { useState } from 'react';
-import countries from '@/data/countries';
-
 
 const Nationality = [
 	{ id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -23,7 +21,7 @@ const gender = [
 const Step01 = ({ nextStep, prevStep, setNationalCode }) => {
 	const [error2, setError2] = useState([]);
 	const [loading, setLoading] = useState(0);
-
+	console.log();
 	const initialValues = {
 		name: '',
 		lastname: '',

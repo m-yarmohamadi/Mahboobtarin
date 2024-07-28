@@ -12,7 +12,10 @@ import OTPInput from 'react-otp-input';
 import { enToFaNumber } from '@/utils/enToFa';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import UserStep02 from './UserStep02';
+import { Countries } from '@/data/countries';
+
 const time = 90;
+
 const Nationality = [
 	{ id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
 	{ id: 2, label: 'ایرانی', value: 'iran' },
@@ -28,12 +31,13 @@ const UserStep01 = ({setActiveOtp,setNationalCode}) => {
     const [error2, setError2] = useState([]);
 	const [loading, setLoading] = useState(0);
 	const [otp, setOtp] = useState();
+	
 
 	const initialValues = {
 		name: '',
 		lastname: '',
 		gender: '',
-		nationality: '',
+		nationality: 'ایران',
 		national_code: '',
 		passport_number: '',
 		birthday: '',
@@ -133,13 +137,13 @@ const UserStep01 = ({setActiveOtp,setNationalCode}) => {
 						<Select
 							name={'nationality'}
 							label={'ملیت'}
-							options={Nationality}
+							options={Countries}
 							formik={formik}
 						/>
 					</div>
 
 					<div className='flex justify-between items-start gap-4'>
-						{formik.values.nationality !== 'اتباع خارجی' && (
+						{formik.values.nationality === 'ایران' && (
 							<Input
 								name={'national_code'}
 								label={'کد ملی'}
@@ -147,7 +151,7 @@ const UserStep01 = ({setActiveOtp,setNationalCode}) => {
 								type={'text'}
 							/>
 						)}
-						{formik.values.nationality === 'اتباع خارجی' && (
+						{formik.values.nationality !== 'ایران' && (
 							<Input
 								name={'passport_number'}
 								label={'شماره پاسپورت'}

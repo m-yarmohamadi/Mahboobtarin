@@ -1,4 +1,4 @@
-export default [
+export const Countries = [
   { value: 'Afghanistan', code: 'AF', label: 'افغانستان' },
   { value: 'land Islands', code: 'AX', label: 'جزایر الند' },
   { value: 'Albania', code: 'AL', label: 'آلبانی' },
