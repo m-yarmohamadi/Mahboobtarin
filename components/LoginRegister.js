@@ -2,11 +2,8 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { BiDockBottom, BiEditAlt, BiLeftArrow, BiLogOut, BiUser } from 'react-icons/bi';
 import Link from 'next/link';
 import { useUserDataContext } from '@/context/UserDataContext';
-<<<<<<< HEAD
 import { FaAnglesLeft } from 'react-icons/fa6';
-=======
 import useProfile from '@/hooks/useProfile';
->>>>>>> origin/faramarzi
 
 const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 	const { userData } = useUserDataContext();
@@ -28,7 +25,6 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 
 
 	return (
-<<<<<<< HEAD
 		<div>
 			{token ? (
 				<div className={`${size==='sm' ?  `block` :  `hidden md:flex md:flex-1 md:justify-start`} relative  bg-primary-01 text-primary-02  p-2 rounded-md  justify-center items-center  w-full`}>
@@ -36,18 +32,11 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 						onClick={() => setOpenMenuOptions(!openMenuOptions)}
 						className='w-full flex justify-between items-center text-center text-md'>
 						<FaAnglesLeft className={`${!openMenuOptions && `-rotate-90`} mx-2`} />
-						{userData?.gender === 'مرد' ? 'جناب آقای' : 'سرکار خانم'}{' '}
+						{user?.gender === 'مرد' ? 'جناب آقای' : 'سرکار خانم'}{' '}
 						<span className='font-bold text-white'>
-							{userData?.name} {userData?.lastname}
+							{user?.name} {user?.lastname}
 						</span>{' '}
 						خوش آمدید
-=======
-		<div className={`${isLoading ? "blur-sm opacity-50" : ""} duration-100`}>
-			{user  ? (
-				<div className='hidden relative md:flex md:flex-1 md:justify-end bg-primary-01 text-primary-02 ms-10 py-2 rounded-md  justify-center items-center  w-full'>
-					<button onClick={()=>setOpenMenuOptions(!openMenuOptions)} className='w-full text-center text-md'>
-						{user?.gender === "مرد" ? "جناب آقای" : "سرکار خانم"} <span className='font-bold text-white'>{user?.name} {user?.lastname}</span> خوش آمدید
->>>>>>> origin/faramarzi
 					</button>
 					<MenuOptions
 						ref={menuOptionsRef}
@@ -58,7 +47,7 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 							icon={<BiUser className='w-6 h-6' />}
 						/>
 						<MenuOptionsItem 
-							link="/" 
+							link="/admin/personalInfo" 
 							text="ویرایش پروفایل"
 							icon={<BiEditAlt className='w-6 h-6'/>}
 						/>
@@ -94,11 +83,7 @@ export default LoginRegister;
 
 const MenuOptions = forwardRef(function MenuOptionsComponent({children, open}, ref){
 	if(open) return(
-<<<<<<< HEAD
-		<div ref={ref} className='absolute top-12 w-60 overflow-hidden right-0 bg-white shadow-2xl rounded-md'>
-=======
 		<div ref={ref} className='absolute top-12 w-60 overflow-hidden left-0 bg-white shadow-2xl rounded-md'>
->>>>>>> origin/faramarzi
 			<ul className='flex flex-col'>
 				{children}
 			</ul>
