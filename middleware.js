@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import useProfile from "./hooks/useProfile";
-import axios from "axios";
 
 export async function middleware(req){
     const url = req.url;
