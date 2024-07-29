@@ -253,7 +253,7 @@ const DetailProfile = ({ userData }) => {
 						<span>
 							<FaCalendar />
 						</span>
-						<span>{`تاریخ پیوستن: ${userData.created_at}`}</span>
+						<span>{`تاریخ پیوستن: آذز 1402`}</span>
 					</span>
 					<span className='pt-2  '>{'تجربه: 12 سال'}</span>
 				</div>
