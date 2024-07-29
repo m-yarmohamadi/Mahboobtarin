@@ -132,12 +132,12 @@ export default function MyInfo() {
         {
             name: "name",
             label: "نام",
-            disabled: true,
+            required: true,
         },
         {
             name: "lastname",
             label: "نام خانوادگی",
-            disabled: true
+            required: true
         },
         {
             name: (formik.values.nationality === "ایران" ? "national_code" : "passport_number"),
