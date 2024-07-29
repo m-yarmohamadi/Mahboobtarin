@@ -132,7 +132,7 @@ export default function MyInfo() {
         {
             name: "name",
             label: "نام",
-            required: true
+            required: true,
         },
         {
             name: "lastname",
@@ -142,12 +142,12 @@ export default function MyInfo() {
         {
             name: (formik.values.nationality === "ایران" ? "national_code" : "passport_number"),
             label: (formik.values.nationality === "ایران" ? "کد ملی" : "شماره پاسپورت"),
-            required: true
+            disabled: true
         },
         {
             name: "mobile",
             label: "شماره موبایل",
-            required: true
+            disabled: true
         },
         {
             name: "phone",
@@ -218,6 +218,7 @@ export default function MyInfo() {
                             name={field.name}
                             formik={formik}
                             required={field?.required}
+                            disabled={field?.disabled}
                         />
                     ))}
 
@@ -308,7 +309,7 @@ export default function MyInfo() {
                     />
                 </div>
 
-                <div className='space-y-4'>
+                {/* <div className='space-y-4'>
                     <h5 className='text-gray-600 font-bold self-start'>
                         تغییر رمز عبور
                     </h5>
@@ -326,7 +327,7 @@ export default function MyInfo() {
                             type="password"
                         />
                     </div>
-                </div>
+                </div> */}
 
 
                 {
