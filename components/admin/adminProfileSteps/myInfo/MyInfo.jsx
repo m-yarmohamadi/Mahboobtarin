@@ -56,7 +56,8 @@ export default function MyInfo() {
         workAddress: address || [],
         language: language || [],
         grade: grade || [],
-        honors_description: user?.honors_description || ""
+        honors_description: user?.honors_description || "",
+        description: user?.description || ""
     };
 
     const { mutateAsync: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
@@ -78,13 +79,14 @@ export default function MyInfo() {
             grade,
             workAddress,
             honors_description,
+            description
         } = values;
 
         try {
             const { data } = await mutateUpdateProfile({
                 name, lastname, email, gender, phone, emergency_phone, marital_status, birthday, nationality, expert_description,
                 honors_description,
-                language, grade, address: workAddress, expertise
+                language, grade, address: workAddress, expertise,description
             });
             if (data.status === 200) {
                 toast.success("پروفایل شما با موفقیت ویرایش شد");
@@ -204,7 +206,7 @@ export default function MyInfo() {
                         <TextArea
                             label="درباره شما"
                             row={6}
-                            name="expert_description"
+                            name="description"
                             formik={formik}
                         />
                     </div>
@@ -252,11 +254,11 @@ export default function MyInfo() {
                         formik={formik}
                     />
 
-                    <Select
+                    <Input
                         label="ملیت"
-                        options={Countries}
                         formik={formik}
                         name="nationality"
+                        disabled={true}
                     />
 
                     <Address formik={formik} />
@@ -300,6 +302,8 @@ export default function MyInfo() {
                     <TextArea
                         label="کلیه تخصص ها و مهارت ها"
                         row={9}
+                        formik={formik}
+                        name="expert_description"
                     />
                     <TextArea
                         label="آثار و افتخارات"

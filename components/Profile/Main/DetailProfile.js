@@ -9,6 +9,7 @@ import TitleItems from './TitleItems';
 import ViewMore from './ViewMore';
 import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
 import { enToFaNumber } from '@/utils/enToFa';
+import moment from 'jalali-moment';
 const ideas = [
 	{
 		id: 1,
@@ -209,6 +210,8 @@ const product = [
 	},
 ];
 const DetailProfile = ({ userData }) => {
+	const [showCompleteBio, setShowCompleteBio] = useState(false);
+
 	const DiscountCalculation = (i, d) => {
 		return i - (i * d) / 100;
 	};
@@ -241,7 +244,7 @@ const DetailProfile = ({ userData }) => {
 					<span className='p-2 flex justify-around items-center w-full'>
 						<span className='flex justify-center items-center gap-1'>
 							<FaLocationArrow />
-							<span>قم</span>
+							<span>{userData?.nationality}</span>
 						</span>
 						<span className='flex justify-center items-center gap-1'>
 							<FcGlobe />
@@ -249,11 +252,11 @@ const DetailProfile = ({ userData }) => {
 							<span>IRI</span>
 						</span>
 					</span>
-					<span className='flex justify-center items-center gap-1'>
+					<span className='flex justify-center items-center gap-1 whitespace-nowrap'>
 						<span>
 							<FaCalendar />
 						</span>
-						<span>{`تاریخ پیوستن: آذز 1402`}</span>
+						<span>{`تاریخ پیوستن: ${moment(userData?.created_at).locale("fa").format("DD MMMM YYYY")}`}</span>
 					</span>
 					<span className='pt-2  '>{'تجربه: 12 سال'}</span>
 				</div>
@@ -280,11 +283,10 @@ const DetailProfile = ({ userData }) => {
 			{/* بیوگرافی */}
 			<div className='pt-16'>
 				<TitleItems title={'بیوگرافی'} />
-				<p className='line-clamp-5 text-justify'>
-					زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا
-					نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است. زهرا نعمتی عضو تیم ملی تیراندازی با کمان بانوان ایران است.
+				<p className={`${!showCompleteBio && "line-clamp-5 "} text-justify`}>
+					{userData?.description}
 				</p>
-				<ViewMore />
+				<ViewMore complete={showCompleteBio} onClick={()=>setShowCompleteBio(!showCompleteBio)}/>
 			</div>
 
 			{/* نشانی */}
@@ -301,8 +303,7 @@ const DetailProfile = ({ userData }) => {
 						<span className='w-full  text-justify'>{userData?.address || 'تهران، خیابان پاسداران، بوستان نهم (جعفری) پلاک 121، طبقه 5، واحد 21، مرکز زیبایی مرکز زیبایی پریستسن'} </span>
 						<div className='w-full max-w-full flex justify-start items-center pt-8 gap-2'>
 							<span className='font-bold'>تلفن:</span>
-							<span>{enToFaNumber('021-22222222')} </span>
-							<span>{enToFaNumber('021-33333333')}</span>
+							<span>{userData?.phone} </span>
 						</div>
 					</div>
 				</div>
@@ -313,11 +314,7 @@ const DetailProfile = ({ userData }) => {
 				<TitleItems title={'تخصص و مهارت'} />
 				<div className=' '>
 					<ul>
-						{userData?.expertises.map((item, index) => (
-							<li key={index}>
-								{item.title} - {item.subject}
-							</li>
-						))}
+						{userData?.expert_description}
 					</ul>{' '}
 				</div>
 			</div>
@@ -327,12 +324,7 @@ const DetailProfile = ({ userData }) => {
 				<TitleItems title={'آثار و افتخارات'} />
 				<div className=' '>
 					<ul>
-						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
-						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
-						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
-						<li>قهرمان تکواندو ارتش های جهان - اصفهان 1395</li>
-						<li>جام جهانی آلمان 1998</li>
-						<li>مسابقات جهانی ادمونتون - کانادا 1999</li>
+						{userData?.honors_description}
 					</ul>{' '}
 				</div>
 			</div>
