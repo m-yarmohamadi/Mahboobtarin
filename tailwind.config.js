@@ -30,6 +30,7 @@ export const theme = {
 		},
 		screens: {
 			xs: '475px',
+			xxs: '375px'
 		},
 	},
 	container: {

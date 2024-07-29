@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -8,12 +7,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-// Import Swiper styles
-import 'swiper/css';
+
 const modules = [Navigation, Pagination, Scrollbar, A11y];
-const width = 'w-full';
-const heigth = 'h-56';
-const slidesPerView = 1;
 const SliderComponent = ({sliderImg, slidesPerView ,width,heigth }) => {
 	return (
 		<Swiper
