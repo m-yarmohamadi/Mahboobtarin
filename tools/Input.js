@@ -1,7 +1,7 @@
 import { enToFaNumber } from '@/utils/enToFa';
 import React from 'react';
 
-const Input = ({ value, onChange, required, name, label, type, formik, display = 'block', placeholder, dir = 'rtl', autoComplete = 'off' }) => {
+const Input = ({ value, disabled, onChange, required, name, label, type, formik, display = 'block', placeholder, dir = 'rtl', autoComplete = 'off' }) => {
 	return (
 		<div className={`w-full py-1 flex flex-col justify-start justify-items-start items-start ${display}`}>
 			<label
@@ -19,6 +19,7 @@ const Input = ({ value, onChange, required, name, label, type, formik, display =
 				{...formik?.getFieldProps(name)}
 				placeholder={placeholder}
 				dir={dir}
+				disabled={disabled}
 				autoComplete={autoComplete}
 			/>
 			<div className='w-full flex justify-start items-start'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{enToFaNumber(`${formik?.errors[name]}`)}</p>}</div>
