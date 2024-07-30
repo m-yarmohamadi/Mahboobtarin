@@ -1,6 +1,6 @@
 import React from 'react';
 import { BiFilter, BiSearch, BiSlider, BiSolidDiscount } from 'react-icons/bi';
-import { FaChevronCircleLeft } from 'react-icons/fa';
+import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa';
 import { FaMasksTheater, FaSackDollar, FaUserDoctor } from 'react-icons/fa6';
 import { FcSportsMode } from 'react-icons/fc';
 import { MdOutlineSportsKabaddi, MdFolderSpecial } from 'react-icons/md';
@@ -9,6 +9,11 @@ import { GiHiking, GiBugleCall } from 'react-icons/gi';
 import { PiBuildingOfficeBold } from 'react-icons/pi';
 import { AiTwotoneExperiment } from 'react-icons/ai';
 import SliderComponent from './SliderComponent';
+import useMainPage from '@/hooks/useMainPage';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 const iconMap = {
     FaSackDollar,
@@ -26,6 +31,7 @@ const iconMap = {
     AiTwotoneExperiment,
     GiBugleCall,
 };
+
 const sliderImg = [
     { title: 'slider01', url: '/images/img001.jpg' },
     { title: 'slider02', url: '/images/img002.jpg' },
@@ -86,30 +92,51 @@ const data = [
     },
 ];
 const Baner = () => {
+    const { isLoading, categories } = useMainPage();
     return (
         <div className="xxs:container ">
-            <div className="w-5/6 mx-auto bg-white rounded-2xl -mt-16  text-gray-800">
-                <div className="w-full h-full flex justify-evenly items-start py-2 gap-2 text-xs  scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin overflow-auto">
-                    {data.map((item) => (
-                        <div
-                            key={item.id}
-                            className="flex flex-col justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer"
-                        >
-                            <span className="text-3xl p-2">
-                                {iconMap[item.icon] &&
-                                    React.createElement(iconMap[item.icon])}
-                            </span>
-                            <span className="lg:text-sm text-center">
-                                {item.title}
-                            </span>
-                        </div>
-                    ))}
+            <div className="w-5/6 mx-auto  bg-white  rounded-2xl -mt-16  text-gray-800">
+                <div className="w-full h-full relative flex justify-evenly items-start py-2 gap-2 text-xs  scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin overflow-auto">
+                    <button className="disabled:text-primary-01/30 swiper-categroy-prev flex flex-col justify-center items-center text-primary-01  hover:text-opacity-80 hover:cursor-pointer">
+                        <span className="justify-items-center text-3xl p-4 flex justify-center items-center">
+                            <FaChevronCircleRight />
+                        </span>
+                    </button>
+                    
+                    <Swiper
+                        modules={[Navigation]}
+                        slidesPerView={'auto'}
+                        autoplay
+                        navigation={{
+                            nextEl: '.swiper-categroy-next',
+                            prevEl: '.swiper-categroy-prev',
+                        }}
+                    >
+                        {!isLoading && categories.map((item,index) => {
+                            return (
+                                <SwiperSlide key={index} className='!w-auto !mr-5'>
+                                    <div
+                                        className="flex flex-col justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer"
+                                    >
+                                        <span className="text-3xl p-2">
+                                            {/* {iconMap[item.icon] && */}
+                                                {/* {React.createElement(item.icon)} */}
+                                                <div dangerouslySetInnerHTML={{ __html: item.icon }}></div>
+                                        </span>
+                                        <span className="lg:text-sm text-center">
+                                            {item.name}
+                                        </span>
+                                    </div>
+                                </SwiperSlide>
+                            );
+                        })}
+                    </Swiper>
 
-                    <div className=" h-full flex flex-col justify-center items-center w-full text-primary-01  hover:text-opacity-80 hover:cursor-pointer">
-                        <span className="w-full h-full justify-items-center text-3xl px-4 py-6 flex justify-center items-center">
+                    <button className="swiper-categroy-next disabled:text-primary-01/30 flex flex-col justify-center items-center text-primary-01  hover:text-opacity-80 hover:cursor-pointer">
+                        <span className="justify-items-center text-3xl p-4 flex justify-center items-center">
                             <FaChevronCircleLeft />
                         </span>
-                    </div>
+                    </button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-1  ">
                     <div className=" hidden md:block w-full h-36 relative  ">

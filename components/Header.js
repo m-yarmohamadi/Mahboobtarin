@@ -9,6 +9,7 @@ import { BiLogOut } from 'react-icons/bi';
 import LoginRegister from './LoginRegister';
 import useLogout from '@/hooks/useLogout';
 import { FaLayerGroup } from 'react-icons/fa';
+import useAllSettings from '@/hooks/useAllSettings';
 
 const products = [
 	{
@@ -64,11 +65,11 @@ export default function Header() {
 	const [openRegisterModal, setOpenRegisterModal] = useState(false);
 	const [token, setToken] = useState('');
 	const logout = useLogout();
-
+	const data = useAllSettings();
+		
 	useEffect(() => {
 		const tokenCooke = Cookies.get('accessToken') ? Cookies.get('accessToken') : null;
 		setToken(tokenCooke);
-		console.log(tokenCooke);
 	}, []);
 
 	return (
@@ -83,7 +84,7 @@ export default function Header() {
 
 							<img
 								className='h-12 w-auto'
-								src='/images/logo.webp'
+								src={data?.logo}
 								alt=''
 							/>
 						</Link>

@@ -15,6 +15,7 @@ export function getProfile() {
 		}
 	});
 }
+
 export function getMainPage() {
 	return http.get('/api/v1/main-page', {
 		headers:{
@@ -23,11 +24,19 @@ export function getMainPage() {
 	});
 }
 
-export function updateProfile(data) {
-	return http.post('/api/v1/users/update', data,{
+export function updateProfile(formData) {
+	return http.post('/api/v1/users/update', formData,{
 		headers:{
-			Authorization: `Bearer ${Cookies.get("accessToken")}`
+			Authorization: `Bearer ${Cookies.get("accessToken")}`,
 		}
 	});
+}
+
+export function forgetPassword(data) {
+	return http.post('/api/v1/send-forgotpass-sms', data);
+}
+
+export function changePassword(data) {
+	return http.post('/api/v1/changepass', data);
 }
 

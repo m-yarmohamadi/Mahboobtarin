@@ -7,9 +7,11 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import useMainPage from '@/hooks/useMainPage';
 
 const modules = [Navigation, Pagination, Scrollbar, A11y];
 const SliderComponent = ({sliderImg, slidesPerView ,width,heigth }) => {
+	const {isLoading,sliders} = useMainPage();
 	return (
 		<Swiper
 			modules={modules}
@@ -22,12 +24,12 @@ const SliderComponent = ({sliderImg, slidesPerView ,width,heigth }) => {
 			scrollbar={{ draggable: true }}
 			onSwiper={(swiper) => console.log(swiper)}
 			onSlideChange={() => console.log('slide change')}>
-			{sliderImg.map((item,index) => {
+			{!isLoading && sliders.map((item,index) => {
 				return (
 					<SwiperSlide key={index}>
 						<img
 							className={`${width} ${heigth} object-cover`}
-							src={item.url}
+							src={item.photo?.path}
 							alt={item.title}
 						/>
 					</SwiperSlide>

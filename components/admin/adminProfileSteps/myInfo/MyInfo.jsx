@@ -11,10 +11,14 @@ import SocialMedia from './SocialMedia';
 import Address from './Address';
 import useProfile from '@/hooks/useProfile';
 import Loading from '@/tools/Loading';
-import { Countries } from '@/data/countries';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateProfile } from '@/services/authService';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
+import Modal from '@/components/Modal';
+import ChangePasswordForm from './ChangePasswordForm';
+import useForgetPassword from '@/hooks/useForgetPassword';
+import { ThreeDots } from 'react-loader-spinner';
 
 
 const gender = [
@@ -31,6 +35,7 @@ const taaholStatus = [
 
 export default function MyInfo() {
     const { user, expertise, grade, language, isLoading, address } = useProfile();
+    const [passwordModal, setPasswordModal] = useState(false);
 
     const initialValues = {
         name: user?.name || "",
@@ -50,7 +55,7 @@ export default function MyInfo() {
         address: user?.address || "",
         specialized_system_code: user?.specialized_system_code || "",
         passport_number: user?.passport_number || "",
-        picture: '',
+        picture: "",
         expert_description: user?.expert_description || "",
         expertise: expertise || [],
         workAddress: address || [],
@@ -60,41 +65,49 @@ export default function MyInfo() {
         description: user?.description || ""
     };
 
-    const { mutateAsync: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
+    const { mutate: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
     const queryClient = useQueryClient();
 
-    const onSubmit = async (values) => {
-        const { name,
-            lastname,
-            email,
-            gender,
-            phone,
-            emergency_phone,
-            marital_status,
-            birthday,
-            nationality,
-            expert_description,
-            expertise,
-            language,
-            grade,
-            workAddress,
-            honors_description,
-            description
-        } = values;
-
-        try {
-            const { data } = await mutateUpdateProfile({
-                name, lastname, email, gender, phone, emergency_phone, marital_status, birthday, nationality, expert_description,
-                honors_description,
-                language, grade, address: workAddress, expertise,description
-            });
-            if (data.status === 200) {
-                toast.success("پروفایل شما با موفقیت ویرایش شد");
-                queryClient.invalidateQueries({queryKey:["get-profile"]});
-            }
-        } catch (error) {
-            if(error) toast.error("خطایی رخ داده")
+    const onSubmit = (values) => {
+        const profileData = {
+            name: values.name,
+            lastname: values.lastname,
+            email: values.email,
+            gender: values.gender,
+            phone: values.phone,
+            emergency_phone: values.emergency_phone,
+            marital_status: values.marital_status,
+            birthday: values.birthday,
+            expert_description: values.expert_description,
+            expertise: values.expertise,
+            language: values.language,
+            grade: values.grade,
+            address: values.workAddress,
+            honors_description: values.honors_description,
+            description: values.description,
+            avatar: values.picture
         }
+
+        const data = new FormData();
+
+        for (const key in profileData) {
+            if (Array.isArray(profileData[key]) && profileData[key].length > 0) {
+                data.append(key, JSON.stringify(profileData[key]));
+            } else {
+                data.append(key, profileData[key]);
+            }
+        }
+        mutateUpdateProfile(data, {
+            onSuccess: ({ data }) => {
+                if (data.status === 200) {
+                    toast.success("پروفایل شما با موفقیت ویرایش شد");
+                    queryClient.invalidateQueries({ queryKey: ["get-profile"] });
+                }
+            },
+            onError: (error) => {
+                toast.error("خطا در ویرایش پروفایل!")
+            }
+        })
     };
 
     const validationSchema = Yup.object({
@@ -119,8 +132,21 @@ export default function MyInfo() {
             .required('وارد کردن شماره تلفن همراه اجباری است')
             .matches(/^\+[0-9]{11,13}$/, 'لطفاً شماره موبایل معتبر وارد کنید'),
         phone: Yup.string()
-            .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید")
+            .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
+        emergency_phone: Yup.string()
+            .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
     });
+
+
+    const { forgetPasswordMutate, isForgetPassLoadingt } = useForgetPassword();
+
+    const forgetPasswordHandler = () => {
+        forgetPasswordMutate({ username: user?.mobile }, {
+            onSuccess: () => {
+                setPasswordModal(true);
+            }
+        })
+    }
 
     const formik = useFormik({
         initialValues,
@@ -193,7 +219,15 @@ export default function MyInfo() {
                                 hidden
                             />
                             <img
-                                src={formik.values.picture ? URL.createObjectURL(formik.values.picture) : "/images/defaultUser.png"}
+                                src={
+                                    formik.values.picture ?
+                                    URL.createObjectURL(formik.values.picture)
+                                    :
+                                    user?.avatar.length ?
+                                    user?.avatar[0].path 
+                                    :
+                                    "/images/defaultUser.png"
+                                }
                                 alt=''
                                 className={formik.values.picture && "absolute inset-0 m-auto object-cover w-full h-full"}
                             />
@@ -251,6 +285,7 @@ export default function MyInfo() {
                     <Input
                         label="پست الکترونیک"
                         name="email"
+                        type="email"
                         formik={formik}
                     />
 
@@ -270,8 +305,6 @@ export default function MyInfo() {
                     <Expertise formik={formik} />
 
                     <Grade formik={formik} />
-
-
 
                     {/* <ProfessionalLicense /> */}
 
@@ -313,37 +346,39 @@ export default function MyInfo() {
                     />
                 </div>
 
-                {/* <div className='space-y-4'>
-                    <h5 className='text-gray-600 font-bold self-start'>
-                        تغییر رمز عبور
-                    </h5>
-                    <Input
-                        label="رمز عبور فعلی"
-                        type="password"
-                    />
-                    <div className='flex flex-col gap-4 lg:flex-row'>
-                        <Input
-                            label="رمز عبور جدید"
-                            type="password"
-                        />
-                        <Input
-                            label="تکرار رمز عبور جدید"
-                            type="password"
-                        />
-                    </div>
-                </div> */}
+                <Modal title="تغییر رمز عبور" open={passwordModal} onClose={() => setPasswordModal(false)}>
+                    <ChangePasswordForm onClose={() => setPasswordModal(false)} username={user?.username} />
+                </Modal>
 
-
-                {
-                    isUpdating ?
-                        <div className='max-w-max btn btn--success !px-14'>
-                            <Loading />
-                        </div>
-                        :
-                        <button type='submit' className='btn btn--success !px-14'>
-                            ذخیره تغییرات
-                        </button>
-                }
+                <div className='flex flex-col sm:flex-row sm:items-center gap-4'>
+                    {
+                        isUpdating ?
+                            <div className='w-full sm:w-auto sm:max-w-max btn btn--success !px-14'>
+                                <Loading />
+                            </div>
+                            :
+                            <button type='submit' className='w-full sm:w-auto btn btn--success !px-14'>
+                                ذخیره تغییرات
+                            </button>
+                    }
+                    {
+                        isForgetPassLoadingt ?
+                            <div className='w-full sm:w-auto btn btn--outline !px-14'>
+                                <ThreeDots
+                                    visible={true}
+                                    height='20'
+                                    width='45'
+                                    color="#15aa7f"
+                                    radius='9'
+                                    ariaLabel='three-dots-loading'
+                                />
+                            </div>
+                            :
+                            <button onClick={forgetPasswordHandler} type='button' className='w-full sm:w-auto btn btn--outline'>
+                                تغییر رمز عبور
+                            </button>
+                    }
+                </div>
             </form>
         </div>
     )

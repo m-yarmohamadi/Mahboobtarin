@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaCalendar, FaLocationArrow, FaRegHeart, FaStar } from 'react-icons/fa';
 import { IoShareSocialOutline } from 'react-icons/io5';
 import PN from 'persian-number';
@@ -9,7 +9,7 @@ import TitleItems from './TitleItems';
 import ViewMore from './ViewMore';
 import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
 import { enToFaNumber } from '@/utils/enToFa';
-import moment from 'jalali-moment';
+
 const ideas = [
 	{
 		id: 1,
@@ -211,20 +211,34 @@ const product = [
 ];
 const DetailProfile = ({ userData }) => {
 	const [showCompleteBio, setShowCompleteBio] = useState(false);
+	const [isClamped, setIsClamped] = useState(false);
+	const textRef = useRef(null);
 
 	const DiscountCalculation = (i, d) => {
 		return i - (i * d) / 100;
 	};
 	const [score, setScore] = useState(0);
 	console.log(score);
+
+	useEffect(() => {
+		const lineHeight = parseInt(window.getComputedStyle(textRef.current).lineHeight, 10);
+		const maxHeight = lineHeight * 5; // حداکثر ارتفاع برای 5 خط
+	
+		if (textRef.current.scrollHeight > maxHeight) {
+		  setIsClamped(true);
+		} else {
+		  setIsClamped(false);
+		}
+	  }, [userData?.description]);
+
 	return (
 		<div className=''>
 			<div className='w-full grid grid-cols-4 -mt-14'>
 				<div className='flex flex-col justify-end items-center gap-2'>
 					<div className='w-28 h-28 rounded-full bg-primary-03 overflow-hidden flex items-center justify-center'>
 						<img
-							className={!userData?.photo && 'w-14 h-14'}
-							src={userData?.photo || '/images/defaultUser.png'}
+							className={!userData?.avatar[0] && 'w-14 h-14'}
+							src={userData?.avatar[0].path || '/images/defaultUser.png'}
 							alt={`${userData?.name} ${userData?.lastname} `}
 						/>
 					</div>
@@ -244,19 +258,19 @@ const DetailProfile = ({ userData }) => {
 					<span className='p-2 flex justify-around items-center w-full'>
 						<span className='flex justify-center items-center gap-1'>
 							<FaLocationArrow />
-							<span>{userData?.nationality}</span>
+							<span>{userData?.province_id}</span>
 						</span>
 						<span className='flex justify-center items-center gap-1'>
 							<FcGlobe />
 							<FaFlag />
-							<span>IRI</span>
+							<span>{userData?.nationality}</span>
 						</span>
 					</span>
 					<span className='flex justify-center items-center gap-1 whitespace-nowrap'>
 						<span>
 							<FaCalendar />
 						</span>
-						<span>{`تاریخ پیوستن: ${moment(userData?.created_at).locale("fa").format("DD MMMM YYYY")}`}</span>
+						<span>{`تاریخ پیوستن: ${new Date(userData?.created_at).toLocaleDateString("fa-IR", {year:"numeric", month:"long", day:"numeric"})}`}</span>
 					</span>
 					<span className='pt-2  '>{'تجربه: 12 سال'}</span>
 				</div>
@@ -283,10 +297,12 @@ const DetailProfile = ({ userData }) => {
 			{/* بیوگرافی */}
 			<div className='pt-16'>
 				<TitleItems title={'بیوگرافی'} />
-				<p className={`${!showCompleteBio && "line-clamp-5 "} text-justify`}>
+				<p ref={textRef} className={`${!showCompleteBio && "line-clamp-5 "} text-justify`}>
 					{userData?.description}
 				</p>
+				{isClamped &&
 				<ViewMore complete={showCompleteBio} onClick={()=>setShowCompleteBio(!showCompleteBio)}/>
+			}
 			</div>
 
 			{/* نشانی */}
@@ -299,8 +315,15 @@ const DetailProfile = ({ userData }) => {
 							src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12965.515589214649!2d51.45349569305417!3d35.667671352622676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f91fd8c5df094a3%3A0x9838892b68822f61!2z2YXYrNmF2YjYudmHINmI2LHYsti024wg2KLbjNiqINin2YTZhNmHINiz2LnbjNiv24w!5e0!3m2!1sfa!2s!4v1719175469337!5m2!1sfa!2s'></iframe>
 					</div>
 					<div className='w-full col-span-9 flex flex-col py-4'>
-						<span className='w-full font-bold'>آدرس:</span>
-						<span className='w-full  text-justify'>{userData?.address || 'تهران، خیابان پاسداران، بوستان نهم (جعفری) پلاک 121، طبقه 5، واحد 21، مرکز زیبایی مرکز زیبایی پریستسن'} </span>
+						{userData?.addresses.map((item)=>(
+							<div className='mb-4' key={item.id}>
+								<span className='w-full font-bold'>آدرس:</span>
+								<span className='w-full text-justify'>
+									{item.address}
+								</span>
+							</div>
+						))}
+						
 						<div className='w-full max-w-full flex justify-start items-center pt-8 gap-2'>
 							<span className='font-bold'>تلفن:</span>
 							<span>{userData?.phone} </span>
