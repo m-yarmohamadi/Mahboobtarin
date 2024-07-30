@@ -10,6 +10,8 @@ import GradeModal from './GradeModal';
 import LanguageModal from './LanguageModal';
 import { enToFaNumber } from '@/utils/enToFa';
 import { AiTwotoneDelete } from 'react-icons/ai';
+import FormData from 'form-data';
+import InputFileform from '@/tools/inputFileForm';
 
 const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 	const [error, setError] = useState([]);
@@ -18,6 +20,9 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 	const [expertise, setExpertise] = useState([]);
 	const [grade, setGrade] = useState([]);
 	const [language, setLanguage] = useState([]);
+	const [file, setFile] = useState('');
+	const [preview, setPreview] = useState('');
+
 	const initialValues = {
 		expertise,
 		grade,
@@ -26,17 +31,30 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 		confirmPassword: '',
 		picture: '',
 	};
+	const handlechange = (e) => {
+		const image = e.target.files[0];
+		setPreview(URL.createObjectURL(image));
+		setFile(image);
+		console.log('FILE=', file);
+		console.log(preview);
+	};
+
 	const onSubmit = async (values) => {
+		const formData = new FormData
+		formData.append('national_code',values.nationalCode)
+		formData.append('expertise',values.expertise)
+		formData.append('grade',values.grade)
+		formData.append('language',values.language)
+		formData.append('step',3)
+		formData.append('type','expert')
+		formData.append('avatar',values.picture)
 		setLoading(1);
 		try {
 			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
 				...values,
-				national_code: nationalCode,
-				expertise,
-				grade,
-				language,
-				step: '3',
-				type: 'expert',
+				formData,
+				type:"expert",
+				step:'3'
 			});
 			console.log(response.data);
 			setLoading(0);
@@ -246,12 +264,18 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 							formik={formik}
 						/>
 
-						<Input
-							name={'picture'}
-							label={'عکس پروفایل'}
-							type={'file'}
-							formik={formik}
-						/>
+<InputFileform
+										formik={formik}
+										name={'fileGrade'}
+										type={'file'}
+										handlechange={handlechange}
+									/>
+
+
+
+
+
+
 					</div>
 				</div>
 				<div>

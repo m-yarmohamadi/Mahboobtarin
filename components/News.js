@@ -50,7 +50,10 @@ const News = () => {
                 navigation={false}
                 loop
                 slidesPerView={1}
-                autoplay={true}
+                autoplay={{
+                    delay: 4000, // زمان تاخیر بین هر اسلاید به میلی‌ثانیه (4 ثانیه)
+                    disableOnInteraction: false, // اجازه می‌دهد اسلایدر بعد از تعامل کاربر ادامه یابد
+                }}
                 pagination={{ clickable: true }}
                 scrollbar={false}
                 onSwiper={(swiper) => console.log(swiper)}
