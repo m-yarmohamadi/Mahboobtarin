@@ -10,6 +10,8 @@ import GradeModal from './GradeModal';
 import LanguageModal from './LanguageModal';
 import { enToFaNumber } from '@/utils/enToFa';
 import { AiTwotoneDelete } from 'react-icons/ai';
+import FormData from 'form-data';
+import InputFileform from '@/tools/InputFileForm';
 
 const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 	const [error, setError] = useState([]);
@@ -18,6 +20,8 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 	const [expertise, setExpertise] = useState([]);
 	const [grade, setGrade] = useState([]);
 	const [language, setLanguage] = useState([]);
+	const [file, setFile] = useState();
+
 	const initialValues = {
 		expertise,
 		grade,
@@ -25,19 +29,35 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 		password: '',
 		confirmPassword: '',
 		picture: '',
+		type: 'expert',
+		step: '3',
+		national_code: 'nationalCode',
 	};
 	const onSubmit = async (values) => {
+		const step03Data = {
+			expertise,
+			grade,
+			language,
+			password: values.password,
+			confirmPassword: values.confirmPassword,
+			avatar: values.picture,
+			type: 'expert',
+			step: '3',
+			national_code: nationalCode,
+		};
+		const formData = new FormData();
+		for (const key in step03Data) {
+			if (Array.isArray(step03Data[key]) && step03Data[key].length > 0) {
+				formData.append(key, JSON.stringify(step03Data[key]));
+			} else {
+				formData.append(key, step03Data[key]);
+			}
+		}
+		console.log('formData');
+		console.log(formData);
 		setLoading(1);
 		try {
-			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
-				...values,
-				national_code: nationalCode,
-				expertise,
-				grade,
-				language,
-				step: '3',
-				type: 'expert',
-			});
+			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, formData);
 			console.log(response.data);
 			setLoading(0);
 			nextStep();
@@ -246,11 +266,10 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 							formik={formik}
 						/>
 
-						<Input
-							name={'picture'}
-							label={'عکس پروفایل'}
-							type={'file'}
+						<InputFileform
 							formik={formik}
+							name={'picture'}
+							type={'file'}
 						/>
 					</div>
 				</div>
