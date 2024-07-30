@@ -15,7 +15,7 @@ const InputFileform = ({ formik,label, name, type,required }) => {
                 type={type}
                 name={name}
                 required
-				// {...formik?.getFieldProps(name)}
+				 {...formik?.getFieldProps(name)}
 
             />
             {formik.touched[name] && formik.errors[name] ? (

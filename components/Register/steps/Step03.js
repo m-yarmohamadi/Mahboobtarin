@@ -29,15 +29,21 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 		password: '',
 		confirmPassword: '',
 		picture: '',
+		type: 'expert',
+		step: '3',
+		national_code: 'nationalCode',
 	};
 	const onSubmit = async (values) => {
 		const step03Data = {
-			expertise: values.expertise,
-			grade: values.grade,
-			language: values.language,
+			expertise,
+			grade,
+			language,
 			password: values.password,
 			confirmPassword: values.confirmPassword,
 			avatar: values.picture,
+			type: 'expert',
+			step: '3',
+			national_code: 'nationalCode',
 		};
 		const formData = new FormData();
 		for (const key in step03Data) {
@@ -45,14 +51,13 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 				formData.append(key, JSON.stringify(step03Data[key]));
 			} else {
 				formData.append(key, step03Data[key]);
-
 			}
 		}
 		console.log('formData');
 		console.log(formData);
 		setLoading(1);
 		try {
-			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, formData );
+			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, formData);
 			console.log(response.data);
 			setLoading(0);
 			nextStep();
