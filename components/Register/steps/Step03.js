@@ -43,7 +43,7 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 			avatar: values.picture,
 			type: 'expert',
 			step: '3',
-			national_code: 'nationalCode',
+			national_code: nationalCode,
 		};
 		const formData = new FormData();
 		for (const key in step03Data) {
