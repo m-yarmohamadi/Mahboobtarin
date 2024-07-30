@@ -141,8 +141,8 @@ export default function Sidebar({ open, onClose }) {
                     <div className='w-full flex justify-center items-center p-2'>
                         <div className="w-20 h-20 flex items-center justify-center rounded-full overflow-hidden border-4 border-white">
                             <img
-                                className={user?.photo && "absolute inset-0 m-auto object-cover w-full h-full"}
-                                src={user?.photo || "/images/defaultUser.png"}
+                                className={user?.avatar[0]?.path && "object-cover w-full h-full"}
+                                src={user?.avatar[0]?.path || "/images/defaultUser.png"}
                                 alt=''
                             />
                         </div>

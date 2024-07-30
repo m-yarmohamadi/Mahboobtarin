@@ -229,7 +229,7 @@ export default function MyInfo() {
                                     "/images/defaultUser.png"
                                 }
                                 alt=''
-                                className={formik.values.picture && "absolute inset-0 m-auto object-cover w-full h-full"}
+                                className={formik.values.picture || user?.avatar.length && "object-cover w-full h-full"}
                             />
                         </div>
                         <label htmlFor='userProfilePic' className='btn btn--secondary !px-8 cursor-pointer'>
