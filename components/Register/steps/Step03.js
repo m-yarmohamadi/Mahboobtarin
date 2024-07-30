@@ -11,7 +11,7 @@ import LanguageModal from './LanguageModal';
 import { enToFaNumber } from '@/utils/enToFa';
 import { AiTwotoneDelete } from 'react-icons/ai';
 import FormData from 'form-data';
-import InputFileform from '@/tools/inputFileForm';
+import InputFileform from '@/tools/InputFileForm';
 
 const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 	const [error, setError] = useState([]);
@@ -20,8 +20,7 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 	const [expertise, setExpertise] = useState([]);
 	const [grade, setGrade] = useState([]);
 	const [language, setLanguage] = useState([]);
-	const [file, setFile] = useState('');
-	const [preview, setPreview] = useState('');
+	const [file, setFile] = useState();
 
 	const initialValues = {
 		expertise,
@@ -31,31 +30,29 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 		confirmPassword: '',
 		picture: '',
 	};
-	const handlechange = (e) => {
-		const image = e.target.files[0];
-		setPreview(URL.createObjectURL(image));
-		setFile(image);
-		console.log('FILE=', file);
-		console.log(preview);
-	};
-
 	const onSubmit = async (values) => {
-		const formData = new FormData
-		formData.append('national_code',values.nationalCode)
-		formData.append('expertise',values.expertise)
-		formData.append('grade',values.grade)
-		formData.append('language',values.language)
-		formData.append('step',3)
-		formData.append('type','expert')
-		formData.append('avatar',values.picture)
+		const step03Data = {
+			expertise: values.expertise,
+			grade: values.grade,
+			language: values.language,
+			password: values.password,
+			confirmPassword: values.confirmPassword,
+			avatar: values.picture,
+		};
+		const formData = new FormData();
+		for (const key in step03Data) {
+			if (Array.isArray(step03Data[key]) && step03Data[key].length > 0) {
+				formData.append(key, JSON.stringify(step03Data[key]));
+			} else {
+				formData.append(key, step03Data[key]);
+
+			}
+		}
+		console.log('formData');
+		console.log(formData);
 		setLoading(1);
 		try {
-			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
-				...values,
-				formData,
-				type:"expert",
-				step:'3'
-			});
+			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, formData );
 			console.log(response.data);
 			setLoading(0);
 			nextStep();
@@ -264,18 +261,11 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 							formik={formik}
 						/>
 
-<InputFileform
-										formik={formik}
-										name={'fileGrade'}
-										type={'file'}
-										handlechange={handlechange}
-									/>
-
-
-
-
-
-
+						<InputFileform
+							formik={formik}
+							name={'picture'}
+							type={'file'}
+						/>
 					</div>
 				</div>
 				<div>

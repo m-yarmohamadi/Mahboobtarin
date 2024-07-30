@@ -1,5 +1,5 @@
 
-const InputFileform = ({ formik,label, name, type, handlechange,required }) => {
+const InputFileform = ({ formik,label, name, type,required }) => {
 
 
     return (
@@ -14,7 +14,6 @@ const InputFileform = ({ formik,label, name, type, handlechange,required }) => {
 				className='w-full bg-gray-200 text-gray-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg focus:shadow-red-300 transition-all duration-300 ease-in-out '
                 type={type}
                 name={name}
-                onChange={handlechange}
                 required
 				// {...formik?.getFieldProps(name)}
 
