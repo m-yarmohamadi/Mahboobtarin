@@ -267,7 +267,7 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 						/>
 
 						<InputFileform
-							formik={formik}
+							onChange={(e)=>formik.setFieldValue("picture", e.target.files[0])}
 							name={'picture'}
 							type={'file'}
 						/>
