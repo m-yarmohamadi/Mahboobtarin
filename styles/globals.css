@@ -69,3 +69,24 @@ font-size: x-small;
 	top: 54px;
 	left: 3px;
 }
+
+.custom-button-prev, .custom-button-next {
+	/* background-color: #0693a4; */
+	color: #0693a4;
+	padding: 7px 7px;
+	border-radius: 5px;
+	font-size: xx-large;
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+  }
+  
+  .custom-button-prev {
+	/* left: 10px; */
+  }
+  
+  .custom-button-next {
+	/* right: 10px; */
+  }

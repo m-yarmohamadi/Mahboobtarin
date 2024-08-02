@@ -66,7 +66,7 @@ export default function Header() {
 	const [token, setToken] = useState('');
 	const logout = useLogout();
 	const data = useAllSettings();
-		
+
 	useEffect(() => {
 		const tokenCooke = Cookies.get('accessToken') ? Cookies.get('accessToken') : null;
 		setToken(tokenCooke);
@@ -89,7 +89,7 @@ export default function Header() {
 							/>
 						</Link>
 					</div>
-					<div className='flex md:hidden'>
+					<div className='flex justify-end px-4 items-center w-full md:hidden'>
 						<button
 							type='button'
 							className='-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700'
@@ -174,6 +174,7 @@ export default function Header() {
 							);
 						})}
 					</PopoverGroup>
+
 					<LoginRegister
 						token={token}
 						setOpenRegisterModal={setOpenRegisterModal}
@@ -252,14 +253,18 @@ export default function Header() {
 										);
 									})}
 								</div>
-
-								<LoginRegister
-									token={token}
-									setOpenRegisterModal={setOpenRegisterModal}
-									handleLogOut={logout}
-								/>
 							</div>
 						</div>
+						<div className='pt-20'>
+												<LoginRegister
+							token={token}
+							setOpenRegisterModal={setOpenRegisterModal}
+							handleLogOut={logout}
+							size={"sm"}
+						/>
+	
+						</div>
+						
 					</DialogPanel>
 				</Dialog>
 			</header>

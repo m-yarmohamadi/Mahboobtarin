@@ -1,5 +1,14 @@
-import React from 'react';
-import { AiFillAccountBook } from 'react-icons/ai';
+import React, { useRef } from 'react';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/swiper-bundle.css';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Slider from 'react-slick';
 
 const Services = () => {
@@ -19,7 +28,6 @@ const Services = () => {
 				},
 			},
 		],
-
 	};
 	const data = [
 		{
@@ -61,17 +69,54 @@ const Services = () => {
 
 	return (
 		<div>
-			<div className=' container mx-auto  pt-12 '>
-				<div className='w-full md:p-2 flex  justify-center items-center font-extrabold text-xl md:text-2xl'>
-					چه خدماتی به شما ارائه می دهیم؟
-				</div>
-				<Slider {...settings} className='flex items-center'>
+			<div className='w-full container mx-auto  pt-12 px-0 '>
+				<div className='w-full md:p-2 flex  justify-center items-center font-extrabold text-xl md:text-2xl'>چه خدماتی به شما ارائه می دهیم؟</div>
+				<Swiper
+					modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+					navigation={{
+						nextEl: '.custom-button-next',
+						prevEl: '.custom-button-prev',
+					}}
+					loop
+					className={'px-4'}
+					slidesPerView={1}
+					spaceBetween={3}
+					breakpoints={{
+						480: {
+							slidesPerView: 1,
+							spaceBetween: 5,
+						},
+						640: {
+							slidesPerView: 2,
+							spaceBetween: 7,
+						},
+						768: {
+							slidesPerView: 3,
+							spaceBetween: 9,
+						},
+						1024: {
+							slidesPerView: 4,
+							spaceBetween: 11,
+						},
+						1280: {
+							slidesPerView: 5,
+							spaceBetween: 13,
+						},
+						1536: {
+							slidesPerView: 6,
+							spaceBetween: 15,
+						},
+					}}
+					autoplay={{ delay: 7000 }}
+					pagination={false}
+					scrollbar={false}
+					onSwiper={(swiper) => console.log(swiper)}
+					onSlideChange={() => console.log('slide change')}>
 					{data.map((item) => {
 						return (
-							<div
+							<SwiperSlide
 								key={item.id}
-								className='flex items-center justify-center justify-items-center'
-							>
+								className='flex items-center justify-center justify-items-center'>
 								<div className='w-full flex justify-center justify-items-center items-center'>
 									<div className='h-52 w-52    m-4 rounded-2xl shadow-md bg-white p-2 z-0'>
 										<div className='relative h-40 w-40 flex justify-center items-center m-4'>
@@ -85,13 +130,17 @@ const Services = () => {
 										</div>
 									</div>
 								</div>
-								<span className='flex justify-center items-center font-semibold text-primary-01 hover:font-bold hover:contrast-50 hover:cursor-pointer'>
-									{item.title}
-								</span>
-							</div>
+								<span className='flex justify-center items-center font-semibold text-primary-01 hover:font-bold hover:contrast-50 hover:cursor-pointer'>{item.title}</span>
+							</SwiperSlide>
 						);
 					})}
-				</Slider>
+					<button className='custom-button-prev px-10   -left-3'>
+						<FaChevronLeft />
+					</button>
+					<button className='custom-button-next   -right-3'>
+						<FaChevronRight />
+					</button>
+				</Swiper>
 			</div>
 		</div>
 	);

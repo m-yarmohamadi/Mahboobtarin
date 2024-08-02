@@ -1,36 +1,16 @@
-import React from 'react';
-import Slider from 'react-slick';
+import React, { useRef } from 'react';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/swiper-bundle.css';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const PopularMounth = () => {
-	var settings = {
-		rtl: true,
-		arrows: true,
-		infinite: true,
-		speed: 500,
-		rows: 1,
-		slidesToShow: 9,
-		slidesToScroll: 1,
-		responsive: [
-			{
-				breakpoint: 480, // تعیین اندازه SM
-				settings: {
-					slidesToShow: 1,
-				},
-			},
-			{
-				breakpoint: 768, // تعیین اندازه MD
-				settings: {
-					slidesToShow: 2,
-				},
-			},
-			{
-				breakpoint: 1024, // تعیین اندازه LG
-				settings: {
-					slidesToShow: 6,
-				},
-			},
-		],
-	};
 	const data = [
 		{
 			id: 1,
@@ -113,18 +93,56 @@ const PopularMounth = () => {
 	];
 
 	return (
-		<div className=' container pt-12 '>
-			<div className='p-2 flex  justify-center items-center font-extrabold text-2xl'>محبوب ترین های ماه</div>
-			<Slider
-				{...settings}
-				className='w-full  flex justify-between justify-items-center items-center my-4'>
+		<div className='w-full container mx-auto pt-12 '>
+			<div className='w-full px-2 py-4 flex  justify-center items-center justify-items-center font-extrabold text-2xl'>محبوب ترین های ماه</div>
+			<Swiper
+				modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+				navigation={{
+					nextEl: '.custom-button-next',
+					prevEl: '.custom-button-prev',
+				}}
+				loop
+				slidesPerView={1}
+				spaceBetween={3}
+
+				breakpoints={{
+					480: {
+						slidesPerView: 2,
+						spaceBetween: 5,
+					},
+					640: {
+						slidesPerView: 3,
+						spaceBetween: 10,
+					},
+					768: {
+						slidesPerView: 4,
+						spaceBetween: 10,
+					},
+					1024: {
+						slidesPerView: 6,
+						spaceBetween: 15,
+					},
+					1280: {
+						slidesPerView: 7,
+						spaceBetween: 15,
+					},
+					1536: {
+						slidesPerView: 8,
+						spaceBetween: 20,
+					},
+				}}
+				autoplay={{ delay: 4000 }}
+				pagination={false}
+				scrollbar={false}
+				onSwiper={(swiper) => console.log(swiper)}
+				onSlideChange={() => console.log('slide change')}>
 				{data.map((item) => {
 					return (
-						<div
+						<SwiperSlide
 							key={item.id}
-							className='w-full flex flex-col justify-center items-center'>
-							<div className='w-full flex justify-center items-center justify-items-center'>
-								<div className='m-1  rounded-full w-20 ring-2 ring-primary-01 ring-offset-2'>
+							className='w-full flex flex-col justify-center items-center justify-items-center text-center'>
+							<div className='w-full flex justify-center items-center justify-items-center text-center px-5'>
+								<div className='my-1  rounded-full w-20 ring-2 ring-primary-01 ring-offset-2'>
 									<img
 										className='grayscale hover:grayscale-0  rounded-full'
 										src={item.url}
@@ -134,10 +152,18 @@ const PopularMounth = () => {
 							</div>
 							<span className='pt-2 flex justify-center items-center'>{item.name}</span>
 							<span className='pb-2 flex justify-center items-center text-gray-400 text-sm'>{item.title}</span>
-						</div>
+						</SwiperSlide>
 					);
 				})}
-			</Slider>
+
+				<button className='custom-button-prev   -left-3'> 
+					<FaChevronLeft />
+				</button>
+				<button className='custom-button-next   -right-3'>
+					<FaChevronRight />
+				</button>
+			</Swiper>
+
 		</div>
 	);
 };
