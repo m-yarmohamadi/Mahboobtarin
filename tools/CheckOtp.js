@@ -4,7 +4,7 @@ import Loading from './Loading';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import { enToFaNumber } from '@/utils/enToFa';
 
-const CheckOtp = ({ otp, setOtp, handleSubmitOtp, loading, setStep, time,onResendOtp }) => {
+const CheckOtp = ({ otp, setOtp, handleSubmitOtp, loading, setStep, time, onResendOtp }) => {
 	return (
 		<div className=''>
 			<form
@@ -17,11 +17,13 @@ const CheckOtp = ({ otp, setOtp, handleSubmitOtp, loading, setStep, time,onResen
 					numInputs={5}
 					renderSeparator={<span>-</span>}
 					containerStyle={{
-						display:"flex",
-						flexDirection:"row-reverse",
-						alignItems:"center",
-						justifyContent:"center",
-						gap:"8px"
+						display: 'flex',
+						fontWeight: 900,
+						color: '#0693a4',
+						flexDirection: 'row-reverse',
+						alignItems: 'center',
+						justifyContent: 'center',
+						gap: '8px',
 					}}
 					renderInput={(props) => (
 						<input
@@ -39,7 +41,7 @@ const CheckOtp = ({ otp, setOtp, handleSubmitOtp, loading, setStep, time,onResen
 
 				<button
 					type='submit'
-					className='w-4/5 bg-primary-01 text-white py-3 rounded-md font-bold flex justify-center items-center'>
+					className='w-full bg-primary-01 text-white py-2  rounded-md font-bold flex justify-center items-center'>
 					{loading ? <Loading /> : 'ورود'}
 				</button>
 				<div>
@@ -47,7 +49,14 @@ const CheckOtp = ({ otp, setOtp, handleSubmitOtp, loading, setStep, time,onResen
 						<p>
 							<span className='font-bold text-error'>{enToFaNumber(time)}</span> ثانیه تا ارسال کد جدید
 						</p>
-					): <button  onClick={onResendOtp}  className='p-2 bg-primary-01 text-white rounded-md hover:bg-opacity-90' type="">ارسال مجدد کد تأیید</button> }
+					) : (
+						<button
+							onClick={onResendOtp}
+							className='p-2 bg-primary-01 text-white rounded-md hover:bg-opacity-90'
+							type=''>
+							ارسال مجدد کد تأیید
+						</button>
+					)}
 				</div>
 				<button
 					onClick={() => setStep(1)}

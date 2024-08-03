@@ -1,7 +1,7 @@
 import 'react-international-phone/style.css';
-import LoginComponentByPassword from '@/Login/LoginComponentByPassword';
 import LoginComponentByOtp from './LoginComponentByOtp';
 import { useState } from 'react';
+import LoginComponentByPassword from './LoginComponentByPassword';
 
 const Login2 = () => {
 	const [loginType, setLoginType] = useState('otp');
@@ -15,12 +15,12 @@ const Login2 = () => {
 							alt=''
 						/>
 					</div>
-					<div className='w-full  bg-primary-01 text-white py-2 font-bold flex justify-center items-center rounded-full'>ورود کاربران</div>
+					<div className='w-full  bg-primary-01 text-white py-2 font-bold flex justify-center items-center rounded-b-3xl'>ورود کاربران</div>
 
 					{loginType === 'pass' && <LoginComponentByPassword />}
 					{loginType === 'otp' && <LoginComponentByOtp />}
 				</div>
-				<div className='w-full flex justify-between items-center p-4'>
+				<div className='w-full flex justify-between items-center text-gray-600 pt-16'>
 					<div>
 						{loginType === 'pass' ? (
 							<span
@@ -31,7 +31,7 @@ const Login2 = () => {
 						) : (
 							<span
 								onClick={() => setLoginType('pass')}
-								className=' hover:text-primary-01 font-bold hover:cursor-pointer'>
+								className='  hover:text-primary-01 font-bold hover:cursor-pointer'>
 								ورود با نام کاربری و کلمه عبور
 							</span>
 						)}
