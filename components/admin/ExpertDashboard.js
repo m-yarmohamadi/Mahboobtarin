@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import { HiOutlineMenu } from "react-icons/hi";
 import Dashboard from "./adminProfileSteps/Dashboard";
 import MyInfo from "./adminProfileSteps/myInfo/MyInfo";
+import MyServices from "./adminProfileSteps/myservices/MyServices";
 
 const ExpertDashboard = ({ children }) => {
   const [activeStep, setActiveStep] = useState("myInfo");
@@ -16,6 +17,12 @@ const ExpertDashboard = ({ children }) => {
       }
       case "myInfo": {
         return <MyInfo />;
+      }
+      case "MyServices": {
+        return <MyServices />;
+      }
+      case "MyLinkdin": {
+        return <MyLinkdin />;
       }
 
       default: {

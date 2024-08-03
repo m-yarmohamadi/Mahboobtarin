@@ -38,7 +38,7 @@ const dataMenu = [
     {
         id: 5,
         title: 'مدیریت خدمات',
-        value: '',
+        value: 'myservices',
         quanity: '',
         icon: '',
     },
@@ -47,12 +47,12 @@ const dataMenu = [
         title: 'گالری',
         value: '',
         quanity: '',
-        icon: '',
+        icon: '', 
     },
     {
         id: 7,
         title: 'لینکدونی',
-        value: '',
+        value: 'linkdin',
         quanity: '',
         icon: '',
     },
@@ -177,7 +177,7 @@ export default function Sidebar({ open, onClose }) {
                         <div className='w-full col-span-7 flex flex-col justify-center items-start'>
                             <span>موجودی کیف پول</span>
                             <span>
-                                <span>0</span>
+                                <span>{0}</span>
                                 <span>تومان</span>
                             </span>
                         </div>
