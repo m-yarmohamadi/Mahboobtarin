@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useProfile from '@/hooks/useProfile';
-import Linkdin from './Linkdin';
+import Linkdins from './Linkdins';
 
 export default function MyLinkdin() {
 	const { linkdin } = useProfile();
@@ -59,13 +59,12 @@ export default function MyLinkdin() {
 					className='space-y-4'
 					onSubmit={formik.handleSubmit}>
 					<div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-4'>
-						<Linkdin formik={formik} />
+						<Linkdins formik={formik} />
 					</div>
 				</form>
 			</div>
 			<div className='w-full flex justify-end items-center'>
-							<button className='bg-primary-01 text-white px-8 py-2 rounded-md font-bold hover:bg-opacity-90'>ثبت تغییرات</button>
-
+				<button className='bg-primary-01 text-white px-8 py-2 rounded-md font-bold hover:bg-opacity-90'>ثبت تغییرات</button>
 			</div>
 		</div>
 	);

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { HiOutlineTrash } from 'react-icons/hi2';
 import { IoMdAdd } from 'react-icons/io';
 
-export default function linkdins({ formik }) {
+export default function Linkdins({ formik }) {
 	const [selected, setSelected] = useState({ title: 0, subject: 0, description: 0 });
 	const { linkdin } = formik.values;
 
