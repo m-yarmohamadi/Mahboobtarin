@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import Select from '@/tools/Select';
 import Input from '@/tools/Input';
+import { useGetExpertisesList } from '@/hooks/useExpertiseUser';
 const Expertise = [
 	{ id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
 	{ id: 1, label: 'پزشکی', value: 'medical' },
@@ -11,21 +12,22 @@ const Expertise = [
 	{ id: 4, label: 'معماری', value: 'architecture' },
 ];
 
-const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, setExpertise,expertise }) => {
+const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, formikExpertise }) => {
 	const initialValues = {
 		title: '',
 		subject: '',
 	};
+	const { isLoading, transformExpertises } = useGetExpertisesList();
 
 	const onSubmit = (values) => {
-		setExpertise([...expertise, values]);
+		formikExpertise.setFieldValue("expertise", [...formikExpertise.values.expertise, values]);
 		setOpenExpertiseModal(false);
 	};
 	const validationSchema = Yup.object({
 		title: Yup.string().required('وارد کردن موضوع تخصص اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(30, 'حداکثر 30 حرف وارد کنید'),
 		subject: Yup.string().required('وارد کردن عنوان تخصص اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(30, 'حداکثر 30 حرف وارد کنید'),
 	});
-
+	
 	const formik = useFormik({
 		initialValues,
 		onSubmit,
@@ -55,7 +57,7 @@ const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, setExpertis
 							<Select
 								name={'title'}
 								label={'موضوع تخصص'}
-								options={Expertise}
+								options={!isLoading ? transformExpertises  :[]}
 								formik={formik}
 							/>
 							<Input

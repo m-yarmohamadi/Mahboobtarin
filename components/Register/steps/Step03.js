@@ -12,80 +12,9 @@ import { enToFaNumber } from '@/utils/enToFa';
 import { AiTwotoneDelete } from 'react-icons/ai';
 import FormData from 'form-data';
 import InputFileform from '@/tools/InputFileForm';
+import toast from 'react-hot-toast';
 
-const Step03 = ({ nextStep, prevStep, nationalCode }) => {
-	const [error, setError] = useState([]);
-	const [loading, setLoading] = useState(0);
-
-	const [expertise, setExpertise] = useState([]);
-	const [grade, setGrade] = useState([]);
-	const [language, setLanguage] = useState([]);
-	const [file, setFile] = useState();
-
-	const initialValues = {
-		expertise,
-		grade,
-		language,
-		password: '',
-		confirmPassword: '',
-		picture: '',
-		type: 'expert',
-		step: '3',
-		national_code: 'nationalCode',
-	};
-	const onSubmit = async (values) => {
-		const step03Data = {
-			expertise,
-			grade,
-			language,
-			password: values.password,
-			confirmPassword: values.confirmPassword,
-			avatar: values.picture,
-			type: 'expert',
-			step: '3',
-			national_code: nationalCode,
-		};
-		const formData = new FormData();
-		for (const key in step03Data) {
-			if (Array.isArray(step03Data[key]) && step03Data[key].length > 0) {
-				formData.append(key, JSON.stringify(step03Data[key]));
-			} else {
-				formData.append(key, step03Data[key]);
-			}
-		}
-		console.log('formData');
-		console.log(formData);
-		setLoading(1);
-		try {
-			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, formData);
-			console.log(response.data);
-			setLoading(0);
-			nextStep();
-		} catch (error) {
-			console.log(error);
-			setLoading(0);
-			setError(error.response.data.message);
-		}
-	};
-	const validationSchema = Yup.object({
-		expertise: Yup.array().min(1, 'وارد کردن تخصص اجباری است'),
-		grade: Yup.array().min(1, 'وارد کردن مقطع تحصیلی اجباری است'),
-		language: Yup.array().min(1, 'وارد کردن زبان و گویش اجباری است'),
-		password: Yup.string().required('وارد کردن کلمه عبور اجباری است').min(6, 'حداقل 6 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		confirmPassword: Yup.string()
-			.required('وارد کردن تکرار کلمه عبور اجباری است')
-			.oneOf([Yup.ref('password'), null], 'کلمه عبور و تکرار آن باید یکسان باشند '),
-
-		picture: Yup.string(),
-	});
-
-	const formik = useFormik({
-		initialValues,
-		onSubmit,
-		validationSchema,
-		validateOnMount: true,
-		enableReinitialize: true,
-	});
+const Step03 = ({ formik, children, error }) => {
 	const [openExpertiseModal, setOpenExpertiseModal] = useState(false);
 	const [openGradeModal, setOpenGradeModal] = useState(false);
 	const [openLanguageModal, setOpenLanguageModal] = useState(false);
@@ -101,7 +30,7 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 							<div className='w-full flex justify-between items-end border-b-2 border-primary-01 pb-2'>
 								<div className='font-bold'>تخصص</div>
 								<div>
-									{expertise.length > 2 ? (
+									{formik.values.expertise.length > 2 ? (
 										<button
 											disabled
 											className='bg-primary-02 shadow-md p-2 rounded-md text-primary-04 text-xs'
@@ -120,14 +49,13 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 								<ExpertiseModal
 									openExpertiseModal={openExpertiseModal}
 									setOpenExpertiseModal={setOpenExpertiseModal}
-									setExpertise={setExpertise}
-									expertise={expertise}
+									formikExpertise={formik}
 								/>
 							</div>
 							<div className='w-full flex justify-start items-start'>{formik.errors.expertise && formik.touched.expertise && <p className='error_Message'>{enToFaNumber(`${formik.errors.expertise}`)}</p>}</div>
-							{expertise.map((item, index) => {
+							{formik.values.expertise.map((item, index) => {
 								const handleDeleteExpertise = (index) => {
-									setExpertise((prevExpertise) => prevExpertise.filter((item, i) => i !== index));
+									formik.setFieldValue("expertise", formik.values.expertise.filter((item, i) => i !== index));
 								};
 
 								return (
@@ -152,7 +80,7 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 							<div className='w-full flex justify-between items-end border-b-2 border-primary-01 pb-2'>
 								<div className='font-bold'>مقطع تحصیلی</div>
 								<div>
-									{grade.length > 2 ? (
+									{formik.values.grade.length > 2 ? (
 										<button
 											disabled
 											className='bg-primary-02 shadow-md p-2 rounded-md text-primary-04 text-xs'
@@ -172,15 +100,14 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 								<GradeModal
 									openGradeModal={openGradeModal}
 									setOpenGradeModal={setOpenGradeModal}
-									setGrade={setGrade}
-									grade={grade}
+									formikGrade={formik}
 								/>
 							</div>
 							<div className='w-full flex justify-start items-start'>{formik.errors.grade && formik.touched.grade && <p className='error_Message'>{enToFaNumber(`${formik.errors.grade}`)}</p>}</div>
 
-							{grade.map((item, index) => {
+							{formik.values.grade.map((item, index) => {
 								const handleDeleteGrade = (index) => {
-									setGrade((prevGrade) => prevGrade.filter((item, i) => i !== index));
+									formik.setFieldValue("grade", formik.values.grade.filter((item, i) => i !== index));
 								};
 								return (
 									<div
@@ -204,7 +131,7 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 							<div className='w-full flex justify-between items-end border-b-2 border-primary-01 pb-2'>
 								<div className='font-bold'>زبان و گویش</div>
 								<div>
-									{language.length > 2 ? (
+									{formik.values.language.length > 2 ? (
 										<button
 											disabled
 											className='bg-primary-02 shadow-md p-2 rounded-md text-primary-04 text-xs'
@@ -223,14 +150,13 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 								<LanguageModal
 									openLanguageModal={openLanguageModal}
 									setOpenLanguageModal={setOpenLanguageModal}
-									setLanguage={setLanguage}
-									language={language}
+									formikLanguage={formik}
 								/>
 							</div>
 							<div className='w-full flex justify-start items-start'>{formik.errors.language && formik.touched.language && <p className='error_Message'>{enToFaNumber(`${formik.errors.language}`)}</p>}</div>
-							{language.map((item, index) => {
+							{formik.values.language.map((item, index) => {
 								const handleDeleteLanguage = (index) => {
-									setLanguage((prevLanguage) => prevLanguage.filter((item, i) => i !== index));
+									formik.setFieldValue("language", formik.values.language.filter((item, i) => i !== index));
 								};
 
 								return (
@@ -252,7 +178,7 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 						</div>
 					</div>
 
-					<div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-start '>
+					<div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-start mt-7 '>
 						<Input
 							name={'password'}
 							label={'کلمه عبور'}
@@ -267,18 +193,25 @@ const Step03 = ({ nextStep, prevStep, nationalCode }) => {
 						/>
 
 						<InputFileform
-							onChange={(e)=>formik.setFieldValue("picture", e.target.files[0])}
+							onChange={(e)=>{
+								const file = e.target.files[0];
+								const maxFileSize = 2 * 1024 * 1024; // 2MB
+
+								if (file && file.size > maxFileSize) {
+									toast.error("حجم تصویر باید حداقل 2 مگابایت باشد")
+									e.target.value = null;
+								} else {
+									formik.setFieldValue("picture", e.target.files[0]);
+								}
+							}}
 							name={'picture'}
+							label="تصویر پروفایل"
 							type={'file'}
 						/>
 					</div>
 				</div>
 				<div>
-					<NextPrev
-						prevStep={prevStep}
-						loading={loading}
-						step={3}
-					/>
+					{children}
 				</div>
 			</form>
 			{error &&

@@ -22,13 +22,13 @@ const Proficiency = [
 ];
 
 
-const LanguageModal = ({ openLanguageModal, setOpenLanguageModal, setLanguage, language }) => {
+const LanguageModal = ({ openLanguageModal, setOpenLanguageModal, formikLanguage }) => {
 	const initialValues = {
 		title: '',
 		subject: '',
 	};
 	const onSubmit = (values) => {
-		setLanguage([...language, values]);
+		formikLanguage.setFieldValue("language", [...formikLanguage.values.language, values]);
 		setOpenLanguageModal(false);
 	};
 	const validationSchema = Yup.object({

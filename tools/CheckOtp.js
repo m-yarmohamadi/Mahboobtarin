@@ -3,6 +3,7 @@ import OTPInput from 'react-otp-input';
 import Loading from './Loading';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import { enToFaNumber } from '@/utils/enToFa';
+import { FaRegEdit } from 'react-icons/fa';
 
 const CheckOtp = ({ otp, setOtp, handleSubmitOtp, loading, setStep, time,onResendOtp }) => {
 	return (
@@ -50,9 +51,9 @@ const CheckOtp = ({ otp, setOtp, handleSubmitOtp, loading, setStep, time,onResen
 					): <button  onClick={onResendOtp}  className='p-2 bg-primary-01 text-white rounded-md hover:bg-opacity-90' type="">ارسال مجدد کد تأیید</button> }
 				</div>
 				<button
-					onClick={() => setStep(1)}
+					onClick={setStep}
 					type='button'>
-					<HiArrowRightOnRectangle className='w-8 h-8 text-primary-01 hover:text-opacity-80' />
+					<FaRegEdit className='w-8 h-8 text-primary-01 hover:text-opacity-80' />
 				</button>
 			</form>
 		</div>
