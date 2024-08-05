@@ -1,37 +1,38 @@
 import Select from "@/tools/Select";
-import moment from "jalali-moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function DateOfBirth({ formik }) {
-    const [birthDay, setBirthDay] = useState(1);
-    const [birthMonth, setBirthMonth] = useState(1);
-    const [birthYear, setBirthYear] = useState(1300);
 
-    const daysArray = Array.from({ length: 31 }, (_, i) => {
-        const day = (i + 1).toString();
-        return { id: day, label: day, value: day };
-    });
+const daysArray = Array.from({ length: 31 }, (_, i) => {
+    const day = (i + 1).toString();
+    return { id: day, label: day, value: day };
+});
 
-    const monthArray = [
-        { id: '1', label: 'فروردین', value: '01' },
-        { id: '2', label: 'اردیبهشت', value: '02' },
-        { id: '3', label: 'خرداد', value: '03' },
-        { id: '4', label: 'تیر', value: '04' },
-        { id: '5', label: 'مرداد', value: '05' },
-        { id: '6', label: 'شهریور', value: '06' },
-        { id: '7', label: 'مهر', value: '07' },
-        { id: '8', label: 'آبان', value: '08' },
-        { id: '9', label: 'آذر', value: '09' },
-        { id: '10', label: 'دی', value: '10' },
-        { id: '11', label: 'بهمن', value: '11' },
-        { id: '12', label: 'اسفند', value: '12' }
-    ];
+const monthArray = [
+    { id: '1', label: 'January', value: '01' },
+    { id: '2', label: 'February', value: '02' },
+    { id: '3', label: 'March', value: '03' },
+    { id: '4', label: 'April', value: '04' },
+    { id: '5', label: 'May', value: '05' },
+    { id: '6', label: 'June', value: '06' },
+    { id: '7', label: 'July', value: '07' },
+    { id: '8', label: 'August', value: '08' },
+    { id: '9', label: 'September', value: '09' },
+    { id: '10', label: 'October', value: '10' },
+    { id: '11', label: 'November', value: '11' },
+    { id: '12', label: 'December', value: '12' }
+];
 
-    const currentYearShamsi = moment(new Date()).locale('fa').format('YYYY');
-    const yearsArray = Array.from({ length: Number(currentYearShamsi) - 1300 + 1 }, (_, i) => {
-        const year = (1300 + i).toString();
-        return { id: year, label: year, value: year };
-    });
+const currentYearMiladi = new Date().getFullYear();
+const startYearMiladi = 1921;
+const yearsArray = Array.from({ length: currentYearMiladi - startYearMiladi + 1 }, (_, i) => {
+    const year = (startYearMiladi + i).toString();
+    return { id: year, label: year, value: year };
+});
+
+export default function DateOfBirth({ formik, birthday }) {
+    const [birthDay, setBirthDay] = useState(birthday.split("-")[2]);
+    const [birthMonth, setBirthMonth] = useState(birthday.split("-")[1]);
+    const [birthYear, setBirthYear] = useState(birthday.split("-")[0]);
 
     return (
         <div className={`w-full py-1 flex flex-col justify-start justify-items-start items-start`}>
@@ -47,7 +48,7 @@ export default function DateOfBirth({ formik }) {
                     value={birthDay}
                     onChange={(e) => {
                         setBirthDay(e.target.value);
-                        formik.setFieldValue("birthday", `${birthYear}/${birthMonth}/${e.target.value}`);
+                        formik.setFieldValue("birthday", `${birthYear}-${birthMonth}-${e.target.value}`);
                     }}
                 />
                 <Select
@@ -56,7 +57,7 @@ export default function DateOfBirth({ formik }) {
                     value={birthMonth}
                     onChange={(e) => {
                         setBirthMonth(e.target.value);
-                        formik.setFieldValue("birthday", `${birthYear}/${e.target.value}/${birthDay}`);
+                        formik.setFieldValue("birthday", `${birthYear}-${e.target.value}-${birthDay}`);
                     }}
                 />
                 <Select
@@ -65,7 +66,7 @@ export default function DateOfBirth({ formik }) {
                     value={birthYear}
                     onChange={(e) => {
                         setBirthYear(e.target.value);
-                        formik.setFieldValue("birthday", `${e.target.value}/${birthMonth}/${birthDay}`)
+                        formik.setFieldValue("birthday", `${e.target.value}-${birthMonth}-${birthDay}`)
                     }}
                 />
             </div>

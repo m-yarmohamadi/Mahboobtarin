@@ -39,4 +39,9 @@ export const theme = {
 		padding: '1rem',
 	},
 };
-export const plugins = [require('tailwind-scrollbar')];
+export const plugins = [
+	require('tailwind-scrollbar'),
+	require("@tailwindcss/forms")({
+		strategy: 'class',
+	  }),
+];

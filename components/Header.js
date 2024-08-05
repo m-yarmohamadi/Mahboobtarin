@@ -168,7 +168,7 @@ export default function Header() {
 								<a
 									key={item.id}
 									href='#'
-									className='py-4 px-2 hover:bg-primary-01 hover:text-white rounded-md hover:cursor-pointer'>
+									className='py-4 px-2 relative before:duration-200 before:ease-out cursor-pointer before:h-1 before:w-0 before:rounded-t-full hover:before:w-full before:absolute before:-bottom-2 before:right-0 before:bg-primary-01'>
 									{item.title}
 								</a>
 							);

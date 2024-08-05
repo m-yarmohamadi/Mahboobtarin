@@ -20,7 +20,7 @@ const Select = ({ name, label, options, formik, onChange, value }) => {
 					{options.map((item, index) => {
 						return (
 							<option
-								value={item.label}
+								value={item.value}
 								key={index}>
 								{item.label}
 							</option>
