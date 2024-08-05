@@ -13,7 +13,13 @@ export const enToFaMessages = (msg) => {
 		case 'OPT sent':
 			return 'کد تأیید به تلفن همراه شما ارسال گردید.';
 		case 'Unauthorized':
-			return 'نام کاربری یا کلمه عبور اشتباه می باشد.';
+			return 'کلمه عبور اشتباه می باشد.';
+		case 'The mobile format is invalid.':
+			return 'شماره موبایل را وارد نمایید';
+		case 'user not found or otp expire':
+			return 'کد تایید وارد شده نادرست است';
+		case 'verifycode not valid':
+			return 'کد تایید وارد شده نادرست است';
 
 		default:
 			return msg;

@@ -3,8 +3,12 @@ import { FaAngleLeft, FaFilter, FaHeart, FaRegHeart, FaShareAlt, FaSort, FaSortA
 import { FaLocationDot, FaPhoneFlip } from 'react-icons/fa6';
 import GroupItem from './GroupItem';
 import GroupTree from './GroupTree';
+import { useGetExpertisesList } from '@/hooks/useExpertiseUser';
+import Loading from '@/tools/Loading';
 
 const GroupList = () => {
+	const { data, isLoading } = useGetExpertisesList();
+	if(isLoading) return  <Loading />
 	return (
 		<div className='w-full '>
 			<div className='w-full grid grid-cols-12'>
@@ -20,7 +24,14 @@ const GroupList = () => {
 					</div>
 					<div>
 						<div className='p-4'>
-							<GroupTree label='هنر'>
+							{data.map((item)=>(
+								<GroupTree key={item.id} label={item.title}>
+									{item?.children_recursive.map((subItem) => (
+										<GroupTree key={subItem.id} label={subItem.title}/>
+									))}
+								</GroupTree>
+							))}
+							{/* <GroupTree label='هنر'>
 								<GroupTree label='زیرگروه 1-1'>
 									<GroupTree label='زیرگروه 1-1-1' />
 									<GroupTree label='زیرگروه 1-1-2' />
@@ -35,7 +46,7 @@ const GroupList = () => {
 							</GroupTree>
 							<GroupTree label='حقوق'>
 								<GroupTree label='زیرگروه 2-1' />
-							</GroupTree>
+							</GroupTree> */}
 						</div>
 					</div>
 				</div>

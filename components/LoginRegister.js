@@ -26,15 +26,17 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 	return (
 		<div className={`${isLoading ? "blur-sm opacity-45" : ""} duration-100`}>
 			{token ? (
-				<div className={`${size==='sm' ?  `block` :  `hidden md:flex md:flex-1 md:justify-start`} relative  bg-primary-01 text-primary-02  p-2 rounded-md  justify-center items-center  w-full`}>
+				<div className={`${size==='sm' ?  `block` :  `hidden md:flex md:flex-1 md:justify-start`} relative  bg-primary-01 text-primary-02  p-2 rounded-lg  justify-center items-center  w-full`}>
 					<button
 						onClick={() => setOpenMenuOptions(!openMenuOptions)}
-						className='w-full flex justify-between items-center text-center text-md'>
+						className='w-full flex justify-between items-center text-center text-sm px-2'>
 						<FaAnglesLeft className={`${!openMenuOptions && `-rotate-90`} mx-2`} />
-						{user?.gender === 'مرد' ? 'جناب آقای' : 'سرکار خانم'}{' '}
+						{user?.gender === 'مرد' ? 'جناب آقای' : 'سرکار خانم'}
+						&nbsp;
 						<span className='font-bold text-white'>
 							{user?.name} {user?.lastname}
-						</span>{' '}
+						</span>
+						&nbsp;
 						خوش آمدید
 					</button>
 					<MenuOptions
@@ -46,14 +48,14 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 							icon={<BiUser className='w-6 h-6' />}
 						/>
 						<MenuOptionsItem 
-							link="/admin/personalInfo" 
-							text="ویرایش پروفایل"
+							link="/admin/dashboard" 
+							text="داشبورد"
 							icon={<BiEditAlt className='w-6 h-6'/>}
 						/>
 						<button
 							onClick={handleLogOut}
 							className='px-4 hover:bg-gray-200 duration-200 group'>
-							<div className='text-gray-800 flex items-center gap-3'>
+							<div className='text-gray-800 flex items-center gap-3 text-sm'>
 								<BiLogOut className='w-6 h-6' />
 								<span className='border-b text-right border-gray-200 flex-1 py-3 group-last:border-none'>خروج از حساب کاربری</span>
 							</div>
@@ -61,17 +63,9 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 					</MenuOptions>
 				</div>
 			) : (
-				<div className={`${size==='sm' ?  `w-full flex flex-col  justify-center  text-center gap-1` :  `hidden md:flex md:flex-1 md:justify-start`}  w-full`}>
-					<Link href='/users/login'>
-						<div className='py-2 rounded-ss-3xl bg-primary-01 text-white font-bold px-3 hover:opacity-95 cursor-pointer'>ورود</div>
-					</Link>
-					<Link href={'/users/registerType'}>
-					<div
-						className='py-2 rounded-ee-3xl bg-primary-01 text-white font-bold px-3 hover:opacity-95 cursor-pointer'>
-						ثبت نام
-					</div>
-					</Link>
-				</div>
+				<Link href="/auth" className={`${size==='sm' ?  `w-full flex flex-col  justify-center  text-center gap-1` :  `hidden md:flex md:flex-1 md:justify-start`}  w-full bg-primary-01 hover:opacity-95 cursor-pointer py-2 px-5 rounded-xl text-white  text-sm`}>
+					ورود | ثبت نام
+				</Link>
 			)}
 		</div>
 	);
@@ -95,7 +89,7 @@ function MenuOptionsItem({ text, link, icon }) {
 		<li className='px-4 hover:bg-gray-200 duration-200 group'>
 			<Link
 				href={link}
-				className='text-gray-800 flex items-center gap-3'>
+				className='text-gray-800 flex items-center gap-3 text-sm'>
 				{icon}
 				<span className='border-b border-gray-200 flex-1 py-3 group-last:border-none'>{text}</span>
 			</Link>
