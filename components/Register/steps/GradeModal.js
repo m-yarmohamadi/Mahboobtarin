@@ -13,13 +13,13 @@ const Grade = [
 	{ id: 6, label: 'دکتری', value: 'P.H.D' },
 ];
 
-const GradeModal = ({ openGradeModal, setOpenGradeModal, setGrade, grade }) => {
+const GradeModal = ({ openGradeModal, setOpenGradeModal, formikGrade }) => {
 	const initialValues = {
 		title: '',
 		subject: '',
 	};
 	const onSubmit = (values) => {
-		setGrade([...grade, values]);
+		formikGrade.setFieldValue("grade", [...formikGrade.values.grade, values]);
 		setOpenGradeModal(false);
 	};
 	const validationSchema = Yup.object({

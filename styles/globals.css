@@ -14,7 +14,7 @@
 
 @layer components{
 	.btn{
-		@apply py-3 px-4 flex items-center justify-center font-bold rounded-lg text-sm
+		@apply py-3 px-4 flex items-center justify-center rounded-lg text-sm
 	}
 
 	.btn--primary{
@@ -58,9 +58,10 @@ font-size: x-small;
 .react-international-phone-input-container 
 .react-international-phone-country-selector 
 .react-international-phone-country-selector-button {
-    height: 3rem;
+    height: 100%;
 	padding: 0 16px;
-	border-radius: 0.5rem 0 0 0.5rem;
+	border: 1px solid #cbd5e1;
+	border-radius: 0.5rem;
 }
 
 .react-international-phone-input-container 
@@ -90,3 +91,12 @@ font-size: x-small;
   .custom-button-next {
 	/* right: 10px; */
   }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

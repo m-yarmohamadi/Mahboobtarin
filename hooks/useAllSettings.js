@@ -9,5 +9,5 @@ export default function useAllSettings() {
     refetchOnWindowFocus: true,
   });
 
-  if(!isLoading) return data;
+  if(!isLoading) return data || {};
 }

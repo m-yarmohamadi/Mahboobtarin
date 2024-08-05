@@ -21,10 +21,10 @@ export async function middleware(req){
             if(error) isAuth = false;
         })
 
-        if(!isAuth) return NextResponse.redirect(new URL("/users/login", url));
+        if(!isAuth) return NextResponse.redirect(new URL("/auth", url));
     }
 
-    if(pathname.startsWith("/users")) {
+    if(pathname.startsWith("/auth")) {
         await fetch(API_URL, {
             headers:{
                 'Authorization':cookie 
@@ -43,5 +43,5 @@ export async function middleware(req){
 }
 
 export const config = {
-    matcher : ["/admin/:path*", "/profile/:path*", "/users/:path*"]
+    matcher : ["/admin/:path*", "/profile/:path*", "/auth"]
 }
