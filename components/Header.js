@@ -84,7 +84,7 @@ export default function Header() {
 
 							<img
 								className='h-12 w-auto'
-								src={data?.logo}
+								src={data? data.logo: '/images/logo.png'}
 								alt=''
 							/>
 						</Link>
@@ -194,7 +194,7 @@ export default function Header() {
 								<span className='sr-only'>Your Company</span>
 								<img
 									className='h-8 w-auto'
-									src='/images/logo.webp'
+									src={data? data.logo: '/images/logo.png'}
 									alt=''
 								/>
 							</a>

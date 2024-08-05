@@ -284,17 +284,17 @@ const data2 = [
 ];
 const FrequentSearches = () => {
 	return (
-		<div className=' md:container px-8 md:px-0 pb-16'>
+		<div className=' md:container px-0 pb-16'>
 			<div className='md:grid grid-cols-3 gap-8 md:h-[45rem] md:max-h-[45rem] '>
 				<div className=' col-span-2 '>
 					<div className='flex justify-center items-center w-full text-2xl font-bold text-gray-800 p-2 pt-6 md:pt-2'>جستجوهای پرتکرار</div>
-					<div className='xs:h-fit md:h-[43rem] md:max-h-[43rem] flex flex-col justify-between items-center bg-white  rounded-xl shadow-lg'>
-						<div className='md:grid grid-cols-2 gap-8 h-fit max-h-fit'>
+					<div className='xs:h-fit xs:w-full md:h-[43rem] md:max-h-[43rem] flex flex-col justify-between items-center bg-white  md:rounded-xl shadow-lg'>
+						<div className='xs:flex scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin xs:overflow-x-scroll md:overflow-hidden md:grid md:grid-cols-2 gap-8 h-fit max-h-fit'>
 							{data.map((item) => {
 								return (
 									<div
 										key={item.id}
-										className=' border-b border-gray-200 py-2 w-full flex flex-col justify-center items-center'>
+										className=' border-b border-gray-200 py-2 w-full min-w-full flex flex-col justify-center items-center'>
 										<div className='w-full grid grid-cols-12'>
 											<div className='p-3 w-full col-span-3  flex justify-center items-center'>
 												<div className='p-3 border border-primary-02 rounded-xl'>
@@ -346,16 +346,16 @@ const FrequentSearches = () => {
 				</div>
 				<div className=''>
 					<div className='flex justify-center items-center w-full text-2xl font-bold text-gray-800 p-2 pt-6 md:pt-2'>محبوب ترین های هفته</div>
-					<div className='h-[43rem] max-h-[43rem] scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin  overflow-y-scroll flex flex-col justify-between items-center bg-white  rounded-xl shadow-lg '>
+					<div className='md:h-[43rem] max-h-[43rem] scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin xs:overflow-x-scroll  md:overflow-y-scroll flex md:flex-col justify-between items-center bg-white  rounded-xl shadow-lg min-w-full '>
 						{data2.map((item) => {
 							return (
-								<div key={item.id}>
-									<div className='flex justify-center items-center pt-10 pb-3'>
+								<div key={item.id} className='min-w-full  '>
+									<div className='flex justify-center items-center pt-10 pb-3 w-full min-w-full'>
 										{item.picUrl.map((pic) => {
 											return (
 												<div
 													key={pic.id}
-													className='-ms-2'>
+													className='-ms-2 '>
 													<img
 														className='w-20 h-20 rounded-full border-2 border-white'
 														src={pic.url}
@@ -365,8 +365,8 @@ const FrequentSearches = () => {
 											);
 										})}
 									</div>
-									<div className=' flex justify-end items-center gap-2  font-bold text-md'>
-										<span className=' text-primary-01'>{item.title}</span>
+									<div className='w-full    font-bold text-md flex xs:justify-center md:justify-end  xs:items-center gap-2'>
+										<span className='w-fit text-primary-01 '>{item.title}</span>
 										<span>
 											<FaChevronLeft />
 										</span>

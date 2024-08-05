@@ -78,7 +78,7 @@ const RecommendedPsychologists = () => {
 				</div>
 			</div>
 			<div className='w-full grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-center items-center gap-8 pt-4'>
-				{data.map((item) => (
+				{data.slice(0,window.innerWidth > 640 ? 5 : 4).map((item) => (
 					<div key={item.id} className='w-full bg-primary-02 shadow-md bg-opacity-30 rounded-md py-4 flex flex-col justify-center items-center'>
 						<div className=' relative w-28 h-28 rounded-full shadow-md'>
 							<img className='rounded-full w-full h-full ' src={item.url} alt='' />

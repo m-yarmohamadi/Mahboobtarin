@@ -51,11 +51,11 @@ const Baner03 = () => {
                             <div>
                                 <div className="w-full relative">
                                     <img
-                                        className="h-56 w-full object-cover"
+                                        className="h-56 w-full object-cover xs:object-left-bottom md:object-center"
 										src={item.url}
 										alt={item.title}
 										/>
-                                    <div className=" container w-full">
+                                    <div className=" hidden md:block container w-full">
                                         <div className="w-full h-full  absolute top-0 right-0 flex justify-between justify-items-center items-center">
                                             <div className="ps-8 md:ps-0 w-full text-white flex flex-col justify-center items-center gap-4">
                                                 <span className="text-2xl md:text-4xl font-extrabold">
