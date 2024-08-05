@@ -19,6 +19,7 @@ import Modal from '@/components/Modal';
 import ChangePasswordForm from './ChangePasswordForm';
 import useForgetPassword from '@/hooks/useForgetPassword';
 import { ThreeDots } from 'react-loader-spinner';
+import DateOfBirth from './DateOfBirth';
 
 
 const gender = [
@@ -215,18 +216,28 @@ export default function MyInfo() {
                                 type="file"
                                 id="userProfilePic"
                                 accept="image/*"
-                                onChange={({ target }) => formik.setFieldValue("picture", target.files[0])}
+                                onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    const maxFileSize = 2 * 1024 * 1024; // 2MB
+
+                                    if (file && file.size > maxFileSize) {
+                                        toast.error("حجم تصویر باید حداقل 2 مگابایت باشد")
+                                        e.target.value = null;
+                                    } else {
+                                        formik.setFieldValue("picture", e.target.files[0]);
+                                    }
+                                }}
                                 hidden
                             />
                             <img
                                 src={
                                     formik.values.picture ?
-                                    URL.createObjectURL(formik.values.picture)
-                                    :
-                                    user?.avatar.length ?
-                                    user?.avatar[0].path 
-                                    :
-                                    "/images/defaultUser.png"
+                                        URL.createObjectURL(formik.values.picture)
+                                        :
+                                        user?.avatar.length ?
+                                            user?.avatar[0].path
+                                            :
+                                            "/images/defaultUser.png"
                                 }
                                 alt=''
                                 className={formik.values.picture || user?.avatar.length && "object-cover w-full h-full"}
@@ -272,15 +283,15 @@ export default function MyInfo() {
                         options={taaholStatus}
                     />
 
-                    <Input
+                    {/* <Input
                         label="تاریخ تولد"
                         name="birthday"
                         formik={formik}
                         type="date"
                         required={true}
-                    />
+                    /> */}
 
-                    {/* <DateOfBirth formik={formik} /> */}
+                    <DateOfBirth formik={formik} birthday={user?.birthday} />
 
                     <Input
                         label="پست الکترونیک"

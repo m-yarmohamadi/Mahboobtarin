@@ -19,8 +19,38 @@ const gender = [
 	{ id: 3, label: 'مرد', value: 'man' },
 ];
 
-const Step01 = ({ formik, children }) => {
+const daysArray = Array.from({ length: 31 }, (_, i) => {
+    const day = (i + 1).toString();
+    return { id: day, label: day, value: day };
+});
 
+const monthsArray = [
+    { id: '1', label: 'January', value: '01' },
+    { id: '2', label: 'February', value: '02' },
+    { id: '3', label: 'March', value: '03' },
+    { id: '4', label: 'April', value: '04' },
+    { id: '5', label: 'May', value: '05' },
+    { id: '6', label: 'June', value: '06' },
+    { id: '7', label: 'July', value: '07' },
+    { id: '8', label: 'August', value: '08' },
+    { id: '9', label: 'September', value: '09' },
+    { id: '10', label: 'October', value: '10' },
+    { id: '11', label: 'November', value: '11' },
+    { id: '12', label: 'December', value: '12' }
+];
+
+const currentYearMiladi = new Date().getFullYear();
+const startYearMiladi = 1921;
+const yearsArray = Array.from({ length: currentYearMiladi - startYearMiladi + 1 }, (_, i) => {
+    const year = (startYearMiladi + i).toString();
+    return { id: year, label: year, value: year };
+});
+
+const Step01 = ({ formik, children }) => {
+	const [selectedDay, setSelectedDay] = useState(daysArray[0].value);
+	const [selectedMonth, setSelectedMonth] = useState(monthsArray[0].value);
+    const [selectedYear, setSelectedYear] = useState(yearsArray[0].value);
+	
 	return (
 		<div className='w-full h-full transition-all duration-1000 ease-in-out'>
 			<form
@@ -73,12 +103,42 @@ const Step01 = ({ formik, children }) => {
 							/>
 						)}
 					</div>
-					<Input
-						name={'birthday'}
-						label={'تاریخ تولد'}
-						formik={formik}
-						type={'date'}
-					/>
+					<div className='flex items-end gap-2'>
+						<Select
+							label="تاریخ تولد"
+							name={"day"}
+							options={daysArray}
+							onChange={(e)=>{
+								setSelectedDay(e.target.value);
+								formik.setFieldValue("birthday", `${selectedYear}-${selectedMonth}-${e.target.value}`)
+							}}
+							value={selectedDay}
+						/>
+						<Select
+							name={"month"}
+							options={monthsArray}
+							onChange={(e)=>{
+								setSelectedMonth(e.target.value);
+								formik.setFieldValue("birthday", `${selectedYear}-${e.target.value}-${selectedDay}`)
+							}}
+							value={selectedMonth}
+						/>
+						<Select
+							name={"year"}
+							options={yearsArray}
+							onChange={(e)=>{
+								setSelectedYear(e.target.value);
+								formik.setFieldValue("birthday", `${e.target.value}-${selectedMonth}-${selectedDay}`)
+							}}
+							value={selectedYear}
+						/>
+						{/* <Input
+							name={'birthday'}
+							label={'تاریخ تولد'}
+							formik={formik}
+							type={'date'}
+						/> */}
+					</div>
 					<div className='flex justify-between items-start gap-4'>
 						{/* <Input
 							name={'mobile'}

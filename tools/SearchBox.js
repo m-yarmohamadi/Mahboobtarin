@@ -6,7 +6,7 @@ import { BiSearch, BiSlider } from 'react-icons/bi';
 import { FaAngleDown } from 'react-icons/fa6';
 
 const SearchBox = () => {
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 
 	return (
 		<div className='w-full flex justify-center items-center bg-white rounded-full'>
