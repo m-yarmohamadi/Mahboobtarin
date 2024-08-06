@@ -84,7 +84,9 @@ export default function AuthPage() {
 
             case "user":
                 return (
-                    <RegisterUser />
+                    <RegisterUser 
+                        mobile={countryCode + phoneNumber}
+                    />
                 )
         }
     }

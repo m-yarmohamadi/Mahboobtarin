@@ -30,7 +30,11 @@ export default function useLogin() {
       if (status === 200) {
         toast.success("با موفقیت وارد شدید");
         Cookies.set("accessToken", access_token, { expires: 1 / 48 });
-        router.replace(`/profile/${user?.id}`);
+        if (user?.type === "user") {
+          router.replace(`/`);
+        } else {
+          router.replace(`/profile/${user?.id}`);
+        }
         return { isLogin: true };
       }
     } catch (error) {
@@ -57,7 +61,11 @@ export default function useLogin() {
       if (status === 200) {
         toast.success("با موفقیت وارد شدید");
         Cookies.set("accessToken", access_token, { expires: 1 / 48 });
-        router.replace(`/profile/${user?.id}`);
+        if (user?.type === "user") {
+          router.replace(`/`);
+        } else {
+          router.replace(`/profile/${user?.id}`);
+        }
         return { isLogin: true };
       }
     } catch (error) {

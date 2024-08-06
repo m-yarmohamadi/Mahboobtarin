@@ -23,7 +23,7 @@ const initialValuesStep1 = {
 	name: '',
 	lastname: '',
 	gender: '',
-	nationality: 'ایران',
+	nationality: 'Iran',
 	national_code: '',
 	passport_number: '',
 	birthday: '',

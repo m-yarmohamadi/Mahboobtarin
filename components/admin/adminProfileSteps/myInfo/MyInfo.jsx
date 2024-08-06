@@ -20,7 +20,7 @@ import ChangePasswordForm from './ChangePasswordForm';
 import useForgetPassword from '@/hooks/useForgetPassword';
 import { ThreeDots } from 'react-loader-spinner';
 import DateOfBirth from './DateOfBirth';
-
+import { Countries } from "@/data/countries";
 
 const gender = [
     { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -37,6 +37,7 @@ const taaholStatus = [
 export default function MyInfo() {
     const { user, expertise, grade, language, isLoading, address } = useProfile();
     const [passwordModal, setPasswordModal] = useState(false);
+    const getNationality = Countries.filter((c) => c.value === user?.nationality)[0]?.label;
 
     const initialValues = {
         name: user?.name || "",
@@ -47,7 +48,7 @@ export default function MyInfo() {
         emergency_phone: user?.emergency_phone || "",
         marital_status: user?.marital_status || "1",
         gender: user?.gender || "1",
-        nationality: user?.nationality || "ایران",
+        nationality: getNationality || "Iran",
         birthday: user?.birthday || "",
         email: user?.email || "",
         country: user?.country || "",
@@ -65,7 +66,6 @@ export default function MyInfo() {
         honors_description: user?.honors_description || "",
         description: user?.description || ""
     };
-
     const { mutate: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
     const queryClient = useQueryClient();
 
@@ -138,7 +138,6 @@ export default function MyInfo() {
             .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
     });
 
-
     const { forgetPasswordMutate, isForgetPassLoadingt } = useForgetPassword();
 
     const forgetPasswordHandler = () => {
@@ -169,8 +168,8 @@ export default function MyInfo() {
             required: true
         },
         {
-            name: (formik.values.nationality === "ایران" ? "national_code" : "passport_number"),
-            label: (formik.values.nationality === "ایران" ? "کد ملی" : "شماره پاسپورت"),
+            name: (getNationality === "ایران" ? "national_code" : "passport_number"),
+            label: (getNationality === "ایران" ? "کد ملی" : "شماره پاسپورت"),
             disabled: true
         },
         {
