@@ -5,11 +5,10 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import UserStep from './steps/UserStep';
 
-const RegisterUser = () => {
+const RegisterUser = ({mobile}) => {
 	const router = useRouter();
 	const [nationalCode, setNationalCode] = useState();
 	const [step, setStep] = useState(1);
-	console.log(step);
 
 	const nextStep = () => {
 		if (step < 5) {
@@ -28,19 +27,23 @@ const RegisterUser = () => {
 	};
 
 	return (
-		<div className='w-full  max-w-full h-full max-h-full box-content'>
+		<div className='w-full flex flex-col gap-7'>
 			<Head>
 				<title>{`${process.env.NEXT_PUBLIC_SITE_NAME} |   ثبت نام کاربران`}</title>
 			</Head>
 			<Header />
-			<div className='  w-full h-full pb-8 '>
-				<div className='w-full p-4 my-8 bg-primary-01 flex justify-center items-center text-white font-bold text-2xl '>ثبت نام کاربران</div>
-				<div className='container bg-white bg-opacity-70 border border-primary-01 px-4 md:px-16 py-4 rounded-md'>
-					<div className='pt-8 md:h-96 md:max-h-96'>
+			<div className='w-full max-w-screen-lg mx-auto bg-white rounded-lg shadow-sm p-6'>
+				<h1 className='text-xl font-semibold text-slate-800 text-center pb-4 mb-4 border-b border-slate-300'>
+					ثبت نام کاربران
+				</h1>
+
+				<div className=''>
+					<div className=''>
 						<UserStep
 							setNationalCode={setNationalCode}
 							nextStep={nextStep}
 							prevStep={prevStep}
+							mobile={mobile}
 						/>
 					</div>
 				</div>

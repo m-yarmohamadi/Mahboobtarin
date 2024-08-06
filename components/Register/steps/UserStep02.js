@@ -7,57 +7,53 @@ import { useState } from 'react';
 import Loading from '@/tools/Loading';
 import { Router, useRouter } from 'next/router';
 import OTPInput from 'react-otp-input';
+import { useMutation } from '@tanstack/react-query';
+import { register } from '@/services/authService';
+import toast from 'react-hot-toast';
+import Cookies from 'js-cookie';
 const time = 90;
 
-const UserStep02 = ({ setActiveOtp, nationalCode }) => {
-	const [loading, setLoading] = useState(0);
+const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
 	const router = useRouter();
+	const { mutate:mutateRegister, isPending } = useMutation({mutationFn:register});
 
-	const initialValues = {
-		verifycode: '',
-	};
-	const onSubmit = async (values) => {
-		setLoading(1);
-		try {
-			const response = await axios.post(`https://mahboobtarin.mostafaomrani.ir/api/v1/register`, {
-				...values,
-				national_code: nationalCode,
-				verifycode: values.verifycode,
-				step: '5',
-				type: 'user',
-			});
-			if (response.data.status === 200) {
-				toastFunction(response?.data?.message, 'success');
-				setLoading(0);
-				router.push('/');
-			} else {
-				console.log('خطای ناشناخته');
-				setLoading(0);
+	const onSubmit = (values) => {
+		mutateRegister({
+			...values,
+			mobile,
+			check_user_register:false,
+			step:"5",
+			type:"user",
+			national_code:nationalCode
+		},{
+			onSuccess:({data})=>{
+				if(data && data.status === 200){
+					router.replace("/");
+					Cookies.set("accessToken", data.token, {expires:1/48});
+				}
+			},
+			onError:(error)=>{
+				if(error?.response?.data?.message[0] === "verifycode not valid"){
+					formik.setFieldError("verifycode", "کد تایید وارد شده نادرست است");
+				} else {
+					toast.error("خطایی رخ داده!");
+				}
 			}
-			console.log(response.data);
-			console.log(response.data.status);
-			setLoading(0);
-		} catch (error) {
-			console.log(error);
-			setLoading(0);
-			toastFunction(response?.data?.message, 'error');
-		}
-	};
-	const validationSchema = Yup.object({
-		verifycode: Yup.string().required('وارد کردن کد تأیید 5 رقمی اجباری است').min(5, 'لطفا 5 رقم وارد کنید').max(5, 'لطفا 5 رقم وارد کنید'),
-	});
+		});
+	}
 
 	const formik = useFormik({
-		initialValues,
+		initialValues:{verifycode: ''},
 		onSubmit,
-		validationSchema,
-		validateOnMount: true,
+		validationSchema:Yup.object({
+			verifycode: Yup.string()
+				.required('وارد کردن کد تأیید 5 رقمی اجباری است')
+				.min(5, 'لطفا 5 رقم وارد کنید')
+				.max(5, 'لطفا 5 رقم وارد کنید')
+		}),
 		enableReinitialize: true,
 	});
-	const handleChange = (otp) => {
-		// بروزرسانی مقدار verifycode در formik
-		formik.setFieldValue('verifycode', otp);
-	  };
+
 
 	return (
 		<div>
@@ -66,54 +62,39 @@ const UserStep02 = ({ setActiveOtp, nationalCode }) => {
 					onSubmit={formik.handleSubmit}
 					className='w-full h-full flex flex-col justify-between '>
 					<div className='w-full h-full flex flex-col justify-between'>
-						<div className=' w-full flex flex-col justify-center items-center gap-4 '>
-							<p className='text-justify  w-full flex justify-center items-center font-black text-primary-01  mb-4'>لطفا کد ارسال شده به تلفن همراه خود را در اینجا درج کنید</p>
-							{/* <div className=' flex justify-center items-start w-1/5'>
-								<Input
-									name={'verifycode'}
-									label={'کد تأیید'}
-									type={'text'}
-									formik={formik}
-									display='flex'
-								/>
-							</div> */}
+						<div className=' w-full flex flex-col justify-center items-center gap-4 mt-7'>
 							<div>
-								<OTPInput
-									value={formik.values.verifycode}
-									onChange={handleChange}
-									numInputs={5}
-									renderSeparator={<span>-</span>}
-									containerStyle={{
-										display: 'flex',
-										flexDirection: 'row-reverse',
-										alignItems: 'center',
-										justifyContent: 'center',
-										gap: '8px',
-									}}
-									renderInput={(props) => (
-										<input
-											type='number'
-											{...props}
-										/>
-									)}
-									inputStyle={{
-										width: '2.5rem',
-										padding: '0.5rem 0.2rem',
-										border: '1px solid #15aa7f',
-										borderRadius: '0.5rem',
-									}}
-								/>
+								<div className=" w-auto flex flex-col justify-center items-center gap-2  ">
+									<p className=" w-full flex items-center justify-center font-medium text-sm text-gray-700 mb-4">
+									لطفا کد ارسال شده به تلفن همراه خود را در اینجا درج کنید
+									</p>
+									<OTPInput
+										value={formik.values.verifycode}
+										onChange={(e)=>formik.setFieldValue("verifycode", e)}
+										numInputs={5}
+										shouldAutoFocus
+										containerStyle="flex flex-row-reverse items-center justify-center gap-3"
+										renderInput={(props) => <input type="number" {...props} />}
+										inputStyle="!w-full !max-w-12 !h-12 bg-white border border-slate-300 !rounded-lg text-xl text-slate-800 outline-none focus:!border-primary-01"
+									/>
+									{
+									formik.errors.verifycode &&
+										<span className='text-error text-xs '>
+											{formik.errors.verifycode}
+										</span>
+									}
+								</div>
 							</div>
 							<div className='w-full flex justify-center items-center'>
 								<button
-									className=' py-2 w-1/5 text-white font-bold bg-primary-01 rounded-md shadow-md hover:opacity-90'
+									className='btn btn--primary w-full max-w-sm'
 									type='submit'>
-									{loading ? (
+									{isPending ? (
 										<span className='w-full flex justify-center items-center'>
 											<Loading />
 										</span>
 									) : (
-										'ثبت فرم'
+										'ثبت'
 									)}
 								</button>
 							</div>

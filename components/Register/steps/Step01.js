@@ -50,7 +50,8 @@ const Step01 = ({ formik, children }) => {
 	const [selectedDay, setSelectedDay] = useState(daysArray[0].value);
 	const [selectedMonth, setSelectedMonth] = useState(monthsArray[0].value);
     const [selectedYear, setSelectedYear] = useState(yearsArray[0].value);
-	
+	const sortedCountries = [...Countries].sort((a, b) => a.label.localeCompare(b.label, 'fa'));
+		
 	return (
 		<div className='w-full h-full transition-all duration-1000 ease-in-out'>
 			<form
@@ -80,13 +81,13 @@ const Step01 = ({ formik, children }) => {
 						<Select
 							name={'nationality'}
 							label={'کشور محل اقامت'}
-							options={Countries}
+							options={sortedCountries}
 							formik={formik}
 						/>
 					</div>
 
 					<div className='flex justify-between items-start gap-4'>
-						{formik.values.nationality === 'ایران' && (
+						{formik.values.nationality === 'Iran' && (
 							<Input
 								name={'national_code'}
 								label={'کد ملی'}
@@ -94,7 +95,7 @@ const Step01 = ({ formik, children }) => {
 								type={'text'}
 							/>
 						)}
-						{formik.values.nationality !== 'ایران' && (
+						{formik.values.nationality !== 'Iran' && (
 							<Input
 								name={'passport_number'}
 								label={'شماره پاسپورت'}

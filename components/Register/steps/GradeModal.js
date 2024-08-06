@@ -5,12 +5,12 @@ import Select from '@/tools/Select';
 import Input from '@/tools/Input';
 const Grade = [
 	{ id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-	{ id: 1, label: 'زیر دیپلم', value: 'underDiploma' },
-	{ id: 2, label: 'دیپلم', value: 'diploma' },
-	{ id: 3, label: 'کاردانی', value: 'AssociateDegree' },
-	{ id: 4, label: 'کارشناسی', value: 'BS' },
-	{ id: 5, label: 'کارشناسی ارشد', value: 'MSc' },
-	{ id: 6, label: 'دکتری', value: 'P.H.D' },
+	{ id: 1, label: 'زیر دیپلم', value: 'زیر دیپلم' },
+	{ id: 2, label: 'دیپلم', value: 'دیپلم' },
+	{ id: 3, label: 'کاردانی', value: 'کاردانی' },
+	{ id: 4, label: 'کارشناسی', value: 'کارشناسی' },
+	{ id: 5, label: 'کارشناسی ارشد', value: 'کارشناسی ارشد' },
+	{ id: 6, label: 'دکتری', value: 'دکتری' },
 ];
 
 const GradeModal = ({ openGradeModal, setOpenGradeModal, formikGrade }) => {
@@ -23,7 +23,7 @@ const GradeModal = ({ openGradeModal, setOpenGradeModal, formikGrade }) => {
 		setOpenGradeModal(false);
 	};
 	const validationSchema = Yup.object({
-		title: Yup.string().required('وارد کردن مقطع تحصیلی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(30, 'حداکثر 30 حرف وارد کنید'),
+		title: Yup.string().required('وارد کردن مقطع تحصیلی اجباری است'),
 		subject: Yup.string().required('وارد کردن نام محل تحصیل اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(30, 'حداکثر 30 حرف وارد کنید'),
 	});
 

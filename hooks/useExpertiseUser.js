@@ -24,7 +24,7 @@ export function useGetExpertisesList() {
   });
 
   const transformExpertises = !isLoading && data.map((item) => ({
-    value: item.id.toString(),
+    value: item.title,
     label: item.title,
   }));
 

@@ -31,7 +31,7 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 						onClick={() => setOpenMenuOptions(!openMenuOptions)}
 						className='w-full flex justify-between items-center text-center text-sm px-2'>
 						<FaAnglesLeft className={`${!openMenuOptions && `-rotate-90`} mx-2`} />
-						{user?.gender === 'مرد' ? 'جناب آقای' : 'سرکار خانم'}
+						{user?.gender === 'man' ? 'جناب آقای' : 'سرکار خانم'}
 						&nbsp;
 						<span className='font-bold text-white'>
 							{user?.name} {user?.lastname}
@@ -42,13 +42,15 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 					<MenuOptions
 						ref={menuOptionsRef}
 						open={openMenuOptions}>
-						<MenuOptionsItem
-							link={`/profile/${user?.id}`}
-							text='پروفایل'
-							icon={<BiUser className='w-6 h-6' />}
-						/>
+						{user?.type !== "user" &&
+							<MenuOptionsItem
+								link={`/profile/${user?.id}`}
+								text='پروفایل'
+								icon={<BiUser className='w-6 h-6' />}
+							/>
+						}
 						<MenuOptionsItem 
-							link="/admin/dashboard" 
+							link={user?.type === "user" ? "/user/profile" : "/admin/dashboard"} 
 							text="داشبورد"
 							icon={<BiEditAlt className='w-6 h-6'/>}
 						/>

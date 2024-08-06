@@ -2,23 +2,24 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import Select from '@/tools/Select';
+
 const Language = [
 	{ id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-	{ id: 1, label: 'ترکی', value: 'torki' },
-	{ id: 2, label: 'کردی', value: 'kordi' },
-	{ id: 3, label: 'لری', value: 'lori' },
-	{ id: 4, label: 'تالشی', value: 'taleshi' },
-	{ id: 5, label: 'عربی', value: 'arabic' },
-	{ id: 6, label: 'بلوچ', value: 'baloochi' },
+	{ id: 1, label: 'ترکی', value: 'ترکی' },
+	{ id: 2, label: 'کردی', value: 'کردی' },
+	{ id: 3, label: 'لری', value: 'لری' },
+	{ id: 4, label: 'تالشی', value: 'تالشی' },
+	{ id: 5, label: 'عربی', value: 'عربی' },
+	{ id: 6, label: 'بلوچ', value: 'بلوچ' },
 ];
 const Proficiency = [
 	{ id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-	{ id: 1, label: 'خیلی ضعیف', value: 'VeryWeak' },
-	{ id: 2, label: 'ضعیف', value: 'weak' },
-	{ id: 3, label: 'متوسط', value: 'medium' },
-	{ id: 4, label: 'خوب', value: 'good' },
-	{ id: 5, label: 'خیلی خوب', value: 'veryGood' },
-	{ id: 6, label: 'عالی', value: 'Excellent' },
+	{ id: 1, label: 'خیلی ضعیف', value: 'خیلی ضعیف' },
+	{ id: 2, label: 'ضعیف', value: 'ضعیف' },
+	{ id: 3, label: 'متوسط', value: 'متوسط' },
+	{ id: 4, label: 'خوب', value: 'خوب' },
+	{ id: 5, label: 'خیلی خوب', value: 'خیلی خوب' },
+	{ id: 6, label: 'عالی', value: 'عالی' },
 ];
 
 
@@ -32,8 +33,8 @@ const LanguageModal = ({ openLanguageModal, setOpenLanguageModal, formikLanguage
 		setOpenLanguageModal(false);
 	};
 	const validationSchema = Yup.object({
-		title: Yup.string().required('وارد کردن زبان و گویش اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
-		subject: Yup.string().required('وارد کردن میزان تسلط اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+		title: Yup.string().required('وارد کردن زبان و گویش اجباری است'),
+		subject: Yup.string().required('وارد کردن میزان تسلط اجباری است'),
 	});
 
 	const formik = useFormik({

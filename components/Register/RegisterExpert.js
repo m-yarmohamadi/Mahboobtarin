@@ -16,6 +16,7 @@ import { useMutation } from '@tanstack/react-query';
 import { register } from '@/services/authService';
 import toast from 'react-hot-toast';
 import { enToFaMessages } from '@/utils/enToFaMessages';
+import Cookies from 'js-cookie';
 
 
 // values steps
@@ -23,7 +24,7 @@ const initialValuesStep1 = {
 	name: '',
 	lastname: '',
 	gender: '',
-	nationality: 'ایران',
+	nationality: 'Iran',
 	national_code: '',
 	passport_number: '',
 	birthday: '',
@@ -31,8 +32,8 @@ const initialValuesStep1 = {
 }
 
 const initialValuesStep2 = {
-	country: 'ایران',
-	province_id: '',
+	country: 'Iran',
+	province_id: '1',
 	city_id: '',
 	address: '',
 	address_work: '',
@@ -74,8 +75,8 @@ const validationSchemaStep1 = Yup.object({
 
 const validationSchemaStep2 = Yup.object({
 	country: Yup.string().required('وارد کردن کشور محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(20, 'حداکثر 20 حرف وارد کنید'),
-	province_id: Yup.string().required('وارد کردن استان محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(20, 'حداکثر 20 حرف وارد کنید'),
-	city_id: Yup.string().required('وارد کردن شهر محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(20, 'حداکثر 20 حرف وارد کنید'),
+	province_id: Yup.string().required('وارد کردن استان محل سکونت اجباری است'),
+	city_id: Yup.string().required('وارد کردن شهر محل سکونت اجباری است'),
 	address: Yup.string().required('وارد کردن آدرس محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(200, 'حداکثر 200 حرف وارد کنید'),
 	address_work: Yup.string().required('وارد کردن آدرس محل کار اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(200, 'حداکثر 200 حرف وارد کنید'),
 });
@@ -284,9 +285,10 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial=""}) => {
 			national_code:nationalCode || formikStep1.values.national_code
 		}, {
 			onSuccess:({data})=>{
+				console.log(data);
 				if(data){
-					nextStep();
-					router.replace("/auth");
+					Cookies.set("accessToken", data.token, {expires:1/48});
+					router.replace("/");
 				}
 			},
 			onError:(error)=>{
