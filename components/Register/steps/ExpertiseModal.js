@@ -18,10 +18,11 @@ const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, formikExper
 		subject: '',
 	};
 	const { isLoading, transformExpertises } = useGetExpertisesList();
-
-	const onSubmit = (values) => {
+	
+	const onSubmit = (values, {resetForm }) => {
 		formikExpertise.setFieldValue("expertise", [...formikExpertise.values.expertise, values]);
 		setOpenExpertiseModal(false);
+		resetForm();
 	};
 	const validationSchema = Yup.object({
 		title: Yup.string().required('وارد کردن موضوع تخصص اجباری است'),
@@ -57,7 +58,7 @@ const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, formikExper
 							<Select
 								name={'title'}
 								label={'موضوع تخصص'}
-								options={!isLoading ? transformExpertises  :[]}
+								options={!isLoading ? [{id:-1, value:"", label:"موضوع تخصص را انتخاب کنید"}, ...transformExpertises] : [{id:-1, value:"", label:"موضوع تخصص را انتخاب کنید"}]}
 								formik={formik}
 							/>
 							<Input

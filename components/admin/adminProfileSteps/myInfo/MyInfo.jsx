@@ -123,11 +123,11 @@ export default function MyInfo() {
             then: (schema) => schema.required('وارد کردن کدملی اجباری است').matches(/^[0-9]{10}$/, 'لطفاً کد ملی معتبر 10 رقمی وارد کنید'),
             otherwise: (schema) => schema,
         }),
-        passport_number: Yup.string().when('nationality', {
-            is: (value) => value !== 'ایران',
-            then: (schema) => schema.required('وارد کردن شماره پاسپورت اجباری است').matches(/^[0-9]{8}$/, 'لطفاً شماره پاسپورت معتبر 8 رقمی وارد کنید'),
-            otherwise: (schema) => schema,
-        }),
+        // passport_number: Yup.string().when('nationality', {
+        //     is: (value) => value !== 'ایران',
+        //     then: (schema) => schema.required('وارد کردن شماره پاسپورت اجباری است').matches(/^[0-9]{8}$/, 'لطفاً شماره پاسپورت معتبر 8 رقمی وارد کنید'),
+        //     otherwise: (schema) => schema,
+        // }),
 
         birthday: Yup.string().required('وارد کردن تاریخ تولد اجباری است'),
         mobile: Yup.string()
@@ -307,7 +307,7 @@ export default function MyInfo() {
                         disabled={true}
                     />
 
-                    <Address formik={formik} />
+                    <Address formik={formik} isLoading={isLoading}/>
 
                     <WorkAddress formik={formik} />
 
