@@ -18,9 +18,10 @@ const GradeModal = ({ openGradeModal, setOpenGradeModal, formikGrade }) => {
 		title: '',
 		subject: '',
 	};
-	const onSubmit = (values) => {
+	const onSubmit = (values, {resetForm}) => {
 		formikGrade.setFieldValue("grade", [...formikGrade.values.grade, values]);
 		setOpenGradeModal(false);
+		resetForm();
 	};
 	const validationSchema = Yup.object({
 		title: Yup.string().required('وارد کردن مقطع تحصیلی اجباری است'),

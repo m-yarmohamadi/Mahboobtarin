@@ -1,7 +1,7 @@
 import { enToFaNumber } from '@/utils/enToFa';
 import React from 'react';
 
-const Select = ({ name, label, options, formik, onChange, value }) => {
+const Select = ({ name, label, options, formik, onChange, value, disabled, onClickSelect }) => {
 	return (
 		<div className='w-full py-1 flex flex-col justify-start justify-items-start items-start'>
 			<label
@@ -16,6 +16,8 @@ const Select = ({ name, label, options, formik, onChange, value }) => {
 					name={name}
 					value={value}
 					onChange={onChange}
+					onClick={onClickSelect}
+					disabled={disabled}
 					{...formik?.getFieldProps(name)}>
 					{options.map((item, index) => {
 						return (
@@ -27,7 +29,13 @@ const Select = ({ name, label, options, formik, onChange, value }) => {
 						);
 					})}
 				</select>
-				<div className='w-full flex justify-start items-start mt-2'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{enToFaNumber(`${formik?.errors[name]}`)}</p>}</div>
+				{formik?.errors[name] && formik?.touched[name] && 
+				<div className='w-full flex justify-start items-start mt-2'>
+					<p className='error_Message'>
+						{enToFaNumber(`${formik?.errors[name]}`)}
+					</p>
+				</div>
+				}
 			</div>
 		</div>
 	);

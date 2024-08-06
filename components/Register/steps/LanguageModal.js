@@ -28,9 +28,10 @@ const LanguageModal = ({ openLanguageModal, setOpenLanguageModal, formikLanguage
 		title: '',
 		subject: '',
 	};
-	const onSubmit = (values) => {
+	const onSubmit = (values, {resetForm}) => {
 		formikLanguage.setFieldValue("language", [...formikLanguage.values.language, values]);
 		setOpenLanguageModal(false);
+		resetForm();
 	};
 	const validationSchema = Yup.object({
 		title: Yup.string().required('وارد کردن زبان و گویش اجباری است'),

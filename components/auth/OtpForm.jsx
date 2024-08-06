@@ -37,7 +37,9 @@ export default function OtpForm({ onLoginPassword, mobile, onResendOtp, setStep,
                     router.replace("/");
                 }
             } catch (error) {
-                if (error?.response?.data?.status === 422) {
+                console.log(error?.response?.data?.status === 422 );
+                console.log(error.response);
+                if (error?.response?.status === 422 && error?.response?.data?.message[0] === "The registration process has not been completed.") {
                     setStep(error?.response?.data?.user?.type === "motekhases" ? "expert" : "user");
                     setNationalCodeInitial(error?.response?.data?.user?.national_code);
                     setRegisterStep(Number(error?.response?.data?.user?.step) + 1);

@@ -33,7 +33,7 @@ const initialValuesStep1 = {
 
 const initialValuesStep2 = {
 	country: 'Iran',
-	province_id: '1',
+	province_id: '',
 	city_id: '',
 	address: '',
 	address_work: '',
@@ -69,7 +69,20 @@ const validationSchemaStep1 = Yup.object({
 		otherwise: (schema) => schema,
 	}),
 
-	birthday: Yup.string().required('وارد کردن تاریخ تولد اجباری است'),
+	birthday: Yup.string()
+		.required('وارد کردن تاریخ تولد اجباری است')
+		.test("is-valid-date", "تاریخ تولد را کامل وارد کنید", value => {
+			const [year, month, day] = value.split("-");
+			if (year === "undefined" 
+				|| month === "undefined" 
+				|| day === "undefined"
+				|| year === ""
+				|| month === ""
+				|| day === ""
+				
+			) return false; 
+			return true;
+		  }),
 	email: Yup.string().email('لطفا یک ایمیل معتبر وارد کنید').required('وارد کردن ایمیل اجباری است').email('لطفاً یک ایمیل معتبر وارد کنید'),
 });
 
@@ -152,7 +165,7 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial=""}) => {
 		validateOnMount: true,
 		enableReinitialize: true,
 	});
-
+	
 
 
 	//  ** step 2 form handlers and formik **

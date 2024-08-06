@@ -238,7 +238,7 @@ const DetailProfile = ({ userData }) => {
 					<div className='w-28 h-28 rounded-full bg-primary-03 overflow-hidden flex items-center justify-center'>
 						<img
 							className={!userData?.avatar[0] && 'w-14 h-14'}
-							src={userData?.avatar[0].path || '/images/defaultUser.png'}
+							src={userData?.avatar[0]?.path || '/images/defaultUser.png'}
 							alt={`${userData?.name} ${userData?.lastname} `}
 						/>
 					</div>

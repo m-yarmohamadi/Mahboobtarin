@@ -1,12 +1,8 @@
 import Input from '@/tools/Input';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import NextPrev from '../NextPrev';
-import axios from 'axios';
-import { useState } from 'react';
 import { Countries } from '@/data/countries';
 import Select from '@/tools/Select';
 import { useGetCity, useGetProvinces } from '@/hooks/useCity';
+import { useEffect } from 'react';
 
 
 
@@ -14,6 +10,11 @@ const Step02 = ({formik, children, error}) => {
 	const {transformProvinces} = useGetProvinces();
 	const {transformCity} = useGetCity(formik.values.province_id);
 	const sortedCountries = [...Countries].sort((a, b) => a.label.localeCompare(b.label, 'fa'));
+
+	useEffect(()=>{
+		formik.setFieldValue("province_id", "");
+		formik.setFieldValue("city_id", "");
+	},[formik.values.country])
 
 	return (
 		<div className='w-full h-full'>
@@ -27,18 +28,37 @@ const Step02 = ({formik, children, error}) => {
 						options={sortedCountries}
 						formik={formik}
 					/>
-					<Select
-						name={'province_id'}
-						label={'استان/ایالت'} 
-						formik={formik}
-						options={transformProvinces || []}
-					/>
-					<Select
-						name={'city_id'}
-						label={'شهر محل سکونت'}
-						formik={formik}
-						options={transformCity || []}
-					/>
+					{
+						formik.values.country === "Iran" ?
+						<>
+						<Select
+							name={'province_id'}
+							label={'استان/ایالت'} 
+							formik={formik}
+							options={[{id:-1, label:"استان/ایالت را انتخاب کنید", value:""}, ...transformProvinces || []]}
+						/>
+						<Select
+							name={'city_id'}
+							label={'شهر محل سکونت'}
+							formik={formik}
+							options={[{id:-1, label:"استان/ایالت را انتخاب کنید", value:""}, ...transformCity || []]}
+							disabled={!formik.values.province_id}
+						/>
+						</>
+						:
+						<>
+						<Input
+							name={'province_id'}
+							label={'استان/ایالت'} 
+							formik={formik}
+						/>
+						<Input
+							name={'city_id'}
+							label={'شهر محل سکونت'}
+							formik={formik}
+						/>
+						</>
+					}
 					{/* <Input
 						name={'postalcode'}
 						label={'کدپستی'}
