@@ -10,6 +10,7 @@ import OTPInput from 'react-otp-input';
 import { useMutation } from '@tanstack/react-query';
 import { register } from '@/services/authService';
 import toast from 'react-hot-toast';
+import Cookies from 'js-cookie';
 const time = 90;
 
 const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
@@ -27,7 +28,8 @@ const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
 		},{
 			onSuccess:({data})=>{
 				if(data && data.status === 200){
-					router.replace("/auth");
+					router.replace("/");
+					Cookies.set("accessToken", data.token, {expires:1/48});
 				}
 			},
 			onError:(error)=>{

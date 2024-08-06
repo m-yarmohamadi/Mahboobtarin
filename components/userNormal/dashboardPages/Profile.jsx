@@ -1,26 +1,20 @@
+import ChangePasswordForm from "@/components/admin/adminProfileSteps/myInfo/ChangePasswordForm";
+import DateOfBirth from "@/components/admin/adminProfileSteps/myInfo/DateOfBirth";
+import Modal from "@/components/Modal";
+import { Countries } from "@/data/countries";
+import useForgetPassword from "@/hooks/useForgetPassword";
+import useProfile from "@/hooks/useProfile";
+import { updateProfile } from "@/services/authService";
+import Input from "@/tools/Input";
+import Loading from "@/tools/Loading";
+import Select from "@/tools/Select";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import Input from "@/tools/Input"
-import TextArea from '@/tools/TextArea';
-import Select from '@/tools/Select';
-import WorkAddress from './WorkAddress';
-import Language from './Language';
-import Grade from './Grade';
-import Expertise from './Expertise';
-import SocialMedia from './SocialMedia';
-import Address from './Address';
-import useProfile from '@/hooks/useProfile';
-import Loading from '@/tools/Loading';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateProfile } from '@/services/authService';
-import toast from 'react-hot-toast';
-import { useState } from 'react';
-import Modal from '@/components/Modal';
-import ChangePasswordForm from './ChangePasswordForm';
-import useForgetPassword from '@/hooks/useForgetPassword';
-import { ThreeDots } from 'react-loader-spinner';
-import DateOfBirth from './DateOfBirth';
-import { Countries } from "@/data/countries";
+import { ThreeDots } from "react-loader-spinner";
+
 
 const gender = [
     { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -28,14 +22,8 @@ const gender = [
     { id: 3, label: 'مرد', value: 'man' },
 ];
 
-const taaholStatus = [
-    { id: 1, label: 'مجرد', value: 'single' },
-    { id: 2, label: 'متاهل', value: 'married' },
-];
-
-
-export default function MyInfo() {
-    const { user, expertise, grade, language, isLoading, address } = useProfile();
+export default function Profile() {
+    const { user, isLoading } = useProfile();
     const [passwordModal, setPasswordModal] = useState(false);
     const getNationality = Countries.filter((c) => c.value === user?.nationality)[0]?.label;
 
@@ -44,28 +32,12 @@ export default function MyInfo() {
         lastname: user?.lastname || "",
         national_code: user?.national_code || "",
         mobile: user?.mobile || "",
-        phone: user?.phone || "",
-        emergency_phone: user?.emergency_phone || "",
-        marital_status: user?.marital_status || "1",
         gender: user?.gender || "1",
         nationality: getNationality || "Iran",
         birthday: user?.birthday || "",
         email: user?.email || "",
-        country: user?.country || "",
-        province_id: user?.province_id || "",
-        city_id: user?.city_id || "",
-        address: user?.address || "",
-        specialized_system_code: user?.specialized_system_code || "",
-        passport_number: user?.passport_number || "",
-        picture: "",
-        expert_description: user?.expert_description || "",
-        expertise: expertise || [],
-        workAddress: address || [],
-        language: language || [],
-        grade: grade || [],
-        honors_description: user?.honors_description || "",
-        description: user?.description || ""
     };
+
     const { mutate: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
     const queryClient = useQueryClient();
 
@@ -75,19 +47,8 @@ export default function MyInfo() {
             lastname: values.lastname,
             email: values.email,
             gender: values.gender,
-            phone: values.phone,
             nationality: values.nationality,
-            emergency_phone: values.emergency_phone,
-            marital_status: values.marital_status,
             birthday: values.birthday,
-            expert_description: values.expert_description,
-            expertise: values.expertise,
-            language: values.language,
-            grade: values.grade,
-            address: values.workAddress,
-            honors_description: values.honors_description,
-            description: values.description,
-            avatar: values.picture
         }
 
         const data = new FormData();
@@ -133,10 +94,6 @@ export default function MyInfo() {
         mobile: Yup.string()
             .required('وارد کردن شماره تلفن همراه اجباری است')
             .matches(/^\+[0-9]{11,13}$/, 'لطفاً شماره موبایل معتبر وارد کنید'),
-        phone: Yup.string()
-            .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
-        emergency_phone: Yup.string()
-            .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
     });
 
     const { forgetPasswordMutate, isForgetPassLoadingt } = useForgetPassword();
@@ -178,14 +135,6 @@ export default function MyInfo() {
             label: "شماره موبایل",
             disabled: true
         },
-        {
-            name: "phone",
-            label: "تلفن ثابت"
-        },
-        {
-            name: "emergency_phone",
-            label: "تلفن اضطراری"
-        },
     ];
 
     if (isLoading) return (
@@ -200,63 +149,9 @@ export default function MyInfo() {
                 <h1 className='text-lg text-gray-800 font-bold'>
                     اطلاعات فردی
                 </h1>
-                <p className='text-sm text-gray-600'>
-                    سعی کنید متنی خلاصه و جذاب درباره خودتان بنویسید
-                </p>
             </div>
 
             <form className='space-y-4' onSubmit={formik.handleSubmit}>
-                <div className='mt-6 flex flex-col gap-2 lg:gap-10 lg:flex-row'>
-                    <div className='flex flex-col items-center gap-4'>
-                        <h5 className='text-gray-600 font-bold self-start'>
-                            عکس پروفایل
-                        </h5>
-                        <div className='w-20 h-20 relative flex items-center justify-center rounded-full overflow-hidden bg-primary-03'>
-                            <input
-                                type="file"
-                                id="userProfilePic"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    const file = e.target.files[0];
-                                    const maxFileSize = 2 * 1024 * 1024; // 2MB
-
-                                    if (file && file.size > maxFileSize) {
-                                        toast.error("حجم تصویر باید حداقل 2 مگابایت باشد")
-                                        e.target.value = null;
-                                    } else {
-                                        formik.setFieldValue("picture", e.target.files[0]);
-                                    }
-                                }}
-                                hidden
-                            />
-                            <img
-                                src={
-                                    formik.values.picture ?
-                                        URL.createObjectURL(formik.values.picture)
-                                        :
-                                        user?.avatar.length ?
-                                            user?.avatar[0].path
-                                            :
-                                            "/images/defaultUser.png"
-                                }
-                                alt=''
-                                className={formik.values.picture || user?.avatar.length && "object-cover w-full h-full"}
-                            />
-                        </div>
-                        <label htmlFor='userProfilePic' className='btn btn--secondary !px-8 cursor-pointer'>
-                            تغییر تصویر
-                        </label>
-                    </div>
-                    <div className='flex-1'>
-                        <TextArea
-                            label="درباره شما"
-                            row={6}
-                            name="description"
-                            formik={formik}
-                        />
-                    </div>
-                </div>
-
                 <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-4'>
                     {fields.map((field) => (
                         <Input
@@ -276,21 +171,6 @@ export default function MyInfo() {
                         options={gender}
                     />
 
-                    <Select
-                        label="وضعیت تاهل"
-                        name="marital_status"
-                        formik={formik}
-                        options={taaholStatus}
-                    />
-
-                    {/* <Input
-                        label="تاریخ تولد"
-                        name="birthday"
-                        formik={formik}
-                        type="date"
-                        required={true}
-                    /> */}
-
                     <DateOfBirth formik={formik} birthday={user?.birthday} />
 
                     <Input
@@ -301,61 +181,13 @@ export default function MyInfo() {
                     />
 
                     <Input
-                        label="ملیت"
+                        label="کشور محل اقامت"
                         formik={formik}
                         name="nationality"
                         disabled={true}
                     />
-
-                    <Address formik={formik} />
-
-                    <WorkAddress formik={formik} />
-
-                    <Language formik={formik} />
-
-                    <Expertise formik={formik} />
-
-                    <Grade formik={formik} />
-
-                    {/* <ProfessionalLicense /> */}
-
-                    <SocialMedia />
-
-                    <div className='lg:col-span-2 flex flex-col lg:flex-row gap-4'>
-                        <div className='lg:w-[47%]'>
-                            <Select
-                                label="میزان تجربه"
-                                options={[]}
-                            />
-                        </div>
-
-                        <div className='lg:w-[53%]'>
-                            <Input
-                                label="کد معرف"
-                            />
-                        </div>
-                    </div>
-                    <div className='lg:col-span-2'>
-                        <Input
-                            label="کد نظام تخصصی"
-                        />
-                    </div>
                 </div>
 
-                <div className='space-y-4'>
-                    <TextArea
-                        label="کلیه تخصص ها و مهارت ها"
-                        row={9}
-                        formik={formik}
-                        name="expert_description"
-                    />
-                    <TextArea
-                        label="آثار و افتخارات"
-                        row={9}
-                        formik={formik}
-                        name="honors_description"
-                    />
-                </div>
 
                 <Modal title="تغییر رمز عبور" open={passwordModal} onClose={() => setPasswordModal(false)}>
                     <ChangePasswordForm onClose={() => setPasswordModal(false)} username={user?.username} />
@@ -392,5 +224,6 @@ export default function MyInfo() {
                 </div>
             </form>
         </div>
+
     )
 }

@@ -6,8 +6,9 @@ export async function middleware(req){
     const cookie = `Bearer ${req.cookies.get("accessToken")?.value}`;
     const API_URL = 'https://mahboobtarin.mostafaomrani.ir/api/v1/user';
     let isAuth;
+    let userRole;
     
-    if(pathname.startsWith("/profile") || pathname.startsWith("/admin")) {
+    if(pathname.startsWith("/profile")) {
         await fetch(API_URL, {
             headers:{
                 'Authorization':cookie 
@@ -22,6 +23,52 @@ export async function middleware(req){
         })
 
         if(!isAuth) return NextResponse.redirect(new URL("/auth", url));
+    }
+
+    if(pathname.startsWith("/admin")) {
+        await fetch(API_URL, {
+            headers:{
+                'Authorization':cookie 
+            }
+        })
+        .then((res) => res.json())
+        .then(({user}) => {
+            if(user) {
+                isAuth = true;
+                userRole = user.type;
+            };
+        })
+        .catch((error) => {
+            if(error) isAuth = false;
+        })
+
+        if(!isAuth) return NextResponse.redirect(new URL("/auth", url));
+        if(isAuth && userRole !== "motekhases") {
+            return NextResponse.redirect(new URL("/", url));
+        }
+    }
+
+    if(pathname.startsWith("/user")) {
+        await fetch(API_URL, {
+            headers:{
+                'Authorization':cookie 
+            }
+        })
+        .then((res) => res.json())
+        .then(({user}) => {
+            if(user) {
+                isAuth = true;
+                userRole = user.type;
+            };
+        })
+        .catch((error) => {
+            if(error) isAuth = false;
+        })
+
+        if(!isAuth) return NextResponse.redirect(new URL("/auth", url));
+        if(isAuth && userRole !== "user") {
+            return NextResponse.redirect(new URL("/", url));
+        }
     }
 
     if(pathname.startsWith("/auth")) {

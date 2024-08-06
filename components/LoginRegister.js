@@ -42,13 +42,15 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 					<MenuOptions
 						ref={menuOptionsRef}
 						open={openMenuOptions}>
-						<MenuOptionsItem
-							link={`/profile/${user?.id}`}
-							text='پروفایل'
-							icon={<BiUser className='w-6 h-6' />}
-						/>
+						{user?.type !== "user" &&
+							<MenuOptionsItem
+								link={`/profile/${user?.id}`}
+								text='پروفایل'
+								icon={<BiUser className='w-6 h-6' />}
+							/>
+						}
 						<MenuOptionsItem 
-							link="/admin/dashboard" 
+							link={user?.type === "user" ? "/user/profile" : "/admin/dashboard"} 
 							text="داشبورد"
 							icon={<BiEditAlt className='w-6 h-6'/>}
 						/>
