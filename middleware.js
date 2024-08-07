@@ -16,7 +16,9 @@ export async function middleware(req){
         })
         .then((res) => res.json())
         .then(({user}) => {
-            if(user) isAuth = true;
+            if(user) {
+                isAuth = true;
+            }
         })
         .catch((error) => {
             if(error) isAuth = false;

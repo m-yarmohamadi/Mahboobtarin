@@ -16,6 +16,7 @@ const time = 90;
 const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
 	const router = useRouter();
 	const { mutate:mutateRegister, isPending } = useMutation({mutationFn:register});
+	const [completed, setCompleted] = useState(false);
 
 	const onSubmit = (values) => {
 		mutateRegister({
@@ -28,8 +29,10 @@ const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
 		},{
 			onSuccess:({data})=>{
 				if(data && data.status === 200){
-					router.replace("/");
 					Cookies.set("accessToken", data.token, {expires:1/48});
+					toast.success("ثبت نام شما با موفقیت تکمیل شد");
+					setCompleted(true);
+					router.replace("/");
 				}
 			},
 			onError:(error)=>{
@@ -57,6 +60,12 @@ const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
 
 	return (
 		<div>
+			{completed && (
+				<div className="w-full h-full gap-3 font-bold text-xl  flex-col fixed top-0 right-0 flex items-center justify-center bg-white/80 z-[60]">
+					در حال ورود به سایت
+					<Loading customeColor="#15aa7f" />
+				</div>
+			)}
 			<div className='w-full h-full flex flex-col justify-between'>
 				<form
 					onSubmit={formik.handleSubmit}

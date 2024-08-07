@@ -9,6 +9,8 @@ import TitleItems from './TitleItems';
 import ViewMore from './ViewMore';
 import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
 import { enToFaNumber } from '@/utils/enToFa';
+import { Countries } from '@/data/countries';
+import { useGetProvinces } from '@/hooks/useCity';
 
 const ideas = [
 	{
@@ -213,12 +215,15 @@ const DetailProfile = ({ userData }) => {
 	const [showCompleteBio, setShowCompleteBio] = useState(false);
 	const [isClamped, setIsClamped] = useState(false);
 	const textRef = useRef(null);
+	const getCountryLabel = [...Countries].filter((c) => c.value === userData?.nationality)[0]?.label;
+	const { provinces, isLoading } = useGetProvinces();
+	const getProvinceLabel = !isLoading && provinces.filter((p) => p.id === 5)[0]?.name;
+	
 
 	const DiscountCalculation = (i, d) => {
 		return i - (i * d) / 100;
 	};
 	const [score, setScore] = useState(0);
-	console.log(score);
 
 	useEffect(() => {
 		const lineHeight = parseInt(window.getComputedStyle(textRef.current).lineHeight, 10);
@@ -237,7 +242,7 @@ const DetailProfile = ({ userData }) => {
 				<div className='flex flex-col justify-end items-center gap-2'>
 					<div className='w-28 h-28 rounded-full bg-primary-03 overflow-hidden flex items-center justify-center'>
 						<img
-							className={!userData?.avatar[0] && 'w-14 h-14'}
+							className={!userData?.avatar[0]?.path ? 'w-14 h-14' : "w-full h-full object-cover"}
 							src={userData?.avatar[0]?.path || '/images/defaultUser.png'}
 							alt={`${userData?.name} ${userData?.lastname} `}
 						/>
@@ -258,12 +263,12 @@ const DetailProfile = ({ userData }) => {
 					<span className='p-2 flex justify-around items-center w-full'>
 						<span className='flex justify-center items-center gap-1'>
 							<FaLocationArrow />
-							<span>{userData?.province_id}</span>
+							<span>{userData?.nationality === "Iran" ? getProvinceLabel : userData?.province_id}</span>
 						</span>
 						<span className='flex justify-center items-center gap-1'>
 							<FcGlobe />
 							<FaFlag />
-							<span>{userData?.nationality}</span>
+							<span>{getCountryLabel}</span>
 						</span>
 					</span>
 					<span className='flex justify-center items-center gap-1 whitespace-nowrap'>

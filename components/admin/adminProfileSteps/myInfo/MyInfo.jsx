@@ -119,7 +119,7 @@ export default function MyInfo() {
         gender: Yup.string().required('وارد کردن جنسیت اجباری است'),
         nationality: Yup.string().required('وارد کردن ملیت اجباری است'),
         national_code: Yup.string().when('nationality', {
-            is: (value) => value === 'ایران',
+            is: (value) => value === 'Iran',
             then: (schema) => schema.required('وارد کردن کدملی اجباری است').matches(/^[0-9]{10}$/, 'لطفاً کد ملی معتبر 10 رقمی وارد کنید'),
             otherwise: (schema) => schema,
         }),
