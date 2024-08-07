@@ -29,6 +29,7 @@ const daysArray = Array.from({ length: 31 }, (_, i) => {
 });
 
 const monthsArray = [
+    { id: '0', label: 'ماه تولد را انتخاب کنید', value: '' },
     { id: '1', label: 'January', value: '01' },
     { id: '2', label: 'February', value: '02' },
     { id: '3', label: 'March', value: '03' },
@@ -69,18 +70,30 @@ const validationSchema = Yup.object({
 	gender: Yup.string().required('وارد کردن جنسیت اجباری است'),
 	nationality: Yup.string().required('وارد کردن ملیت اجباری است'),
 	national_code: Yup.string().when('nationality', {
-		is: (value) => value === 'ایرانی',
+		is: (value) => value === 'Iran',
 		then: (schema) => schema.required('وارد کردن کدملی اجباری است').matches(/^[0-9]{10}$/, 'لطفاً کد ملی معتبر 10 رقمی وارد کنید'),
 		otherwise: (schema) => schema,
 	}),
 	passport_number: Yup.string().when('nationality', {
-		is: (value) => value === 'اتباع خارجی',
+		is: (value) => value !== 'Iran',
 		then: (schema) => schema.required('وارد کردن شماره پاسپورت اجباری است').matches(/^[0-9]{8}$/, 'لطفاً شماره پاسپورت معتبر 8 رقمی وارد کنید'),
 		otherwise: (schema) => schema,
 	}),
 
-	birthday: Yup.string().required('وارد کردن تاریخ تولد اجباری است'),
-	email: Yup.string().email('لطفا یک ایمیل معتبر وارد کنید').required('وارد کردن ایمیل اجباری است').email('لطفاً یک ایمیل معتبر وارد کنید'),
+	birthday: Yup.string()
+	.required('وارد کردن تاریخ تولد اجباری است')
+	.test("is-valid-date", "تاریخ تولد را کامل وارد کنید", value => {
+		const [year, month, day] = value.split("-");
+		if (year === "undefined" 
+			|| month === "undefined" 
+			|| day === "undefined"
+			|| year === ""
+			|| month === ""
+			|| day === ""
+			
+		) return false; 
+		return true;
+	  }),	email: Yup.string().email('لطفا یک ایمیل معتبر وارد کنید').required('وارد کردن ایمیل اجباری است').email('لطفاً یک ایمیل معتبر وارد کنید'),
 	password: Yup.string().required('وارد کردن کلمه عبور اجباری است').min(6, 'حداقل 6 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
 	confirmPassword: Yup.string()
 		.required('وارد کردن تکرار کلمه عبور اجباری است')
@@ -89,9 +102,9 @@ const validationSchema = Yup.object({
 
 
 const UserStep01 = ({ setActiveOtp, setNationalCode, mobile }) => {
-	const [selectedDay, setSelectedDay] = useState(daysArray[0].value);
-	const [selectedMonth, setSelectedMonth] = useState(monthsArray[0].value);
-    const [selectedYear, setSelectedYear] = useState(yearsArray[0].value);
+	const [selectedDay, setSelectedDay] = useState();
+	const [selectedMonth, setSelectedMonth] = useState();
+    const [selectedYear, setSelectedYear] = useState();
 	const sortedCountries = [...Countries].sort((a, b) => a.label.localeCompare(b.label, 'fa'));
 	const { mutate:mutateRegister, isPending } = useMutation({mutationFn:register});
 
@@ -193,35 +206,45 @@ const UserStep01 = ({ setActiveOtp, setNationalCode, mobile }) => {
 							dir='ltr'
 						/> */}
 
-						<div className='w-full flex items-end gap-2'>
-							<Select
-								label="تاریخ تولد"
-								name={"day"}
-								options={daysArray}
-								onChange={(e)=>{
-									setSelectedDay(e.target.value);
-									formik.setFieldValue("birthday", `${selectedYear}-${selectedMonth}-${e.target.value}`)
-								}}
-								value={selectedDay}
-							/>
-							<Select
-								name={"month"}
-								options={monthsArray}
-								onChange={(e)=>{
-									setSelectedMonth(e.target.value);
-									formik.setFieldValue("birthday", `${selectedYear}-${e.target.value}-${selectedDay}`)
-								}}
-								value={selectedMonth}
-							/>
-							<Select
-								name={"year"}
-								options={yearsArray}
-								onChange={(e)=>{
-									setSelectedYear(e.target.value);
-									formik.setFieldValue("birthday", `${e.target.value}-${selectedMonth}-${selectedDay}`)
-								}}
-								value={selectedYear}
-							/>
+						<div className='flex flex-col gap-1'>
+							<div className='w-full flex items-end gap-2'>
+								<Select
+									label="تاریخ تولد"
+									name={"day"}
+									options={[{id:-1, label:"روز تولد را انتخاب کنید" , value:""}, ...daysArray]}
+									onChange={(e)=>{
+										setSelectedDay(e.target.value);
+										formik.setFieldValue("birthday", `${selectedYear}-${selectedMonth}-${e.target.value}`)
+									}}
+									value={selectedDay}
+								/>
+								<Select
+									name={"month"}
+									options={monthsArray}
+									onChange={(e)=>{
+										setSelectedMonth(e.target.value);
+										formik.setFieldValue("birthday", `${selectedYear}-${e.target.value}-${selectedDay}`)
+									}}
+									value={selectedMonth}
+								/>
+								<Select
+									name={"year"}
+									options={[{id:-1, label:"سال تولد را انتخاب کنید" , value:""}, ...yearsArray]}
+									onChange={(e)=>{
+										setSelectedYear(e.target.value);
+										formik.setFieldValue("birthday", `${e.target.value}-${selectedMonth}-${selectedDay}`)
+									}}
+									value={selectedYear}
+								/>
+							</div>
+
+							<div className='w-full flex justify-start items-start'>
+								{formik?.errors.birthday && formik?.touched.birthday && 
+								<p className='error_Message'>
+									{formik?.errors.birthday}
+								</p>
+								}
+							</div>
 						</div>
 					</div>
 					<div className='flex justify-between items-start gap-4'>

@@ -2,18 +2,21 @@ import Input from '@/tools/Input';
 import { Countries } from '@/data/countries';
 import Select from '@/tools/Select';
 import { useGetCity, useGetProvinces } from '@/hooks/useCity';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 
 const Step02 = ({formik, children, error}) => {
 	const {transformProvinces} = useGetProvinces();
-	const {transformCity} = useGetCity(formik.values.province_id);
+	const {transformCity} = useGetCity(Number(formik.values.province_id));
+	const [firstLoad, setFirstLoad] = useState(true);
 	const sortedCountries = [...Countries].sort((a, b) => a.label.localeCompare(b.label, 'fa'));
 
 	useEffect(()=>{
-		formik.setFieldValue("province_id", "");
-		formik.setFieldValue("city_id", "");
+		if(!firstLoad){
+			formik.setFieldValue("province_id", "");
+			formik.setFieldValue("city_id", "");
+		}
 	},[formik.values.country])
 
 	return (
@@ -27,6 +30,9 @@ const Step02 = ({formik, children, error}) => {
 						label={'کشور محل سکونت'}
 						options={sortedCountries}
 						formik={formik}
+						onClickSelect={()=>{
+							setFirstLoad(false);
+						}}
 					/>
 					{
 						formik.values.country === "Iran" ?

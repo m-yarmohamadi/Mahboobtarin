@@ -16,6 +16,7 @@ export default function AuthPage() {
     const { isPending, mutate: mutateAuthUser } = useMutation({ mutationFn: register });
     const [nationalCodeInitial, setNationalCodeInitial] = useState();
     const [registerStep, setRegisterStep] = useState(1);
+    const [userData, setUserData] = useState({});
     const phoneNumber = mobile.toString().charAt(0) === "0" ? mobile.slice(1) : mobile.toString();
 
     const isExistsHandler = (e) => {
@@ -63,6 +64,7 @@ export default function AuthPage() {
                         setStep={setAuthStep}
                         setNationalCodeInitial={setNationalCodeInitial}
                         setRegisterStep={setRegisterStep}
+                        setUserData={setUserData}
                     />
                 )
 
@@ -79,6 +81,7 @@ export default function AuthPage() {
                         mobile={countryCode + phoneNumber}
                         nationalCodeInitial={nationalCodeInitial}
                         userStep={registerStep}
+                        userData={userData}
                     />
                 )
 

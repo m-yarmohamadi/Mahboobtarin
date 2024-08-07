@@ -17,39 +17,7 @@ import { register } from '@/services/authService';
 import toast from 'react-hot-toast';
 import { enToFaMessages } from '@/utils/enToFaMessages';
 import Cookies from 'js-cookie';
-
-
-// values steps
-const initialValuesStep1 = {
-	name: '',
-	lastname: '',
-	gender: '',
-	nationality: 'Iran',
-	national_code: '',
-	passport_number: '',
-	birthday: '',
-	email: '',
-}
-
-const initialValuesStep2 = {
-	country: 'Iran',
-	province_id: '',
-	city_id: '',
-	address: '',
-	address_work: '',
-}
-
-const initialValuesStep3 = {
-	expertise: [],
-	grade: [],
-	language: [],
-	password: '',
-	confirmPassword: '',
-	picture: '',
-	type: 'expert',
-	step: '3',
-	national_code: 'nationalCode',
-}
+import Loading from '@/tools/Loading';
 
 
 // validation steps
@@ -59,12 +27,12 @@ const validationSchemaStep1 = Yup.object({
 	gender: Yup.string().required('وارد کردن جنسیت اجباری است'),
 	nationality: Yup.string().required('وارد کردن ملیت اجباری است'),
 	national_code: Yup.string().when('nationality', {
-		is: (value) => value === 'ایرانی',
+		is: (value) => value === 'Iran',
 		then: (schema) => schema.required('وارد کردن کدملی اجباری است').matches(/^[0-9]{10}$/, 'لطفاً کد ملی معتبر 10 رقمی وارد کنید'),
 		otherwise: (schema) => schema,
 	}),
 	passport_number: Yup.string().when('nationality', {
-		is: (value) => value === 'اتباع خارجی',
+		is: (value) => value !== 'Iran',
 		then: (schema) => schema.required('وارد کردن شماره پاسپورت اجباری است').matches(/^[0-9]{8}$/, 'لطفاً شماره پاسپورت معتبر 8 رقمی وارد کنید'),
 		otherwise: (schema) => schema,
 	}),
@@ -107,11 +75,13 @@ const validationSchemaStep3 = Yup.object({
 });
 
 
-const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial=""}) => { 
+const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData}) => { 
     const router = useRouter();
 	const [nationalCode, setNationalCode] = useState(nationalCodeInitial);
 	const [step, setStep] = useState(userStep);
 	const { isPending, mutate:mutateRegister } = useMutation({mutationFn:register});
+	const [completed, setCompleted] = useState(false);
+	
 
 	const nextStep = () => {
 		if (step < 5) {
@@ -132,15 +102,24 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial=""}) => {
 		check_user_register: false,
 		verifycode:0
 	}
-
+	
 	const [errorStep2, setErrorStep2] = useState([]);
 	const [errorStep3, setErrorStep3] = useState([]);
 	const [errorStep4, setErrorStep4] = useState([]);
 	const [errorStep5, setErrorStep5] = useState([]);
 
-
-
 	//  ** step 1 form handlers and formik **
+	const initialValuesStep1 = {
+		name: userData?.name || "",
+		lastname: userData?.lastname || "",
+		gender: userData?.gender || "",
+		nationality: userData?.nationality || "Iran",
+		national_code: userData?.national_code,
+		passport_number: userData?.passport_number || "",
+		birthday: userData?.birthday || "",
+		email: userData?.email || "",
+	}
+
 	const submitHandlerStep1 = (values) => {
 		mutateRegister({
 			...defaultDataRegister,
@@ -169,6 +148,14 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial=""}) => {
 
 
 	//  ** step 2 form handlers and formik **
+	const initialValuesStep2 = {
+		country: userData?.country || "Iran",
+		province_id: userData?.province_id || "",
+		city_id: userData?.city_id || "",
+		address: userData?.address || "",
+		address_work: userData?.address_work || "",
+	}
+
 	const submitHandlerStep2 = (values) => {
 		mutateRegister({
 			...defaultDataRegister,
@@ -202,6 +189,15 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial=""}) => {
 
 
 	//  ** step 3 form handlers and formik **
+	const initialValuesStep3 = {
+		expertise: [],
+		grade: [],
+		language: [],
+		password: '',
+		confirmPassword: '',
+		picture: '',
+	}
+	
 	const submitHandlerStep3 = (values) => {
 		const step03Data = {
 			expertise: values.expertise,
@@ -298,10 +294,11 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial=""}) => {
 			national_code:nationalCode || formikStep1.values.national_code
 		}, {
 			onSuccess:({data})=>{
-				console.log(data);
 				if(data){
 					Cookies.set("accessToken", data.token, {expires:1/48});
-					router.replace("/");
+					setCompleted(true);
+					toast.success("ثبت نام شما با موفقیت تکمیل شد");
+					router.replace(`/`);
 				}
 			},
 			onError:(error)=>{
@@ -333,6 +330,13 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial=""}) => {
 	});
 
     return (
+		<>
+		{completed && (
+			<div className="w-full h-full gap-3 font-bold text-xl  flex-col fixed top-0 right-0 flex items-center justify-center bg-white/80 z-[60]">
+				در حال ورود به سایت
+				<Loading customeColor="#15aa7f" />
+			</div>
+		)}
 		<div className='w-full flex flex-col gap-7'>
 			<Head>
 				<title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | ثبت نام`}</title>
@@ -391,6 +395,7 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial=""}) => {
 			</div>
 			<Footer />
 		</div>
+		</>
     );
 };
 
