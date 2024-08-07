@@ -45,7 +45,7 @@ const dataMenu = [
     {
         id: 6,
         title: 'گالری',
-        value: '',
+        value: 'gallery',
         quanity: '',
         icon: '', 
     },
