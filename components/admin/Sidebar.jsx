@@ -22,6 +22,13 @@ const dataMenu = [
         icon: '',
     },
     {
+        id: 18,
+        title: 'محصولات',
+        value: 'products',
+        quanity: '',
+        icon: '',
+    },
+    {
         id: 3,
         title: 'سفارش جدید',
         value: 'newOrder',

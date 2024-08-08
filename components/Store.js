@@ -4,6 +4,8 @@ import PN from 'persian-number';
 import { FaChevronLeft } from 'react-icons/fa';
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
 import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
+import { useGetBestSellProducts } from '@/hooks/useProducts';
+import numberWithCommas from '@/utils/numberWithCommas';
 const data = [
 	{
 		id: 1,
@@ -63,6 +65,8 @@ const data = [
 ];
 
 const Store = () => {
+	const { isLoading, products } = useGetBestSellProducts();
+	
 	const DiscountCalculation = (i, d) => {
 		return i - (i * d) / 100;
 	};
@@ -87,7 +91,7 @@ const Store = () => {
 						</div>
 					</div>
 				</div>
-				<div className='grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4'>
+				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
 					<div className='w-full bg-gray-200 hover:bg-gray-100 hover:shadow-md'>
 						<img
 							className=' object-cover'
@@ -101,44 +105,34 @@ const Store = () => {
 							</span>
 						</div>
 					</div>
-					{data.map((item) => {
+					{!isLoading && products?.map((item) => {
 						return (
-							<div
-								key={item.id}
-								className='border border-gray-300 w-full bg-gradient-to-b  from-blue-100  to-white overflow-hidden rounded-xl hover:shadow-md hover:cursor-pointer'>
-								<div className='border-b border-gray-300 rounded-t-xl w-full h-3/5 bg-gradient-to-tl from-transparent hover:from-blue-100 to-white flex justify-center items-center'>
-									<img
-										className=' w-full p-4'
-										src={item.url}
-										alt=''
-									/>
-								</div>
-								<div className='flex flex-col justify-center items-center  p-2'>
-									<span className='line-clamp-1 font-extrabold'>{item.name}</span>
-									<span>{item.ouner}</span>
-									<span className='line-clamp-1 text-xs text-gray-500'>انتشارات:{item.Publications}</span>
-								</div>
-								<div className='flex justify-around items-center gap-3 p-1'>
-									<div className='py-2 px-4 bg-primary-01 text-white font-bold rounded-md flex justify-center items-center'>%{PN.convertEnToPe(`${item.Discount}`)}</div>
-									<div className=' flex flex-col justify-start items-center'>
-										<del className='text-gray-400'>{PN.convertEnToPe(`${item.Price}`)}</del>
-										<span className='font-bold'>
-											{PN.convertEnToPe(`${DiscountCalculation(item.Price, item.Discount)}`)}
-											تومان
-										</span>
-									</div>
-								</div>
-								<div className='flex justify-between items-center py-1 px-2'>
-									<div className='flex flex-col justify-center items-start text-xs'>
-										<span>عرضه کننده:</span>
-										<span>{item.Supplier}</span>
-									</div>
-									<div className=''>
-										<img
-											className=' w-10 rounded-full'
-											src={item.SupplierUrl}
-											alt=''
+							<div key={item.id} className='flex flex-col overflow-hidden bg-white rounded-xl duration-300 border border-gray-300 hover:shadow-md'>
+								<div className=''>
+									<div className='aspect-w-10 aspect-h-10'>
+										<img 
+											src={item.photos[0].path}
+											alt={item.photos[0].original_name}
+											className='w-full h-full object-center object-cover'
 										/>
+									</div>
+								</div>
+								<div className='p-4 flex-1 flex flex-col justify-between'>
+									<div>
+										<h3 className='text-gray-800 font-bold mb-2'>
+											{item.title}
+										</h3>
+										<div className='text-xs text-gray-600 leading-8' dangerouslySetInnerHTML={{__html:item.shortdescription}}/>
+										
+									</div>
+									<div className='space-y-4'>
+										<div className='w-full flex mt-4 gap-1 justify-between items-center'>
+											{item.discount_price !== 0 && <span className='text-xs text-white bg-error px-2 py-1 rounded-lg'>{item.discount_price} %</span> }
+											<p className='text-lg font-bold text-gray-700 text-left'>{numberWithCommas(item.price)} تومان</p>
+										</div>
+										<button className='btn btn--primary w-full'>
+											افزودن به سبد خرید
+										</button>
 									</div>
 								</div>
 							</div>

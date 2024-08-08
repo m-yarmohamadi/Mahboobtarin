@@ -41,6 +41,7 @@ export const theme = {
 };
 export const plugins = [
 	require('tailwind-scrollbar'),
+	require('@tailwindcss/aspect-ratio'),
 	require("@tailwindcss/forms")({
 		strategy: 'class',
 	  }),
