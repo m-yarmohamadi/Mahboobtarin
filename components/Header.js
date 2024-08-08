@@ -84,7 +84,7 @@ export default function Header() {
 
 							<img
 								className='h-12 w-auto'
-								src={data? data.logo: '/images/logo.png'}
+								src={data ? data.logo : '/images/logo.png'}
 								alt=''
 							/>
 						</Link>
@@ -194,7 +194,7 @@ export default function Header() {
 								<span className='sr-only'>Your Company</span>
 								<img
 									className='h-8 w-auto'
-									src={data? data.logo: '/images/logo.png'}
+									src={data ? data.logo : '/images/logo.png'}
 									alt=''
 								/>
 							</a>
@@ -256,15 +256,13 @@ export default function Header() {
 							</div>
 						</div>
 						<div className='pt-20'>
-												<LoginRegister
-							token={token}
-							setOpenRegisterModal={setOpenRegisterModal}
-							handleLogOut={logout}
-							size={"sm"}
-						/>
-	
+							<LoginRegister
+								token={token}
+								setOpenRegisterModal={setOpenRegisterModal}
+								handleLogOut={logout}
+								size={'sm'}
+							/>
 						</div>
-						
 					</DialogPanel>
 				</Dialog>
 			</header>
