@@ -9,17 +9,35 @@ import Input from "@/tools/Input";
 import { useGetCity, useGetProvinces } from "@/hooks/useCity";
 import Select from "@/tools/Select";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { setUserAddress } from "@/services/authService";
+import { removeUserAddress, setUserAddress } from "@/services/authService";
 import toast from "react-hot-toast";
 import { MdAdd, MdOutlinePhoneIphone, MdOutlineSubtitles } from "react-icons/md";
 import { HiOutlineTrash } from "react-icons/hi2";
+import { useAddToCart, useGetCart } from "@/hooks/useCart";
 
 export default function AddressList() {
     const { addressList, isLoading } = useGetAddress();
+    const { cart } = useGetCart();
+    const { changeAddressOrder } = useAddToCart();
     const [open, setOpen] = useState(false);
+    const defaultAddress = cart && Number(cart?.address_id);
+    const { isPending, mutate: mutateRemoveAddress } = useMutation({ mutationFn: removeUserAddress });
+    const queryClient = useQueryClient();
 
-    const deleteAddressHandler = () => {
-
+    const deleteAddressHandler = (id) => {
+        mutateRemoveAddress({ id }, {
+            onSuccess: ({ data }) => {
+                toast.success("آدرس حذف شد");
+                queryClient.invalidateQueries({ queryKey: ["get-user-address"] });
+            },
+            onError: (error) => {
+                if (error?.response?.status === 401) {
+                    window.location.reload();
+                } else {
+                    toast.error("خطایی رخ داده");
+                }
+            }
+        })
     }
 
     if (isLoading) return (
@@ -40,39 +58,45 @@ export default function AddressList() {
             </div>
             <div className="mt-2 space-y-6 lg:max-h-[350px] lg:overflow-y-auto lg:pl-6">
                 {addressList.map((item, index) => (
-                    <div key={index} className="flex items-start gap-3 border-b border-gray-300 pb-6 last:pb-0 last:border-0">
-                        <div className={`w-5 h-5 p-[3px] mt-[2px] border rounded-full ${item.defaultaddress === "1" ? "border-gray-500 bg-transparent" : "border-primary-01"}`}>
-                            {item.defaultaddress === "1" &&
+                    <div
+                        key={index}
+                        className="flex cursor-pointer items-start gap-3 border-b border-gray-300 pb-6 last:pb-0 last:border-0"
+                    >
+                        <div onClick={() => changeAddressOrder(item.id)} className={`w-5 h-5 p-[3px] mt-[2px] border rounded-full ${item.id === defaultAddress ? "border-gray-500 bg-transparent" : "border-primary-01"}`}>
+                            {item.id === defaultAddress &&
                                 <div className="w-full h-full bg-primary-01 rounded-full"></div>
                             }
                         </div>
                         <div className="flex flex-col gap-5 flex-1">
-                            <p className="text-gray-800">
-                                {item.address}
-                            </p>
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-2 ">
-                                    <MdOutlineSubtitles className="text-gray-400" />
-                                    <span className="text-xs text-gray-600">
-                                        {item.title || "بدون عنوان"}
-                                    </span>
-                                </div>
-                                <div className="flex items-center gap-2 ">
-                                    <HiOutlineMail className="text-gray-400" />
-                                    <span className="text-xs text-gray-600">
-                                        {item.postalcode || "---"}
-                                    </span>
-                                </div>
-                                <div className="flex items-center gap-2 ">
-                                    <MdOutlinePhoneIphone className="text-gray-400" />
-                                    <span className="text-xs text-gray-600">
-                                        {item.phone || "---"}
-                                    </span>
+                            <div onClick={() => changeAddressOrder(item.id)} className="space-y-5">
+                                <p className="text-gray-800">
+                                    {item.address}
+                                </p>
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-2 ">
+                                        <MdOutlineSubtitles className="text-gray-400" />
+                                        <span className="text-xs text-gray-600">
+                                            {item.title || "بدون عنوان"}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center gap-2 ">
+                                        <HiOutlineMail className="text-gray-400" />
+                                        <span className="text-xs text-gray-600">
+                                            {item.postalcode || "---"}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center gap-2 ">
+                                        <MdOutlinePhoneIphone className="text-gray-400" />
+                                        <span className="text-xs text-gray-600">
+                                            {item.phone || "---"}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
+
                             <div className="w-full flex justify-end">
-                                <button className="text-error text-sm font-medium flex items-center gap-1">
+                                <button onClick={() => deleteAddressHandler(item.id)} className="text-error text-sm font-medium flex items-center gap-1">
                                     <HiOutlineTrash className="w-5 h-5" />
                                     حذف آدرس
                                 </button>
@@ -105,11 +129,11 @@ function CreateAddressForm({ onClose }) {
 
     const validationSchema = Yup.object({
         title: Yup.string().required("عنوان آدرس را وارد نمایید"),
-        address: Yup.string().required("آدرس را وارد نمایید"),
-        postalcode: Yup.string().required("کد پستی را وارد نمایید"),
+        address: Yup.string().required("آدرس را وارد نمایید").matches(/^[\u0600-\u06FF\s\d-–]+$/, "ادرس نامعتبر است"),
+        postalcode: Yup.string().required("کد پستی را وارد نمایید").matches(/\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/, "کد پستی نامعتبر است"),
         ostan: Yup.string().required("استان را انتخاب نمایید"),
         shahr: Yup.string().required("شهر را انتخاب نمایید"),
-        phone: Yup.string().required("شماره تماس را وارد کنید"),
+        phone: Yup.string().required("شماره تماس را وارد کنید").matches(/^09\d{9}$/, "شماره موبایل نامعتبر است"),
     })
 
     const { mutate, isPending } = useMutation({ mutationFn: setUserAddress });

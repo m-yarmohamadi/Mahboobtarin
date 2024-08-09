@@ -152,8 +152,7 @@ const Baner = () => {
 							loop
 							slidesPerView={1}
 							autoplay={{ delay: 4000 }}
-							onSwiper={(swiper) => console.log(swiper)}
-							onSlideChange={() => console.log('slide change')}>
+							>
 							{!isLoading &&
 								sliders.map((item, index) => {
 									return (

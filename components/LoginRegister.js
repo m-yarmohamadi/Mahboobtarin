@@ -5,11 +5,13 @@ import { useUserDataContext } from '@/context/UserDataContext';
 import { FaAnglesLeft } from 'react-icons/fa6';
 import useProfile from '@/hooks/useProfile';
 import { IoCartOutline } from 'react-icons/io5';
+import { useGetCart } from '@/hooks/useCart';
 
 const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 	const { user, isLoading } = useProfile();
 	const [openMenuOptions, setOpenMenuOptions] = useState(false);
 	const menuOptionsRef = useRef(null);
+	const { cart, isGetCart } = useGetCart();
 
 	useEffect(() => {
 		function closeMenuHandler(e) {
@@ -72,9 +74,11 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 			)}
 			<Link href="/cart" className={`${size === "sm" ? "hidden" : ""} btn btn--primary !p-0 w-10 h-10 relative`}>
 				<IoCartOutline className='w-6 h-6'/>
+				{!isGetCart && cart && cart?.totalqty !== "0" &&
 				<div className='absolute -top-2 -left-2 w-5 h-5 rounded-full bg-error text-white text-xs flex items-center justify-center'>
-					3
+					{cart?.totalqty}
 				</div>
+				}
 			</Link>
 		</div>
 	);

@@ -3,6 +3,10 @@ import { HiShoppingCart } from "react-icons/hi";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import AddressList from "./AddressList";
 import { FaArrowRight } from "react-icons/fa6";
+import { useGetCart, useGetSendMethods } from "@/hooks/useCart";
+import { useEffect, useState } from "react";
+import Loading from "@/tools/Loading";
+import SendMethods from "./SendMethods";
 
 export default function Address({ setStep }) {
     return (
@@ -13,7 +17,7 @@ export default function Address({ setStep }) {
                         <FaArrowRight className="w-5 h-5" />
                     </button>
                     <h1 className="text-gray-800 font-semibold text-sm sm:text-base">
-                        آدرس محل تحویل
+                        مشخصات ارسال
                     </h1>
                 </div>
                 <LiaShippingFastSolid className="w-8 h-8 sm:w-10 sm:h-10 text-primary-01" />
@@ -21,6 +25,7 @@ export default function Address({ setStep }) {
             <div className="w-full grid items-start grid-cols-1 gap-6 lg:grid-cols-12 mt-6">
                 <div className="w-full lg:col-span-8 space-y-6">
                     <AddressList />
+                    <SendMethods />
                     <ProductsList />
                 </div>
                 <AddressSammary setStep={setStep} />
@@ -31,38 +36,42 @@ export default function Address({ setStep }) {
 
 
 function AddressSammary({ setStep }) {
+    const { cart } = useGetCart();
+    const { getPrice } = useGetSendMethods();
+
     return (
         <div className="w-full lg:col-span-4 border border-slate-300 rounded-xl p-6 space-y-3">
             <div className="w-full flex items-center justify-between text-gray-700">
                 <span className="text-xs font-medium">
-                    قیمت کالا ها(3)
+                    قیمت کالا ها({cart?.totalqty})
                 </span>
                 <div className="font-bold text-sm">
-                    {numberWithCommas(2500000)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    {numberWithCommas(cart.totalpureprice)} <span className="text-xs text-gray-600 font-medium">تومان</span>
                 </div>
             </div>
-            <div className="w-full flex items-center justify-between text-error">
-                <span className="text-xs font-medium">
-                    سود شما از این خرید
-                </span>
-                <div className="font-bold text-sm">
-                    {numberWithCommas(2500000)} <span className="text-xs text-gray-600 font-medium">تومان</span>
-                </div>
-            </div>
-            <div className="w-full flex items-center justify-between text-error">
+            {cart.totaldiscountprice &&
+                <div className="w-full flex items-center justify-between text-error">
+                    <span className="text-xs font-medium">
+                        سود شما از این خرید
+                    </span>
+                    <div className="font-bold text-sm">
+                        {numberWithCommas(cart.totaldiscountprice)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    </div>
+                </div>}
+            <div className="w-full flex items-center justify-between">
                 <span className="text-xs font-medium">
                     هزینه ارسال
                 </span>
                 <div className="font-bold text-sm">
-                    {numberWithCommas(2500000)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    {numberWithCommas(getPrice(cart.sendmethod))} <span className="text-xs text-gray-600 font-medium">تومان</span>
                 </div>
             </div>
             <div className="w-full flex items-center justify-between text-gray-900 border-t border-gray-300 pt-4 !mt-4">
                 <span className="font-bold text-sm">
-                    جمع سبد خرید
+                    قیمت نهایی
                 </span>
                 <div className="font-bold">
-                    {numberWithCommas(2500000)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    {numberWithCommas(cart.totalprice)} <span className="text-xs text-gray-600 font-medium">تومان</span>
                 </div>
             </div>
 
@@ -75,15 +84,37 @@ function AddressSammary({ setStep }) {
 
 
 function ProductsList() {
+    const { cart, productsInCart, isGetProducts } = useGetCart();
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        async function getProductsData() {
+            const res = await productsInCart();
+            setProducts(res);
+        };
+
+        if (!isGetProducts) {
+            getProductsData();
+        }
+    }, [cart])
+
     return (
         <div className="w-full border border-slate-300 rounded-xl p-6">
             <div className="flex items-center gap-2 text-sm font-semibold text-gray-800 mb-5">
                 <HiShoppingCart className="w-6 h-6" />
-                محصولات شما (3)
+                محصولات شما ({products.length})
             </div>
 
-            <div>
-
+            <div className="flex items-center flex-wrap gap-4">
+                {products?.map((item, index) => (
+                    <div key={item.id} className="border-l border-l-slate-300 pl-4 last:border-0 py-4">
+                        <div className="w-32">
+                            <div className="aspect-w-10 aspect-h-10">
+                                <img src={item.photos[0].path} alt="" className="w-full h-full object-cover object-center  rounded-lg overflow-hidden" />
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     )

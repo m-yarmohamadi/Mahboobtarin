@@ -47,8 +47,7 @@ const Baner02 = () => {
 				autoplay={{ delay: 4000 }}
 				pagination={{ clickable: true }}
 				scrollbar={{ draggable: true }}
-				onSwiper={(swiper) => console.log(swiper)}
-				onSlideChange={() => console.log('slide change')}>
+				>
 				{sliderImg.map((item, index) => {
 					return (
 						<SwiperSlide key={index}>

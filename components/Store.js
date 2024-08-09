@@ -6,6 +6,9 @@ import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
 import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
 import { useGetBestSellProducts } from '@/hooks/useProducts';
 import numberWithCommas from '@/utils/numberWithCommas';
+import {useAddToCart, useGetCart} from '@/hooks/useCart';
+import { useGetAddress } from '@/hooks/useProfile';
+import Link from 'next/link';
 const data = [
 	{
 		id: 1,
@@ -66,10 +69,11 @@ const data = [
 
 const Store = () => {
 	const { isLoading, products } = useGetBestSellProducts();
-	
-	const DiscountCalculation = (i, d) => {
-		return i - (i * d) / 100;
-	};
+	const {addressList} = useGetAddress();
+	const { isProductInCart } = useGetCart();
+	const {isAdding,addNewToCart} = useAddToCart();
+
+
 	return (
 		<div className=' md:container px-8 md:px-0'>
 			<div className='w-full'>
@@ -130,9 +134,16 @@ const Store = () => {
 											{item.discount_price !== 0 && <span className='text-xs text-white bg-error px-2 py-1 rounded-lg'>{item.discount_price} %</span> }
 											<p className='text-lg font-bold text-gray-700 text-left'>{numberWithCommas(item.price)} تومان</p>
 										</div>
-										<button className='btn btn--primary w-full'>
-											افزودن به سبد خرید
-										</button>
+										{
+											isProductInCart(item.id) ?
+											<Link href="/cart" className='btn btn--secondary w-full'>
+												موجود در سبد خرید، مشاهده
+											</Link>
+											:
+											<button onClick={()=>addNewToCart(item.id)} className='btn btn--primary w-full'>
+												افزودن به سبد خرید
+											</button>
+										}
 									</div>
 								</div>
 							</div>

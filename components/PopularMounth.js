@@ -134,8 +134,7 @@ const PopularMounth = () => {
 				autoplay={{ delay: 4000 }}
 				pagination={false}
 				scrollbar={false}
-				onSwiper={(swiper) => console.log(swiper)}
-				onSlideChange={() => console.log('slide change')}>
+				>
 				{data.map((item) => {
 					return (
 						<SwiperSlide

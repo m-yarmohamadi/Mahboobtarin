@@ -33,8 +33,8 @@ export function setUserAddress(data) {
   });
 }
 
-export function removeUserAddress({ data }) {
-  return http.post("/api/v1/remove-address", {
+export function removeUserAddress(data) {
+  return http.post("/api/v1/remove-address", data,{
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },

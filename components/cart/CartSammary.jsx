@@ -1,30 +1,33 @@
+import { useGetCart } from "@/hooks/useCart";
 import numberWithCommas from "@/utils/numberWithCommas";
 
 export default function CartSammary({ cartSammary, setStep }) {
+    const { cart } = useGetCart();
+
     return (
         <div className="w-full lg:col-span-4 border border-gray-300 rounded-lg p-6 space-y-3">
             <div className="w-full flex items-center justify-between text-gray-700">
                 <span className="text-xs font-medium">
-                    قیمت کالا ها(3)
+                    قیمت کالا ها({cart?.totalqty})
                 </span>
                 <div className="font-bold text-sm">
-                    {numberWithCommas(2500000)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    {numberWithCommas(cart.totalpureprice)} <span className="text-xs text-gray-600 font-medium">تومان</span>
                 </div>
             </div>
-            <div className="w-full flex items-center justify-between text-error">
+            {cart.totaldiscountprice && <div className="w-full flex items-center justify-between text-error">
                 <span className="text-xs font-medium">
                     سود شما از این خرید
                 </span>
                 <div className="font-bold text-sm">
-                    {numberWithCommas(2500000)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    {numberWithCommas(cart.totaldiscountprice)} <span className="text-xs text-gray-600 font-medium">تومان</span>
                 </div>
-            </div>
+            </div>}
             <div className="w-full flex items-center justify-between text-gray-900 border-t border-gray-300 pt-4 !mt-4">
                 <span className="font-bold text-sm">
-                    جمع سبد خرید
+                    قیمت نهایی
                 </span>
                 <div className="font-bold">
-                    {numberWithCommas(2500000)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    {numberWithCommas(cart.totalprice)} <span className="text-xs text-gray-600 font-medium">تومان</span>
                 </div>
             </div>
 
