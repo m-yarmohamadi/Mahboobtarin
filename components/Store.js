@@ -112,7 +112,7 @@ const Store = () => {
 					{!isLoading && products?.map((item) => {
 						return (
 							<div key={item.id} className='flex flex-col overflow-hidden bg-white rounded-xl duration-300 border border-gray-300 hover:shadow-md'>
-								<div className=''>
+								<Link href={`/products/${item.id}`} className='block'>
 									<div className='aspect-w-10 aspect-h-10'>
 										<img 
 											src={item.photos[0].path}
@@ -120,15 +120,15 @@ const Store = () => {
 											className='w-full h-full object-center object-cover'
 										/>
 									</div>
-								</div>
+								</Link>
 								<div className='p-4 flex-1 flex flex-col justify-between'>
-									<div>
+									<Link href={`/products/${item.id}`} className='block'>
 										<h3 className='text-gray-800 font-bold mb-2'>
 											{item.title}
 										</h3>
 										<div className='text-xs text-gray-600 leading-8' dangerouslySetInnerHTML={{__html:item.shortdescription}}/>
 										
-									</div>
+									</Link>
 									<div className='space-y-4'>
 										<div className='w-full flex mt-4 gap-1 justify-between items-center'>
 											{item.discount_price !== 0 && <span className='text-xs text-white bg-error px-2 py-1 rounded-lg'>{item.discount_price} %</span> }

@@ -6,7 +6,7 @@ import {
 } from "@/services/cartService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useGetAddress } from "./useProfile";
+import useProfile, { useGetAddress } from "./useProfile";
 
 export function useGetCart() {
   const { data, isLoading: isGetCart } = useQuery({
@@ -68,9 +68,9 @@ export function useAddToCart() {
       {
         orderid: cart?.order_id,
         products: [...products],
-        paymentmethod: cart.paymentmethod,
+        paymentmethod: cart?.paymentmethod,
         coupondiscount: "",
-        addressid: cart.address_id,
+        addressid: cart?.address_id,
         send_method: cart?.sendmethod || "adi",
       },
       {
@@ -90,6 +90,7 @@ export function useAddToCart() {
 
   // * add new product to cart
   const { addressList } = useGetAddress();
+  const { user } = useProfile();
   const addNewToCart = (productId) => {
     let products = [];
 
@@ -105,29 +106,33 @@ export function useAddToCart() {
       products = [{ id: productId, qty: 1 }];
     }
 
-    mutateCart(
-      {
-        orderid: cart && cart.order_id,
-        products: [...products],
-        paymentmethod: cart.paymentmethod || "online",
-        coupondiscount: "",
-        addressid: cart.address_id || addressList[0].id,
-        send_method: cart?.sendmethod || "adi",
-      },
-      {
-        onSuccess: ({ data }) => {
-          if (data) {
-            queryClient.invalidateQueries({ queryKey: ["get-cart"] });
-            toast.success("به سبد خرید اضافه شد");
-          }
+    if (user) {
+      mutateCart(
+        {
+          orderid: cart && cart?.order_id,
+          products: [...products],
+          paymentmethod: cart?.paymentmethod || "online",
+          coupondiscount: "",
+          addressid: cart?.address_id || addressList[0].id,
+          send_method: cart?.sendmethod || "adi",
         },
-        onError: (error) => {
-          if (error?.response?.status === 401) {
-            window.location.reload();
-          }
-        },
-      }
-    );
+        {
+          onSuccess: ({ data }) => {
+            if (data) {
+              queryClient.invalidateQueries({ queryKey: ["get-cart"] });
+              toast.success("به سبد خرید اضافه شد");
+            }
+          },
+          onError: (error) => {
+            if (error?.response?.status === 401) {
+              window.location.reload();
+            }
+          },
+        }
+      );
+    } else {
+      toast.error("ابتدا وارد حساب کاربری خود شوید")
+    }
   };
 
   //  * increment product in cart
@@ -180,7 +185,7 @@ export function useAddToCart() {
         {
           orderid: cart && cart.order_id,
           products: [...lastProducts],
-          paymentmethod: cart.paymentmethod,
+          paymentmethod: cart?.paymentmethod,
           coupondiscount: "",
           addressid: addressId,
           send_method: cart?.sendmethod || "adi",
@@ -213,9 +218,9 @@ export function useAddToCart() {
         {
           orderid: cart && cart.order_id,
           products: [...lastProducts],
-          paymentmethod: cart.paymentmethod,
+          paymentmethod: cart?.paymentmethod,
           coupondiscount: "",
-          addressid: cart.address_id || addressList[0].id,
+          addressid: cart?.address_id || addressList[0].id,
           send_method: method,
         },
         {
@@ -280,8 +285,10 @@ export function useGetSendMethods() {
     }));
 
   const getPrice = (methodName) => {
-    const priceValue = !isGetMethods && sendMethods?.filter((m) => m.englishTitle === methodName)[0]?.price;
-    return priceValue
+    const priceValue =
+      !isGetMethods &&
+      sendMethods?.filter((m) => m.englishTitle === methodName)[0]?.price;
+    return priceValue;
   };
 
   return { sendMethods, isGetMethods, getPrice };
