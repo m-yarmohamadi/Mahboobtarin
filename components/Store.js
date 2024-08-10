@@ -6,7 +6,7 @@ import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
 import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
 import { useGetBestSellProducts } from '@/hooks/useProducts';
 import numberWithCommas from '@/utils/numberWithCommas';
-import {useAddToCart, useGetCart} from '@/hooks/useCart';
+import { useAddToCart, useGetCart } from '@/hooks/useCart';
 import { useGetAddress } from '@/hooks/useProfile';
 import Link from 'next/link';
 const data = [
@@ -69,9 +69,12 @@ const data = [
 
 const Store = () => {
 	const { isLoading, products } = useGetBestSellProducts();
-	const {addressList} = useGetAddress();
+	const { addressList } = useGetAddress();
 	const { isProductInCart } = useGetCart();
-	const {isAdding,addNewToCart} = useAddToCart();
+	const { isAdding, addNewToCart } = useAddToCart();
+	const addDiscount = (item, discount) => {
+		return item - ((item * discount) / 100)
+	}
 
 
 	return (
@@ -95,7 +98,7 @@ const Store = () => {
 						</div>
 					</div>
 				</div>
-				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4'>
 					<div className='w-full bg-gray-200 hover:bg-gray-100 hover:shadow-md'>
 						<img
 							className=' object-cover'
@@ -114,7 +117,7 @@ const Store = () => {
 							<div key={item.id} className='flex flex-col overflow-hidden bg-white rounded-xl duration-300 border border-gray-300 hover:shadow-md'>
 								<Link href={`/products/${item.id}`} className='block'>
 									<div className='aspect-w-10 aspect-h-10'>
-										<img 
+										<img
 											src={item.photos[0].path}
 											alt={item.photos[0].original_name}
 											className='w-full h-full object-center object-cover'
@@ -126,23 +129,36 @@ const Store = () => {
 										<h3 className='text-gray-800 font-bold mb-2'>
 											{item.title}
 										</h3>
-										<div className='text-xs text-gray-600 leading-8' dangerouslySetInnerHTML={{__html:item.shortdescription}}/>
-										
+										<div className='text-xs text-gray-600 leading-8' dangerouslySetInnerHTML={{ __html: item.shortdescription }} />
+
 									</Link>
 									<div className='space-y-4'>
 										<div className='w-full flex mt-4 gap-1 justify-between items-center'>
-											{item.discount_price !== 0 && <span className='text-xs text-white bg-error px-2 py-1 rounded-lg'>{item.discount_price} %</span> }
-											<p className='text-lg font-bold text-gray-700 text-left'>{numberWithCommas(item.price)} تومان</p>
+											{item.discount_price !== 0 && <span className='text-sm text-white bg-error px-4 py-2 rounded-md'>{item.discount_price} %</span>}
+											<div className='flex flex-col justify-center items-center'>
+												<p className='text-md line-through  text-gray-400'>{numberWithCommas(item.price)} </p>
+												<p className='text-lg font-bold text-gray-700 text-left'>{numberWithCommas(addDiscount(item.price, item.discount_price))} تومان</p>
+
+											</div>
+										</div>
+										<div className='flex justify-between items-center'>
+											<span className='flex flex-col justify-center items-start text-xs'>
+												<span>عرضه کننده:</span>
+												<span>امیر عزیزی</span>
+											</span>
+											<span>
+												<img className='w-10 h-10 rounded-full' src='/images//KavehBehbahani.jpg' />
+											</span>
 										</div>
 										{
 											isProductInCart(item.id) ?
-											<Link href="/cart" className='btn btn--secondary w-full'>
-												موجود در سبد خرید، مشاهده
-											</Link>
-											:
-											<button onClick={()=>addNewToCart(item.id)} className='btn btn--primary w-full'>
-												افزودن به سبد خرید
-											</button>
+												<Link href="/cart" className='btn btn--secondary w-full'>
+													موجود در سبد خرید، مشاهده
+												</Link>
+												:
+												<button onClick={() => addNewToCart(item.id)} className='btn btn--primary w-full'>
+													افزودن به سبد خرید
+												</button>
 										}
 									</div>
 								</div>
