@@ -1,5 +1,4 @@
-// import 'tw-elements-react/dist/css/tw-elements-react.min.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Slider from '@/components/Slider';
@@ -14,13 +13,33 @@ import News from '@/components/News';
 import Baner04 from '@/components/Baner04';
 import Store from '@/components/Store';
 import Resume from '@/components/Resume';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Head from 'next/head';
+import useMainPage from '@/hooks/useMainPage';
+import LoadingPage from '@/components/LoadingPage';
 
-const index = () => {
+const Index = () => {
+	const { isLoading } = useMainPage();
+	const [isContentVisible, setContentVisible] = useState(false);
+
+	useEffect(() => {
+		if (!isLoading) {
+			const timer = setTimeout(() => {
+				setContentVisible(true);
+			}, 300); // زمان تاخیر برای افکت
+			return () => clearTimeout(timer);
+		}
+	}, [isLoading]);
+
 	return (
-		<>
-			<div className='w-full  max-w-full h-full max-h-full box-content transition-all duration-1000 ease-in-out'>
+		<div className='w-full max-w-full h-full max-h-full box-content'>
+			{/* لایه موقت */}
+			{isLoading && (
+				<div className='absolute inset-0 flex items-center justify-center bg-gray-200'>
+					<LoadingPage />
+				</div>
+			)}
+
+			{/* محتوای اصلی */}
+			<div className={`transition-opacity duration-1000 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
 				<Header />
 				<Slider />
 				<Baner />
@@ -36,8 +55,8 @@ const index = () => {
 				<Resume />
 				<Footer />
 			</div>
-		</>
+		</div>
 	);
 };
 
-export default index;
+export default Index;

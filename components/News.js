@@ -98,8 +98,8 @@ const News = () => {
             </Swiper>
 
             <div className=" md:container px-8 md:px-0 pt-16">
-                <div className="grid xs:grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="w-full ">
+                <div className="w-full md:grid xs:flex md:grid-cols-4 gap-4 xs:overflow-x-scroll md:overflow-hidden">
+                    <div className="w-full xs:min-w-full md:col-span-1 ">
                         <img
                             className=" shadow-md shadow-primary-01 rounded-ss-3xl"
                             src="/images/liraglotide.webp"
@@ -112,7 +112,7 @@ const News = () => {
                             <span>کاربرد در کاهش وزن</span>
                         </div>
                     </div>
-                    <div className="w-full ">
+                    <div className="w-full xs:min-w-full md:col-span-1 ">
                         <img
                             className=" shadow-md shadow-primary-01 rounded-se-3xl"
                             src="/images/gardasil.jpg"
@@ -125,7 +125,7 @@ const News = () => {
                             <span>کاربرد در کاهش وزن</span>
                         </div>
                     </div>
-                    <div className="w-full ">
+                    <div className="w-full xs:min-w-full md:col-span-1 ">
                         <img
                             className=" shadow-md shadow-primary-01 rounded-ss-3xl"
                             src="/images/Dandan.jpg"
@@ -138,7 +138,7 @@ const News = () => {
                             <span>کاربرد در کاهش وزن</span>
                         </div>
                     </div>
-                    <div className="w-full ">
+                    <div className="w-full xs:min-w-full md:col-span-1 ">
                         <img
                             className=" shadow-md shadow-primary-01 rounded-se-3xl"
                             src="/images/baby.jpg"
