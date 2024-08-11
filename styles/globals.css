@@ -105,3 +105,38 @@ input[type=number] {
 .swiper-button-next{
 	color: #0693a4 !important;
 }
+
+
+/* shop slider swiper */
+.shop-slider .custome-pagination{
+	@apply absolute !bottom-8 right-8 z-50
+}
+
+.shop-slider .custome-pagination .swiper-pagination-bullet{
+	@apply !bg-gray-700 opacity-100 rounded-full duration-300 ease-out
+}
+
+.shop-slider .custome-pagination .swiper-pagination-bullet-active{
+	@apply w-4 !bg-white shadow-md
+}
+
+.special-sell-slider .swiper-wrapper,
+.best-sellers-slider .swiper-wrapper{
+	@apply !h-[450px]
+}
+
+.selected-discounts-swiper .swiper-wrapper{
+	@apply xl:!justify-center
+}
+
+.popular-brands-swiper .custome-pagination{
+	@apply w-auto
+}
+
+.popular-brands-swiper .custome-pagination .swiper-pagination-bullet{
+	@apply !bg-gray-400 opacity-100 rounded-full duration-300 ease-out
+}
+
+.popular-brands-swiper .custome-pagination .swiper-pagination-bullet-active{
+	@apply w-4 !bg-primary-01
+}
