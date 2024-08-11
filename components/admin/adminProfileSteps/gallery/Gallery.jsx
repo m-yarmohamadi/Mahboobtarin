@@ -36,9 +36,6 @@ export default function Gallery() {
 					))}
 				</div>
 			</div>
-			<div className='w-full flex justify-end items-center py-2'>
-				<button className='btn btn--primary px-3'>ثبت تغییرات</button>
-			</div>
 
 			<Modal
 				open={open}

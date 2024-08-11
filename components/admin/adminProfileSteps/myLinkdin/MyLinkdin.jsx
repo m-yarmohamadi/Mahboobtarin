@@ -1,43 +1,47 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import useProfile from '@/hooks/useProfile';
 import Linkdins from './Linkdins';
+import { useMutation } from '@tanstack/react-query';
+import { addLinkdins } from '@/services/expertDashboardService';
+import toast from 'react-hot-toast';
 
 export default function MyLinkdin() {
-	const { linkdin } = useProfile();
 
 	const initialValues = {
-		linkdin: linkdin || [],
+		title: "",
+		source: "",
+		link: ""
 	};
 
-	const onSubmit = (values) => {
-		const linkdinData = {
-			linkdin: values.linkdin,
-		};
+	const { mutateAsync: mutateAddLinkdins, isPending } = useMutation({ mutationFn: addLinkdins });
+	const onSubmit = async (values, { resetForm }) => {
+		try {
+			const { data } = await mutateAddLinkdins({
+				title: values.title,
+				source: values.source,
+				link: values.link
+			});
 
-		const data = new FormData();
+			if (data) {
+				toast.success("خبر با موفقیت درج شد");
+				resetForm();
+			}
 
-		for (const key in linkdinData) {
-			if (Array.isArray(linkdinData[key]) && linkdinData[key].length > 0) {
-				data.append(key, JSON.stringify(linkdinData[key]));
+		} catch (error) {
+			if (error?.response?.status === 401) {
+				window.location.reload();
+				toast.error("وارد حساب کاربری خود شوید");
 			} else {
-				data.append(key, linkdinData[key]);
+				toast.error("خطایی رخ داده");
 			}
 		}
-		// mutateUpdateProfile(data, {
-		//     onSuccess: ({ data }) => {
-		//         if (data.status === 200) {
-		//             toast.success("پروفایل شما با موفقیت ویرایش شد");
-		//             queryClient.invalidateQueries({ queryKey: ["get-profile"] });
-		//         }
-		//     },
-		//     onError: (error) => {
-		//         toast.error("خطا در ویرایش پروفایل!")
-		//     }
-		// })
 	};
 
-	const validationSchema = Yup.object({});
+	const validationSchema = Yup.object({
+		title: Yup.string().required("تیتر خبر را وارد کنید"),
+		source: Yup.string().required("منبع خبر را وارد کنید"),
+		link: Yup.string().required("لینک خبر را وارد کنید"),
+	});
 
 	const formik = useFormik({
 		initialValues,
@@ -59,13 +63,13 @@ export default function MyLinkdin() {
 					className='space-y-4'
 					onSubmit={formik.handleSubmit}>
 					<div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-4'>
-						<Linkdins formik={formik} />
+						<Linkdins formik={formik} loading={isPending} />
 					</div>
 				</form>
 			</div>
-			<div className='w-full flex justify-end items-center'>
+			{/* <div className='w-full flex justify-end items-center'>
 				<button className='bg-primary-01 text-white px-8 py-2 rounded-md font-bold hover:bg-opacity-90'>ثبت تغییرات</button>
-			</div>
+			</div> */}
 		</div>
 	);
 }

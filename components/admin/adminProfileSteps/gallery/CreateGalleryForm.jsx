@@ -1,14 +1,34 @@
+import { addGallery } from '@/services/expertDashboardService';
 import Input from '@/tools/Input';
+import Loading from '@/tools/Loading';
+import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
+import toast from 'react-hot-toast';
 import { BiEditAlt } from 'react-icons/bi';
 import { GoPlusCircle } from 'react-icons/go';
 import * as Yup from 'yup';
 
-export default function CreateGalleryForm({ onClose, setGallery }) {
-	const onSubmit = (values, { resetForm }) => {
-		onClose();
-		setGallery((pervList) => [...pervList, { id: Date.now(), title: values.title, src: values.src }]);
-		resetForm();
+export default function CreateGalleryForm({ onClose }) {
+	const { mutateAsync: mutateAddGallery, isPending } = useMutation({ mutationFn: addGallery });
+
+
+	const onSubmit = async (values, { resetForm }) => {
+		const formData = new FormData();
+		formData.append("title", values.title);
+		formData.append("file", values.src);
+		formData.append("type", values.src.type.split("/")[0]);
+
+		try {
+			const { data } = await mutateAddGallery(formData);
+			if (data) {
+				toast.success("با موفقیت اضافه شد");
+				onClose();
+				resetForm();
+			}
+
+		} catch (error) {
+			toast.error("خطایی رخ داده!");
+		}
 	};
 
 	const formik = useFormik({
@@ -29,7 +49,7 @@ export default function CreateGalleryForm({ onClose, setGallery }) {
 					type='file'
 					hidden
 					id='src-gallery'
-					accept='image/*, video/*'
+					accept='image/png, image/gif, image/jpeg , image/jpg, video/*'
 					onChange={(e) => formik.setFieldValue('src', e.target.files[0])}
 				/>
 				{formik.values.src ? (
@@ -87,7 +107,7 @@ export default function CreateGalleryForm({ onClose, setGallery }) {
 				<button
 					type='submit'
 					className='btn btn--primary flex-1'>
-					ثبت
+					{isPending ? <Loading /> : "ثبت"}
 				</button>
 				<button
 					onClick={() => onClose()}
