@@ -129,14 +129,20 @@ input[type=number] {
 	@apply xl:!justify-center
 }
 
-.popular-brands-swiper .custome-pagination{
+.popular-brands-swiper .custome-pagination,
+.course-categories-swiper .custome-pagination{
 	@apply w-auto
 }
 
-.popular-brands-swiper .custome-pagination .swiper-pagination-bullet{
+.popular-brands-swiper .custome-pagination .swiper-pagination-bullet,
+.course-categories-swiper .custome-pagination .swiper-pagination-bullet{
 	@apply !bg-gray-400 opacity-100 rounded-full duration-300 ease-out
 }
 
-.popular-brands-swiper .custome-pagination .swiper-pagination-bullet-active{
+.popular-brands-swiper .custome-pagination .swiper-pagination-bullet-active,
+.course-categories-swiper .custome-pagination .swiper-pagination-bullet-active{
 	@apply w-4 !bg-primary-01
 }
+
+
+/* academy slider swiper */
