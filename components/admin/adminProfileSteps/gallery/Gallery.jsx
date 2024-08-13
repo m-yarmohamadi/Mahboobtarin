@@ -4,14 +4,21 @@ import { MdAdd } from 'react-icons/md';
 import CreateGalleryForm from './CreateGalleryForm';
 import { HiOutlineTrash } from 'react-icons/hi2';
 import { FaImages } from 'react-icons/fa';
+import useProfile from '@/hooks/useProfile';
+import useGetExpertiseUser from '@/hooks/useExpertiseUser';
+import Loading from '@/tools/Loading';
 
 export default function Gallery() {
-	const [galleryList, setGalleryList] = useState([]);
+	const { user, isLoading } = useProfile();
+	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.id);
+	const { gallery } = data || {};
 	const [open, setOpen] = useState(false);
-
-	const deleteHandler = (id) => {
-		setGalleryList((pervList) => pervList.filter((g) => g.id !== id));
-	};
+	
+	if (isLoading || iGetLinkdins) return (
+		<div className='w-full h-screen lg:h-full flex items-center justify-center'>
+			<Loading customeColor="#0693a4" />
+		</div>
+	)
 
 	return (
 		<div className='h-full w-full flex flex-col justify-between '>
@@ -26,12 +33,11 @@ export default function Gallery() {
 						<FaImages className='w-5 h-5' />
 					</button>
 				</div>
-				<div className='w-full grid grid-cols-2 gap-4 md:grid-cols-4'>
-					{galleryList.map((item, index) => (
+				<div className='w-full grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-4'>
+					{gallery.map((item, index) => (
 						<GalleryItem
 							key={index}
 							data={item}
-							onDelete={() => deleteHandler(item.id)}
 						/>
 					))}
 				</div>
@@ -43,31 +49,31 @@ export default function Gallery() {
 				title='ویدیو/تصویر جدید'>
 				<CreateGalleryForm
 					onClose={() => setOpen(false)}
-					setGallery={setGalleryList}
+					userID={user?.id}
 				/>
 			</Modal>
 		</div>
 	);
 }
 
-function GalleryItem({ data, onDelete }) {
+function GalleryItem({ data }) {
 	return (
 		<div className='flex flex-col gap-2 relative bg-primary-01 bg-opacity-10 rounded-lg p-1'>
-			{data.src.type.split('/')[0] === 'image' ? (
-				<div className='aspect-video rounded-lg overflow-hidden'>
+			{data.type === 'gallery-image' ? (
+				<div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
 					<img
-						src={URL.createObjectURL(data.src)}
+						src={data.path}
 						alt=''
 						className='w-full h-full object-cover'
 					/>
 				</div>
 			) : (
-				<div className='aspect-video rounded-lg overflow-hidden'>
+				<div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
 					<video
 						controls
 						className='w-full h-full object-cover'>
 						<source
-							src={URL.createObjectURL(data.src)}
+							src={data.path}
 							type='video/mp4'
 						/>
 					</video>
@@ -75,7 +81,6 @@ function GalleryItem({ data, onDelete }) {
 			)}
 			<h3 className='w-full text-md text-gray-800 font-bold px-2'>{data.title}</h3>
 			<button
-				onClick={onDelete}
 				className='btn btn--danger absolute top-2 left-2 !p-1'>
 				<HiOutlineTrash className='w-5 h-5' />
 			</button>

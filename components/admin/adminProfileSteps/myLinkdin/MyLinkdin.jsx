@@ -1,11 +1,18 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Linkdins from './Linkdins';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addLinkdins } from '@/services/expertDashboardService';
 import toast from 'react-hot-toast';
+import Loading from '@/tools/Loading';
+import useProfile from '@/hooks/useProfile';
+import useGetExpertiseUser from '@/hooks/useExpertiseUser';
 
 export default function MyLinkdin() {
+	const queryClient = useQueryClient();
+	const { user, isLoading } = useProfile();
+	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.id);
+	const { link_dooni } = data || {}
 
 	const initialValues = {
 		title: "",
@@ -25,6 +32,7 @@ export default function MyLinkdin() {
 			if (data) {
 				toast.success("خبر با موفقیت درج شد");
 				resetForm();
+				queryClient.invalidateQueries({queryKey:["get-expertise-user-by-id", user?.id]})
 			}
 
 		} catch (error) {
@@ -51,6 +59,12 @@ export default function MyLinkdin() {
 		enableReinitialize: true,
 	});
 
+	if (isLoading || iGetLinkdins) return (
+		<div className='w-full h-full flex items-center justify-center'>
+			<Loading customeColor="#0693a4" />
+		</div>
+	)
+
 	return (
 		<div className='flex flex-col justify-between items-center w-full h-full'>
 			<div className='w-full'>
@@ -63,7 +77,7 @@ export default function MyLinkdin() {
 					className='space-y-4'
 					onSubmit={formik.handleSubmit}>
 					<div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-4'>
-						<Linkdins formik={formik} loading={isPending} />
+						<Linkdins link_dooni={link_dooni} formik={formik} loading={isPending} />
 					</div>
 				</form>
 			</div>

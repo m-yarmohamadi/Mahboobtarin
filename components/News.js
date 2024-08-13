@@ -63,20 +63,20 @@ const News = () => {
                     return (
                         <SwiperSlide key={index}>
                             <div className="md:container px-8 md:px-0 grid sm:grid-cols-1 lg:grid-cols-2 md:gap-x-20 ">
-                                <div>
+                                <div className='flex-1'>
                                     <button
                                         className="py-2 px-8 bg-primary-01 text-white text-xl font-bold rounded-lg"
                                         type=""
                                     >
                                         مجله محبوب ترین
                                     </button>
-                                    <div className="  font-semibold text-2xl py-8">
-                                        <p className=" text-justify border-r-8 border-primary-01 p-2">
+                                    <div className="  font-semibold text-xl md:text-2xl py-8">
+                                        <p className="text-justify border-r-8 border-primary-01 p-2">
                                             {item.titleNews}{' '}
                                         </p>
                                     </div>
-                                    <div className="py-8">
-                                        <p className=" text-justify text-lg">
+                                    <div className="pb-8">
+                                        <p className=" text-justify text-sm md:text-base leading-7 md:leading-8">
                                             {item.descriptionNews}
                                             <span className=" text-primary-01 cursor-pointer">
                                                 ادامه مطلب...
@@ -98,59 +98,24 @@ const News = () => {
             </Swiper>
 
             <div className=" md:container px-8 md:px-0 pt-16">
-                <div className="w-full md:grid xs:flex md:grid-cols-4 gap-4 xs:overflow-x-scroll md:overflow-hidden">
-                    <div className="w-full xs:min-w-full md:col-span-1 ">
-                        <img
-                            className=" shadow-md shadow-primary-01 rounded-ss-3xl"
-                            src="/images/liraglotide.webp"
-                            alt=""
-                        />
-                        <div className=" shadow-md flex flex-col justify-center items-start p-2 border-r-8 border-primary-01">
-                            <span className=" font-bold">
-                                خرید ویکتوزا (لیراگلوتاید)
-                            </span>
-                            <span>کاربرد در کاهش وزن</span>
+                <div className="w-full sm:grid xs:flex sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 xs:overflow-x-scroll md:overflow-hidden">
+                    {Array(4).fill({}).map((item, index) => (
+                        <div key={index} className="w-full xs:min-w-full">
+                            <div className='aspect-w-16 aspect-h-10'>
+                                <img
+                                    className="w-full h-full object-cover object-center shadow-md shadow-primary-01 rounded-ss-3xl"
+                                    src="/images/liraglotide.webp"
+                                    alt=""
+                                />
+                            </div>
+                            <div className=" shadow-md gap-1 flex flex-col justify-center items-start p-4 border-r-8 border-primary-01">
+                                <span className="text-sm font-bold">
+                                    خرید ویکتوزا (لیراگلوتاید)
+                                </span>
+                                <span className='text-sm'>کاربرد در کاهش وزن</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="w-full xs:min-w-full md:col-span-1 ">
-                        <img
-                            className=" shadow-md shadow-primary-01 rounded-se-3xl"
-                            src="/images/gardasil.jpg"
-                            alt=""
-                        />
-                        <div className="shadow-md flex flex-col justify-center items-start p-2 border-r-8 border-primary-01">
-                            <span className=" font-bold">
-                                خرید ویکتوزا (لیراگلوتاید)
-                            </span>
-                            <span>کاربرد در کاهش وزن</span>
-                        </div>
-                    </div>
-                    <div className="w-full xs:min-w-full md:col-span-1 ">
-                        <img
-                            className=" shadow-md shadow-primary-01 rounded-ss-3xl"
-                            src="/images/Dandan.jpg"
-                            alt=""
-                        />
-                        <div className="shadow-md flex flex-col justify-center items-start p-2 border-r-8 border-primary-01">
-                            <span className=" font-bold">
-                                خرید ویکتوزا (لیراگلوتاید)
-                            </span>
-                            <span>کاربرد در کاهش وزن</span>
-                        </div>
-                    </div>
-                    <div className="w-full xs:min-w-full md:col-span-1 ">
-                        <img
-                            className=" shadow-md shadow-primary-01 rounded-se-3xl"
-                            src="/images/baby.jpg"
-                            alt=""
-                        />
-                        <div className="shadow-md flex flex-col justify-center items-start p-2 border-r-8 border-primary-01">
-                            <span className=" font-bold">
-                                خرید ویکتوزا (لیراگلوتاید)
-                            </span>
-                            <span>کاربرد در کاهش وزن</span>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>

@@ -1,15 +1,16 @@
 import { addGallery } from '@/services/expertDashboardService';
 import Input from '@/tools/Input';
 import Loading from '@/tools/Loading';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
 import { BiEditAlt } from 'react-icons/bi';
 import { GoPlusCircle } from 'react-icons/go';
 import * as Yup from 'yup';
 
-export default function CreateGalleryForm({ onClose }) {
+export default function CreateGalleryForm({ onClose, userID }) {
 	const { mutateAsync: mutateAddGallery, isPending } = useMutation({ mutationFn: addGallery });
+	const queryClient = useQueryClient();
 
 
 	const onSubmit = async (values, { resetForm }) => {
@@ -23,11 +24,19 @@ export default function CreateGalleryForm({ onClose }) {
 			if (data) {
 				toast.success("با موفقیت اضافه شد");
 				onClose();
+				queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id", userID] });
 				resetForm();
 			}
 
 		} catch (error) {
-			toast.error("خطایی رخ داده!");
+			if (error?.response?.status === 413) {
+				toast.error("حجم فایل بالاست");
+			}
+
+			if (error?.response?.status === 401) {
+				toast.error("وارد حساب کاربری خود شوید");
+				window.location.reload();
+			}
 		}
 	};
 
@@ -54,13 +63,14 @@ export default function CreateGalleryForm({ onClose }) {
 				/>
 				{formik.values.src ? (
 					formik.values.src.type.split('/')[0] === 'image' ? (
-						<div className='aspect-video rounded-lg relative'>
-							<img
-								src={URL.createObjectURL(formik.values.src)}
-								alt=''
-								className='w-full h-full rounded-lg object-cover'
-							/>
-
+						<div className='relative'>
+							<div className='aspect-w-16 aspect-h-9 rounded-lg'>
+								<img
+									src={URL.createObjectURL(formik.values.src)}
+									alt=''
+									className='w-full h-full rounded-lg object-cover'
+								/>
+							</div>
 							<label
 								htmlFor='src-gallery'
 								className='btn btn--secondary cursor-pointer !p-2 absolute top-4 right-4'>
@@ -68,16 +78,17 @@ export default function CreateGalleryForm({ onClose }) {
 							</label>
 						</div>
 					) : (
-						<div className='aspect-video rounded-lg relative overflow-hidden'>
-							<video
-								controls
-								className='w-full h-full object-cover'>
-								<source
-									src={URL.createObjectURL(formik.values.src)}
-									type='video/mp4'
-								/>
-							</video>
-
+						<div className='relative'>
+							<div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
+								<video
+									controls
+									className='w-full h-full object-cover'>
+									<source
+										src={URL.createObjectURL(formik.values.src)}
+										type='video/mp4'
+									/>
+								</video>
+							</div>
 							<label
 								htmlFor='src-gallery'
 								className='btn btn--secondary cursor-pointer !p-2 absolute top-4 right-4'>

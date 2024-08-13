@@ -76,20 +76,21 @@ export default function Header() {
 		<div className='w-full bg-primary-02 z-50 sticky shadow-md  top-0 left-0 right-0'>
 			<header className=' md:mx-auto md:container'>
 				<nav
-					className='w-full mx-auto flex max-w-full items-center justify-between p-2 '
-					aria-label='Global'>
-					<div className='flex '>
+					className='w-full mx-auto flex max-w-full items-center justify-between p-2'
+					aria-label='Global'
+				>
+					<div className='flex'>
 						<Link href='/'>
 							<span className='sr-only'>محبوبترین</span>
 
 							<img
-								className='h-12 w-auto'
+								className='w-40 '
 								src={data ? data.logo : '/images/logo.png'}
 								alt=''
 							/>
 						</Link>
 					</div>
-					<div className='flex justify-end px-4 items-center w-full md:hidden'>
+					<div className='flex flex-1 justify-end px-4 items-center lg:hidden gap-3'>
 						<button
 							type='button'
 							className='-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700'
@@ -101,9 +102,9 @@ export default function Header() {
 							/>
 						</button>
 					</div>
-					<PopoverGroup className='hidden md:flex md:gap-x-4'>
+					<PopoverGroup className='hidden lg:flex gap-x-2 lg:gap-x-4'>
 						<Popover className='relative flex justify-center items-center'>
-							<PopoverButton className='flex justify-center items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900'>
+							<PopoverButton className='flex justify-center items-center gap-x-1 text-xs xl:text-sm font-semibold leading-6 text-gray-900'>
 								<span className='text-lg text-primary-01'>
 									<FaLayerGroup />
 								</span>
@@ -168,25 +169,23 @@ export default function Header() {
 								<a
 									key={item.id}
 									href='#'
-									className='py-4 px-2 relative before:duration-200 before:ease-out cursor-pointer before:h-1 before:w-0 before:rounded-t-full hover:before:w-full before:absolute before:-bottom-2 before:right-0 before:bg-primary-01'>
+									className='text-sm xl:text-base py-4 px-2 relative before:duration-200 before:ease-out cursor-pointer before:h-1 before:w-0 before:rounded-t-full hover:before:w-full before:absolute before:-bottom-2 before:right-0 before:bg-primary-01'>
 									{item.title}
 								</a>
 							);
 						})}
 					</PopoverGroup>
-
 					<LoginRegister
-						token={token}
-						setOpenRegisterModal={setOpenRegisterModal}
-						handleLogOut={logout}
-					/>
+							setOpenRegisterModal={setOpenRegisterModal}
+							handleLogOut={logout}
+						/>
 				</nav>
 				<Dialog
-					className='md:hidden'
+					className={`lg:hidden`}
 					open={mobileMenuOpen}
 					onClose={setMobileMenuOpen}>
-					<div className='fixed inset-0 z-10' />
-					<DialogPanel className='fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
+					<div className='fixed inset-0 ' />
+					<DialogPanel className={`fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10`}>
 						<div className='flex items-center justify-between'>
 							<a
 								href='#'
@@ -218,10 +217,12 @@ export default function Header() {
 										{({ open }) => (
 											<>
 												<DisclosureButton className='flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'>
-													<span className='text-lg text-primary-01'>
-														<FaLayerGroup />
-													</span>
-													دسته بندی ها
+													<div className='flex items-center gap-2'>
+														<span className='text-lg text-primary-01'>
+															<FaLayerGroup />
+														</span>
+														دسته بندی ها
+													</div>
 													<ChevronDownIcon
 														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
 														aria-hidden='true'
@@ -257,10 +258,9 @@ export default function Header() {
 						</div>
 						<div className='pt-20'>
 							<LoginRegister
-								token={token}
 								setOpenRegisterModal={setOpenRegisterModal}
 								handleLogOut={logout}
-								size={'sm'}
+								size="sm"
 							/>
 						</div>
 					</DialogPanel>
@@ -271,5 +271,14 @@ export default function Header() {
 				setOpenRegisterModal={setOpenRegisterModal}
 			/>
 		</div>
+
+
 	);
+}
+
+function Sidebar({open, onClose}){
+	return (
+		<div className={`w-full `}>	
+		</div>
+	)
 }

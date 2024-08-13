@@ -85,6 +85,7 @@ const Store = () => {
 						<span> تا</span>
 						<span>{PN.convertEnToPe('80%')} </span>
 						<span> تخفیف </span>
+						&nbsp;
 						<span className='text-gray-800'> در محبوب مال</span>
 					</span>
 					<div className='flex justify-between items-center gap-4'>
@@ -98,10 +99,10 @@ const Store = () => {
 						</div>
 					</div>
 				</div>
-				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4'>
+				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
 					<div className='w-full bg-gray-200 hover:bg-gray-100 hover:shadow-md'>
 						<img
-							className=' object-cover'
+							className='m-auto inset-0 object-cover'
 							src='/images/sale.png'
 							alt=''
 						/>

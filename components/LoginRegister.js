@@ -16,7 +16,9 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 
 	useEffect(() => {
 		function closeMenuHandler(e) {
-			if (menuOptionsRef.current && !menuOptionsRef.current.contains(e.target)) {
+			console.log();
+			
+			if (menuOptionsRef.current && !menuOptionsRef.current.contains(e.target) && !e.target.classList.contains("btn-open-mobile")) {
 				setOpenMenuOptions(false);
 			}
 		}
@@ -27,64 +29,115 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 	}, [setOpenMenuOptions]);
 
 	return (
-		<div className={`${isLoading ? 'blur-sm opacity-45' : ''} duration-100 flex items-center gap-2`}>
-			{token ? (
-				<div className={`${size === 'sm' ? `block` : `hidden md:flex md:flex-1 md:justify-start`} relative  bg-primary-01 text-primary-02 rounded-lg  justify-center items-center  w-full`}>
-					<button
-						onClick={() => setOpenMenuOptions(!openMenuOptions)}
-						className='w-full flex justify-between items-center text-center  text-sm min-h-10 px-2'>
-						<FaAnglesLeft className={`${!openMenuOptions && `-rotate-90`} mx-2`} />
-
-						{/* {user?.gender === 'man' ? 'جناب آقای' : 'سرکار خانم'}
-						&nbsp; */}
-						<span className='font-bold text-white'>
+		<div className={`flex items-center gap-2 ${isLoading && "opacity-60 blur-sm"} duration-150`}>
+			<div className={`${size === "sm" ? "block" : "hidden"} lg:!block !w-full lg:!w-auto`}>
+				{user ?
+					<div className='relative !w-full lg:!w-auto'>
+						<button onClick={() => setOpenMenuOptions(!openMenuOptions)} className='font-bold !w-full lg:!w-auto btn-open-mobile btn btn--primary gap-2 !py-0 h-10 !pr-2'>
+							<FaAnglesLeft className={`${!openMenuOptions && `-rotate-90`} mx-2`} />
 							{user?.name} {user?.lastname}
-						</span>
-						{/* &nbsp;
-						خوش آمدید */}
-					</button>
-					<MenuOptions
-						ref={menuOptionsRef}
-						open={openMenuOptions}>
-						{user?.type !== 'user' && (
-							<MenuOptionsItem
-								link={`/profile/${user?.id}`}
-								text='پروفایل'
-								icon={<BiUser className='w-6 h-6' />}
-							/>
-						)}
-						<MenuOptionsItem
-							link={user?.type === 'user' ? '/user/profile' : '/admin/dashboard'}
-							text='داشبورد'
-							icon={<BiEditAlt className='w-6 h-6' />}
-						/>
-						<button
-							onClick={handleLogOut}
-							className='px-4 hover:bg-gray-200 duration-200 group'>
-							<div className='text-gray-800 flex items-center gap-3 text-sm'>
-								<BiLogOut className='w-6 h-6' />
-								<span className='border-b text-right border-gray-200 flex-1 py-3 group-last:border-none'>خروج از حساب کاربری</span>
-							</div>
 						</button>
-					</MenuOptions>
-				</div>
-			) : (
-				<Link
-					href='/auth'
-					className={`${size === 'sm' ? `w-full flex items-center  justify-center gap-2  text-center ` : `hidden md:flex md:flex-1 md:justify-center md:items-center md:gap-2`}  w-full bg-primary-01 hover:opacity-95 cursor-pointer h-10 px-5 rounded-xl text-white  text-sm`}>
-					<IoPerson />
-					ورود | ثبت نام
-				</Link>
-			)}
-			<Link href="/cart" className={`${size === "sm" ? "hidden" : ""} btn btn--primary !p-0 w-10 h-10 relative`}>
-				<IoCartOutline className='w-6 h-6'/>
-				{!isGetCart && cart && cart?.totalqty !== "0" &&
-				<div className='absolute -top-2 -left-2 w-5 h-5 rounded-full bg-error text-white text-xs flex items-center justify-center'>
-					{cart?.totalqty}
-				</div>
+						<MenuOptions
+							ref={menuOptionsRef}
+							open={openMenuOptions}
+						>
+							{user?.type !== 'user' && (
+								<MenuOptionsItem
+									link={`/profile/${user?.id}`}
+									text='پروفایل'
+									icon={<BiUser className='w-6 h-6' />}
+								/>
+							)}
+							<MenuOptionsItem
+								link={user?.type === 'user' ? '/user/profile' : '/admin/dashboard'}
+								text='داشبورد'
+								icon={<BiEditAlt className='w-6 h-6' />}
+							/>
+							<button
+								onClick={handleLogOut}
+								className='px-4 hover:bg-gray-200 duration-200 group'>
+								<div className='text-gray-800 flex items-center gap-3 text-sm'>
+									<BiLogOut className='w-6 h-6' />
+									<span className='border-b text-right border-gray-200 flex-1 py-3 group-last:border-none'>خروج از حساب کاربری</span>
+								</div>
+							</button>
+						</MenuOptions>
+					</div>
+					:
+					<Link href="/auth" className='!w-full lg:!w-auto btn btn--primary gap-2 !py-0 h-10'>
+						<IoPerson />
+						ورود | ثبت نام
+					</Link>
 				}
-			</Link>
+			</div>
+			
+			<Link href="/cart" className={`btn btn--primary !p-0 w-10 h-10 relative ${size !== "sm" ? "flex" : "hidden"}`}>
+		 		<IoCartOutline className='w-6 h-6'/>
+		 		{!isGetCart && cart && cart?.totalqty !== "0" &&
+		 		<div className='absolute -top-2 -left-2 w-5 h-5 rounded-full bg-error text-white text-xs flex items-center justify-center'>
+		 			{cart?.totalqty}
+		 		</div>
+		 		}
+		 	</Link>
 		</div>
+		// <div className={`${isLoading ? 'blur-sm opacity-45' : ''} duration-100 flex items-center gap-2`}>
+		// 	{token ? (
+		// 		<div className={`${size === 'sm' ? `block` : `hidden lg:flex lg:flex-1 lg:justify-start`} relative  bg-primary-01 text-primary-02 rounded-lg  justify-center items-center  w-full`}>
+		// 			<button
+		// 				onClick={() => setOpenMenuOptions(!openMenuOptions)}
+		// 				className='w-full flex justify-between items-center text-center  text-sm min-h-10 px-2'>
+		// 				<FaAnglesLeft className={`${!openMenuOptions && `-rotate-90`} mx-2`} />
+
+		// 				{/* {user?.gender === 'man' ? 'جناب آقای' : 'سرکار خانم'}
+		// 				&nbsp; */}
+		// 				<span className='font-bold text-white'>
+		// 					{user?.name} {user?.lastname}
+		// 				</span>
+		// 				{/* &nbsp;
+		// 				خوش آمدید */}
+		// 			</button>
+					// <MenuOptions
+					// 	ref={menuOptionsRef}
+					// 	open={openMenuOptions}>
+					// 	{user?.type !== 'user' && (
+					// 		<MenuOptionsItem
+					// 			link={`/profile/${user?.id}`}
+					// 			text='پروفایل'
+					// 			icon={<BiUser className='w-6 h-6' />}
+					// 		/>
+					// 	)}
+					// 	<MenuOptionsItem
+					// 		link={user?.type === 'user' ? '/user/profile' : '/admin/dashboard'}
+					// 		text='داشبورد'
+					// 		icon={<BiEditAlt className='w-6 h-6' />}
+					// 	/>
+					// 	<button
+					// 		onClick={handleLogOut}
+					// 		className='px-4 hover:bg-gray-200 duration-200 group'>
+					// 		<div className='text-gray-800 flex items-center gap-3 text-sm'>
+					// 			<BiLogOut className='w-6 h-6' />
+					// 			<span className='border-b text-right border-gray-200 flex-1 py-3 group-last:border-none'>خروج از حساب کاربری</span>
+					// 		</div>
+					// 	</button>
+					// </MenuOptions>
+		// 		</div>
+		// 	) : (
+		// 		<Link
+		// 			href='/auth'
+		// 			className={`${size === 'sm' ? `w-full flex items-center  justify-center gap-2  text-center ` : `hidden md:flex md:flex-1 md:justify-center md:items-center md:gap-2`}  w-full bg-primary-01 hover:opacity-95 cursor-pointer h-10 px-5 rounded-xl text-white  text-sm`}>
+		// 			<IoPerson />
+		// 			ورود | ثبت نام
+		// 		</Link>
+		// 	)}
+		// 	<Link href="/cart" className={`${size === "sm" ? "hidden" : ""} btn btn--primary !p-0 w-10 h-10 relative`}>
+		// 		<IoCartOutline className='w-6 h-6'/>
+		// 		{!isGetCart && cart && cart?.totalqty !== "0" &&
+		// 		<div className='absolute -top-2 -left-2 w-5 h-5 rounded-full bg-error text-white text-xs flex items-center justify-center'>
+		// 			{cart?.totalqty}
+		// 		</div>
+		// 		}
+		// 	</Link>
+		// </div>
 	);
 };
 
@@ -95,7 +148,7 @@ const MenuOptions = forwardRef(function MenuOptionsComponent({ children, open },
 		return (
 			<div
 				ref={ref}
-				className='absolute top-12 w-60 overflow-hidden left-0 bg-white shadow-2xl rounded-md'>
+				className='w-full lg:absolute top-12 lg:w-60 overflow-hidden left-0 bg-white lg:shadow-2xl lg:rounded-md mt-4 lg:mt-0'>
 				<ul className='flex flex-col'>{children}</ul>
 			</div>
 		);

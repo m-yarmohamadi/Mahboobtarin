@@ -12,7 +12,7 @@ const Resume = () => {
 			<div className='flex justify-center items-center text-2xl font-bold p-8'>
 				چرا محبوب ترین؟
 			</div>
-			<div className='grid xs:grid-cols-2 md:grid-cols-5 gap-16 items-start justify-items-center text-4xl text-primary-01'>
+			<div className='grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16 items-start justify-items-center text-4xl text-primary-01'>
 				<div className='w-full flex flex-col justify-center items-center'>
 					<div className='w-full flex justify-center items-center'>
 						<div className=' border border-primary-01 p-4 rounded-3xl w-fit'>
@@ -20,7 +20,7 @@ const Resume = () => {
 						</div>
 					</div>
 					<div className='flex flex-col justify-center items-center justify-items-center'>
-						<span className='py-3 font-bold text-xl text-gray-800'>
+						<span className='whitespace-nowrap py-3 font-bold text-xl text-gray-800'>
 							دانشنامه چند منظوره
 						</span>
 						<p className='text-sm text-center text-gray-900'>
@@ -35,7 +35,7 @@ const Resume = () => {
 						</div>
 					</div>
 					<div className='flex flex-col justify-center items-center justify-items-center'>
-						<span className='py-3 font-bold text-xl text-gray-800'>
+						<span className='whitespace-nowrap py-3 font-bold text-xl text-gray-800'>
                         تسهیل استخدام
 						</span>
 						<p className='text-sm text-center text-gray-900'>
@@ -50,7 +50,7 @@ const Resume = () => {
 						</div>
 					</div>
 					<div className='flex flex-col justify-center items-center justify-items-center'>
-						<span className='py-3 font-bold text-xl text-gray-800'>
+						<span className='whitespace-nowrap py-3 font-bold text-xl text-gray-800'>
                         راهنمای علمی
 						</span>
 						<p className='text-sm text-center text-gray-900'>
@@ -65,7 +65,7 @@ const Resume = () => {
 						</div>
 					</div>
 					<div className='flex flex-col justify-center items-center justify-items-center'>
-						<span className='py-3 font-bold text-xl text-gray-800'>
+						<span className='whitespace-nowrap py-3 font-bold text-xl text-gray-800'>
 							پروژه محور
 						</span>
 						<p className='text-sm text-center text-gray-900'>
@@ -80,7 +80,7 @@ const Resume = () => {
 						</div>
 					</div>
 					<div className='flex flex-col justify-center items-center justify-items-center'>
-						<span className='py-3 font-bold text-xl text-gray-800'>
+						<span className='whitespace-nowrap py-3 font-bold text-xl text-gray-800'>
 							تالار گفتگو
 						</span>
 						<p className='text-sm text-center text-gray-900'>

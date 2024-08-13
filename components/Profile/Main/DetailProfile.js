@@ -11,6 +11,8 @@ import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
 import { enToFaNumber } from '@/utils/enToFa';
 import { Countries } from '@/data/countries';
 import { useGetProvinces } from '@/hooks/useCity';
+import { toPersianDateLong } from '@/utils/toPersianDate';
+import Link from 'next/link';
 
 const ideas = [
 	{
@@ -385,41 +387,56 @@ const DetailProfile = ({ userData }) => {
 							alt=''
 						/>
 					</div>
-					{galery.map((item) => {
+					{userData.gallery.map((item) => {
 						return (
 							<div
 								key={item.id}
 								className='relative'>
-								<img
-									src={item.urlPic}
-									className=' hover:grayscale hover:cursor-pointer object-cover w-full h-40 rounded-md'
-									alt=''
-								/>
+								{
+									item.type === "gallery-image" ?
+								
+									<img
+										src={item.path}
+										className=' hover:grayscale hover:cursor-pointer object-cover w-full h-40 rounded-md'
+										alt=''
+									/>
+									:
+									<video
+										controls
+										className='hover:grayscale hover:cursor-pointer object-cover w-full h-40 rounded-md'>
+										<source
+											src={item.path}
+											type='video/mp4'
+										/>
+									</video>
+								}
 								<span className='flex justify-center items-center absolute bottom-0 right-0 w-full text-xs font-semibold p-1 bg-gray-800 text-white bg-opacity-80 rounded-b-md'>{item.title}</span>
 							</div>
 						);
 					})}
 				</div>
-				<ViewMore />
+				{/* <ViewMore /> */}
 			</div>
 			{/* لینکدونی */}
 			<div className='pt-16'>
 				<TitleItems title={'لینکدونی'} />
 				<div className=' '>
-					{News.map((item, index) => {
+					{userData?.link_dooni.map((item, index) => {
 						return (
-							<div
+							<Link
 								key={item.id}
+								href={item.link}
+								rel="nofollow"
 								className={` grid grid-cols-12 py-3 ${!(index % 2) && `bg-gray-100`}`}>
 								<div className=' col-span-7'>{item.title}</div>
-								<div className=' col-span-3'>{enToFaNumber(`${item.time}`)}</div>
-								<div className=' col-span-2'>{item.refrence}</div>
-							</div>
+								<div className=' col-span-3'>{toPersianDateLong(item.created_at)}</div>
+								<div className=' col-span-2'>{item.source}</div>
+							</Link>
 						);
 					})}
 				</div>
 
-				<ViewMore />
+				{/* <ViewMore /> */}
 			</div>
 
 			{/* غرفه */}

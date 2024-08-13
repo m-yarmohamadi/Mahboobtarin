@@ -100,8 +100,8 @@ const RecommendedDoctors = () => {
 								{PN.convertEnToPe(`${item.number}`)}+<span>مشاوره</span>
 							</span>
 						</div>
-						<span className=' font-semibold'>{item.name}</span>
-						<span>{item.title}</span>
+						<span className='text-sm sm:text-base font-semibold'>{item.name}</span>
+						<span className='text-xs sm:text-sm'>{item.title}</span>
 					</div>
 				))}
 			</div>
