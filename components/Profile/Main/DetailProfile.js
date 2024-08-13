@@ -238,13 +238,15 @@ const DetailProfile = ({ userData }) => {
 	const [score, setScore] = useState(0);
 
 	useEffect(() => {
-		const lineHeight = parseInt(window.getComputedStyle(textRef.current).lineHeight, 10);
-		const maxHeight = lineHeight * 5; // حداکثر ارتفاع برای 5 خط
-	
-		if (textRef.current.scrollHeight > maxHeight) {
-		  setIsClamped(true);
-		} else {
-		  setIsClamped(false);
+		if(userData?.description){
+			const lineHeight = parseInt(window.getComputedStyle(textRef.current).lineHeight, 10);
+			const maxHeight = lineHeight * 5; // حداکثر ارتفاع برای 5 خط
+		
+			if (textRef.current.scrollHeight > maxHeight) {
+			setIsClamped(true);
+			} else {
+			setIsClamped(false);
+			}
 		}
 	  }, [userData?.description]);
 
