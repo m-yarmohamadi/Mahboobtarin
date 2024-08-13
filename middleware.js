@@ -7,24 +7,28 @@ export async function middleware(req){
     const API_URL = 'https://mahboobtarin.mostafaomrani.ir/api/v1/user';
     let isAuth;
     let userRole;
+
     
     if(pathname.startsWith("/profile")) {
-        await fetch(API_URL, {
+        let expertData;
+
+        await fetch(`https://mahboobtarin.mostafaomrani.ir/api/v1/users/expertise/list/${pathname.split("/")[2]}`, {
             headers:{
                 'Authorization':cookie 
             }
         })
         .then((res) => res.json())
-        .then(({user}) => {
-            if(user) {
-                isAuth = true;
-            }
+        .then((data) => {
+           if(data && data?.message !== "User not found") {
+                expertData=data;
+           }
+           
         })
         .catch((error) => {
-            if(error) isAuth = false;
+            if(error) expertData = null;
         })
-
-        if(!isAuth) return NextResponse.redirect(new URL("/auth", url));
+        
+        if(!expertData) return NextResponse.redirect(new URL("/", url));
     }
 
     if(pathname.startsWith("/admin")) {

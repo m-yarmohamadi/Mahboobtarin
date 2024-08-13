@@ -4,18 +4,18 @@ import { FaInstagram, FaTelegram, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
 const Platform = ({color,colorHover, data}) => {
 	return (
-		<div className=' flex justify-start items-center text-3xl gap-4 py-4 text-gray-500'>
+		<div className=' flex justify-start items-center text-3xl gap-4 text-gray-500'>
 			<span className={`${color} hover:${colorHover} hover:cursor-pointer`}>
-				<FaWhatsapp />
+				<FaWhatsapp className='w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7'/>
 			</span>
 			<Link href={data?.telegram || ""} className={`${color} hover:${colorHover} hover:cursor-pointer`}>
-				<FaTelegram />
+				<FaTelegram className='w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7'/>
 			</Link>
 			<Link href={data?.instagram || ""} target='_blank' className={`${color} hover:${colorHover} hover:cursor-pointer`}>
-				<FaInstagram />
+				<FaInstagram className='w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7'/>
 			</Link>
 			<Link href={data?.twitter || ""} className={`${color} hover:${colorHover} hover:cursor-pointer`}>
-				<FaTwitter />
+				<FaTwitter className='w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7'/>
 			</Link>
 		</div>
 	);

@@ -19,14 +19,16 @@ export default function ProfilePage() {
     );
 
   return (
-    <div>
+    <>
       <Head>
         <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | پروفایل ${data?.name} ${data?.lastname}`}</title>
       </Head>
       <Header />
       <ProfileSearchBox />
-      <MainProfile userData={data} />
+      <div className="md:!pr-8 !p-0 container">
+        <MainProfile userData={data} />
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }

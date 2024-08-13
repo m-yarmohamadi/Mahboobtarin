@@ -5,19 +5,19 @@ import LeftProfile from './LeftProfile';
 
 const MainProfile = ({userData}) => {
 	return (
-		<div className='container pe-0 content-box'>
-			<div className='   h-full w-full rounded-ss-3xl  -mt-48'>
-				<div className=' pb-16 w-full  bg-white rounded-ss-3xl  h-full'>
-					<div className=' grid md:grid-cols-12 gap-8 w-full'>
-						<div className=' md:col-span-2  w-full h-full'>
+		<div className=' w-full bg-white !p-6 md:!pr-0 rounded-ss-3xl -mt-36 md:-mt-32'>
+			<div className=' pb-16 w-full rounded-ss-3xl  h-full'>
+				<div className='grid grid-cols-1 lg:grid-cols-12 gap-8 w-full'>
+					<div className='w-full flex flex-col md:grid md:grid-cols-10 lg:col-span-8 gap-8'>
+						<div className='md:col-span-3 w-full '>
 							<RightMenu />
 						</div>
-						<div className=' md:col-span-6 bg-white w-full h-full'>
+						<div className=' md:col-span-7 bg-white w-full'>
 							<DetailProfile userData={userData} />
 						</div>
-						<div className=' md:col-span-4  w-full h-full'>
-							<LeftProfile />
-						</div>
+					</div>
+					<div className=' lg:col-span-4 w-full'>
+						<LeftProfile />
 					</div>
 				</div>
 			</div>

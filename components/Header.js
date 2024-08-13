@@ -44,7 +44,7 @@ const products = [
 	},
 ];
 const menu = [
-	{ id: 1, title: 'آموزشگاه' },
+	{ id: 1, title: 'آموزشگاه' , link :"/academy"},
 	{ id: 2, title: 'محبوب مال' },
 	{ id: 3, title: 'فراخوان' },
 	{ id: 4, title: 'لینکدونی' },
@@ -166,12 +166,12 @@ export default function Header() {
 
 						{menu.map((item) => {
 							return (
-								<a
+								<Link
 									key={item.id}
-									href='#'
+									href={item?.link || "#"}
 									className='text-sm xl:text-base py-4 px-2 relative before:duration-200 before:ease-out cursor-pointer before:h-1 before:w-0 before:rounded-t-full hover:before:w-full before:absolute before:-bottom-2 before:right-0 before:bg-primary-01'>
 									{item.title}
-								</a>
+								</Link>
 							);
 						})}
 					</PopoverGroup>
@@ -245,12 +245,12 @@ export default function Header() {
 									</Disclosure>
 									{menu.map((item) => {
 										return (
-											<a
+											<Link
 												key={item.id}
-												href='#'
+												href={item?.link || "#"}
 												className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'>
 												{item.title}
-											</a>
+											</Link>
 										);
 									})}
 								</div>

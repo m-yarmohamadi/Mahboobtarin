@@ -135,28 +135,35 @@ const Followers = [
 
 const LeftProfile = () => {
 	const [showIdeasDetail, setShowIdeasDetail] = useState(1);
-	console.log(showIdeasDetail);
 
 	return (
 		<div className='w-full  '>
 			<div className='p-2'>
 				<div className=' border border-gray-200 rounded-md p-4  w-full'>
 					<TitleItems title={'پلن های خدمات'} />
-					<div className='w-full px-3 flex flex-col justify-center items-center gap-2'>
+					<div className='w-full flex flex-col justify-center items-center gap-2'>
 						{Services.map((item, index) => {
 							return (
 								<div
 									key={item.id}
 									onClick={() => setShowIdeasDetail(index + 1)}
-									className='  cursor-pointer w-full flex flex-col justify-center items-start gap-2 p-1  border border-gray-300 rounded-md'>
-									<div className='w-full  flex justify-between items-center'>
-										<div className=' flex justify-center items-center gap-1'>
-											<span className='rounded-md flex justify-center items-center text-lg text-primary-01 bg-primary-01 bg-opacity-20 w-8 h-8'>
-												<BsChatText />
-											</span>
-											<span className='font-bold '>{item.title}</span>
+									className='  cursor-pointer w-full flex flex-col justify-center items-start gap-2 p-1 pb-3  border border-gray-300 rounded-md'>
+									<div className='w-full flex-col sm:flex-row sm:items-center flex justify-between gap-4'>
+										<div className=' flex items-center gap-1 truncate'>
+											<div>
+												<span className='rounded-md flex justify-center items-center text-lg text-primary-01 bg-primary-01 bg-opacity-20 w-8 h-8'>
+													<BsChatText />
+												</span>
+											</div>
+											<span className='font-bold text-sm truncate'>{item.title}</span>
 										</div>
-										<span className='text-primary-01 font-bold'>{enToFaNumber(`${item.price} تومان`)} </span>
+										<span className='text-primary-01 flex-1 justify-end items-center gap-1 flex text-sm pl-3 font-bold'>
+											{enToFaNumber(`${item.price}`)} 
+											<span className='text-xs font-normal'>
+												تومان
+											</span>
+
+										</span>
 									</div>
 									{showIdeasDetail === index + 1 && (
 										<div className='ps-2 flex flex-col justify-start items-center gap-2 text-gray-600'>
@@ -178,7 +185,7 @@ const LeftProfile = () => {
 							);
 						})}
 						<button
-							className='p-2 w-full bg-primary-01 rounded-md text-white shadow hover:bg-opacity-90'
+							className='p-2 text-sm w-full bg-primary-01 rounded-md text-white shadow hover:bg-opacity-90'
 							type=''>
 							ادامه و پرداخت
 						</button>
@@ -186,9 +193,9 @@ const LeftProfile = () => {
 				</div>
 			</div>
 			<div className='w-full p-2 '>
-				<div className='w-full p-2 bg-gray-200 shadow-md  rounded-md'>
-					<div className='w-full flex justify-between items-center gap-1 text-md font-bold'>
-						<span>افرادی برای دنبال کردن</span>
+				<div className='w-full p-4 bg-gray-200 shadow-md  rounded-md'>
+					<div className='w-full flex justify-between flex-col sm:flex-row items-center gap-2 text-md font-bold'>
+						<span className='truncate'>افرادی برای دنبال کردن</span>
 						<div className='text-white text-xl rounded-full flex justify-between items-center w-24 bg-gray-300  h-fit'>
 							<div className='w-full h-full bg-blue-800 px-4 py-1 rounded-full'>
 								<AiOutlineCheckCircle />
@@ -198,50 +205,57 @@ const LeftProfile = () => {
 							</div>
 						</div>
 					</div>
-					{Followers.map((item) => {
-						return (
-							<div
-								key={item.id}
-								className='w-full grid grid-cols-12 gap-6 px-2 py-8'>
-								<div className='w-14 col-span-2'>
-									<img
-										className='w-full rounded-3xl'
-										src={item.picUrl}
-										alt=''
-									/>
-								</div>
-								<div className='w-full flex flex-col justify-between items-center gap-2 col-span-10 text-xs'>
-									<div className='w-full flex justify-between items-center gap-2'>
-										<div className='w-full flex flex-col justify-center items-start'>
-											<span className='flex justify-start items-center gap-1'>
-												<span className='text-sm font-bold text-gray-800'>{item.name}</span>
-												{item.ablution === 1 ? (
-													<span className='font-bold text-green-600 text-lg'>
-														<AiOutlineCheckCircle />
-													</span>
-												) : item.ablution === 2 ? (
-													<span className='font-bold text-blue-600 text-lg'>
-														<AiOutlineCheckCircle />
-													</span>
-												) : (
-													''
-												)}
-											</span>
-											<span className='text-gray-500'>{item.idCloud}</span>
+					<div className='w-full flex flex-col'>
+						{Followers.map((item) => {
+							return (
+								<div
+									key={item.id}
+									className='w-full min-h-full justify-between flex flex-col gap-3 px-2 py-8'>
+									<div className='w-full flex flex-col items-center sm:flex-row lg:flex-col xl:flex-row gap-2 justify-between'>
+										<div className=''>
+											<div className='w-12 h-12'>
+												<img
+													className='w-full h-full object-cover object-center rounded-[18px]'
+													src={item.picUrl}
+													alt=''
+												/>
+											</div>
 										</div>
-										<button
-											className=' w-full bg-primary-01 p-2 rounded-md text-white font-bold hover:bg-opacity-95'
-											type=''>
-											مشاهده پروفایل
-										</button>
+										<div className='w-full flex items-center justify-between gap-2'>
+											<div className='flex-1 flex flex-col gap-1 justify-center items-start'>
+												<span className='flex justify-start items-center gap-1'>
+													<h3 className='text-sm font-bold text-gray-800'>{item.name}</h3>
+													{item.ablution === 1 ? (
+														<span className='font-bold text-green-600 text-sm'>
+															<AiOutlineCheckCircle />
+														</span>
+													) : item.ablution === 2 ? (
+														<span className='font-bold text-blue-600 text-xs'>
+															<AiOutlineCheckCircle />
+														</span>
+													) : (
+														''
+													)}
+												</span>
+												<span className='text-gray-500 text-xs'>{item.idCloud}</span>
+											</div>
+											<button
+												className='w-auto text-xs bg-primary-01 p-2 rounded-md text-white font-bold hover:bg-opacity-95'
+												type=''>
+												مشاهده پروفایل
+											</button>
+										</div>
 									</div>
-									<div>
-										<span className='w-full text-sm  flex justify-start  items-center'>{item.position}</span>
+									<div className='w-full flex flex-col items-center sm:items-start justify-between gap-2 text-xs'>
+										<div>
+											<span className='w-full text-xs text-gray-800 leading-5 font-medium'>{item.position}</span>
+										</div>
+										
 									</div>
 								</div>
-							</div>
-						);
-					})}
+							);
+						})}
+					</div>
 					<div className='w-full'>
 						<button
 							className=' flex justify-center items-center  px-4 py-2 rounded-md text-primary-01 '
@@ -252,13 +266,13 @@ const LeftProfile = () => {
 				</div>
 			</div>
 			<div className='p-3'>
-				<div className='bg-gray-200 px-3 flex justify-start items-center border border-gray-400 rounded-full'>
-					<span className='p-2 text-2xl text-gray-500'>
-						<FaSearch />
+				<div className='bg-gray-200 px-3 h-12 gap-1 flex justify-start items-center border border-gray-400 rounded-full'>
+					<span className='text-gray-500'>
+						<FaSearch className='w-5 h-5'/>
 					</span>
 
 					<input
-						className='bg-gray-200 rounded-md focus:ring-red-200  p-1 w-full'
+						className='bg-gray-200 rounded-md text-sm focus:ring-red-200  p-1 w-full'
 						placeholder='جستجو در محبوبترین'
 						type='search'
 						name=''
@@ -269,20 +283,20 @@ const LeftProfile = () => {
 					<div className='p-4'>
 						<span className='text-lg font-bold'>جستجو های پرتکرار</span>
 					</div>
-					<div className=' flex flex-wrap justify-between items-start gap-2 text-sm'>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>متخصص زنان</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>غدد و متابولیسم</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>دیابت</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>پوست</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>زیبایی</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>بازیگری</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>برنامه نویس</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>فیلمنامه</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>هنرور</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>مغز و اعصاب</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>آموزش فوتبال</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>گوش و حلق و بینی</span>
-						<span className='px-2 py-1 bg-gray-100 shadow-sm rounded-3xl'>نقاشی</span>
+					<div className=' flex flex-wrap items-center gap-2 text-xs font-medium'>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>متخصص زنان</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>غدد و متابولیسم</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>دیابت</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>پوست</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>زیبایی</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>بازیگری</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>برنامه نویس</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>فیلمنامه</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>هنرور</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>مغز و اعصاب</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>آموزش فوتبال</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>گوش و حلق و بینی</span>
+						<span className='px-3 py-1.5 text-gray-800 bg-gray-100 shadow-sm rounded-3xl'>نقاشی</span>
 					</div>
 					<div className='pt-40 pb-2'>
 						<span className='text-primary-01 font-bold p-2'>بیشتر</span>

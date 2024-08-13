@@ -118,10 +118,10 @@ const Services = () => {
 								className='flex items-center justify-center justify-items-center'>
 								<div className='w-full flex justify-center justify-items-center items-center'>
 									<div className='h-52 w-52    m-4 rounded-2xl shadow-md bg-white p-2 z-0'>
-										<div className='relative h-40 w-40 flex justify-center items-center m-4'>
-											<div className=' hover:cursor-pointer w-full h-full absolute top-0 left-0 border-4 border-dashed border-primary-01 border-opacity-35   rounded-full  z-10'>
+										<div className='relative flex justify-center items-center m-4'>
+											<div className='h-40 w-40 flex items-center justify-center hover:cursor-pointer border-4 border-dashed overflow-hidden border-primary-01 border-opacity-35   rounded-full  z-10'>
 												<img
-													className='h-full w-full hover:contrast-50'
+													className='w-28 h-28 m-auto inset-0 object-contain object-center hover:contrast-50'
 													src={item.url}
 													alt=''
 												/>
