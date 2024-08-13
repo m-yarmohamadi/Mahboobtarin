@@ -10,14 +10,11 @@ import Footer from "@/components/Footer";
 
 const sliders = [
     {
-        image: "/images/img001.jpg",
+        image: "/images/shop/baner01.jpg",
     },
     {
-        image: "/images/img002.jpg",
-    },
-    {
-        image: "/images/img003.jpg",
-    },
+        image: "/images/shop/baner02.jpg",
+    }
 ]
 
 export default function shop() {
