@@ -45,7 +45,7 @@ const dataMenu = [
     {
         id: 5,
         title: 'مدیریت خدمات',
-        value: 'myservices',
+        value: 'services',
         quanity: '',
         icon: '',
     },
