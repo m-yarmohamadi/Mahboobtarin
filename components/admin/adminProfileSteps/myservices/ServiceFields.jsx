@@ -4,6 +4,7 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import Link from "next/link";
+import { useState } from "react";
 
 const serviceList = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -18,13 +19,6 @@ const serviceList = [
     { id: 9, label: 'حمایت', value: 'Protection' },
     { id: 10, label: 'نوبت حضوری مطب', value: 'Appointment in the office' },
 ];
-
-const timeList = [
-    { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-    { id: 1, label: 'صبح', value: 'morning' },
-    { id: 2, label: 'عصر', value: 'evening' },
-    { id: 3, label: 'شب', value: 'nigth' },
-]
 
 const timeFrame = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -43,18 +37,17 @@ const priceTypes = [
 ]
 
 export default function ServiceFields({ formik }) {
-    console.log(formik.values);
-    
+
     return (
-        <form className="w-full flex flex-col gap-7">
-            <div className="w-full grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <form className="w-full flex flex-col">
+            <div className="w-full grid grid-cols-1 gap-4 lg:grid-cols-2 mb-6">
                 <Select
                     label='نوع خدمت'
                     options={serviceList}
                     name="title"
                     formik={formik}
                 />
-                <div className='w-full py-1 flex flex-col justify-start justify-items-start items-start'>
+                {/* <div className='w-full py-1 flex flex-col justify-start justify-items-start items-start'>
                     <label className='text-sm font-bold px-2 inline-block mb-2 text-slate-800'>
                         تاریخ
                     </label>
@@ -68,13 +61,7 @@ export default function ServiceFields({ formik }) {
                             inputClass="!w-full appearance-none outline-none bg-transparent text-gray-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4   focus:bg-white focus:shadow-lg focus:shadow-red-300 transition-all duration-300 ease-in-out "
                         />
                     </div>
-                </div>
-                <Select
-                    label='زمان'
-                    options={timeList}
-                    name="time"
-                    formik={formik}
-                />
+                </div> */}
                 <Select
                     label='زمان اختصاصی'
                     options={timeFrame}
@@ -87,23 +74,98 @@ export default function ServiceFields({ formik }) {
                     name="priceType"
                     formik={formik}
                 />
-                {
-                    formik.values.priceType === "custom" &&
-                    <Input
-                        label='قیمت دلخواه'
-                        name="price"
-                        formik={formik}
-                    />
-                }
+                <Input
+                    label='قیمت دلخواه'
+                    name="price"
+                    formik={formik}
+                    disabled={formik.values.priceType !== "custom"}
+                />
             </div>
-            <div className="w-full md:w-1/3 flex items-center gap-2">
-                <button className="!w-full btn btn--primary">
+            <TimeComponent formik={formik} />
+            <div className="w-full flex items-center gap-2 mt-10 pt-3 border-t border-slate-300">
+                <button className="!w-full lg:!w-1/2 !text-base !font-bold btn btn--primary">
                     ثبت
                 </button>
-                <Link href="/admin/services" className="!w-full btn btn--outline">
-                    لغو
-                </Link>
             </div>
         </form>
+    )
+}
+
+
+function TimeComponent({ formik }) {
+    const [activeTab, setActiveTab] = useState("saturday");
+
+    const week = [
+        { value: "saturday", label: "شنبه" },
+        { value: "sunday", label: "یکشنبه" },
+        { value: "monday", label: "دوشنبه" },
+        { value: "tuesday", label: "سه شنبه" },
+        { value: "wednesday", label: "چهاشنبه" },
+        { value: "thursday", label: "پنجشنبه" },
+        { value: "friday", label: "جمعه" },
+    ];
+
+    const times = [
+        { value: "morning", label: "صبح" },
+        { value: "evening", label: "ظهر" },
+        { value: "night", label: "شب" },
+    ];
+
+    const isSelectedTime = (time) => {
+        return formik.values.dateTime.some(
+            (i) => i.day === activeTab && i.time === time
+        );
+    };
+
+    const addOrRemoveTimeHandler = (time) => {
+        const exists = isSelectedTime(time);
+
+        if (exists) {
+            formik.setFieldValue(
+                "dateTime",
+                formik.values.dateTime.filter(
+                    (i) => !(i.day === activeTab && i.time === time)
+                )
+            );
+        } else {
+            formik.setFieldValue("dateTime", [
+                ...formik.values.dateTime,
+                { day: activeTab, time },
+            ]);
+        }
+    };
+
+
+    return (
+        <div className='w-full mx-auto md:max-w-screen-sm flex flex-col justify-start justify-items-start items-start'>
+            <label className='w-full font-bold px-2 inline-block pb-3 text-sm text-slate-800'>
+                زمان فعالیت
+            </label>
+            <div className="w-full">
+                <div className="w-full flex flexcol flex-row items-start">
+                    {week.map((item, index) => (
+                        <div key={index} className="w-full flex flex-col">
+                            <div onClick={() => setActiveTab(item.value)} className={`duration-200 w-full whitespace-nowrap text-center cursor-pointer text-xs md:text-sm py-2 px-1 md:px-3  border-b-2 ${activeTab === item.value ? "text-blue-600 border-blue-600" : "text-slate-600 border-b-slate-200"}`}>
+                                {item.label}
+                            </div>
+
+
+                        </div>
+                    ))}
+                </div>
+                <div className="w-full justify-center flex items-center gap-2 py-5">
+                    {times.map((item, index) => (
+                        <button
+                            key={index}
+                            type="button"
+                            onClick={() => addOrRemoveTimeHandler(item.value, item.id)}
+                            className={`btn btn--outline !text-xs sm:!text-sm !py-2 !w-full duration-200 ${isSelectedTime(item.value) ? "!bg-slate-300 !border-blue-600" : "!border-slate-500"}`}
+                        >
+                            {item.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
+        </div>
     )
 }

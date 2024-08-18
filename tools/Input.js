@@ -3,7 +3,7 @@ import React from 'react';
 
 const Input = ({ value, disabled, onChange, required, name, label, type, formik, display = 'block', placeholder, dir = 'rtl', autoComplete = 'off' }) => {
 	return (
-		<div className={`w-full py-1 flex flex-col justify-start justify-items-start items-start ${display}`}>
+		<div className={`w-full ${disabled && "opacity-50"} py-1 flex flex-col justify-start justify-items-start items-start ${display}`}>
 			<label
 				className='text-sm font-bold px-2 mb-2 inline-block text-slate-800'
 				htmlFor={name}>
