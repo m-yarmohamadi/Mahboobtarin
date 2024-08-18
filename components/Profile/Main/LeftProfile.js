@@ -8,6 +8,8 @@ import { enToFaNumber } from '@/utils/enToFa';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { IoPerson } from 'react-icons/io5';
 import Input from '@/tools/Input';
+import Modal from '@/components/Modal';
+import BookingForm from './BookingForm';
 const Services = [
 	{
 		id: 1,
@@ -135,6 +137,7 @@ const Followers = [
 
 const LeftProfile = () => {
 	const [showIdeasDetail, setShowIdeasDetail] = useState(1);
+	const [modal, setModal] = useState(0);
 
 	return (
 		<div className='w-full  '>
@@ -148,7 +151,7 @@ const LeftProfile = () => {
 									key={item.id}
 									onClick={() => setShowIdeasDetail(index + 1)}
 									className='  cursor-pointer w-full flex flex-col justify-center items-start gap-2 p-1 pb-3  border border-gray-300 rounded-md'>
-									<div className='w-full flex-col sm:flex-row sm:items-center flex justify-between gap-4'>
+									<div onClick={()=>setModal(item.id)} className='w-full flex-col sm:flex-row sm:items-center flex justify-between gap-4'>
 										<div className=' flex items-center gap-1 truncate'>
 											<div>
 												<span className='rounded-md flex justify-center items-center text-lg text-primary-01 bg-primary-01 bg-opacity-20 w-8 h-8'>
@@ -165,6 +168,9 @@ const LeftProfile = () => {
 
 										</span>
 									</div>
+									<Modal title={item.title} open={modal === item.id} onClose={()=>setModal(0)}>
+										<BookingForm />
+									</Modal>
 									{showIdeasDetail === index + 1 && (
 										<div className='ps-2 flex flex-col justify-start items-center gap-2 text-gray-600'>
 											<div className='w-full flex justify-start items-center gap-1'>
@@ -184,11 +190,11 @@ const LeftProfile = () => {
 								</div>
 							);
 						})}
-						<button
+						{/* <button
 							className='p-2 text-sm w-full bg-primary-01 rounded-md text-white shadow hover:bg-opacity-90'
 							type=''>
 							ادامه و پرداخت
-						</button>
+						</button> */}
 					</div>
 				</div>
 			</div>
