@@ -1,6 +1,7 @@
 import CheckBoxInput from "@/components/CheckBoxInput";
 import TextArea from "@/tools/TextArea";
 import { CiCalendar } from "react-icons/ci";
+import { HiOutlineClock } from "react-icons/hi2";
 
 export default function VisitDetails() {
     return (
@@ -9,9 +10,15 @@ export default function VisitDetails() {
                 <div className="text-primary-01 font-medium">
                     نوع ویزیت
                 </div>
-                <div className="flex items-center gap-1 text-gray-600 text-sm">
-                    <CiCalendar className="w-5 h-5 text-gray-500" />
-                    نوبت: سه شنبه، عصر
+                <div className="grid grid-cols-2">
+                    <div className="flex items-center gap-1 text-gray-600 text-sm">
+                        <CiCalendar className="w-5 h-5 text-gray-500" />
+                        نوبت: 1403/5/29
+                    </div>
+                    <div className="flex items-center gap-1 text-gray-600 text-sm">
+                        <HiOutlineClock className="w-5 h-5 text-gray-500" />
+                        ساعت: 22:00
+                    </div>
                 </div>
             </div>
             <div className="flex flex-col">
