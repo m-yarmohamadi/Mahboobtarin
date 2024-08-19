@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 
 
@@ -17,14 +18,15 @@ const times = [
     { value: "night", label: "شب" },
 ];
 
-export default function BookingForm() {
-    const [activeTab, setActiveTab] = useState("شنبه");
+export default function BookingForm({ onClose }) {
+    const currentWeekday = new Date().toLocaleDateString("fa-IR", { weekday: "long" });
+    const [activeTab, setActiveTab] = useState(currentWeekday);
     const [selected, setSelected] = useState();
 
     const isSelectedTime = (time) => {
-        if(selected?.day === activeTab && selected?.time === time) {
+        if (selected?.day === activeTab && selected?.time === time) {
             return true
-        } 
+        }
     };
 
     return (
@@ -48,7 +50,7 @@ export default function BookingForm() {
                             <button
                                 key={index}
                                 type="button"
-                                onClick={()=>setSelected({day:activeTab, time:item.label})}
+                                onClick={() => setSelected({ day: activeTab, time: item.label })}
                                 className={`first:!rounded-r-lg last:!rounded-l-lg btn btn--outline !rounded-none !text-xs !py-3 !w-full duration-200 first:!border-l-0 last:!border-r-0 ${isSelectedTime(item.label) ? "bg-slate-200 !border-primary-01" : "!border-slate-400"}`}
                             >
                                 {item.label}
@@ -71,10 +73,10 @@ export default function BookingForm() {
             }
 
             <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
-                <button disabled={!selected} className="btn btn--primary !w-full disabled:opacity-30">
+                <Link href="/set-appointment" disabled={!selected} className="btn btn--primary !w-full disabled:opacity-30">
                     تایید
-                </button>
-                <button className="btn btn--outline !w-full">
+                </Link>
+                <button onClick={onClose} className="btn btn--outline !w-full">
                     لغو
                 </button>
             </div>

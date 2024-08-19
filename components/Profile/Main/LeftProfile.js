@@ -169,7 +169,7 @@ const LeftProfile = () => {
 										</span>
 									</div>
 									<Modal title={item.title} open={modal === item.id} onClose={()=>setModal(0)}>
-										<BookingForm />
+										<BookingForm onClose={()=>setModal(0)}/>
 									</Modal>
 									{showIdeasDetail === index + 1 && (
 										<div className='ps-2 flex flex-col justify-start items-center gap-2 text-gray-600'>
