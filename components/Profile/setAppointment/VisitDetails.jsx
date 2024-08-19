@@ -1,9 +1,15 @@
 import CheckBoxInput from "@/components/CheckBoxInput";
+import Modal from "@/components/Modal";
 import TextArea from "@/tools/TextArea";
-import { CiCalendar } from "react-icons/ci";
+import { useState } from "react";
+import { CiCalendar, CiEdit } from "react-icons/ci";
 import { HiOutlineClock } from "react-icons/hi2";
+import EditAppointmentForm from "./EditAppointmentForm";
 
 export default function VisitDetails() {
+    const [selected, setSelected] = useState({ date: new Date().toLocaleDateString("fa-IR"), time: "22:00" });
+    const [modal, setModal] = useState(false);
+
     return (
         <div className="w-full bg-white border border-gray-200 rounded-lg p-6">
             <div className="flex flex-col gap-4 border-b border-gray-200 pb-4 mb-4">
@@ -13,12 +19,25 @@ export default function VisitDetails() {
                 <div className="grid grid-cols-2">
                     <div className="flex items-center gap-1 text-gray-600 text-sm">
                         <CiCalendar className="w-5 h-5 text-gray-500" />
-                        نوبت: 1403/5/29
+                        نوبت: {selected?.date}
                     </div>
                     <div className="flex items-center gap-1 text-gray-600 text-sm">
                         <HiOutlineClock className="w-5 h-5 text-gray-500" />
-                        ساعت: 22:00
+                        ساعت: {selected?.time}
                     </div>
+                </div>
+                <div>
+                    <Modal title="ویرایش تاریخ و ساعت نوبت" open={modal} onClose={() => setModal(false)}>
+                        <EditAppointmentForm
+                            onClose={() => setModal(false)}
+                            lastSelected={selected}
+                            onLastSelected={setSelected}
+                        />
+                    </Modal>
+                    <button onClick={() => setModal(true)} className="text-blue-600 !text-sm flex items-center gap-1 mr-auto">
+                        ویرایش نوبت
+                        <CiEdit className="w-5 h-5" />
+                    </button>
                 </div>
             </div>
             <div className="flex flex-col">

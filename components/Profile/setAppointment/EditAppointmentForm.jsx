@@ -11,23 +11,27 @@ import { IoTimeOutline } from "react-icons/io5";
 import { toPersianDateShort } from "@/utils/toPersianDate";
 import { IoIosCalendar } from "react-icons/io";
 
-
 const times = [
     { value: "morning", label: "صبح", start: 7, end: 12 },
     { value: "evening", label: "ظهر", start: 12, end: 18 },
     { value: "night", label: "شب", start: 18, end: 22 },
 ];
 
-export default function BookingForm({ onClose }) {
+export default function EditAppointmentForm({ onClose, lastSelected, onLastSelected }) {
     const [activeTab, setActiveTab] = useState(0);
-    const [selected, setSelected] = useState();
-    const [date, setDate] = useState(new Date());
+    const [selected, setSelected] = useState(lastSelected || {});
+    const [date, setDate] = useState(lastSelected?.date || new Date());
 
     const selectDate = (date) => {
         setDate(date);
-        if(selected?.time){
-            setSelected({ ...selected, date: toPersianDateShort(date) });
+        if (selected?.time) {
+            setSelected({ ...selected, date: toPersianDateShort(new Date(date)) });
         }
+    }
+
+    const editSelectDateHandler = () => {
+        onLastSelected(selected);
+        onClose();
     }
 
     return (
@@ -71,7 +75,7 @@ export default function BookingForm({ onClose }) {
                     <button
                         key={index}
                         type="button"
-                        onClick={() => setSelected({ date: toPersianDateShort(date), time: item })}
+                        onClick={() => setSelected({ ...selected, time: item })}
                         className={`btn btn--outline !text-base !py-2 !px-4 !h-12 duration-200 !text-gray-600 border  ${selected?.time === item ? "!bg-gray-200 border-indigo-300" : "border-gray-300"}`}
                     >
                         {item}
@@ -81,16 +85,9 @@ export default function BookingForm({ onClose }) {
 
 
             <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
-                {
-                    selected ?
-                        <Link href="/set-appointment" className="btn btn--primary !w-full">
-                            تایید
-                        </Link>
-                        :
-                        <button disabled className="btn btn--primary !w-full disabled:opacity-30">
-                            تایید
-                        </button>
-                }
+                <button onClick={editSelectDateHandler} disabled={!selected} className="btn btn--primary !w-full disabled:opacity-30">
+                    ویرایش
+                </button>
                 <button onClick={onClose} className="btn btn--outline !w-full">
                     لغو
                 </button>
@@ -99,11 +96,10 @@ export default function BookingForm({ onClose }) {
     )
 }
 
-
 function CustomeButtonDatePicker({ openCalendar, value, setDate }) {
     const convertTOEnDate = moment(toEnglishNumber(value), "jYYYY/jMM/jDD").format("YYYY/MM/DD")
-    const convertToLongDateFa = new Date(convertTOEnDate).toLocaleDateString("fa-IR", { day: "numeric", month: "long", weekday:"long" });
-    
+    const convertToLongDateFa = new Date(convertTOEnDate).toLocaleDateString("fa-IR", { day: "numeric", month: "long", weekday: "long" });
+
     // is today or not
     const isToday = () => {
         const today = new Date().toLocaleDateString("fa-IR");
