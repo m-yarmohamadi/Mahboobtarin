@@ -139,7 +139,7 @@ export default function Sidebar({ open, onClose }) {
     const pathname = usePathname();
     const { user, isLoading } = useProfile();
     const logout = useLogout();
-
+    
     return (
         <>
             <div onClick={onClose} className={`${open ? "block" : "hidden"} lg:!hidden w-full h-full fixed top-0 right-0 z-50 bg-slate-900/50`}></div>
@@ -203,8 +203,8 @@ export default function Sidebar({ open, onClose }) {
                         return (
                             <Link
                                 key={index}
-                                href={item.value}
-                                className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer ${pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-bold`}`}>
+                                href={`/admin/${item.value}`}
+                                className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer ${pathname && pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-bold`}`}>
                                 <span>
                                     <FaPortrait />
                                 </span>

@@ -1,23 +1,43 @@
 import useGetExpertiseUser from '@/hooks/useExpertiseUser';
 import useProfile from '@/hooks/useProfile';
+import { deleteLinkdins } from '@/services/expertDashboardService';
 import Input from '@/tools/Input';
 import Loading from '@/tools/Loading';
 import Select from '@/tools/Select';
 import { toPersianDateLong } from '@/utils/toPersianDate';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Textarea } from 'flowbite-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { HiOutlineTrash } from 'react-icons/hi2';
 import { IoMdAdd } from 'react-icons/io';
 
-export default function Linkdins({ formik, loading, link_dooni }) {
-	const removeLinkdin = (value) => {
-		// formik.setFieldValue(
-		// 	'linkdin',
-		// 	linkdin.filter((i) => linkdin.indexOf(i) !== linkdin.indexOf(value))
-		// );
-	};
+export default function Linkdins({ formik, loading, link_dooni, userID }) {
+	const { mutateAsync: mutateDeleteLinkdooni } = useMutation({ mutationFn: deleteLinkdins });
+	const queryClient = useQueryClient();
 
+	const deleteLinkdooniHandler = async (id) => {
+		const formData = new FormData();
+		formData.append("id", id);
+
+		try {
+			const data = await mutateDeleteLinkdooni(formData);
+			
+			if (data) {
+				toast.success("لینک مورد نظر حذف شد");
+				queryClient.invalidateQueries({ queryKey: ['get-expertise-user-by-id', userID] });
+			}
+
+		} catch (error) {
+			if (error?.response?.status === 401) {
+				toast.error("لطفا وارد حساب کاربری خود شوید");
+				window.location.reload();
+			} else {
+				toast.error("خطایی رخ داده است");
+			}
+		}
+	}
 
 	return (
 		<div className='lg:col-span-2'>
@@ -70,7 +90,7 @@ export default function Linkdins({ formik, loading, link_dooni }) {
 							<div className='flex items-center gap-4'>
 								<span className='text-primary-01 font-bold text-xs'>{toPersianDateLong(item.created_at)} </span>
 								<button
-									onClick={() => removeLinkdin(item)}
+									onClick={() => deleteLinkdooniHandler(item.id)}
 									type='button'>
 									<HiOutlineTrash className='w-5 h-5 text-red-600' />
 								</button>

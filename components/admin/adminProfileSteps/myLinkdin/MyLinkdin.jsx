@@ -77,7 +77,7 @@ export default function MyLinkdin() {
 					className='space-y-4'
 					onSubmit={formik.handleSubmit}>
 					<div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-4'>
-						<Linkdins link_dooni={link_dooni} formik={formik} loading={isPending} />
+						<Linkdins userID={user.id} link_dooni={link_dooni} formik={formik} loading={isPending} />
 					</div>
 				</form>
 			</div>

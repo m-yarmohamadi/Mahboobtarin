@@ -7,13 +7,16 @@ import { FaImages } from 'react-icons/fa';
 import useProfile from '@/hooks/useProfile';
 import useGetExpertiseUser from '@/hooks/useExpertiseUser';
 import Loading from '@/tools/Loading';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteGallery } from '@/services/expertDashboardService';
+import toast from 'react-hot-toast';
 
 export default function Gallery() {
 	const { user, isLoading } = useProfile();
 	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.id);
 	const { gallery } = data || {};
 	const [open, setOpen] = useState(false);
-	
+
 	if (isLoading || iGetLinkdins) return (
 		<div className='w-full h-screen lg:h-full flex items-center justify-center'>
 			<Loading customeColor="#0693a4" />
@@ -38,6 +41,7 @@ export default function Gallery() {
 						<GalleryItem
 							key={index}
 							data={item}
+							userID={user.id}
 						/>
 					))}
 				</div>
@@ -56,7 +60,33 @@ export default function Gallery() {
 	);
 }
 
-function GalleryItem({ data }) {
+function GalleryItem({ data, userID }) {
+	const { mutateAsync: mutateDeleteGallery } = useMutation({ mutationFn: deleteGallery });
+	const queryClient = useQueryClient();
+
+	const deleteGalleryHandler = async (id) => {
+		const formData = new FormData();
+		formData.append("id", id);
+
+		try {
+			const data = await mutateDeleteGallery(formData);
+			console.log(data);
+			
+			if (data) {
+				toast.success("گالری مورد نظر حذف شد");
+				queryClient.invalidateQueries({ queryKey: ['get-expertise-user-by-id', userID] });
+			}
+
+		} catch (error) {
+			if (error?.response?.status === 401) {
+				toast.error("لطفا وارد حساب کاربری خود شوید");
+				window.location.reload();
+			} else {
+				toast.error("خطایی رخ داده است");
+			}
+		}
+	}
+
 	return (
 		<div className='flex flex-col gap-2 relative bg-primary-01 bg-opacity-10 rounded-lg p-1'>
 			{data.type === 'gallery-image' ? (
@@ -80,8 +110,7 @@ function GalleryItem({ data }) {
 				</div>
 			)}
 			<h3 className='w-full text-md text-gray-800 font-bold px-2'>{data.title}</h3>
-			<button
-				className='btn btn--danger absolute top-2 left-2 !p-1'>
+			<button onClick={() => deleteGalleryHandler(data.id)} className='btn btn--danger absolute top-2 left-2 !p-1'>
 				<HiOutlineTrash className='w-5 h-5' />
 			</button>
 		</div>

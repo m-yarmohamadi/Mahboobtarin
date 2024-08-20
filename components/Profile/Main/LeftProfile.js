@@ -10,6 +10,9 @@ import { IoPerson } from 'react-icons/io5';
 import Input from '@/tools/Input';
 import Modal from '@/components/Modal';
 import BookingForm from './BookingForm';
+import { useGetServices } from '@/hooks/useDashboard';
+import numberWithCommas from '@/utils/numberWithCommas';
+import getPriceService from '@/components/admin/adminProfileSteps/myservices/getPriceService';
 const Services = [
 	{
 		id: 1,
@@ -137,6 +140,7 @@ const Followers = [
 
 const LeftProfile = () => {
 	const [showIdeasDetail, setShowIdeasDetail] = useState(1);
+	const { isLoadingServices, servicesData } = useGetServices();
 	const [modal, setModal] = useState(0);
 
 	return (
@@ -145,7 +149,7 @@ const LeftProfile = () => {
 				<div className=' border border-gray-200 rounded-md p-4  w-full'>
 					<TitleItems title={'پلن های خدمات'} />
 					<div className='w-full flex flex-col justify-center items-center gap-2'>
-						{Services.map((item, index) => {
+						{!isLoadingServices && servicesData?.map((item, index) => {
 							return (
 								<div
 									key={item.id}
@@ -158,18 +162,24 @@ const LeftProfile = () => {
 													<BsChatText />
 												</span>
 											</div>
-											<span className='font-bold text-sm truncate'>{item.title}</span>
+											<span className='font-bold text-sm truncate'>{item.type}</span>
 										</div>
 										<span className='text-primary-01 flex-1 justify-end items-center gap-1 flex text-sm pl-3 font-bold'>
-											{enToFaNumber(`${item.price}`)} 
-											<span className='text-xs font-normal'>
-												تومان
-											</span>
-
+											{
+												item.price_type === "custom" ?
+												<>
+												{numberWithCommas(item.price)}
+												<span className='text-xs font-normal'>
+													تومان
+												</span>
+												</>
+												:
+												getPriceService(item.price_type)
+											} 
 										</span>
 									</div>
-									<Modal title={item.title} open={modal === item.id} onClose={()=>setModal(0)}>
-										<BookingForm onClose={()=>setModal(0)}/>
+									<Modal title={item.type} open={modal === item.id} onClose={()=>setModal(0)}>
+										<BookingForm onClose={()=>setModal(0)} serviceID={item.id}/>
 									</Modal>
 									{showIdeasDetail === index + 1 && (
 										<div className='ps-2 flex flex-col justify-start items-center gap-2 text-gray-600'>
@@ -177,13 +187,13 @@ const LeftProfile = () => {
 												<span>
 													<FaClock />
 												</span>
-												<span className='text-xs'>{enToFaNumber(`${item.timeEnd}`)} </span>
+												<span className='text-xs'>پاسخ دهی کمتر از 1 ساعت (حداکثر 10 ساعت) </span>
 											</div>
 											<div className='w-full flex justify-start items-center gap-1'>
 												<span>
 													<FaClockRotateLeft />
 												</span>
-												<span className='text-sm'>{enToFaNumber(`${item.endService}`)} </span>
+												<span className='text-sm'>پایان توافقی گفتگو </span>
 											</div>
 										</div>
 									)}

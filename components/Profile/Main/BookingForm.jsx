@@ -10,24 +10,78 @@ import timeSlots from "@/utils/timeSlots";
 import { IoTimeOutline } from "react-icons/io5";
 import { toPersianDateShort } from "@/utils/toPersianDate";
 import { IoIosCalendar } from "react-icons/io";
+import { useGetServiceById } from "@/hooks/useDashboard";
+import { MdOutlineTimerOff } from "react-icons/md";
 
 
-const times = [
-    { value: "morning", label: "صبح", start: 7, end: 12 },
-    { value: "evening", label: "ظهر", start: 12, end: 18 },
-    { value: "night", label: "شب", start: 18, end: 22 },
-];
+const processActivityTimes = (activityTimes) => {
+    const daysMapping = {
+        saturday: "شنبه",
+        sunday: "یک‌شنبه",
+        monday: "دوشنبه",
+        tuesday: "سه‌شنبه",
+        wednesday: "چهارشنبه",
+        thursday: "پنج‌شنبه",
+        friday: "جمعه",
+    };
 
-export default function BookingForm({ onClose }) {
+    const timesMapping = {
+        morning: "صبح",
+        evening: "ظهر",
+        night: "شب",
+    };
+
+    const timeRanges = {
+        morning: "7-12",
+        evening: "12-18",
+        night: "18-22",
+    };
+
+    // convert JSON To array
+    const convertActivityTimeToArray = () => {
+        return activityTimes.split('},').map((item, index, array) => {
+            if (index < array.length - 1) item += '}';
+            return JSON.parse(item.replace(/(\w+):/g, '"$1":'));
+        });
+    };
+
+    const activityTimeArray = convertActivityTimeToArray();
+
+    const daysOfWeek = Object.keys(daysMapping);
+
+    // convert to persian names
+    const result = daysOfWeek.reduce((acc, day) => {
+        acc[daysMapping[day]] = [];
+        return acc;
+    }, {});
+
+    activityTimeArray.forEach((slot) => {
+        const dayInFarsi = daysMapping[slot.week];
+        const timeInFarsi = timesMapping[slot.time];
+        const timeRange = timeRanges[slot.time];
+
+        // push times to result
+
+        if (result[dayInFarsi]) {
+            result[dayInFarsi].push({ time: timeInFarsi, range: timeRange });
+        }
+    });
+
+    return result;
+};
+
+export default function BookingForm({ onClose, serviceID }) {
     const [activeTab, setActiveTab] = useState(0);
     const [selected, setSelected] = useState();
     const [date, setDate] = useState(new Date());
+    const { isLoadingService, serviceData } = useGetServiceById(serviceID);
+    const currentWeekday = new Date(date).toLocaleDateString("fa-IR", { weekday: "long" });
+    const getTimesOfWeekday = !isLoadingService && processActivityTimes(serviceData?.activity_time)[currentWeekday];
 
     const selectDate = (date) => {
         setDate(date);
-        if(selected?.time){
-            setSelected({ ...selected, date: toPersianDateShort(date) });
-        }
+        setActiveTab(0);
+        setSelected();
     }
 
     return (
@@ -57,27 +111,39 @@ export default function BookingForm({ onClose }) {
                     </p>
                 </div>
             }
-            <div className="w-full flex flex-row items-start pt-3">
-                {times.map((item, index) => (
-                    <div key={index} className="w-full flex flex-col">
-                        <div onClick={() => setActiveTab(index)} className={`duration-200 w-full whitespace-nowrap text-center cursor-pointer text-sm py-2  border-b-2 ${activeTab === index ? "text-blue-600 border-blue-600" : "text-slate-600 border-b-slate-200"}`}>
-                            {item.label}
+            {
+                getTimesOfWeekday && getTimesOfWeekday.length !== 0 ?
+                    <>
+                        <div className="w-full flex flex-row items-start pt-3">
+                            {getTimesOfWeekday.map((item, index) => (
+                                <div key={index} className="w-full flex flex-col">
+                                    <div onClick={() => setActiveTab(index)} className={`duration-200 w-full whitespace-nowrap text-center cursor-pointer text-sm py-2  border-b-2 ${activeTab === index ? "text-blue-600 border-blue-600" : "text-slate-600 border-b-slate-200"}`}>
+                                        {item.time}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
+                        <div className="w-full h-auto max-h-44 overflow-y-auto pl-2 grid grid-cols-4 my-3 gap-2">
+                            {timeSlots(getTimesOfWeekday[activeTab].range.split("-")[0], getTimesOfWeekday[activeTab].range.split("-")[1], serviceData?.dedicated_time.split("-")[0]).map((item, index) => (
+                                <button
+                                    key={index}
+                                    type="button"
+                                    onClick={() => setSelected({ date: toPersianDateShort(date), time: item })}
+                                    className={`btn btn--outline !text-base !py-2 !px-4 !h-12 duration-200 !text-gray-600 border  ${selected?.time === item ? "!bg-gray-200 border-indigo-300" : "border-gray-300"}`}
+                                >
+                                    {item}
+                                </button>
+                            ))}
+                        </div>
+                    </>
+                    :
+                    <div className="w-full h-44 flex flex-col items-center justify-center gap-2">
+                        <MdOutlineTimerOff className="w-8 h-8 text-primary-01" />
+                        <span className="text-sm text-primary-01">
+                            روز غیر کاری متخصص
+                        </span>
                     </div>
-                ))}
-            </div>
-            <div className="w-full h-auto max-h-44 overflow-y-auto pl-2 grid grid-cols-4 my-3 gap-2">
-                {timeSlots(times[activeTab].start, times[activeTab].end, 30).map((item, index) => (
-                    <button
-                        key={index}
-                        type="button"
-                        onClick={() => setSelected({ date: toPersianDateShort(date), time: item })}
-                        className={`btn btn--outline !text-base !py-2 !px-4 !h-12 duration-200 !text-gray-600 border  ${selected?.time === item ? "!bg-gray-200 border-indigo-300" : "border-gray-300"}`}
-                    >
-                        {item}
-                    </button>
-                ))}
-            </div>
+            }
 
 
             <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
@@ -102,8 +168,8 @@ export default function BookingForm({ onClose }) {
 
 function CustomeButtonDatePicker({ openCalendar, value, setDate }) {
     const convertTOEnDate = moment(toEnglishNumber(value), "jYYYY/jMM/jDD").format("YYYY/MM/DD")
-    const convertToLongDateFa = new Date(convertTOEnDate).toLocaleDateString("fa-IR", { day: "numeric", month: "long", weekday:"long" });
-    
+    const convertToLongDateFa = new Date(convertTOEnDate).toLocaleDateString("fa-IR", { day: "numeric", month: "long", weekday: "long" });
+
     // is today or not
     const isToday = () => {
         const today = new Date().toLocaleDateString("fa-IR");
