@@ -73,7 +73,7 @@ export default function OtpForm({ onLoginPassword, mobile, onResendOtp, setStep,
                 </div>
             )}
             <form className="space-y-3" onSubmit={checkOtpHandler}>
-                <button onClick={() => setStep("exists")} className="text-sm text-primary-01 font-medium w-full flex justify-center">
+                <button type="button" onClick={() => setStep("exists")} className="text-sm text-primary-01 font-medium w-full flex justify-center">
                     ویرایش شماره موبایل
                 </button>
                 <p className=" w-full flex items-center justify-center font-medium text-sm text-gray-700">
@@ -116,7 +116,7 @@ export default function OtpForm({ onLoginPassword, mobile, onResendOtp, setStep,
             </form>
             <div className="flex flex-col items-center justify-center gap-2 mt-5">
                 <p className=" w-full flex items-center justify-center font-medium text-xs text-primary-04">در صورتی که در سایت مراحل ثبت نام را کامل طی کردید، میتوانید با رمز عبور وارد شوید</p>
-                <button onClick={onLoginPassword} className="btn btn--outline !text-xs">
+                <button type="button" onClick={onLoginPassword} className="btn btn--outline !text-xs">
                     ورود با رمز عبور
                 </button>
             </div>
