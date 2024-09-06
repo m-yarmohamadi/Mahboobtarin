@@ -64,6 +64,13 @@ const dataMenu = [
         icon: '',
     },
     {
+        id: 20,
+        title: 'محبوب ترین',
+        value: 'mahbobtarin',
+        quanity: '',
+        icon: '',
+    },
+    {
         id: 8,
         title: 'نظزات و امتیازات',
         value: '',

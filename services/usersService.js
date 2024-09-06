@@ -1,5 +1,9 @@
 import http from "./httpService";
 
+export function getExpertiseUsers() {
+  return http.get(`/api/v1/users/expertise/list`).then(({ data }) => data);
+}
+
 export function getExpertiseUserById(expertiseId) {
   return http
     .get(`/api/v1/users/expertise/list/${expertiseId}`)
@@ -7,7 +11,5 @@ export function getExpertiseUserById(expertiseId) {
 }
 
 export function getExpertisesList() {
-  return http
-    .get(`/api/v1/expertises`)
-    .then(({ data }) => data);
+  return http.get(`/api/v1/expertises`).then(({ data }) => data);
 }

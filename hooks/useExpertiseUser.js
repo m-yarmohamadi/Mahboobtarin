@@ -1,8 +1,20 @@
 import {
   getExpertisesList,
   getExpertiseUserById,
+  getExpertiseUsers,
 } from "@/services/usersService";
 import { useQuery } from "@tanstack/react-query";
+
+export function useGetExpertiseAllUsers() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get-expertise-users"],
+    queryFn: getExpertiseUsers,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  return { data, isLoading };
+}
 
 export default function useGetExpertiseUser(id) {
   const { data, isLoading } = useQuery({
