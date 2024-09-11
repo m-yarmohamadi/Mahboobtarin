@@ -31,7 +31,7 @@ const dataMenu = [
     {
         id: 3,
         title: 'سفارش جدید',
-        value: 'newOrder',
+        value: 'orders',
         quanity: '12',
         icon: '',
     },
