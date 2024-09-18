@@ -2,9 +2,17 @@ import useLogout from "@/hooks/useLogout";
 import useProfile from "@/hooks/useProfile";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaPortrait } from "react-icons/fa";
+import { FaPortrait, FaRegCommentDots } from "react-icons/fa";
+import { FaBlog, FaChartColumn, FaRegUser } from "react-icons/fa6";
 import { GiWallet } from "react-icons/gi";
-
+import { IoNewspaperOutline } from "react-icons/io5";
+import { LiaUserFriendsSolid } from "react-icons/lia";
+import { LuBox, LuUsers2 } from "react-icons/lu";
+import { MdOutlineFavoriteBorder, MdOutlineListAlt, MdOutlineMedicalServices, MdOutlineNotificationsNone, MdOutlineSettings } from "react-icons/md";
+import { TbDashboard, TbLogout } from "react-icons/tb";
+import { RiGalleryLine, RiVipCrownLine } from "react-icons/ri";
+import { BiSupport } from "react-icons/bi";
+import { HiOutlineSpeakerphone } from "react-icons/hi";
 
 const dataMenu = [
     {
@@ -12,133 +20,133 @@ const dataMenu = [
         title: 'پیشخوان',
         value: 'dashboard',
         quanity: '',
-        icon: '',
+        icon: TbDashboard,
     },
     {
         id: 2,
         title: 'اطلاعات من',
         value: 'personalInfo',
         quanity: '',
-        icon: '',
+        icon: FaRegUser,
     },
     {
         id: 18,
         title: 'محصولات',
         value: 'products',
         quanity: '',
-        icon: '',
+        icon: LuBox,
     },
     {
         id: 3,
         title: 'سفارش جدید',
         value: 'orders',
         quanity: '12',
-        icon: '',
+        icon: MdOutlineListAlt,
     },
     {
         id: 4,
         title: 'فراخوان جدید',
         value: '',
         quanity: '7',
-        icon: '',
+        icon: HiOutlineSpeakerphone,
     },
     {
         id: 5,
         title: 'مدیریت خدمات',
         value: 'services',
         quanity: '',
-        icon: '',
+        icon: MdOutlineMedicalServices,
     },
     {
         id: 6,
         title: 'گالری',
         value: 'gallery',
         quanity: '',
-        icon: '', 
+        icon: RiGalleryLine,
     },
     {
         id: 7,
         title: 'لینکدونی',
         value: 'linkdin',
         quanity: '',
-        icon: '',
+        icon: IoNewspaperOutline,
     },
     {
         id: 20,
         title: 'محبوب ترین',
         value: 'mahbobtarin',
         quanity: '',
-        icon: '',
+        icon: MdOutlineFavoriteBorder,
     },
     {
         id: 8,
         title: 'نظزات و امتیازات',
         value: '',
         quanity: '',
-        icon: '',
+        icon: FaRegCommentDots,
     },
     {
         id: 9,
         title: 'درخواست تولید محتوا',
         value: '',
         quanity: '',
-        icon: '',
+        icon: FaBlog,
     },
     {
         id: 10,
         title: 'دنبال کنندگان',
-        value: '',
+        value: 'followers',
         quanity: '',
-        icon: '',
+        icon: LuUsers2,
     },
     {
         id: 11,
         title: 'دنبال شونده',
-        value: '',
+        value: 'following',
         quanity: '',
-        icon: '',
+        icon: LuUsers2 ,
     },
     {
         id: 12,
         title: 'اعلان ها',
         value: '',
         quanity: '3',
-        icon: '',
+        icon: MdOutlineNotificationsNone,
     },
     {
         id: 13,
         title: 'آمار',
         value: '',
         quanity: '',
-        icon: '',
+        icon: FaChartColumn,
     },
     {
         id: 14,
         title: 'دعوت از دوستان',
         value: '',
         quanity: '',
-        icon: '',
+        icon: LiaUserFriendsSolid,
     },
     {
         id: 15,
         title: 'خرید اشتراک',
         value: '',
         quanity: '',
-        icon: '',
+        icon: RiVipCrownLine,
     },
     {
         id: 16,
         title: 'پشتیبانی',
         value: '',
         quanity: '',
-        icon: '',
+        icon: BiSupport,
     },
     {
         id: 17,
         title: 'تنظیمات',
         value: '',
         quanity: '',
-        icon: '',
+        icon: MdOutlineSettings,
     },
 ];
 
@@ -146,7 +154,7 @@ export default function Sidebar({ open, onClose }) {
     const pathname = usePathname();
     const { user, isLoading } = useProfile();
     const logout = useLogout();
-    
+
     return (
         <>
             <div onClick={onClose} className={`${open ? "block" : "hidden"} lg:!hidden w-full h-full fixed top-0 right-0 z-50 bg-slate-900/50`}></div>
@@ -188,8 +196,8 @@ export default function Sidebar({ open, onClose }) {
                         <div className='w-full col-span-2 text-3xl'>
                             <GiWallet />
                         </div>
-                        <div className='w-full col-span-7 flex flex-col justify-center items-start'>
-                            <span>موجودی کیف پول</span>
+                        <div className='w-full col-span-7 flex flex-col justify-center items-start text-sm font-bold'>
+                            <span >موجودی کیف پول</span>
                             <span>
                                 <span>{0}</span>
                                 <span>تومان</span>
@@ -197,7 +205,7 @@ export default function Sidebar({ open, onClose }) {
                         </div>
                         <div className='w-full col-span-3'>
                             <button
-                                className='p-2 bg-primary-01 text-white rounded-md w-full'
+                                className='btn btn--primary !p-2 !w-full'
                                 type=''>
                                 مشاهده
                             </button>
@@ -211,18 +219,18 @@ export default function Sidebar({ open, onClose }) {
                             <Link
                                 key={index}
                                 href={`/admin/${item.value}`}
-                                className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer ${pathname && pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-bold`}`}>
+                                className={`flex justify-start gap-6 items-center px-2 py-4 text-sm font-medium cursor-pointer ${pathname && pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-bold`}`}>
                                 <span>
-                                    <FaPortrait />
+                                    {item.icon && <item.icon className="w-6 h-6" />}
                                 </span>
                                 <span>{item.title}</span>
                                 {item.quanity && <span className='bg-primary-01 w-6 h-6 text-white flex justify-center items-center rounded-full'>{item.quanity}</span>}
                             </Link>
                         );
                     })}
-                    <button onClick={logout} className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer`}>
+                    <button onClick={logout} className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer text-sm font-medium text-error`}>
                         <span>
-                            <FaPortrait />
+                            <TbLogout className="w-6 h-6" />
                         </span>
                         <span>خروج از حساب کاربری</span>
                     </button>

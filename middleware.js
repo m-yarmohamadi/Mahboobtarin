@@ -31,28 +31,7 @@ export async function middleware(req){
         if(!expertData) return NextResponse.redirect(new URL("/", url));
     }
 
-    // if(pathname.startsWith("/admin")) {
-    //     await fetch(API_URL, {
-    //         headers:{
-    //             'Authorization':cookie 
-    //         }
-    //     })
-    //     .then((res) => res.json())
-    //     .then(({user}) => {
-    //         if(user) {
-    //             isAuth = true;
-    //             userRole = user.type;
-    //         };
-    //     })
-    //     .catch((error) => {
-    //         if(error) isAuth = false;
-    //     })
-
-    //     if(!isAuth) return NextResponse.redirect(new URL("/auth", url));
-    //     if(isAuth && userRole !== "motekhases") {
-    //         return NextResponse.redirect(new URL("/", url));
-    //     }
-    // }
+    
 
     if(pathname.startsWith("/user")) {
         await fetch(API_URL, {
