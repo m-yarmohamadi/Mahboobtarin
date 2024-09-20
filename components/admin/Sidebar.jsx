@@ -30,6 +30,13 @@ const dataMenu = [
         icon: FaRegUser,
     },
     {
+        id: 222,
+        title: 'تست تماس',
+        value: 'test-call',
+        quanity: '',
+        icon: FaRegUser,
+    },
+    {
         id: 18,
         title: 'محصولات',
         value: 'products',
