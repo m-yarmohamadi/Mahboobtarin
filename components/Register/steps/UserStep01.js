@@ -166,7 +166,7 @@ const UserStep01 = ({ setActiveOtp, setNationalCode, mobile }) => {
 						/>
 						<Select
 							name={'nationality'}
-							label={'کشور محل اقامت'}
+							label={'ملیت'}
 							options={sortedCountries}
 							formik={formik}
 						/>

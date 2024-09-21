@@ -81,7 +81,7 @@ const Step01 = ({ formik, children }) => {
 						/>
 						<Select
 							name={'nationality'}
-							label={'کشور محل اقامت'}
+							label={'ملیت'}
 							options={sortedCountries}
 							formik={formik}
 						/>
