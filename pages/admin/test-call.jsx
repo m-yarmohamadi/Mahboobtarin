@@ -2,7 +2,7 @@ import Permission from "@/components/admin/adminProfileSteps/videoCall/Permissio
 import { useEffect, useRef, useState } from "react"
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
-import VideoCall from "@/components/admin/adminProfileSteps/videoCall/VideoCall";
+// import VideoCall from "@/components/admin/adminProfileSteps/videoCall/VideoCall";
 import { MdCall, MdCallEnd, MdOutlineKeyboardVoice } from 'react-icons/md';
 import { BsCameraVideo, BsFillCameraVideoFill, BsFillCameraVideoOffFill } from 'react-icons/bs';
 import { AiOutlineAudioMuted } from 'react-icons/ai';

@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FaCalendar, FaLocationArrow, FaRegHeart, FaRegStar, FaStar } from 'react-icons/fa';
+import {  FaRegHeart, FaRegStar, FaStar } from 'react-icons/fa';
 import { IoShareSocialOutline } from 'react-icons/io5';
 import PN from 'persian-number';
-import { FaFlag, FaRegCalendar } from 'react-icons/fa6';
-import { FcGlobe } from 'react-icons/fc';
+import {  FaRegCalendar } from 'react-icons/fa6';
 import TitleItems from './TitleItems';
 import ViewMore from './ViewMore';
 import LeftAndRightArrows from '@/tools/LeftAndRightArrows';
@@ -12,10 +11,8 @@ import { Countries } from '@/data/countries';
 import { useGetProvinces } from '@/hooks/useCity';
 import { toPersianDateLong } from '@/utils/toPersianDate';
 import Link from 'next/link';
-import { MdAccessTime, MdOutlineLocationOn } from 'react-icons/md';
+import { MdAccessTime } from 'react-icons/md';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { IoMdGlobe } from 'react-icons/io';
-import { FiCalendar } from 'react-icons/fi';
 import { BiMedal } from 'react-icons/bi';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -123,71 +120,6 @@ const mostPopular = [
 		value: 'ایران مال',
 	},
 ];
-const galery = [
-	{
-		id: 1,
-		title: 'مهمانی در کافه محبوب ترین',
-		urlPic: '/images/tabiat-01.jpg',
-	},
-	{
-		id: 2,
-		title: 'بیمارانی که با گل شفا گرفتند',
-		urlPic: '/images/tabiat-02.jpg',
-	},
-	{
-		id: 3,
-		title: 'حال خوب در یک روز بهاری',
-		urlPic: '/images/tabiat-03.jpg',
-	},
-	{
-		id: 4,
-		title: 'کارگاه خیاطی روپوش های پزشکی',
-		urlPic: '/images/tabiat-04.jpg',
-	},
-	{
-		id: 5,
-		title: 'کارگاه خیاطی روپوش های پزشکی',
-		urlPic: '/images/tabiat-05.jpg',
-	},
-];
-const News = [
-	{
-		id: 1,
-		title: 'تشخیص فشار خون بالا از روی انگشتان',
-		time: '7 ساعت پیش',
-		refrence: 'مشرق نیوز',
-	},
-	{
-		id: 2,
-		title: '"وارفارین" ایرانی به زودی وارد بازار می شود',
-		time: '9 ساعت پیش',
-		refrence: 'صد آنلاین',
-	},
-	{
-		id: 3,
-		title: 'تشخیص فشار خون بالا از روی انگشتان',
-		time: '10 ساعت پیش',
-		refrence: 'خبرگزاری تسنیم',
-	},
-	{
-		id: 4,
-		title: '"وارفارین" ایرانی به زودی وارد بازار می شود',
-		time: '12 ساعت پیش',
-		refrence: 'مشرق نیوز',
-	},
-	{
-		id: 5,
-		title: 'تشخیص فشار خون بالا از روی انگشتان',
-		time: '17 ساعت پیش',
-		refrence: 'خبرگزاری تسنیم',
-	},
-	{
-		id: 6,
-		title: '"وارفارین" ایرانی به زودی وارد بازار می شود',
-		time: '21 ساعت پیش',
-		refrence: 'مشرق نیوز',
-	},
-];
 const product = [
 	{
 		id: 1,
@@ -282,7 +214,7 @@ const DetailProfile = ({ userData }) => {
 							{userData?.lastname}
 						</span>
 						<span className=' text-xs text-gray-700'>{userData?.email}</span>
-						<span className='py-2  text-xs md:text-sm text-gray-700'>مشاوره خانواده و ازدواج</span>
+						<span className='py-2  text-xs md:text-sm text-gray-700'>{userData?.expertises[0].subject}</span>
 					</div>
 				
 				<div className='flex flex-col xs:flex-row justify-between gap-2 pt-6'>
