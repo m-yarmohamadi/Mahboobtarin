@@ -10,8 +10,8 @@ import { useRouter } from "next/router";
 export default function ProfilePage() {
   const { query } = useRouter();
   const { data, isLoading } = useGetExpertiseUser(query.expertiseId);
-  
-  if (isLoading)
+
+  if (isLoading && !data)
     return (
       <div className="w-full h-screen flex items-center justify-center">
         <Loading customeColor="#0693a4" />
@@ -21,12 +21,16 @@ export default function ProfilePage() {
   return (
     <>
       <Head>
-        <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | پروفایل ${data?.name} ${data?.lastname}`}</title>
+        <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | پروفایل ${data?.user?.name} ${data?.user?.lastname}`}</title>
       </Head>
       <Header />
       <ProfileSearchBox />
       <div className="md:!pr-8 !p-0 container">
-        <MainProfile userData={data} />
+        <MainProfile
+          userData={data?.user}
+          isFollow={data?.is_follow}
+          isLike={data?.is_favorit}
+        />
       </div>
       <Footer />
     </>

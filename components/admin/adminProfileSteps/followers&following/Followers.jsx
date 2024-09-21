@@ -1,4 +1,6 @@
+
 export default function Followers() {
+    
     return (
         <div className='flex flex-col justify-between items-center w-full h-full'>
             <div className='w-full pb-8'>

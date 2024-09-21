@@ -4,6 +4,7 @@ import {
   getExpertiseUsers,
 } from "@/services/usersService";
 import { useQuery } from "@tanstack/react-query";
+import useProfile from "./useProfile";
 
 export function useGetExpertiseAllUsers() {
   const { data, isLoading } = useQuery({
@@ -17,9 +18,10 @@ export function useGetExpertiseAllUsers() {
 }
 
 export default function useGetExpertiseUser(id) {
+  const { user } = useProfile();
   const { data, isLoading } = useQuery({
     queryKey: ["get-expertise-user-by-id", id],
-    queryFn: () => getExpertiseUserById(id),
+    queryFn: () => getExpertiseUserById(id, user?.id),
     retry: false,
     refetchOnWindowFocus: true,
   });
@@ -35,10 +37,12 @@ export function useGetExpertisesList() {
     refetchOnWindowFocus: true,
   });
 
-  const transformExpertises = !isLoading && data.map((item) => ({
-    value: item.title,
-    label: item.title,
-  }));
+  const transformExpertises =
+    !isLoading &&
+    data.map((item) => ({
+      value: item.title,
+      label: item.title,
+    }));
 
   return { data, isLoading, transformExpertises };
 }

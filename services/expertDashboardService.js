@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import http from "./httpService";
 
-// * expert gallery
+// * -------------- expert gallery --------------
 export function addGallery(data) {
   return http.post("/api/v1/dashboard/gallery", data, {
     headers: {
@@ -18,7 +18,7 @@ export function deleteGallery(id) {
   });
 }
 
-// * expert linkdooni
+// * -------------- expert linkdooni --------------
 export function addLinkdins(data) {
   return http.post("/api/v1/dashboard/linkdooni", data, {
     headers: {
@@ -35,7 +35,7 @@ export function deleteLinkdins(data) {
   });
 }
 
-// * expert services
+// * -------------- expert services --------------
 export function addNewService(data) {
   return http.post("/api/v1/dashboard/service", data, {
     headers: {
@@ -60,7 +60,7 @@ export function getServiceById(serviceId) {
   return http.get(`/api/v1/dashboard/service/${serviceId}`);
 }
 
-// * expert favorites
+// * -------------- expert favorites --------------
 export function getPopularFavorites() {
   return http.get("/api/v1/dashboard/popular/list", {
     headers: {
@@ -75,4 +75,59 @@ export function addNewFavorite(data) {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
   });
+}
+
+// * -------------- expert follow --------------
+export function followOrUnfollowApi(follower_id) {
+  return http.post(
+    "/api/v1/dashboard/follower",
+    { follower_id },
+    {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    }
+  );
+}
+
+export function getFollowings() {
+  return http.get("/api/v1/dashboard/follower", {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+// * -------------- expert like --------------
+export function likeOrDislikeApi(motekhases_id) {
+  return http.post(
+    "/api/v1/dashboard/favorit",
+    { motekhases_id },
+    {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    }
+  );
+}
+
+// * -------------- expert comment --------------
+export function addCommentExpertise(data) {
+  return http.post("/api/v1/dashboard/comments", data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function getCommentExpertise(motekhases_id) {
+  return http.post(
+    "/api/v1/dashboard/comments",
+    { motekhases_id },
+    {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    }
+  );
 }

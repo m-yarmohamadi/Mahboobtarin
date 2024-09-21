@@ -1,12 +1,18 @@
 import { getUserFavorites } from "@/services/authService";
 import {
+  followOrUnfollowApi,
   getAllServices,
+  getCommentExpertise,
+  getFollowings,
   getPopularFavorites,
   getServiceById,
+  likeOrDislikeApi,
 } from "@/services/expertDashboardService";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import useProfile from "./useProfile";
 
-// * expert services
+// * expert services --------------
 export function useGetServices() {
   const { data, isLoading: isLoadingServices } = useQuery({
     queryKey: ["get-services"],
@@ -33,7 +39,7 @@ export function useGetServiceById(serviceId) {
   return { serviceData, isLoadingService };
 }
 
-// * expert favorites
+// * expert favorites --------------
 export function usePopularFavorites() {
   const { data, isLoading: isGetPopular } = useQuery({
     queryKey: ["get-popular-favorites"],
@@ -63,5 +69,96 @@ export function useGetFavorites() {
 
   const { data: favorites } = data || {};
 
-  return {  favorites, isGetFavorites };
+  return { favorites, isGetFavorites };
+}
+
+// * expert follow --------------
+export function useFollow() {
+  const { mutate, isPending: isFollowing } = useMutation({
+    mutationFn: followOrUnfollowApi,
+  });
+  const queryClient = useQueryClient();
+  const { user } = useProfile();
+
+  const followHandler = (id, userName) => {
+    if (user) {
+      if (Number(user.id) === Number(id)) {
+        toast.error("شما نمیتوانید خودتان را دنبال کنید");
+        return;
+      }
+    }
+
+    mutate(id, {
+      onSuccess: ({ data }) => {
+        if (data.message[0] === "Unfollow succesfully!") {
+          toast.success(`${userName} از دنبال شوندگان حذف شد`);
+          queryClient.invalidateQueries({ queryKey: ["get-followings"] });
+          queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] });
+        }
+
+        if (data.message[0] === "Follow Succesfully!") {
+          toast.success(`${userName} دنبال شد`);
+          queryClient.invalidateQueries({ queryKey: ["get-followings"] });
+          queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] });
+        }
+      },
+      onError: (error) => {
+        if (error?.response?.status === 401) {
+          toast.error("ابتدا وارد حساب کاربری خود شوید");
+          queryClient.invalidateQueries({ queryKey: ["get-profile"] });
+          return;
+        }
+
+        toast.error("خطایی رخ داده!");
+      },
+    });
+  };
+
+  return { followHandler, isFollowing };
+}
+
+export function useGetFollowings() {
+  const { data, isLoading: isGetFollowings } = useQuery({
+    queryKey: ["get-followings"],
+    queryFn: getFollowings,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: followings } = data || {};
+
+  return { followings, isGetFollowings };
+}
+
+// * expert like --------------
+export function useLikeOrDislike() {
+  const { mutate, isPending: isLiking } = useMutation({
+    mutationFn: likeOrDislikeApi,
+  });
+  const queryClient = useQueryClient();
+
+  const likeDislikeHandler = (id) => {
+    mutate(id, {
+      onSuccess: ({ data }) => {
+        if (data.message[0] === "Favorit Succesfully!") {
+          toast.success("متخصص لایک شد");
+        } else {
+          toast.success("لایک متخصص برداشته شد");
+        }
+        queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] });
+
+      },
+      onError: (error) => {
+        if (error?.response?.status === 401) {
+          toast.error("ابتدا وارد حساب کاربری خود شوید");
+          queryClient.invalidateQueries({ queryKey: ["get-profile"] });
+          return;
+        }
+
+        toast.error("خطایی رخ داده!");
+      },
+    });
+  };
+
+  return { likeDislikeHandler, isLiking };
 }

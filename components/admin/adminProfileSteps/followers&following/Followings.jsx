@@ -1,4 +1,16 @@
+import { useFollow, useGetFollowings } from "@/hooks/useDashboard"
+import Loading from "@/tools/Loading";
+import Link from "next/link";
+
 export default function Followings() {
+    const { followings, isGetFollowings } = useGetFollowings();
+
+    if (isGetFollowings) return (
+		<div className='w-full h-full flex items-center justify-center'>
+			<Loading customeColor="#0693a4" />
+		</div>
+	)
+
     return (
         <div className='flex flex-col justify-between items-center w-full h-full'>
             <div className='w-full pb-8'>
@@ -12,40 +24,30 @@ export default function Followings() {
                 </div>
 
                 <div className='w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 gap-2 xl:gap-3 xl:grid-cols-5'>
-                    <Following />
-                    <Following />
-                    <Following />
-                    <Following />
-                    <Following />
-                    <Following />
-                    <Following />
-                    <Following />
-                    <Following />
-                    <Following />
-                    <Following />
+                    {followings.map((item) => (
+                        <Following key={item.id} user={item} />
+                    ))}
                 </div>
             </div>
         </div>
     )
 }
 
-function Following() {
+function Following({ user }) {
+    const { followHandler } = useFollow();
     return (
         <div className="w-full flex flex-col items-center bg-white rounded-xl p-5">
-            <div className="mb-3">
+            <Link href={`/profile/${user.follower.id}`} className="mb-3 block">
                 <img src="/images/MahdiYazdaniKhoram.jpg" alt="" className="w-20 h-20 rounded-full" />
-            </div>
-            <div className="flex flex-col items-center gap-1 mb-6">
+            </Link>
+            <Link href={`/profile/${user.follower.id}`} className="flex flex-col items-center gap-1 mb-6">
                 <h3 className="text-sm font-bold text-gray-800 text-center">
-                    محمدرضا فرامرزی
+                    {user.follower.name} {user.follower.lastname}
                 </h3>
-                <span className="text-xs text-gray-600">
-                    09365456309
-                </span>
-            </div>
+            </Link>
 
             <div className="w-full">
-                <button className="btn btn--secondary !w-full !text-xs">
+                <button onClick={()=>followHandler(user.follower.id, `${user.follower.name} ${user.follower.lastname}`)} className="btn btn--secondary !w-full !text-xs">
                     لغو دنبال کردن
                 </button>
             </div>
