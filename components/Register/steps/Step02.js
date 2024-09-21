@@ -47,7 +47,7 @@ const Step02 = ({formik, children, error}) => {
 							name={'city_id'}
 							label={'شهر محل سکونت'}
 							formik={formik}
-							options={[{id:-1, label:"استان/ایالت را انتخاب کنید", value:""}, ...transformCity || []]}
+							options={[{id:-1, label:"شهر محل سکونت را انتخاب کنید", value:""}, ...transformCity || []]}
 							disabled={!formik.values.province_id}
 						/>
 						</>

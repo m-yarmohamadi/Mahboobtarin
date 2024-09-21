@@ -33,66 +33,66 @@ import { useFollow, useLikeOrDislike } from "@/hooks/useDashboard";
 import Comments from "./Comments";
 
 const mostPopular = [
-  {
-    id: 1,
-    title: "رنگ",
-    value: "زرد",
-  },
-  {
-    id: 2,
-    title: "رشته ورزشی",
-    value: "فوتبال",
-  },
-  {
-    id: 3,
-    title: "تیم ورزشی",
-    value: "استقلال",
-  },
-  {
-    id: 4,
-    title: "مرکز خرید",
-    value: "تیراژه",
-  },
-  {
-    id: 5,
-    title: "شاعر",
-    value: "حافظ",
-  },
-  {
-    id: 6,
-    title: "پاتوق",
-    value: "کافه ملانا",
-  },
-  {
-    id: 7,
-    title: "تیم ورزشی",
-    value: "استقلال",
-  },
-  {
-    id: 8,
-    title: "مرکز خرید",
-    value: "اطلس مال",
-  },
-  {
-    id: 9,
-    title: "شاعر",
-    value: "سعدی",
-  },
-  {
-    id: 10,
-    title: "رشته ورزشی",
-    value: "فوتبال",
-  },
-  {
-    id: 11,
-    title: "تیم ورزشی",
-    value: "استقلال",
-  },
-  {
-    id: 12,
-    title: "مرکز خرید",
-    value: "ایران مال",
-  },
+	{
+		id: 1,
+		title: 'رنگ',
+		value: 'زرد',
+	},
+	{
+		id: 2,
+		title: 'رشته ورزشی',
+		value: 'فوتبال',
+	},
+	{
+		id: 3,
+		title: 'تیم ورزشی',
+		value: 'استقلال',
+	},
+	{
+		id: 4,
+		title: 'مرکز خرید',
+		value: 'تیراژه',
+	},
+	{
+		id: 5,
+		title: 'شاعر',
+		value: 'حافظ',
+	},
+	{
+		id: 6,
+		title: 'پاتوق',
+		value: 'کافه ملانا',
+	},
+	{
+		id: 7,
+		title: 'تیم ورزشی',
+		value: 'استقلال',
+	},
+	{
+		id: 8,
+		title: 'مرکز خرید',
+		value: 'اطلس مال',
+	},
+	{
+		id: 9,
+		title: 'شاعر',
+		value: 'سعدی',
+	},
+	{
+		id: 10,
+		title: 'رشته ورزشی',
+		value: 'فوتبال',
+	},
+	{
+		id: 11,
+		title: 'تیم ورزشی',
+		value: 'استقلال',
+	},
+	{
+		id: 12,
+		title: 'مرکز خرید',
+		value: 'ایران مال',
+	},
 ];
 const product = [
   {

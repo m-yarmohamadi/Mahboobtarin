@@ -181,7 +181,7 @@ export default function Profile() {
                     />
 
                     <Input
-                        label="کشور محل اقامت"
+                        label="ملیت"
                         formik={formik}
                         name="nationality"
                         disabled={true}

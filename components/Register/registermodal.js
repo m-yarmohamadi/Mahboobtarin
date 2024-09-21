@@ -1,14 +1,12 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 import { useRouter } from 'next/router';
 
-
 const RegisterModal = ({ openRegisterModal, setOpenRegisterModal }) => {
 	const router = useRouter();
-	const handleClickRegisterSpecialists =()=>{
-		router.push('/users/register')
-		setOpenRegisterModal(false)
-
-	}
+	const handleClickRegisterSpecialists = () => {
+		router.push('/users/register');
+		setOpenRegisterModal(false);
+	};
 
 	return (
 		<Dialog
@@ -28,16 +26,17 @@ const RegisterModal = ({ openRegisterModal, setOpenRegisterModal }) => {
 						<div className='py-4 flex justify-center items-center w-full'>
 							<span className='font-bold text-primary-01'>لطفاٌ بر اساس نیاز خود یکی از مدلهای زیر را انتخاب کنید:</span>
 						</div>
-						<div className='flex justify-around items-center gap-3'>
-							<button onClick={handleClickRegisterSpecialists}
-								className='bg-primary-01 shadow-md hover:bg-opacity-90 text-white font-bold px-4 py-2 rounded-md'
-								type=''>
-								ثبت نام متخصصین
-							</button>
+						<div className='flex flex-col justify-center items-center gap-3'>
 							<button
 								className='bg-primary-01 shadow-md hover:bg-opacity-90 text-white font-bold px-4 py-2 rounded-md'
 								type=''>
 								ثبت نام کاربران
+							</button>
+							<button
+								onClick={handleClickRegisterSpecialists}
+								className='bg-primary-01 shadow-md hover:bg-opacity-90 text-white font-bold px-4 py-2 rounded-md'
+								type=''>
+								ثبت نام متخصصین
 							</button>
 						</div>
 					</DialogPanel>

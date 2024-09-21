@@ -20,87 +20,6 @@ import Link from "next/link";
 
 const PopularMounth = () => {
   const { data, isLoading } = useGetExpertiseAllUsers();
-  // const data = [
-  // 	{
-  // 		id: 1,
-  // 		url: '/images/PopularMounth/a.farhadi.jpg',
-  // 		name: 'اصغر فرهادی',
-  // 		title: 'کارگردان',
-  // 	},
-  // 	{
-  // 		id: 2,
-  // 		url: '/images/PopularMounth/f-moghimi.jpg',
-  // 		name: 'فاطمه مقیمی',
-  // 		title: 'کارآفرین',
-  // 	},
-  // 	{
-  // 		id: 3,
-  // 		url: '/images/PopularMounth/l-hatami.jpg',
-  // 		name: 'لیلا حاتمی',
-  // 		title: 'بازیگر',
-  // 	},
-  // 	{
-  // 		id: 4,
-  // 		url: '/images/PopularMounth/m-farshchian.jpg',
-  // 		name: 'محمود فرشچیان',
-  // 		title: 'نقاش',
-  // 	},
-  // 	{
-  // 		id: 5,
-  // 		url: '/images/PopularMounth/m-samiee.jpg',
-  // 		name: 'دکتر مجید سمیعی',
-  // 		title: 'متخصص مغز و اعصاب',
-  // 	},
-  // 	{
-  // 		id: 6,
-  // 		url: '/images/PopularMounth/m-taremi.jpg',
-  // 		name: 'مهدی طارمی',
-  // 		title: 'فوتبالیست',
-  // 	},
-  // 	{
-  // 		id: 7,
-  // 		url: '/images/PopularMounth/s-aghili.jpg',
-  // 		name: 'سالار عقیلی',
-  // 		title: 'خواننده',
-  // 	},
-  // 	{
-  // 		id: 8,
-  // 		url: '/images/PopularMounth/sh-hoseyni.jpg',
-  // 		name: 'شهاب حسینی',
-  // 		title: 'بازیگر',
-  // 	},
-  // 	{
-  // 		id: 9,
-  // 		url: '/images/PopularMounth/z-nemati.jpg',
-  // 		name: 'زهرا نعمتی',
-  // 		title: 'ورزشکار تیراندازی',
-  // 	},
-  // 	{
-  // 		id: 10,
-  // 		url: '/images/PopularMounth/a.farhadi.jpg',
-  // 		name: 'اصغر فرهادی',
-  // 		title: 'کارگردان',
-  // 	},
-  // 	{
-  // 		id: 11,
-  // 		url: '/images/PopularMounth/f-moghimi.jpg',
-  // 		name: 'فاطمه مقیمی',
-  // 		title: 'کارآفرین',
-  // 	},
-  // 	{
-  // 		id: 12,
-  // 		url: '/images/PopularMounth/l-hatami.jpg',
-  // 		name: 'لیلا حاتمی',
-  // 		title: 'بازیگر',
-  // 	},
-  // 	{
-  // 		id: 13,
-  // 		url: '/images/PopularMounth/m-farshchian.jpg',
-  // 		name: 'محمود فرشچیان',
-  // 		title: 'نقاش',
-  // 	},
-  // ];
-
   if (isLoading) return null;
 
   return (
@@ -175,7 +94,7 @@ const PopularMounth = () => {
                   {item.name} {item.lastname}
                 </span>
                 <span className="pb-2 flex justify-center items-center text-gray-400 text-sm">
-                  عنوان کاربر
+        {item?.expertises[0]?.subject}
                 </span>
               </Link>
             </SwiperSlide>

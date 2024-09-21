@@ -393,7 +393,6 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData}) 
 					</div>
 				</div>
 			</div>
-			<Footer />
 		</div>
 		</>
     );
