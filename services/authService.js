@@ -26,7 +26,7 @@ export function getUserAddress() {
 }
 
 export function setUserAddress(data) {
-  return http.post("/api/v1/add-address-new", data,{
+  return http.post("/api/v1/add-address-new", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
@@ -34,7 +34,7 @@ export function setUserAddress(data) {
 }
 
 export function removeUserAddress(data) {
-  return http.post("/api/v1/remove-address", data,{
+  return http.post("/api/v1/remove-address", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
@@ -51,6 +51,14 @@ export function getMainPage() {
 
 export function updateProfile(formData) {
   return http.post("/api/v1/users/update", formData, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function getUserFavorites() {
+  return http.get("/api/v1/profile/popular/user-list", {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },

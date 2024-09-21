@@ -3,7 +3,7 @@ import http from "./httpService";
 
 // * expert gallery
 export function addGallery(data) {
-  return http.post("/api/v1/dashboard/gallery", data,{
+  return http.post("/api/v1/dashboard/gallery", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
@@ -11,18 +11,16 @@ export function addGallery(data) {
 }
 
 export function deleteGallery(id) {
-  return http.post("/api/v1/dashboard/gallery/delete", id,{
+  return http.post("/api/v1/dashboard/gallery/delete", id, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
   });
 }
 
-
-
 // * expert linkdooni
 export function addLinkdins(data) {
-  return http.post("/api/v1/dashboard/linkdooni", data,{
+  return http.post("/api/v1/dashboard/linkdooni", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
@@ -30,18 +28,16 @@ export function addLinkdins(data) {
 }
 
 export function deleteLinkdins(data) {
-  return http.post("/api/v1/dashboard/linkdooni/delete", data,{
+  return http.post("/api/v1/dashboard/linkdooni/delete", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
   });
 }
 
-
-
 // * expert services
 export function addNewService(data) {
-  return http.post("/api/v1/dashboard/service", data,{
+  return http.post("/api/v1/dashboard/service", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
@@ -49,7 +45,7 @@ export function addNewService(data) {
 }
 
 export function deleteService(data) {
-  return http.post("/api/v1/dashboard/service/delete", data,{
+  return http.post("/api/v1/dashboard/service/delete", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
@@ -62,4 +58,21 @@ export function getAllServices() {
 
 export function getServiceById(serviceId) {
   return http.get(`/api/v1/dashboard/service/${serviceId}`);
+}
+
+// * expert favorites
+export function getPopularFavorites() {
+  return http.get("/api/v1/dashboard/popular/list", {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function addNewFavorite(data) {
+  return http.post("/api/v1/dashboard/popular", data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
 }

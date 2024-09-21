@@ -5,6 +5,8 @@ import CreateInterestForm from "./CreateInterestForm";
 import { FaCheck } from "react-icons/fa6";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
+import { useGetFavorites } from "@/hooks/useDashboard";
+import Loading from "@/tools/Loading";
 
 const initialList = [
     { id: 1, value: "", label: "رنگ", default: true },
@@ -18,6 +20,7 @@ const initialList = [
 export default function Mahbobtarin() {
     const [list, setList] = useState(initialList);
     const [newInterest, setNewInterest] = useState(false);
+    const { favorites, isGetFavorites } = useGetFavorites();
 
     const editHandler = (newItem, newValue) => {
         setList((prevList) =>
@@ -33,6 +36,12 @@ export default function Mahbobtarin() {
     const deleteHandler = (id) => {
         setList((prev) => prev.filter((m) => Number(m.id) !== Number(id)));
     }
+
+    if (isGetFavorites) return (
+        <div className='w-full h-full flex items-center justify-center'>
+            <Loading customeColor="#0693a4" />
+        </div>
+    )
 
     return (
         <div>
@@ -50,7 +59,7 @@ export default function Mahbobtarin() {
             </div>
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-                {list.map((item, index) => (
+                {!isGetFavorites && favorites.map((item, index) => (
                     <MahbobtarinItem
                         key={index}
                         item={item}
@@ -72,7 +81,7 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
     return (
         <div className="flex flex-col gap-2">
             <label className='text-sm font-bold px-2 inline-block text-slate-800'>
-                {item.label}
+                {item.popularname.name}
             </label>
             <div className="w-full flex items-center bg-transparent text-gray-700 border  border-primary-01 border-opacity-25 rounded-md">
                 {
@@ -84,11 +93,11 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
                             placeholder={'علاقه خود را وارد کنید'}
                         />
                         :
-                        <div className="text-sm flex-1 py-2 px-4">
+                        <div className="text-sm flex-1 py-2 px-4 !h-10">
                             {item.value}
                         </div>
                 }
-                {
+                {/* {
                     edit &&
                     <div className="flex items-center">
                         <button
@@ -106,8 +115,8 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
                             <IoCloseSharp className="w-5 h-5 text-red-600" />
                         </button>
                     </div>
-                }
-                {
+                } */}
+                {/* {
                     !edit &&
                     <button onClick={() => setEdit(true)} type="button" className="btn !p-2 border-r !rounded-s-none border-primary-01 border-opacity-25">
                         <MdOutlineModeEdit className="w-5 h-5" />
@@ -118,7 +127,7 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
                     <button onClick={() => onDelete(item.id)} type="button" className="btn !p-2 border-r !rounded-s-none border-primary-01 border-opacity-25">
                         <HiOutlineTrash className="w-5 h-5 text-red-600" />
                     </button>
-                }
+                } */}
             </div>
         </div>
     )
