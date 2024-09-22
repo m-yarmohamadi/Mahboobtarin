@@ -3,7 +3,7 @@ import RightMenu from "./RightMenu";
 import DetailProfile from "./DetailProfile";
 import LeftProfile from "./LeftProfile";
 
-const MainProfile = ({ userData, isFollow, isLike }) => {
+const MainProfile = ({ userData, isFollow, isLike, popularList }) => {
   return (
     <div className=" w-full bg-white !p-6 md:!pr-0 rounded-ss-3xl -mt-36 md:-mt-32">
       <div className=" pb-16 w-full rounded-ss-3xl  h-full">
@@ -13,7 +13,12 @@ const MainProfile = ({ userData, isFollow, isLike }) => {
               <RightMenu />
             </div>
             <div className=" md:col-span-7 bg-white w-full">
-              <DetailProfile userData={userData} isFollow={isFollow} isLike={isLike}/>
+              <DetailProfile
+                userData={userData}
+                isFollow={isFollow}
+                isLike={isLike}
+                popularList={popularList}
+              />
             </div>
           </div>
           <div className=" lg:col-span-4 w-full">

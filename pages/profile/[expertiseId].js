@@ -1,17 +1,20 @@
 import Header from "@/components/Header";
 import MainProfile from "@/components/Profile/Main/MainProfile";
 import ProfileSearchBox from "@/components/Profile/profileSearchBox";
-import useGetExpertiseUser from "@/hooks/useExpertiseUser";
+import http from "@/services/httpService";
 import Loading from "@/tools/Loading";
 import { Footer } from "flowbite-react";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-export default function ProfilePage() {
-  const { query } = useRouter();
-  const { data, isLoading } = useGetExpertiseUser(query.expertiseId);
+export default function ProfilePage({ user }) {
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (isLoading && !data)
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+  
+  if (isLoading)
     return (
       <div className="w-full h-screen flex items-center justify-center">
         <Loading customeColor="#0693a4" />
@@ -21,18 +24,61 @@ export default function ProfilePage() {
   return (
     <>
       <Head>
-        <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | پروفایل ${data?.user?.name} ${data?.user?.lastname}`}</title>
+        <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | پروفایل ${user?.user?.name} ${user?.user?.lastname}`}</title>
       </Head>
       <Header />
       <ProfileSearchBox />
       <div className="md:!pr-8 !p-0 container">
         <MainProfile
-          userData={data?.user}
-          isFollow={data?.is_follow}
-          isLike={data?.is_favorit}
+          userData={user?.user}
+          isFollow={user?.is_follow}
+          isLike={user?.is_favorit}
+          popularList={user?.popular_list}
         />
       </div>
       <Footer />
     </>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  const { query, req } = ctx;
+
+  try {
+    const userToken = req.cookies.accessToken;
+
+    let user;
+
+    if (userToken) {
+      const { data: userData } = await http.get(`/api/v1/user`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      
+      user = userData.user;
+    }
+
+    const { data } = await http.get(
+      `/api/v1/users/expertise/list/${query.expertiseId}${
+        user ? `/${user.id}` : ""
+      }`
+    );
+
+    if (!data) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        user: data,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 }

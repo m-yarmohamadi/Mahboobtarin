@@ -1,4 +1,4 @@
-import { getMainPage} from "@/services/authService";
+import { getMainPage } from "@/services/authService";
 import { useQuery } from "@tanstack/react-query";
 
 export default function useMainPage() {
@@ -9,7 +9,7 @@ export default function useMainPage() {
     refetchOnWindowFocus: true,
   });
 
-  const { sliders, categories, posts } = data?.data || {};
+  const { sliders, categories, posts, expertises } = data?.data || {};
 
-  return { isLoading, sliders, categories, posts };
+  return { isLoading, sliders, categories, posts, expertises };
 }

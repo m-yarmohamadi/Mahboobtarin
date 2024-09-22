@@ -17,9 +17,11 @@ import "swiper/swiper-bundle.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useGetExpertiseAllUsers } from "@/hooks/useExpertiseUser";
 import Link from "next/link";
+import useMainPage from "@/hooks/useMainPage";
 
 const PopularMounth = () => {
-  const { data, isLoading } = useGetExpertiseAllUsers();
+  const { expertises, isLoading } = useMainPage();
+
   if (isLoading) return null;
 
   return (
@@ -34,39 +36,39 @@ const PopularMounth = () => {
           prevEl: "#most-populars-btn-prev",
         }}
         loop
-        slidesPerView={1}
+        slidesPerView={"auto"}
         spaceBetween={3}
-        breakpoints={{
-          480: {
-            slidesPerView: 2,
-            spaceBetween: 5,
-          },
-          640: {
-            slidesPerView: 3,
-            spaceBetween: 10,
-          },
-          768: {
-            slidesPerView: 4,
-            spaceBetween: 10,
-          },
-          1024: {
-            slidesPerView: 6,
-            spaceBetween: 15,
-          },
-          1280: {
-            slidesPerView: 7,
-            spaceBetween: 15,
-          },
-          1536: {
-            slidesPerView: 8,
-            spaceBetween: 20,
-          },
-        }}
+        // breakpoints={{
+        //   480: {
+        //     slidesPerView: 2,
+        //     spaceBetween: 5,
+        //   },
+        //   640: {
+        //     slidesPerView: 3,
+        //     spaceBetween: 10,
+        //   },
+        //   768: {
+        //     slidesPerView: 4,
+        //     spaceBetween: 10,
+        //   },
+        //   1024: {
+        //     slidesPerView: 6,
+        //     spaceBetween: 15,
+        //   },
+        //   1280: {
+        //     slidesPerView: 7,
+        //     spaceBetween: 15,
+        //   },
+        //   1536: {
+        //     slidesPerView: 8,
+        //     spaceBetween: 20,
+        //   },
+        // }}
         autoplay={{ delay: 4000 }}
         pagination={false}
         scrollbar={false}
       >
-        {data.map((item) => {
+        {expertises.map((item) => {
           return (
             <SwiperSlide key={item.id} className="!w-auto !inline-block">
               <Link
@@ -94,7 +96,7 @@ const PopularMounth = () => {
                   {item.name} {item.lastname}
                 </span>
                 <span className="pb-2 flex justify-center items-center text-gray-400 text-sm">
-        {item?.expertises[0]?.subject}
+                  {item?.expertises[0]?.subject}
                 </span>
               </Link>
             </SwiperSlide>

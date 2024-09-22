@@ -3,6 +3,7 @@ import {
   followOrUnfollowApi,
   getAllServices,
   getCommentExpertise,
+  getFollowers,
   getFollowings,
   getPopularFavorites,
   getServiceById,
@@ -93,13 +94,17 @@ export function useFollow() {
         if (data.message[0] === "Unfollow succesfully!") {
           toast.success(`${userName} از دنبال شوندگان حذف شد`);
           queryClient.invalidateQueries({ queryKey: ["get-followings"] });
-          queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] });
+          queryClient.invalidateQueries({
+            queryKey: ["get-expertise-user-by-id"],
+          });
         }
 
         if (data.message[0] === "Follow Succesfully!") {
           toast.success(`${userName} دنبال شد`);
           queryClient.invalidateQueries({ queryKey: ["get-followings"] });
-          queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] });
+          queryClient.invalidateQueries({
+            queryKey: ["get-expertise-user-by-id"],
+          });
         }
       },
       onError: (error) => {
@@ -117,10 +122,10 @@ export function useFollow() {
   return { followHandler, isFollowing };
 }
 
-export function useGetFollowings() {
+export function useGetFollowings(expertiseId) {
   const { data, isLoading: isGetFollowings } = useQuery({
-    queryKey: ["get-followings"],
-    queryFn: getFollowings,
+    queryKey: ["get-followings", expertiseId],
+    queryFn: () => getFollowings(expertiseId),
     retry: false,
     refetchOnWindowFocus: true,
   });
@@ -128,6 +133,19 @@ export function useGetFollowings() {
   const { data: followings } = data || {};
 
   return { followings, isGetFollowings };
+}
+
+export function useGetFollowers(expertiseId) {
+  const { data, isLoading: isGetFollowers } = useQuery({
+    queryKey: ["get-followers", expertiseId],
+    queryFn: () => getFollowers(expertiseId),
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: followers } = data || {};
+
+  return { followers, isGetFollowers };
 }
 
 // * expert like --------------
@@ -145,8 +163,9 @@ export function useLikeOrDislike() {
         } else {
           toast.success("لایک متخصص برداشته شد");
         }
-        queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] });
-
+        queryClient.invalidateQueries({
+          queryKey: ["get-expertise-user-by-id"],
+        });
       },
       onError: (error) => {
         if (error?.response?.status === 401) {

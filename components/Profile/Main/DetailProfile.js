@@ -31,68 +31,69 @@ import "swiper/swiper-bundle.css";
 import numberWithCommas from "@/utils/numberWithCommas";
 import { useFollow, useLikeOrDislike } from "@/hooks/useDashboard";
 import Comments from "./Comments";
+import { usePathname, useRouter } from "next/navigation";
 
 const mostPopular = [
-	{
-		id: 1,
-		title: 'رنگ',
-		value: 'زرد',
-	},
-	{
-		id: 2,
-		title: 'رشته ورزشی',
-		value: 'فوتبال',
-	},
-	{
-		id: 3,
-		title: 'تیم ورزشی',
-		value: 'استقلال',
-	},
-	{
-		id: 4,
-		title: 'مرکز خرید',
-		value: 'تیراژه',
-	},
-	{
-		id: 5,
-		title: 'شاعر',
-		value: 'حافظ',
-	},
-	{
-		id: 6,
-		title: 'پاتوق',
-		value: 'کافه ملانا',
-	},
-	{
-		id: 7,
-		title: 'تیم ورزشی',
-		value: 'استقلال',
-	},
-	{
-		id: 8,
-		title: 'مرکز خرید',
-		value: 'اطلس مال',
-	},
-	{
-		id: 9,
-		title: 'شاعر',
-		value: 'سعدی',
-	},
-	{
-		id: 10,
-		title: 'رشته ورزشی',
-		value: 'فوتبال',
-	},
-	{
-		id: 11,
-		title: 'تیم ورزشی',
-		value: 'استقلال',
-	},
-	{
-		id: 12,
-		title: 'مرکز خرید',
-		value: 'ایران مال',
-	},
+  {
+    id: 1,
+    title: "رنگ",
+    value: "زرد",
+  },
+  {
+    id: 2,
+    title: "رشته ورزشی",
+    value: "فوتبال",
+  },
+  {
+    id: 3,
+    title: "تیم ورزشی",
+    value: "استقلال",
+  },
+  {
+    id: 4,
+    title: "مرکز خرید",
+    value: "تیراژه",
+  },
+  {
+    id: 5,
+    title: "شاعر",
+    value: "حافظ",
+  },
+  {
+    id: 6,
+    title: "پاتوق",
+    value: "کافه ملانا",
+  },
+  {
+    id: 7,
+    title: "تیم ورزشی",
+    value: "استقلال",
+  },
+  {
+    id: 8,
+    title: "مرکز خرید",
+    value: "اطلس مال",
+  },
+  {
+    id: 9,
+    title: "شاعر",
+    value: "سعدی",
+  },
+  {
+    id: 10,
+    title: "رشته ورزشی",
+    value: "فوتبال",
+  },
+  {
+    id: 11,
+    title: "تیم ورزشی",
+    value: "استقلال",
+  },
+  {
+    id: 12,
+    title: "مرکز خرید",
+    value: "ایران مال",
+  },
 ];
 const product = [
   {
@@ -129,10 +130,17 @@ const product = [
     SupplierUrl: "/images/KavehBehbahani.jpg",
   },
 ];
-const DetailProfile = ({ userData, isFollow, isLike }) => {
+
+const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
   const [showCompleteBio, setShowCompleteBio] = useState(false);
   const [isClamped, setIsClamped] = useState(false);
   const textRef = useRef(null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [score, setScore] = useState(0);
+  const { followHandler } = useFollow();
+  const { likeDislikeHandler } = useLikeOrDislike();
+
   const getCountryLabel = [...Countries].filter(
     (c) => c.value === userData?.nationality
   )[0]?.label;
@@ -143,9 +151,16 @@ const DetailProfile = ({ userData, isFollow, isLike }) => {
   const DiscountCalculation = (i, d) => {
     return i - (i * d) / 100;
   };
-  const [score, setScore] = useState(0);
-  const { followHandler } = useFollow();
-  const { likeDislikeHandler } = useLikeOrDislike();
+
+  const expertFollowHandler = () => {
+    followHandler(userData.id, `${userData?.name} ${userData?.lastname}`);
+    router.replace(pathname, { scroll: false });
+  };
+
+  const expertLikeHandler = () => {
+    likeDislikeHandler(userData.id);
+    router.replace(pathname, { scroll: false });
+  };
 
   useEffect(() => {
     if (userData?.description) {
@@ -185,7 +200,7 @@ const DetailProfile = ({ userData, isFollow, isLike }) => {
           </div>
           <div className="flex justify-end gap-3 text-sm font-medium text-gray-800 pt-10">
             <button
-              onClick={() => likeDislikeHandler(userData.id)}
+              onClick={expertLikeHandler}
               className="flex justify-end items-center gap-1"
             >
               {isLike ? (
@@ -209,17 +224,12 @@ const DetailProfile = ({ userData, isFollow, isLike }) => {
             </span>
             <span className=" text-xs text-gray-700">{userData?.email}</span>
             <span className="py-2  text-xs md:text-sm text-gray-700">
-              مشاوره خانواده و ازدواج
+              {userData?.expertises[0]?.subject}{" "}
             </span>
           </div>
           <div>
             <button
-              onClick={() =>
-                followHandler(
-                  userData?.id,
-                  `${userData.name} ${userData.lastname}`
-                )
-              }
+              onClick={expertFollowHandler}
               className={`btn ${isFollow ? "btn--secondary" : "btn--primary"}`}
             >
               {isFollow ? "لغو دنبال کردن" : "دنبال کردن"}
@@ -266,7 +276,7 @@ const DetailProfile = ({ userData, isFollow, isLike }) => {
       </div>
 
       {/* بیوگرافی */}
-      {userData.description && (
+      {userData?.description && (
         <div id="bio" className="pt-16">
           <TitleItems title={"بیوگرافی"} />
           <p
@@ -343,19 +353,19 @@ const DetailProfile = ({ userData, isFollow, isLike }) => {
           title={`محبوب ترین های ${userData?.name} ${userData?.lastname}`}
         />
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2 mb-4">
-          {mostPopular.map((item) => {
+          {popularList && popularList.length && popularList.map((item) => {
             return (
               <div
                 key={item.id}
                 className=" flex justify-start items-center text-xs sm:text-sm text-gray-800 gap-1"
               >
-                <span className="font-bold"> {item.title} : </span>
+                <span className="font-bold"> {item.popularname.name} : </span>
                 <span> {item.value}</span>
               </div>
             );
           })}
         </div>
-        <ViewMore />
+        {/* <ViewMore /> */}
       </div>
 
       {/* گالری */}

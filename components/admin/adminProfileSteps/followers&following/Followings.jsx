@@ -1,15 +1,17 @@
 import { useFollow, useGetFollowings } from "@/hooks/useDashboard"
+import useProfile from "@/hooks/useProfile";
 import Loading from "@/tools/Loading";
 import Link from "next/link";
 
 export default function Followings() {
-    const { followings, isGetFollowings } = useGetFollowings();
+    const { user, isLoading } = useProfile();
+    const { followings, isGetFollowings } = useGetFollowings(user?.id);
 
-    if (isGetFollowings) return (
-		<div className='w-full h-full flex items-center justify-center'>
-			<Loading customeColor="#0693a4" />
-		</div>
-	)
+    if (isGetFollowings || isLoading) return (
+        <div className='w-full h-full flex items-center justify-center'>
+            <Loading customeColor="#0693a4" />
+        </div>
+    )
 
     return (
         <div className='flex flex-col justify-between items-center w-full h-full'>
@@ -37,8 +39,14 @@ function Following({ user }) {
     const { followHandler } = useFollow();
     return (
         <div className="w-full flex flex-col items-center bg-white rounded-xl p-5">
-            <Link href={`/profile/${user.follower.id}`} className="mb-3 block">
-                <img src="/images/MahdiYazdaniKhoram.jpg" alt="" className="w-20 h-20 rounded-full" />
+            <Link  href={`/profile/${user.follower.id}`} className="mb-3 block">
+                <div className="w-20 h-20 rounded-full overflow-hidden">
+                    <img
+                        className={user?.follower?.avatar[0]?.path && "object-cover w-full h-full"}
+                        src={user?.follower?.avatar[0]?.path || "/images/defaultUser.png"}
+                        alt=''
+                    />
+                </div>
             </Link>
             <Link href={`/profile/${user.follower.id}`} className="flex flex-col items-center gap-1 mb-6">
                 <h3 className="text-sm font-bold text-gray-800 text-center">
@@ -47,7 +55,7 @@ function Following({ user }) {
             </Link>
 
             <div className="w-full">
-                <button onClick={()=>followHandler(user.follower.id, `${user.follower.name} ${user.follower.lastname}`)} className="btn btn--secondary !w-full !text-xs">
+                <button onClick={() => followHandler(user.follower.id, `${user.follower.name} ${user.follower.lastname}`)} className="btn btn--secondary !w-full !text-xs">
                     لغو دنبال کردن
                 </button>
             </div>

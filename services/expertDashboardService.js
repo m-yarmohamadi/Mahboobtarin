@@ -90,8 +90,16 @@ export function followOrUnfollowApi(follower_id) {
   );
 }
 
-export function getFollowings() {
-  return http.get("/api/v1/dashboard/follower", {
+export function getFollowings(expertiseId) {
+  return http.get(`/api/v1/dashboard/following${`/${expertiseId}`}`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function getFollowers(expertiseId) {
+  return http.get(`/api/v1/dashboard/follower${`/${expertiseId}`}`, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
