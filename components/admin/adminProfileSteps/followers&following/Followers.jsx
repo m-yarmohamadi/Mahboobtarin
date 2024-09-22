@@ -37,9 +37,9 @@ export default function Followers() {
 
 function Follower({ user }) {
     return (
-        <div className="w-full flex flex-col items-center bg-white rounded-xl p-5">
+        <div className="w-full flex flex-col items-center justify-between bg-white rounded-xl p-5">
             <div className="mb-3">
-                <div className="w-20 h-20 rounded-full overflow-hidden">
+                <div className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center border border-slate-400">
                     <img
                         className={user?.follower?.avatar[0]?.path && "object-cover w-full h-full"}
                         src={user?.follower?.avatar[0]?.path || "/images/defaultUser.png"}
@@ -49,12 +49,12 @@ function Follower({ user }) {
             </div>
             <div className="flex flex-col items-center gap-1 mb-6">
                 <h3 className="text-sm font-bold text-gray-800 text-center">
-                    {user.follower.name} {user.follower.lastname}
+                    {user?.follower?.name} {user?.follower?.lastname}
                 </h3>
             </div>
 
             <div className="w-full">
-                <Link href={`/profile/${user.follower.id}`} className="btn btn--secondary !w-full !text-xs">
+                <Link href={`/profile/${user?.follower?.id}`} className="btn btn--secondary !w-full !text-xs">
                     مشاهده پروفایل
                 </Link>
             </div>

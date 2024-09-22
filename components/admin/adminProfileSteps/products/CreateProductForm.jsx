@@ -1,3 +1,5 @@
+import ProductFields from "./ProductFields";
+
 export default function CreateProductForm() {
     return (
         <div>
@@ -9,6 +11,8 @@ export default function CreateProductForm() {
                     اطلاعات محصول خود را وارد کنید
                 </p>
             </div>
+
+            <ProductFields />
         </div>
     )
 }
