@@ -11,8 +11,7 @@ import { enToFaNumber } from "@/utils/enToFa";
 
 const RESEND_TIME = 20;
 
-export default function OtpForm({ onLoginPassword, mobile, onResendOtp, setStep, setNationalCodeInitial, setRegisterStep, setUserData }) {
-    const [otp, setOtp] = useState("");
+export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobile, onResendOtp, setStep, setNationalCodeInitial, setRegisterStep, setUserData }) {
     const [isLoginState, setIsLoginState] = useState(false);
     const [time, setTime] = useState(RESEND_TIME);
     const { mutateAsync, isPending } = useMutation({ mutationFn: register });
@@ -26,7 +25,6 @@ export default function OtpForm({ onLoginPassword, mobile, onResendOtp, setStep,
             try {
                 const { data } = await mutateAsync({
                     mobile,
-                    check_user_register: true,
                     verifycode: otp,
                 })
 
@@ -37,19 +35,25 @@ export default function OtpForm({ onLoginPassword, mobile, onResendOtp, setStep,
                     router.replace("/");
                 }
             } catch (error) {
-                if (error?.response?.status === 422 && error?.response?.data?.message[0] === "The registration process has not been completed.") {
-                    setStep(error?.response?.data?.user?.type === "motekhases" ? "expert" : "user");
-                    setNationalCodeInitial(error?.response?.data?.user?.national_code);
-                    if(error?.response?.data?.user?.step === "4"){
-                        setRegisterStep(4);
-                    } else {
-                        setRegisterStep(Number(error?.response?.data?.user?.step) + 1);
-                    }
-                    setUserData(error?.response?.data?.user);
-                }
+                // if (error?.response?.status === 422 && error?.response?.data?.message[0] === "The registration process has not been completed.") {
+                //     setStep(error?.response?.data?.user?.type === "motekhases" ? "expert" : "user");
+                //     setNationalCodeInitial(error?.response?.data?.user?.national_code);
+                //     if (error?.response?.data?.user?.step === "4") {
+                //         setRegisterStep(4);
+                //     } else {
+                //         setRegisterStep(Number(error?.response?.data?.user?.step) + 1);
+                //     }
+                //     setUserData(error?.response?.data?.user);
+                // }
 
-                if (error?.response?.status === 500) {
-                    toast.error("کد تایید وارد شده نادرست است");
+                // if (error?.response?.status === 500) {
+                //     toast.error("کد تایید وارد شده نادرست است");
+                // }
+
+                if (error?.response?.status === 301) {
+                    setStep("register");
+                    setOtp
+                    return
                 }
             }
         } else {
@@ -114,12 +118,14 @@ export default function OtpForm({ onLoginPassword, mobile, onResendOtp, setStep,
                     {isPending ? <Loading /> : 'تایید'}
                 </button>
             </form>
-            <div className="flex flex-col items-center justify-center gap-2 mt-5">
-                <p className=" w-full flex items-center justify-center font-medium text-xs text-primary-04">در صورتی که در سایت مراحل ثبت نام را کامل طی کردید، میتوانید با رمز عبور وارد شوید</p>
-                <button type="button" onClick={onLoginPassword} className="btn btn--outline !text-xs">
-                    ورود با رمز عبور
-                </button>
-            </div>
+            {isRegister &&
+                <div className="flex flex-col items-center justify-center gap-2 mt-5">
+                    <p className=" w-full flex items-center justify-center font-medium text-xs text-primary-04">در صورتی که در سایت مراحل ثبت نام را کامل طی کردید، میتوانید با رمز عبور وارد شوید</p>
+                    <button type="button" onClick={onLoginPassword} className="btn btn--outline !text-xs">
+                        ورود با رمز عبور
+                    </button>
+                </div>
+            }
         </>
     )
 }

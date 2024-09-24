@@ -20,7 +20,7 @@ const NextPrev = ({ prevStep, loading, step }) => {
 				className={`btn btn--primary gap-2 !text-base ${loading && `aria-disabled`} disabled:bg-primary-02`}>
 				{!loading ? (
 					<>
-					{step===5 ? <span>ثبت نهایی</span> : <span>مرحله بعد</span>}
+					{step===4 ? <span>ثبت نهایی</span> : <span>مرحله بعد</span>}
 						
 						<span>
 							<FaArrowLeft className='w-5 h-5'/>

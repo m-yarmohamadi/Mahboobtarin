@@ -101,7 +101,7 @@ const validationSchema = Yup.object({
 });
 
 
-const UserStep01 = ({ setActiveOtp, setNationalCode, mobile }) => {
+const UserStep01 = ({ setStepUser, setNationalCode, mobile, otp }) => {
 	const [selectedDay, setSelectedDay] = useState();
 	const [selectedMonth, setSelectedMonth] = useState();
     const [selectedYear, setSelectedYear] = useState();
@@ -112,14 +112,16 @@ const UserStep01 = ({ setActiveOtp, setNationalCode, mobile }) => {
 		mutateRegister({
 			...values,
 			mobile,
-			check_user_register:false,
-			step:"1",
-			verifycode:0,
+			is_register_form:true,
+			step:1,
+			verifycode:otp,
 			type:"user"
 		},{
 			onSuccess:({data})=>{
-				if(data && data.status === 200){
-					setActiveOtp(true);
+				console.log(data);
+				
+				if(data){
+					setStepUser(1);
 					setNationalCode(values.national_code);
 				}
 			},
@@ -270,7 +272,7 @@ const UserStep01 = ({ setActiveOtp, setNationalCode, mobile }) => {
 							<Loading />{' '}
 						</span>
 					) : (
-						<span className='btn btn--primary'>ثبت و دریافت کد تأیید</span>
+						<span className='btn btn--primary'>ثبت و ادامه</span>
 					)}
 				</button>
 			</form>

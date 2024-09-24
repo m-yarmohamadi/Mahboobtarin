@@ -4,7 +4,7 @@ import OtpForm from "./OtpForm";
 import PasswordForm from "./PasswordForm";
 import useAllSettings from "@/hooks/useAllSettings";
 
-export default function LoginForm({ mobile, onResendOtp, setStep, setNationalCodeInitial, setRegisterStep, setUserData }) {
+export default function LoginForm({ otp, setOtp, mobile, onResendOtp, setStep, setNationalCodeInitial, setRegisterStep, setUserData, isRegister }) {
     const [loginWithOtp, setLoginWithOtp] = useState(true);
     const data = useAllSettings();
 
@@ -28,6 +28,9 @@ export default function LoginForm({ mobile, onResendOtp, setStep, setNationalCod
                                 setNationalCodeInitial={setNationalCodeInitial}
                                 setRegisterStep={setRegisterStep}
                                 setUserData={setUserData}
+                                isRegister={isRegister}
+                                otp={otp}
+                                setOtp={setOtp}
                             />
                             :
                             <PasswordForm

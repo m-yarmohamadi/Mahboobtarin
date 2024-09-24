@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import UserStep from './steps/UserStep';
 
-const RegisterUser = ({mobile}) => {
+const RegisterUser = ({mobile, otp}) => {
 	const router = useRouter();
 	const [nationalCode, setNationalCode] = useState();
 	const [step, setStep] = useState(1);
@@ -44,6 +44,7 @@ const RegisterUser = ({mobile}) => {
 							nextStep={nextStep}
 							prevStep={prevStep}
 							mobile={mobile}
+							otp={otp}
 						/>
 					</div>
 				</div>

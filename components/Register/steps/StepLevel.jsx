@@ -20,11 +20,6 @@ const levels = [
         title: "پذیرش قوانین و مقررات",
         stepName: "مرحله چهارم"
     },
-    {
-        step: 4,
-        title: "تایید شماره موبایل",
-        stepName: "مرحله پنجم"
-    },
 ]
 
 export default function StepLevel({ currentStep }) {

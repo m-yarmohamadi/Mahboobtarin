@@ -1,17 +1,49 @@
-import useLogin from "@/hooks/useLogin";
+import { register } from "@/services/authService";
 import Input from "@/tools/Input";
 import Loading from "@/tools/Loading";
+import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import * as Yup from "yup";
 
 export default function PasswordForm({ onLoginOtp, mobile }) {
     const [isLoginState, setIsLoginState] = useState(false);
-    const { isEntering, loginPasswordHandler } = useLogin();
+    const { isPending: isEntering, mutateAsync: mutateLoginPassword } = useMutation({ mutationFn: register, });
+    const router = useRouter();
 
     const checkPasswordHandler = async (values) => {
-        const { isLogin } = await loginPasswordHandler({ mobile, password: values.password });
-        setIsLoginState(isLogin);
+        try {
+            const { data } = await mutateLoginPassword({
+                mobile,
+                password: values.password,
+                logintype: "password",
+                verifycode: 0
+            })
+
+            if (data?.message && data?.message[0] === "Unauthorized") {
+                formik.setFieldError("password", "رمز عبور وارد شده اشتباه است");
+                return
+            }
+
+            if (data.status === 200) {
+                toast.success("با موفقیت وارد شدید");
+                setIsLoginState(true);
+                Cookies.set("accessToken", data.access_token, { expires: 1 / 48 });
+                
+                if (data?.user?.type === "user") {
+                    router.replace(`/`);
+                } else {
+                    router.replace(`/profile/${user?.id}`);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            
+            formik.setFieldError("password", "خطایی رخ داده است");
+        }
     }
 
     const formik = useFormik({
@@ -27,7 +59,7 @@ export default function PasswordForm({ onLoginOtp, mobile }) {
             {isLoginState && (
                 <div className="w-full h-full gap-3 font-bold text-xl  flex-col fixed top-0 right-0 flex items-center justify-center bg-white/80 z-[60]">
                     در حال ورود به سایت
-                    <Loading customeColor="#15aa7f"/>
+                    <Loading customeColor="#15aa7f" />
                 </div>
             )}
             <form className="w-full space-y-3" onSubmit={formik.handleSubmit}>

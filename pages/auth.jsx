@@ -17,24 +17,26 @@ export default function AuthPage() {
     const [nationalCodeInitial, setNationalCodeInitial] = useState();
     const [registerStep, setRegisterStep] = useState(1);
     const [userData, setUserData] = useState({});
+    const [isRegister, setIsRegisert] = useState();
+    const [otp, setOtp] = useState("");
     const phoneNumber = mobile.toString().charAt(0) === "0" ? mobile.slice(1) : mobile.toString();
 
     const isExistsHandler = (e) => {
         e.preventDefault();
         mutateAuthUser({
             mobile: countryCode + phoneNumber,
-            type: "user",
-            check_user_register: true,
             verifycode: 0
         }, {
             onSuccess: ({ data }) => {
-                if (data && data.message[0] === "otp sent") {
+                if (data) {
                     setAuthStep("login");
+                    setIsRegisert(true);
                 }
             },
             onError: (error) => {
-                if (error?.response?.data?.message[0] === "user not found") {
-                    setAuthStep("register");
+                if (error?.response?.status=== 301) {
+                    setAuthStep("login");
+                    setIsRegisert(false);
                 } else {
                     toast.error(enToFaMessages(error?.response?.data?.message[0]));
                 }
@@ -65,6 +67,9 @@ export default function AuthPage() {
                         setNationalCodeInitial={setNationalCodeInitial}
                         setRegisterStep={setRegisterStep}
                         setUserData={setUserData}
+                        isRegister={isRegister}
+                        otp={otp}
+                        setOtp={setOtp}
                     />
                 )
 
@@ -82,6 +87,7 @@ export default function AuthPage() {
                         nationalCodeInitial={nationalCodeInitial}
                         userStep={registerStep}
                         userData={userData}
+                        otp={otp}
                     />
                 )
 
@@ -89,6 +95,7 @@ export default function AuthPage() {
                 return (
                     <RegisterUser 
                         mobile={countryCode + phoneNumber}
+                        otp={otp}
                     />
                 )
         }

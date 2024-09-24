@@ -75,7 +75,7 @@ const validationSchemaStep3 = Yup.object({
 });
 
 
-const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData}) => { 
+const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData, otp}) => { 
     const router = useRouter();
 	const [nationalCode, setNationalCode] = useState(nationalCodeInitial);
 	const [step, setStep] = useState(userStep);
@@ -99,8 +99,8 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData}) 
 	const defaultDataRegister = {
 		type: "expert",
 		mobile,
-		check_user_register: false,
-		verifycode:0
+		is_register_form:true,
+		verifycode:otp
 	}
 	
 	const [errorStep2, setErrorStep2] = useState([]);
@@ -124,7 +124,7 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData}) 
 		mutateRegister({
 			...defaultDataRegister,
 			...values,
-			step:"1"
+			step:1
 		}, {
 			onSuccess:({data})=>{
 				if(data){
@@ -160,7 +160,7 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData}) 
 		mutateRegister({
 			...defaultDataRegister,
 			...values,
-			step:"2",
+			step:2,
 			national_code:nationalCode || formikStep1.values.national_code
 		}, {
 			onSuccess:({data})=>{
@@ -207,11 +207,11 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData}) 
 			confirmPassword: values.confirmPassword,
 			avatar: values.picture,
 			type: 'expert',
-			step: '3',
+			step: 3,
 			national_code:nationalCode || formikStep1.values.national_code,
 			mobile,
-			check_user_register:false,
-			verifycode:0,
+			is_register_form:true,
+			verifycode:otp,
 		};
 		const formData = new FormData();
 		for (const key in step03Data) {
@@ -253,17 +253,20 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData}) 
 		mutateRegister({
 			...defaultDataRegister,
 			...values,
-			step:"4",
+			step:4,
 			national_code:nationalCode || formikStep1.values.national_code
 		}, {
-			onSuccess:({data})=>{
+			onSuccess:({data})=>{				
 				if(data){
-					nextStep();
+					Cookies.set("accessToken" , data.token, {expires:1/48});
+					setCompleted(true);
+					toast.success("ثبت نام شما با موفقیت تکمیل شد");
+					router.replace(`/`);
 				}
 			},
 			onError:(error)=>{
 				if(error?.response?.data?.status === 422){
-					setErrorStep4(error?.response?.data?.message);
+					setErrorStep2(error?.response?.data?.message);
 				} else {
 					toast.error("خطایی رخ داده است");
 				}
@@ -288,9 +291,9 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData}) 
 		mutateRegister({
 			type: "expert",
 			mobile,
-			check_user_register: false,
+			is_register_form:true,
 			...values,
-			step:"5",
+			step:4,
 			national_code:nationalCode || formikStep1.values.national_code
 		}, {
 			onSuccess:({data})=>{

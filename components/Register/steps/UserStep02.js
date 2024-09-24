@@ -11,24 +11,25 @@ import { useMutation } from '@tanstack/react-query';
 import { register } from '@/services/authService';
 import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
+import CheckBox from '@/tools/CheckBox';
 const time = 90;
 
-const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
+const UserStep02 = ({ setStepUser, nationalCode, mobile, otp }) => {
 	const router = useRouter();
 	const { mutate:mutateRegister, isPending } = useMutation({mutationFn:register});
 	const [completed, setCompleted] = useState(false);
 
 	const onSubmit = (values) => {
 		mutateRegister({
-			...values,
 			mobile,
-			check_user_register:false,
-			step:"5",
+			is_register_form:true,
+			step:2,
 			type:"user",
+			verifycode:otp,
 			national_code:nationalCode
 		},{
 			onSuccess:({data})=>{
-				if(data && data.status === 200){
+				if(data){
 					Cookies.set("accessToken", data.token, {expires:1/48});
 					toast.success("ثبت نام شما با موفقیت تکمیل شد");
 					setCompleted(true);
@@ -36,24 +37,18 @@ const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
 				}
 			},
 			onError:(error)=>{
-				if(error?.response?.data?.message[0] === "verifycode not valid"){
-					formik.setFieldError("verifycode", "کد تایید وارد شده نادرست است");
-				} else {
-					toast.error("خطایی رخ داده!");
-				}
+				toast.error("خطایی رخ داده!");
 			}
 		});
 	}
 
 	const formik = useFormik({
-		initialValues:{verifycode: ''},
+		initialValues:{FinalApproval: false},
 		onSubmit,
 		validationSchema:Yup.object({
-			verifycode: Yup.string()
-				.required('وارد کردن کد تأیید 5 رقمی اجباری است')
-				.min(5, 'لطفا 5 رقم وارد کنید')
-				.max(5, 'لطفا 5 رقم وارد کنید')
+			FinalApproval: Yup.boolean().oneOf([true], 'شما باید قوانین وب سایت را تأیید کنید.'),
 		}),
+		validateOnMount: true,
 		enableReinitialize: true,
 	});
 
@@ -69,31 +64,31 @@ const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
 			<div className='w-full h-full flex flex-col justify-between'>
 				<form
 					onSubmit={formik.handleSubmit}
-					className='w-full h-full flex flex-col justify-between '>
+					className='w-full h-full flex flex-col justify-between '
+				>
 					<div className='w-full h-full flex flex-col justify-between'>
 						<div className=' w-full flex flex-col justify-center items-center gap-4 mt-7'>
-							<div>
-								<div className=" w-auto flex flex-col justify-center items-center gap-2  ">
-									<p className=" w-full flex items-center justify-center font-medium text-sm text-gray-700 mb-4">
-									لطفا کد ارسال شده به تلفن همراه خود را در اینجا درج کنید
+							
+							<div className='w-full h-full flex flex-col justify-between'>
+								<div className=' w-full  '>
+									<h1 className='text-lg text-slate-800 font-bold py-3'>قوانین:</h1>
+									<p className='text-justify overflow-y-scroll w-full h-36 mb-4 text-sm text-slate-600 leading-7 pl-5'>
+										لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در
+										این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می
+										باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
 									</p>
-									<OTPInput
-										value={formik.values.verifycode}
-										onChange={(e)=>formik.setFieldValue("verifycode", e)}
-										numInputs={5}
-										shouldAutoFocus
-										containerStyle="flex flex-row-reverse items-center justify-center gap-3"
-										renderInput={(props) => <input type="number" {...props} />}
-										inputStyle="!w-full !max-w-12 !h-12 bg-white border border-slate-300 !rounded-lg text-xl text-slate-800 outline-none focus:!border-primary-01"
-									/>
-									{
-									formik.errors.verifycode &&
-										<span className='text-error text-xs '>
-											{formik.errors.verifycode}
-										</span>
-									}
+									<div className='grid grid-cols-6'>
+										<div className=' col-span-4 p-2 bg-primary-02 rounded-lg'>
+											<CheckBox
+												name={'FinalApproval'}
+												formik={formik}
+											/>
+										</div>
+										<div className=' col-span-2 flex justify-center items-center px-6 w-56'></div>
+									</div>
 								</div>
 							</div>
+
 							<div className='w-full flex justify-center items-center'>
 								<button
 									className='btn btn--primary w-full max-w-sm'
@@ -103,7 +98,7 @@ const UserStep02 = ({ setActiveOtp, nationalCode, mobile }) => {
 											<Loading />
 										</span>
 									) : (
-										'ثبت'
+										'تایید'
 									)}
 								</button>
 							</div>
