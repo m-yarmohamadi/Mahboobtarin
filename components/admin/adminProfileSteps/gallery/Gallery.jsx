@@ -37,7 +37,7 @@ export default function Gallery() {
 					</button>
 				</div>
 				<div className='w-full grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-4'>
-					{gallery.map((item, index) => (
+					{gallery?.map((item, index) => (
 						<GalleryItem
 							key={index}
 							data={item}

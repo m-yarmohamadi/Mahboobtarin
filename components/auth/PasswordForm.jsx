@@ -36,7 +36,7 @@ export default function PasswordForm({ onLoginOtp, mobile }) {
                 if (data?.user?.type === "user") {
                     router.replace(`/`);
                 } else {
-                    router.replace(`/profile/${user?.id}`);
+                    router.replace(`/profile/${data?.user?.id}`);
                 }
             }
         } catch (error) {

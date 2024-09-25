@@ -13,7 +13,7 @@ export default function MyLinkdin() {
 	const { user, isLoading } = useProfile();
 	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.id);
 	const { link_dooni } = data || {}
-
+	
 	const initialValues = {
 		title: "",
 		source: "",

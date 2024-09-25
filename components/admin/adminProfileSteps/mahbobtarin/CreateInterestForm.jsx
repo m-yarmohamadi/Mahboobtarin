@@ -40,7 +40,6 @@ export default function CreateInterestForm({ open, onClose, setList }) {
             value: Yup.string().required("علاقه خود را وارد نمایید"),
         })
     })
-    console.log(formik.values);
 
     return (
         <Modal title="ایجاد علاقه جدید" open={open} onClose={onClose}>

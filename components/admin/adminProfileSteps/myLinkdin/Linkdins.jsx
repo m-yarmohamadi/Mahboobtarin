@@ -73,9 +73,9 @@ export default function Linkdins({ formik, loading, link_dooni, userID }) {
 					</div>
 				</div>
 			</div>
-			{link_dooni.length !== 0 && (
+			{link_dooni && link_dooni?.length !== 0 && (
 				<div className='w-full border border-slate-300 rounded-md mt-3'>
-					{link_dooni.map((item, index) => (
+					{link_dooni?.map((item, index) => (
 						<div
 							key={index}
 							className='flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0'>

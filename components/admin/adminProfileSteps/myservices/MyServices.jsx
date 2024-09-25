@@ -49,7 +49,7 @@ export default function MyServices() {
 
 				<div className='lg:col-span-2'>
 
-					{servicesData.length !== 0 && (
+					{servicesData && servicesData.length !== 0 && (
 						<div className='w-full border border-slate-300 rounded-md mt-3'>
 							{servicesData.map((item, index) => (
 								<div
