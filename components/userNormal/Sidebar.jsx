@@ -14,6 +14,13 @@ const dataMenu = [
         quanity: '',
         icon: '',
     },
+    {
+        id: 3,
+        title: 'فراخوان',
+        value: 'calling',
+        quanity: '',
+        icon: '',
+    },
 ];
 
 export default function Sidebar({ open, onClose }) {
