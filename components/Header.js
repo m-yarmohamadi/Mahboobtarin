@@ -10,6 +10,9 @@ import LoginRegister from './LoginRegister';
 import useLogout from '@/hooks/useLogout';
 import { FaLayerGroup } from 'react-icons/fa';
 import useAllSettings from '@/hooks/useAllSettings';
+import Categories from './Categories';
+import useMainPage, { useCategoryChild } from '@/hooks/useMainPage';
+import { getCategoryChild } from '@/services/mainPageService';
 
 const products = [
 	{
@@ -64,8 +67,10 @@ export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [openRegisterModal, setOpenRegisterModal] = useState(false);
 	const [token, setToken] = useState('');
+	const [cateDesk, setCateDesk] = useState(false);
 	const logout = useLogout();
 	const data = useAllSettings();
+    const { categories, isLoading } = useMainPage();
 
 	useEffect(() => {
 		const tokenCooke = Cookies.get('accessToken') ? Cookies.get('accessToken') : null;
@@ -73,7 +78,7 @@ export default function Header() {
 	}, []);
 
 	return (
-		<div className='w-full bg-primary-02 z-50 sticky shadow-md  top-0 left-0 right-0'>
+		<div className='w-full bg-primary-02 z-50 sticky shadow-md  top-0 left-0 right-0 header-primary'>
 			<header className=' md:mx-auto md:container'>
 				<nav
 					className='w-full mx-auto flex max-w-full items-center justify-between p-2'
@@ -103,8 +108,8 @@ export default function Header() {
 						</button>
 					</div>
 					<PopoverGroup className='hidden lg:flex gap-x-2 lg:gap-x-4'>
-						<Popover className='relative flex justify-center items-center'>
-							<PopoverButton className='flex justify-center items-center gap-x-1 text-xs xl:text-sm font-semibold leading-6 text-gray-900'>
+						<Popover className='flex justify-center items-center category group'>
+							<button onClick={()=>setCateDesk(!cateDesk)} className=' flex justify-center items-center gap-x-1 text-xs xl:text-sm font-semibold leading-6 text-gray-900'>
 								<span className='text-lg text-primary-01'>
 									<FaLayerGroup />
 								</span>
@@ -113,55 +118,13 @@ export default function Header() {
 									className='h-5 w-5 flex-none text-gray-400'
 									aria-hidden='true'
 								/>
-							</PopoverButton>
-
-							<Transition
-								enter='transition ease-out duration-200'
-								enterFrom='opacity-0 translate-y-1'
-								enterTo='opacity-100 translate-y-0'
-								leave='transition ease-in duration-150'
-								leaveFrom='opacity-100 translate-y-0'
-								leaveTo='opacity-0 translate-y-1'>
-								<PopoverPanel className='z-20 absolute -left-8 top-full  mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5'>
-									<div className='p-4'>
-										{products.map((item) => (
-											<div
-												key={item.name}
-												className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50'>
-												<div className='flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white'>
-													<item.icon
-														className='h-6 w-6 text-gray-600 group-hover:text-indigo-600'
-														aria-hidden='true'
-													/>
-												</div>
-												<div className='flex-auto'>
-													<a
-														href={item.href}
-														className='block font-semibold text-gray-900'>
-														{item.name}
-														<span className='absolute inset-0' />
-													</a>
-													<p className='mt-1 text-gray-600'>{item.description}</p>
-												</div>
-											</div>
-										))}
-									</div>
-									<div className='grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50'>
-										{callsToAction.map((item) => (
-											<a
-												key={item.name}
-												href={item.href}
-												className='flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100'>
-												<item.icon
-													className='h-5 w-5 flex-none text-gray-400'
-													aria-hidden='true'
-												/>
-												{item.name}
-											</a>
-										))}
-									</div>
-								</PopoverPanel>
-							</Transition>
+							</button>
+							<Categories 
+								isOpen={cateDesk} 
+								setIsOpen={()=>setCateDesk(false)}
+								categories={categories}
+								isLoading={isLoading}
+							/>
 						</Popover>
 
 						{menu.map((item) => {
@@ -176,9 +139,9 @@ export default function Header() {
 						})}
 					</PopoverGroup>
 					<LoginRegister
-							setOpenRegisterModal={setOpenRegisterModal}
-							handleLogOut={logout}
-						/>
+						setOpenRegisterModal={setOpenRegisterModal}
+						handleLogOut={logout}
+					/>
 				</nav>
 				<Dialog
 					className={`lg:hidden`}
@@ -229,14 +192,8 @@ export default function Header() {
 													/>
 												</DisclosureButton>
 												<DisclosurePanel className='mt-2 space-y-2'>
-													{[...products, ...callsToAction].map((item) => (
-														<DisclosureButton
-															key={item.name}
-															as='a'
-															href={item.href}
-															className='block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50'>
-															{item.name}
-														</DisclosureButton>
+													{!isLoading && categories.map((item) => (
+														<CateMobileItem key={item.id} category={item}/>
 													))}
 													<div className='w-full  bg-primary-01 h-1'></div>
 												</DisclosurePanel>
@@ -271,14 +228,37 @@ export default function Header() {
 				setOpenRegisterModal={setOpenRegisterModal}
 			/>
 		</div>
-
-
 	);
 }
 
-function Sidebar({open, onClose}){
-	return (
-		<div className={`w-full `}>	
-		</div>
+
+function CateMobileItem({category}){
+    const {categoryChilds, isGetCateChild} = useCategoryChild(category.id);
+	
+	return(
+		<Disclosure
+			as='div'
+			className='pl-5'>
+			{({ open }) => (
+				<>
+					<DisclosureButton className='flex w-full items-center justify-between rounded-lg p-2 font-semibold leading-7 text-gray-900 hover:bg-gray-50 text-sm'>
+						<div className='flex items-center gap-2'>
+							{category.name}
+						</div>
+						<ChevronDownIcon
+							className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+						/>
+					</DisclosureButton>
+					<DisclosurePanel className='mt-2 space-y-4'>
+						{!isGetCateChild && categoryChilds?.children?.map((item) => (
+							<div key={item.id} className='flex items-center gap-2 text-gray-800 font-semibold pr-3 text-xs'>
+								{item.name}
+							</div>	
+						))}
+						<div className='w-full  bg-primary-01 h-1'></div>
+					</DisclosurePanel>
+				</>
+			)}
+		</Disclosure>
 	)
 }

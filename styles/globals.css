@@ -146,3 +146,14 @@ input[type=number] {
 
 
 /* academy slider swiper */
+
+
+/* ----- category header ----- */
+.category .category__list{
+	@apply  w-[968px] h-[420px] items-center justify-center hidden  fixed top-[68px] right-0 z-50 bg-white overflow-hidden
+}
+
+.category .category__list .category__list-items ul li .category__list-items-parent-btn{
+	@apply  w-[200px] py-3 px-2 flex items-center text-[13px] font-semibold cursor-pointer border-y border-transparent;
+}
+
