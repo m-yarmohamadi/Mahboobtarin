@@ -3,7 +3,11 @@ import useProfile from "@/hooks/useProfile";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaPortrait } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa6";
 import { GiWallet } from "react-icons/gi";
+import { HiOutlineSpeakerphone } from "react-icons/hi";
+import { MdOutlineListAlt } from "react-icons/md";
+import { TbLogout } from "react-icons/tb";
 
 
 const dataMenu = [
@@ -12,14 +16,21 @@ const dataMenu = [
         title: 'اطلاعات من',
         value: 'profile',
         quanity: '',
-        icon: '',
+        icon: FaRegUser,
     },
     {
         id: 3,
         title: 'فراخوان',
         value: 'calling',
         quanity: '',
-        icon: '',
+        icon: HiOutlineSpeakerphone,
+    },
+    {
+        id: 4,
+        title: 'سفارش های من',
+        value: 'orders',
+        quanity: '',
+        icon: MdOutlineListAlt,
     },
 ];
 
@@ -69,8 +80,8 @@ export default function Sidebar({ open, onClose }) {
                         <div className='w-full col-span-2 text-3xl'>
                             <GiWallet />
                         </div>
-                        <div className='w-full col-span-7 flex flex-col justify-center items-start'>
-                            <span>موجودی کیف پول</span>
+                        <div className='w-full col-span-7 flex flex-col justify-center items-start text-sm font-bold'>
+                            <span >موجودی کیف پول</span>
                             <span>
                                 <span>{0}</span>
                                 <span>تومان</span>
@@ -78,7 +89,7 @@ export default function Sidebar({ open, onClose }) {
                         </div>
                         <div className='w-full col-span-3'>
                             <button
-                                className='p-2 bg-primary-01 text-white rounded-md w-full'
+                                className='btn btn--primary !p-2 !w-full'
                                 type=''>
                                 مشاهده
                             </button>
@@ -91,19 +102,19 @@ export default function Sidebar({ open, onClose }) {
                         return (
                             <Link
                                 key={index}
-                                href={item.value}
-                                className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer ${pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-bold`}`}>
+                                href={`/admin/${item.value}`}
+                                className={`flex justify-start gap-6 items-center px-2 py-4 text-sm font-medium cursor-pointer ${pathname && pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-bold`}`}>
                                 <span>
-                                    <FaPortrait />
+                                    {item.icon && <item.icon className="w-6 h-6" />}
                                 </span>
                                 <span>{item.title}</span>
                                 {item.quanity && <span className='bg-primary-01 w-6 h-6 text-white flex justify-center items-center rounded-full'>{item.quanity}</span>}
                             </Link>
                         );
                     })}
-                    <button onClick={logout} className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer`}>
+                    <button onClick={logout} className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer text-sm font-medium text-error`}>
                         <span>
-                            <FaPortrait />
+                            <TbLogout className="w-6 h-6" />
                         </span>
                         <span>خروج از حساب کاربری</span>
                     </button>
