@@ -81,7 +81,7 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
     return (
         <div className="flex flex-col gap-2">
             <label className='text-sm font-bold px-2 inline-block text-slate-800'>
-                {item.popularname.name}
+                {item?.popularname?.name}
             </label>
             <div className="w-full flex items-center bg-transparent text-gray-700 border  border-primary-01 border-opacity-25 rounded-md">
                 {
@@ -94,7 +94,7 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
                         />
                         :
                         <div className="text-sm flex-1 py-2 px-4 !h-10">
-                            {item.value}
+                            {item?.value}
                         </div>
                 }
                 {/* {

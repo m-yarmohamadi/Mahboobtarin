@@ -1,27 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import {
-  FaCalendar,
-  FaLocationArrow,
   FaRegHeart,
   FaRegStar,
-  FaStar,
 } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import PN from "persian-number";
-import { FaFlag, FaHeart, FaRegCalendar } from "react-icons/fa6";
-import { FcGlobe } from "react-icons/fc";
+import { FaHeart, FaRegCalendar } from "react-icons/fa6";
 import TitleItems from "./TitleItems";
-import ViewMore from "./ViewMore";
 import LeftAndRightArrows from "@/tools/LeftAndRightArrows";
 import { enToFaNumber } from "@/utils/enToFa";
 import { Countries } from "@/data/countries";
 import { useGetProvinces } from "@/hooks/useCity";
-import { toPersianDateLong } from "@/utils/toPersianDate";
-import Link from "next/link";
-import { MdAccessTime, MdOutlineLocationOn } from "react-icons/md";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { IoMdGlobe } from "react-icons/io";
-import { FiCalendar } from "react-icons/fi";
 import { BiMedal } from "react-icons/bi";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -32,6 +22,12 @@ import numberWithCommas from "@/utils/numberWithCommas";
 import { useFollow, useLikeOrDislike } from "@/hooks/useDashboard";
 import Comments from "./Comments";
 import { usePathname, useRouter } from "next/navigation";
+import Linkdoni from "./detailProfileComponents/Linkdoni";
+import Gallery from "./detailProfileComponents/Gallery";
+import PopularsList from "./detailProfileComponents/PopularsList";
+import About from "./detailProfileComponents/About";
+import ExpertDescription from "./detailProfileComponents/ExpertDescription";
+import HonorsDescription from "./detailProfileComponents/HonorsDescription";
 
 const mostPopular = [
   {
@@ -132,9 +128,6 @@ const product = [
 ];
 
 const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
-  const [showCompleteBio, setShowCompleteBio] = useState(false);
-  const [isClamped, setIsClamped] = useState(false);
-  const textRef = useRef(null);
   const router = useRouter();
   const pathname = usePathname();
   const [score, setScore] = useState(0);
@@ -161,22 +154,6 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     likeDislikeHandler(userData.id);
     router.replace(pathname, { scroll: false });
   };
-
-  useEffect(() => {
-    if (userData?.description) {
-      const lineHeight = parseInt(
-        window.getComputedStyle(textRef.current).lineHeight,
-        10
-      );
-      const maxHeight = lineHeight * 5; // حداکثر ارتفاع برای 5 خط
-
-      if (textRef.current.scrollHeight > maxHeight) {
-        setIsClamped(true);
-      } else {
-        setIsClamped(false);
-      }
-    }
-  }, [userData?.description]);
 
   return (
     <div className="w-full">
@@ -276,179 +253,51 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       </div>
 
       {/* بیوگرافی */}
-      {userData?.description && (
-        <div id="bio" className="pt-16">
-          <TitleItems title={"بیوگرافی"} />
-          <p
-            ref={textRef}
-            className={`${
-              !showCompleteBio && "line-clamp-5 "
-            } text-xs sm:text-sm sm:leading-8 leading-6 font-medium text-gray-800 text-justify whitespace-pre-wrap`}
-          >
-            {userData?.description}
-          </p>
-          {isClamped && (
-            <ViewMore
-              complete={showCompleteBio}
-              onClick={() => setShowCompleteBio(!showCompleteBio)}
-            />
-          )}
-        </div>
-      )}
+      <About description={userData?.description} />
 
       {/* نشانی */}
-      <div id="address" className="pt-16">
-        <TitleItems title={"نشانی"} />
-        <div className=" grid grid-cols-1 gap-2">
-          <div className="w-full flex flex-col gap-4">
-            {userData?.phone && (
-              <div className="w-full text-gray-800 text-sm flex justify-start items-center gap-2">
-                <span className="font-bold">تلفن:</span>
-                <span>{userData?.phone} </span>
-              </div>
-            )}
-            <div className="text-sm text-gray-800">
-              <span className="w-full font-bold">آدرس : </span>
-              <span className="w-full text-justify">
-                {userData?.addresses[0].address}
-              </span>
-            </div>
-          </div>
-          <div className="py-2">
-            <iframe
-              className="w-full border border-primary-01 rounded-md"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12965.515589214649!2d51.45349569305417!3d35.667671352622676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f91fd8c5df094a3%3A0x9838892b68822f61!2z2YXYrNmF2YjYudmHINmI2LHYsti024wg2KLbjNiqINin2YTZhNmHINiz2LnbjNiv24w!5e0!3m2!1sfa!2s!4v1719175469337!5m2!1sfa!2s"
-            ></iframe>
-          </div>
-        </div>
-      </div>
-
-      {/* تخصص و مهارت */}
-      {userData?.expert_description && (
-        <div id="skills" className="pt-16">
-          <TitleItems title={"تخصص و مهارت"} />
-          <div className=" ">
-            <ul className="text-xs font-medium text-gray-800 sm:text-sm whitespace-pre-wrap">
-              {userData?.expert_description}
-            </ul>
-          </div>
-        </div>
-      )}
-
-      {/* آثار و افتخارات */}
-      {userData?.honors_description && (
-        <div id="honors_description" className="pt-16">
-          <TitleItems title={"آثار و افتخارات"} />
-          <div className=" ">
-            <ul className="text-xs font-medium text-gray-800 sm:text-sm whitespace-pre-wrap">
-              {userData?.honors_description}
-            </ul>
-          </div>
-        </div>
-      )}
-
-      {/* محبوب ترین های .... */}
-      {popularList && popularList.length ? (
-        <div id="populars" className="pt-16">
-          <TitleItems
-            title={`محبوب ترین های ${userData?.name} ${userData?.lastname}`}
-          />
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2 mb-4">
-            {popularList.map((item) => {
-              return (
-                <div
-                  key={item.id}
-                  className=" flex justify-start items-center text-xs sm:text-sm text-gray-800 gap-1"
-                >
-                  <span className="font-bold"> {item.popularname.name} : </span>
-                  <span> {item.value}</span>
+      {userData?.phone && userData?.addresses.length ? (
+        <div id="address" className="pt-16">
+          <TitleItems title={"نشانی"} />
+          <div className=" grid grid-cols-1 gap-2">
+            <div className="w-full flex flex-col gap-4">
+              {userData?.phone && (
+                <div className="w-full text-gray-800 text-sm flex justify-start items-center gap-2">
+                  <span className="font-bold">تلفن:</span>
+                  <span>{userData?.phone} </span>
                 </div>
-              );
-            })}
-          </div>
-          {/* <ViewMore /> */}
-        </div>
-      ):null}
-
-      {/* گالری */}
-      <div id="gallery" className="pt-16">
-        <TitleItems title={"گالری"} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 ">
-          <div className="aspect-w-16 aspect-h-10">
-            <img
-              src="/images/galery.jpg"
-              className=" object-cover w-full h-full rounded-md"
-              alt=""
-            />
-          </div>
-          {userData.gallery.map((item) => {
-            return (
-              <div className="relative">
-                <div className="aspect-w-16 aspect-h-10">
-                  {item.type === "gallery-image" ? (
-                    <img
-                      src={item.path}
-                      className=" hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
-                      alt=""
-                    />
-                  ) : (
-                    <video
-                      controls
-                      className="hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
-                    >
-                      <source src={item.path} type="video/mp4" />
-                    </video>
-                  )}
-                </div>
-                <span className="flex justify-center items-center absolute bottom-0 right-0 w-full text-xs font-semibold p-1 bg-gray-800 text-white bg-opacity-80 rounded-b-md">
-                  {item.title}
+              )}
+              <div className="text-sm text-gray-800">
+                <span className="w-full font-bold">آدرس : </span>
+                <span className="w-full text-justify">
+                  {userData?.addresses[0].address}
                 </span>
               </div>
-            );
-          })}
+            </div>
+            <div className="py-2">
+              <iframe
+                className="w-full border border-primary-01 rounded-md"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12965.515589214649!2d51.45349569305417!3d35.667671352622676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f91fd8c5df094a3%3A0x9838892b68822f61!2z2YXYrNmF2YjYudmHINmI2LHYsti024wg2KLbjNiqINin2YTZhNmHINiz2LnbjNiv24w!5e0!3m2!1sfa!2s!4v1719175469337!5m2!1sfa!2s"
+              ></iframe>
+            </div>
+          </div>
         </div>
-        {/* <ViewMore /> */}
-      </div>
+      ) : null}
+
+      {/* تخصص و مهارت */}
+      <ExpertDescription expert_description={userData?.expert_description} />
+
+      {/* آثار و افتخارات */}
+      <HonorsDescription honors_description={userData?.honors_description} />
+
+      {/* محبوب ترین های .... */}
+      <PopularsList userData={userData} popularList={popularList || []} />
+
+      {/* گالری */}
+      <Gallery gallery={userData?.gallery || []} />
 
       {/* لینکدونی */}
-      <div id="linkdins" className="pt-16">
-        <TitleItems title={"لینکدونی"} />
-        <div className="rounded-xl overflow-hidden">
-          {userData?.link_dooni.map((item, index) => {
-            return (
-              <div
-                key={item.id}
-                className={` flex flex-col p-3 ${
-                  !(index % 2) && `bg-gray-100`
-                }`}
-              >
-                <Link
-                  href={item.link}
-                  rel="nofollow"
-                  className="font-semibold hover:text-blue-500 hover:underline text-gray-800 mt-1 mb-3 flex items-center gap-2"
-                >
-                  <span className="w-2 h-2 rounded-full bg-gray-700 inline-block"></span>
-                  {item.title}
-                </Link>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm text-gray-500">
-                    منبع خبر :
-                    <span className="text-gray-700 font-medium">
-                      {item.source}
-                    </span>
-                  </div>
-                  <div className="text-xs flex items-center gap-1 text-gray-400">
-                    <MdAccessTime className="w-4 h-4" />
-                    {toPersianDateLong(item.created_at)}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* <ViewMore /> */}
-      </div>
+      <Linkdoni link_dooni={userData?.link_dooni || []} />
 
       {/* غرفه */}
       <div id="booth" className="w-full pt-16">
