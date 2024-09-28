@@ -55,6 +55,10 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                     setOtp
                     return
                 }
+
+                if(error?.response?.status === 401){
+                    toast.error("کد تایید نادرست است")
+                }
             }
         } else {
             toast.error("کد تایید را به صورت کامل وارد کنید");
