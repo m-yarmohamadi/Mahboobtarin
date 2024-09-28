@@ -12,7 +12,7 @@ export default function MyLinkdin() {
 	const queryClient = useQueryClient();
 	const { user, isLoading } = useProfile();
 	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.id);
-	const { link_dooni } = data || {}
+	const { link_dooni } = data?.user || {}
 	
 	const initialValues = {
 		title: "",

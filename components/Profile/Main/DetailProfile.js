@@ -283,7 +283,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
             ref={textRef}
             className={`${
               !showCompleteBio && "line-clamp-5 "
-            } text-xs sm:text-sm sm:leading-8 leading-6 font-medium text-gray-800 text-justify`}
+            } text-xs sm:text-sm sm:leading-8 leading-6 font-medium text-gray-800 text-justify whitespace-pre-wrap`}
           >
             {userData?.description}
           </p>
@@ -328,7 +328,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         <div id="skills" className="pt-16">
           <TitleItems title={"تخصص و مهارت"} />
           <div className=" ">
-            <ul className="text-xs font-medium text-gray-800 sm:text-sm">
+            <ul className="text-xs font-medium text-gray-800 sm:text-sm whitespace-pre-wrap">
               {userData?.expert_description}
             </ul>
           </div>
@@ -340,7 +340,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         <div id="honors_description" className="pt-16">
           <TitleItems title={"آثار و افتخارات"} />
           <div className=" ">
-            <ul className="text-xs font-medium text-gray-800 sm:text-sm">
+            <ul className="text-xs font-medium text-gray-800 sm:text-sm whitespace-pre-wrap">
               {userData?.honors_description}
             </ul>
           </div>
@@ -348,25 +348,27 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       )}
 
       {/* محبوب ترین های .... */}
-      <div id="populars" className="pt-16">
-        <TitleItems
-          title={`محبوب ترین های ${userData?.name} ${userData?.lastname}`}
-        />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2 mb-4">
-          {popularList && popularList.length && popularList.map((item) => {
-            return (
-              <div
-                key={item.id}
-                className=" flex justify-start items-center text-xs sm:text-sm text-gray-800 gap-1"
-              >
-                <span className="font-bold"> {item.popularname.name} : </span>
-                <span> {item.value}</span>
-              </div>
-            );
-          })}
+      {popularList && popularList.length ? (
+        <div id="populars" className="pt-16">
+          <TitleItems
+            title={`محبوب ترین های ${userData?.name} ${userData?.lastname}`}
+          />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2 mb-4">
+            {popularList.map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  className=" flex justify-start items-center text-xs sm:text-sm text-gray-800 gap-1"
+                >
+                  <span className="font-bold"> {item.popularname.name} : </span>
+                  <span> {item.value}</span>
+                </div>
+              );
+            })}
+          </div>
+          {/* <ViewMore /> */}
         </div>
-        {/* <ViewMore /> */}
-      </div>
+      ):null}
 
       {/* گالری */}
       <div id="gallery" className="pt-16">
