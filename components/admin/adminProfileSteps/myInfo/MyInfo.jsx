@@ -323,9 +323,9 @@ export default function MyInfo() {
 
                     <div className='lg:col-span-2 flex flex-col lg:flex-row gap-4'>
                         <div className='lg:w-[47%]'>
-                            <Select
-                                label="میزان تجربه"
-                                options={[]}
+                            <Input
+                                label="میزان تجربه (به سال)"
+                                placeholder={'مثال 1360'}
                             />
                         </div>
 
