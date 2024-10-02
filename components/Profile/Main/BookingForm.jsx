@@ -111,7 +111,7 @@ export default function BookingForm({ onClose, serviceID }) {
                     </p>
                 </div>
             }
-            {
+            {/* {
                 getTimesOfWeekday && getTimesOfWeekday.length !== 0 ?
                     <>
                         <div className="w-full flex flex-row items-start pt-3">
@@ -143,7 +143,7 @@ export default function BookingForm({ onClose, serviceID }) {
                             روز غیر کاری متخصص
                         </span>
                     </div>
-            }
+            } */}
 
 
             <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
