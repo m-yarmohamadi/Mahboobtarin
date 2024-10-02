@@ -1,7 +1,15 @@
 import Input from "@/tools/Input";
 import Select from "@/tools/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "@/tools/Loading";
+import timeSlots from "@/utils/timeSlots";
+import Modal from "@/components/Modal";
+import { useFormik } from "formik";
+import * as Yup from 'yup';
+import { HiOutlineTrash } from "react-icons/hi2";
+import CheckBoxInput from "@/components/CheckBoxInput";
+import { useGetServiceItems } from "@/hooks/useDashboard";
+import sortedTimes from "@/utils/sortedTimes";
 
 const serviceList = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -34,22 +42,30 @@ const priceTypes = [
 ]
 
 export default function ServiceFields({ formik, isPending }) {
+    const { serviceItems, isLoadServiceItems } = useGetServiceItems();
+    const [serviceType, setServiceType] = useState();
+
+    useEffect(() => {
+        if (!isLoadServiceItems) {
+            setServiceType(serviceItems.filter((s) => s.value === formik.values.type)[0]?.type);
+        }
+    }, [formik.values.type])
 
     return (
         <form onSubmit={formik.handleSubmit} className="w-full flex flex-col">
             <div className="w-full grid grid-cols-1 gap-4 lg:grid-cols-2 mb-6">
                 <Select
                     label='نوع خدمت'
-                    options={serviceList}
+                    options={!isLoadServiceItems ? [{ id: 0, label: 'یک گزینه را انتخاب کنید', value: '' }, ...serviceItems] : []}
                     name="type"
                     formik={formik}
                 />
-                <Select
+                {/* <Select
                     label='زمان اختصاصی'
                     options={timeFrame}
                     name="dedicated_time"
                     formik={formik}
-                />
+                /> */}
                 <Select
                     label='قیمت'
                     options={priceTypes}
@@ -64,7 +80,11 @@ export default function ServiceFields({ formik, isPending }) {
                     disabled={formik.values.price_type !== "custom"}
                 />
             </div>
-            <TimeComponent formik={formik} />
+            {
+                serviceType === "time" &&
+                <TimeComponent formik={formik} />
+
+            }
             <div className="w-full flex items-center gap-2 mt-10 pt-3 border-t border-slate-300">
                 <button type="submit" className="!w-full lg:!w-1/2 !text-base !font-bold btn btn--primary">
                     {isPending ? <Loading /> : "ثبت"}
@@ -77,6 +97,8 @@ export default function ServiceFields({ formik, isPending }) {
 
 function TimeComponent({ formik }) {
     const [activeTab, setActiveTab] = useState("saturday");
+    const [isOpenTRange, setIsOpenTRange] = useState(false);
+    const [times, setTimes] = useState([]);
 
     const week = [
         { value: "saturday", label: "شنبه" },
@@ -88,36 +110,71 @@ function TimeComponent({ formik }) {
         { value: "friday", label: "جمعه" },
     ];
 
-    const times = [
-        { value: "morning", label: "صبح" },
-        { value: "evening", label: "ظهر" },
-        { value: "night", label: "شب" },
-    ];
+    // const times = [
+    //     { value: "morning", label: "صبح" },
+    //     { value: "evening", label: "ظهر" },
+    //     { value: "night", label: "شب" },
+    // ];
 
-    const isSelectedTime = (time) => {
-        return formik.values.activity_time.some(
-            (i) => i.day === activeTab && i.time === time
+    // const isSelectedTime = (time) => {
+    //     return formik.values.activity_time.some(
+    //         (i) => i.day === activeTab && i.time === time
+    //     );
+    // };
+
+    // const addOrRemoveTimeHandler = (time) => {
+    //     const exists = isSelectedTime(time);
+
+    //     if (exists) {
+    //         formik.setFieldValue(
+    //             "activity_time",
+    //             formik.values.activity_time.filter(
+    //                 (i) => !(i.day === activeTab && i.time === time)
+    //             )
+    //         );
+    //     } else {
+    //         formik.setFieldValue("activity_time", [
+    //             ...formik.values.activity_time,
+    //             { day: activeTab, time },
+    //         ]);
+    //     }
+    // };
+
+    const removeTimeHandler = (time) => {
+        formik.setFieldValue(
+            "activity_time",
+            formik.values.activity_time.map((d) => {
+                if (d.day === activeTab) {
+                    const updatedTimeList = d.times.filter((t) => t !== time);
+                    return updatedTimeList.length > 0
+                        ? { ...d, times: updatedTimeList }
+                        : null;
+                } else {
+                    return d;
+                }
+            }).filter(Boolean)
         );
+
+        setTimes((prevTimes) => {
+            return prevTimes
+                .map((d) => {
+                    if (d.day === activeTab) {
+                        const updatedTimeList = d.timeList.filter((t) => t !== time);
+                        return updatedTimeList.length > 0
+                            ? { ...d, timeList: updatedTimeList }
+                            : null;
+                    }
+                    return d;
+                })
+                .filter(Boolean);
+        });
     };
 
-    const addOrRemoveTimeHandler = (time) => {
-        const exists = isSelectedTime(time);
-
-        if (exists) {
-            formik.setFieldValue(
-                "activity_time",
-                formik.values.activity_time.filter(
-                    (i) => !(i.day === activeTab && i.time === time)
-                )
-            );
-        } else {
-            formik.setFieldValue("activity_time", [
-                ...formik.values.activity_time,
-                { day: activeTab, time },
-            ]);
-        }
-    };
-
+    const renderTimeListSorted = () => {
+        const currentDayTimes = times.filter((d) => d.day === activeTab);
+        const mergeTimes = currentDayTimes.map((item) => item.timeList).flat();
+        return sortedTimes(mergeTimes);
+    }
 
     return (
         <div className='w-full mx-auto md:max-w-screen-sm flex flex-col justify-start justify-items-start items-start'>
@@ -134,19 +191,178 @@ function TimeComponent({ formik }) {
                         </div>
                     ))}
                 </div>
-                <div className="w-full justify-center flex items-center gap-2 py-5">
-                    {times.map((item, index) => (
-                        <button
+                <div className="w-full flex-wrap flex items-center gap-2 py-5">
+                    {renderTimeListSorted().map((item, index) => (
+                        <div
                             key={index}
-                            type="button"
-                            onClick={() => addOrRemoveTimeHandler(item.value, item.id)}
-                            className={`btn btn--outline !text-xs sm:!text-sm !py-2 !w-full duration-200 ${isSelectedTime(item.value) ? "!bg-slate-300 !border-blue-600" : "!border-slate-500"}`}
+                            className={`btn btn--outline gap-2 !text-xs sm:!text-sm !p-2 duration-200 !border-slate-500`}
                         >
-                            {item.label}
-                        </button>
+                            {item}
+                            <button
+                                type="button"
+                                onClick={() => removeTimeHandler(item)}
+                                className="w-5 h-5 bg-error text-white rounded flex items-center justify-center"
+                            >
+                                <HiOutlineTrash className="w-4 h-4" />
+                            </button>
+                        </div>
                     ))}
                 </div>
+                <button type="button" onClick={() => setIsOpenTRange(true)} className="btn btn--secondary w-full">
+                    افزودن بازه زمانی
+                </button>
+                <Modal title={'انتخاب بازه زمانی'} open={isOpenTRange} onClose={() => setIsOpenTRange(false)}>
+                    <AddTimeRange
+                        times={times}
+                        setTimes={setTimes}
+                        onClose={() => setIsOpenTRange(false)}
+                        addActivitiesHandler={formik}
+                        day={activeTab}
+                        weeks={week}
+                    />
+                </Modal>
             </div>
+        </div>
+    )
+}
+
+function AddTimeRange({ setTimes, onClose, times, addActivitiesHandler, day, weeks }) {
+    const [isAllDay, setIsAllDay] = useState(false);
+
+    const timeRange = [
+        { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
+        { id: 1, label: '10 دقیقه', value: 10 },
+        { id: 2, label: '15 دقیقه', value: 15 },
+        { id: 3, label: '20 دقیقه', value: 20 },
+        { id: 4, label: '30 دقیقه', value: 30 },
+        { id: 5, label: '1 ساعت', value: 60 },
+    ]
+
+    const hours = Array.from({ length: 23 }, (_, i) => {
+        const item = (i + 1).toString();
+        return { label: `${item.length === 1 ? `0${item}` : item}:00`, value: item };
+    });
+
+    const onSubmit = (values) => {
+        const createTimes = timeSlots(values.start, values.end, values.range);
+
+        let timeList = [];
+
+        if (isAllDay) {
+            weeks.forEach((week) => {
+                const isDay = times.filter((d) => d.day === week.value).length;
+
+                if (!isDay) {
+                    setTimes((prevList) => [...prevList, { values, day: week.value, timeList: createTimes }]);
+                    timeList.push({ day: week.value, times: createTimes });
+                } else {
+                    if (week.value === day) {
+                        setTimes((prevList) => [...prevList, { values, day: week.value, timeList: createTimes }]);
+                        timeList.push({ day: week.value, times: createTimes });
+                    }
+                }
+            });
+        } else {
+            setTimes((prevList) => [...prevList, { values, day, timeList: createTimes }]);
+            timeList.push({ day, times: createTimes });
+        }
+
+
+        const existingDay = addActivitiesHandler.values.activity_time.find((d) => d.day === day);
+
+        if (existingDay) {
+            addActivitiesHandler.setFieldValue("activity_time",
+                addActivitiesHandler.values.activity_time.map((d) => {
+                    if (d.day === day) {
+                        const newTimes = timeList.map((t) => t.day === d.day && t.times);
+                        const mergedTimes = d.times.concat(newTimes).flat();
+
+                        return { ...d, times: sortedTimes(mergedTimes) };
+                    } else {
+                        return d;
+                    }
+                })
+            );
+        } else {
+            addActivitiesHandler.setFieldValue("activity_time", [
+                ...addActivitiesHandler.values.activity_time,
+                ...timeList
+            ]);
+        }
+
+        onClose();
+    }
+
+    const formik = useFormik({
+        initialValues: { start: 12, end: 13, range: "" },
+        onSubmit,
+        validationSchema: Yup.object({
+            range: Yup.string().required("بازه زمانی را انتخاب کنید"),
+            end: Yup.number()
+                .test('validation', 'ساعت پایان باید بزرگ‌تر از ساعت شروع باشد و نمی‌تواند یکسان باشد', function (value) {
+                    const { start } = this.parent;
+                    return start !== undefined && value !== undefined && value > start;
+                })
+                .test('time-overlap', 'بازه انتخابی قبلا انتخاب شده', function (endValue) {
+                    const { start } = this.parent;
+
+                    for (let time of times) {
+
+                        if (
+                            time.day === day &&
+                            (
+                                !(Number(endValue) <= Number(time.values.start) || Number(start) >= Number(time.values.end)) ||
+                                Number(time.values.start) === Number(endValue) ||
+                                Number(time.values.end) === Number(start)
+                            )
+                        ) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }),
+        })
+    })
+
+    return (
+        <div>
+            <div className="w-full flex flex-col gap-2">
+                <div className="w-full grid grid-cols-2 gap-2">
+                    <Select
+                        label={'ساعت شروع'}
+                        formik={formik}
+                        name={'start'}
+                        options={hours}
+                    />
+                    <Select
+                        label={'ساعت پایان'}
+                        formik={formik}
+                        name={'end'}
+                        options={hours}
+                        noError={true}
+                    />
+                </div>
+                <div className="text-xs text-error">
+                    {formik.errors.end}
+                </div>
+                <Select
+                    label={'بازه زمانی'}
+                    formik={formik}
+                    name={'range'}
+                    options={timeRange}
+                />
+                <div className="py-2">
+                    <CheckBoxInput
+                        label={'اعمال روی تمام روز ها'}
+                        name={'allDay'}
+                        checked={isAllDay}
+                        onChecked={() => setIsAllDay(!isAllDay)}
+                    />
+                </div>
+            </div>
+            <button onClick={formik.handleSubmit} type="submit" className="btn btn--primary mt-4 !w-full">
+                ثبت
+            </button>
         </div>
     )
 }

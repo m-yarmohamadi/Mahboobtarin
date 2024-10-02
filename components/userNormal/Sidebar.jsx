@@ -102,7 +102,7 @@ export default function Sidebar({ open, onClose }) {
                         return (
                             <Link
                                 key={index}
-                                href={`/admin/${item.value}`}
+                                href={`/user/${item.value}`}
                                 className={`flex justify-start gap-6 items-center px-2 py-4 text-sm font-medium cursor-pointer ${pathname && pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-bold`}`}>
                                 <span>
                                     {item.icon && <item.icon className="w-6 h-6" />}

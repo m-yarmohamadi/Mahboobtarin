@@ -10,7 +10,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const validationSchema = Yup.object({
     type: Yup.string().required("نوع خدمت را انتخاب کنید"),
-    dedicated_time: Yup.string().required("بازه زمانی خدمت را انتخاب کنید"),
+    // dedicated_time: Yup.string().required("بازه زمانی خدمت را انتخاب کنید"),
     price_type: Yup.string().required("نوع هزینه را انتخاب کنید"),
     price: Yup.number().when("price_type", {
         is: (value) => value === 'custom',
@@ -29,10 +29,13 @@ export default function CreateService() {
             return JSON.stringify({ week: day, ...rest });
         }).join(', ').replace(/"([^"]+)":/g, '$1:');
 
+        console.log(activityTimeJson);
+        
+
         try {
             const { data } = await mutateAsync({
                 type: values.type,
-                dedicated_time: values.dedicated_time,
+                dedicated_time: "null",
                 price_type: values.price_type,
                 price: values.price,
                 activity_time: activityTimeJson,

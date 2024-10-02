@@ -16,7 +16,7 @@ export default function TextArea({ name, label, type, formik, display = 'block',
 				autoComplete={autoComplete}
                 rows={row}
 			/>
-			<div className='w-full flex justify-start items-start'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{enToFaNumber(`${formik?.errors[name]}`)}</p>}</div>
+			<div className='w-full flex justify-start items-start'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{formik?.errors[name]}</p>}</div>
 		</div>
     )
 }

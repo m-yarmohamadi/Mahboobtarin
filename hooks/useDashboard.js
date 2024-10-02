@@ -6,7 +6,9 @@ import {
   getFollowers,
   getFollowings,
   getPopularFavorites,
+  getRequestsList,
   getServiceById,
+  getServiceItems,
   likeOrDislikeApi,
 } from "@/services/expertDashboardService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -38,6 +40,29 @@ export function useGetServiceById(serviceId) {
   const { data: serviceData } = data || {};
 
   return { serviceData, isLoadingService };
+}
+
+export function useGetServiceItems() {
+  const { data, isLoading: isLoadServiceItems } = useQuery({
+    queryKey: ["get-service-items"],
+    queryFn: getServiceItems,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: list } = data || {};
+  const serviceItems =
+    !isLoadServiceItems &&
+    list.map((item) => {
+      return {
+        value: item.title,
+        label: item.title,
+        type: item.type,
+        id: item.id,
+      };
+    });
+
+  return { serviceItems, isLoadServiceItems };
 }
 
 // * expert favorites --------------
@@ -180,4 +205,18 @@ export function useLikeOrDislike() {
   };
 
   return { likeDislikeHandler, isLiking };
+}
+
+// * expert requests (calling page) --------------
+export function useGetRequests() {
+  const { data: requestsData, isLoading: isGetRequests } = useQuery({
+    queryKey: ["get-requests"],
+    queryFn: getRequestsList,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: requests } = requestsData || {};
+
+  return { requests, isGetRequests };
 }

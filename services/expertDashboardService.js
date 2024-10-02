@@ -60,6 +60,10 @@ export function getServiceById(serviceId) {
   return http.get(`/api/v1/dashboard/service/${serviceId}`);
 }
 
+export function getServiceItems() {
+  return http.get(`/api/v1/dashboard/admin/service`);
+}
+
 // * -------------- expert favorites --------------
 export function getPopularFavorites() {
   return http.get("/api/v1/dashboard/popular/list", {
@@ -138,4 +142,21 @@ export function getCommentExpertise(motekhases_id) {
       },
     }
   );
+}
+
+// * -------------- expert requersts (calling page) --------------
+export function addNewRequest(data) {
+  return http.post("/api/v1/dashboard/requests", data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function getRequestsList() {
+  return http.get("/api/v1/dashboard/requests/list", {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
 }
