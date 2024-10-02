@@ -24,6 +24,8 @@ export default function CreateService() {
     const router = useRouter();
 
     const createServiceHandler = async (values) => {
+        console.log(values);
+        
         const activityTimeJson = values.activity_time.map(item => {
             const { day, ...rest } = item;
             return JSON.stringify({ week: day, ...rest });

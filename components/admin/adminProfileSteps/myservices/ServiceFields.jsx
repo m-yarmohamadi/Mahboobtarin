@@ -10,6 +10,7 @@ import { HiOutlineTrash } from "react-icons/hi2";
 import CheckBoxInput from "@/components/CheckBoxInput";
 import { useGetServiceItems } from "@/hooks/useDashboard";
 import sortedTimes from "@/utils/sortedTimes";
+import DateComponent from "./DateComponent";
 
 const serviceList = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -48,6 +49,7 @@ export default function ServiceFields({ formik, isPending }) {
     useEffect(() => {
         if (!isLoadServiceItems) {
             setServiceType(serviceItems.filter((s) => s.value === formik.values.type)[0]?.type);
+            formik.setFieldValue("activity_time", []);
         }
     }, [formik.values.type])
 
@@ -83,7 +85,11 @@ export default function ServiceFields({ formik, isPending }) {
             {
                 serviceType === "time" &&
                 <TimeComponent formik={formik} />
+            }
 
+            {
+                serviceType === "none" &&
+                <DateComponent formik={formik} />
             }
             <div className="w-full flex items-center gap-2 mt-10 pt-3 border-t border-slate-300">
                 <button type="submit" className="!w-full lg:!w-1/2 !text-base !font-bold btn btn--primary">
