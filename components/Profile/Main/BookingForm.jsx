@@ -6,7 +6,6 @@ import persian_fa from "react-date-object/locales/persian_fa"
 import moment from "jalali-moment";
 import toEnglishNumber from "@/utils/toEnglishNumber";
 import { FaRegCalendar } from "react-icons/fa6";
-import timeSlots from "@/utils/timeSlots";
 import { IoTimeOutline } from "react-icons/io5";
 import { toPersianDateShort } from "@/utils/toPersianDate";
 import { IoIosCalendar } from "react-icons/io";
@@ -14,155 +13,169 @@ import { useGetServiceById } from "@/hooks/useDashboard";
 import { MdOutlineTimerOff } from "react-icons/md";
 
 
-const processActivityTimes = (activityTimes) => {
-    const daysMapping = {
-        saturday: "شنبه",
-        sunday: "یک‌شنبه",
-        monday: "دوشنبه",
-        tuesday: "سه‌شنبه",
-        wednesday: "چهارشنبه",
-        thursday: "پنج‌شنبه",
-        friday: "جمعه",
+const processActivityTimes = (activityTimes, currentWeekday) => {
+    const daysMappingEN = {
+        "شنبه": "saturday",
+        "یکشنبه": "sunday",
+        "دوشنبه": "monday",
+        "سه‌شنبه": "tuesday",
+        "چهارشنبه": "wednesday",
+        "پنجشنبه": "thursday",
+        "جمعه": "friday",
     };
 
-    const timesMapping = {
-        morning: "صبح",
-        evening: "ظهر",
-        night: "شب",
-    };
 
-    const timeRanges = {
-        morning: "7-12",
-        evening: "12-18",
-        night: "18-22",
-    };
+    let isRoutine;
 
-    // convert JSON To array
-    const convertActivityTimeToArray = () => {
-        return activityTimes.split('},').map((item, index, array) => {
-            if (index < array.length - 1) item += '}';
-            return JSON.parse(item.replace(/(\w+):/g, '"$1":'));
-        });
-    };
+    const activityTimeArray = JSON.parse(activityTimes);
 
-    const activityTimeArray = convertActivityTimeToArray();
-
-    const daysOfWeek = Object.keys(daysMapping);
-
-    // convert to persian names
-    const result = daysOfWeek.reduce((acc, day) => {
-        acc[daysMapping[day]] = [];
-        return acc;
-    }, {});
-
-    activityTimeArray.forEach((slot) => {
-        const dayInFarsi = daysMapping[slot.week];
-        const timeInFarsi = timesMapping[slot.time];
-        const timeRange = timeRanges[slot.time];
-
-        // push times to result
-
-        if (result[dayInFarsi]) {
-            result[dayInFarsi].push({ time: timeInFarsi, range: timeRange });
+    const extractTimes = activityTimeArray.filter((item) => {
+        if (!Array.isArray(item.week)) {
+            isRoutine = true;
+            return item.week === daysMappingEN[currentWeekday] || null;
+        } else {
+            isRoutine = false;
+            return item
         }
-    });
+    })
 
-    return result;
+    return { result: extractTimes[0], isRoutine };
 };
 
 export default function BookingForm({ onClose, serviceID }) {
-    const [activeTab, setActiveTab] = useState(0);
     const [selected, setSelected] = useState();
     const [date, setDate] = useState(new Date());
     const { isLoadingService, serviceData } = useGetServiceById(serviceID);
     const currentWeekday = new Date(date).toLocaleDateString("fa-IR", { weekday: "long" });
-    const getTimesOfWeekday = !isLoadingService && processActivityTimes(serviceData?.activity_time)[currentWeekday];
+    const getTimesOfWeekday = !isLoadingService && processActivityTimes(serviceData?.activity_time, currentWeekday);
 
     const selectDate = (date) => {
         setDate(date);
-        setActiveTab(0);
         setSelected();
     }
 
-    return (
-        <div>
-            <div className='w-full'>
-                <DatePicker
-                    value={date}
-                    onChange={(e) => selectDate(e)}
-                    locale={persian_fa}
-                    calendar={persian}
-                    minDate={new Date()}
-                    render={<CustomeButtonDatePicker setDate={selectDate} />}
-                    calendarPosition="bottom-center"
-                    containerClassName="w-full"
-                />
-            </div>
-            {
-                selected &&
-                <div className="p-3 my-2 bg-indigo-50 rounded-lg grid grid-cols-2 gap-1">
-                    <p className="flex items-center gap-1 text-sm font-medium text-gray-600">
-                        <IoIosCalendar className="w-6 h-6 text-gray-700" />
-                        <span className="font-normal">{selected?.date}</span>
-                    </p>
-                    <p className="flex items-center gap-1 text-sm font-medium text-gray-600">
-                        <IoTimeOutline className="w-6 h-6 text-gray-700" />
-                        <span className="font-normal">{selected?.time}</span>
-                    </p>
+    if (getTimesOfWeekday.isRoutine) {
+        return (
+            <div>
+                <div className='w-full'>
+                    <DatePicker
+                        value={date}
+                        onChange={(e) => selectDate(e)}
+                        locale={persian_fa}
+                        calendar={persian}
+                        minDate={new Date()}
+                        render={<CustomeButtonDatePicker setDate={selectDate} />}
+                        calendarPosition="bottom-center"
+                        containerClassName="w-full"
+                    />
                 </div>
-            }
-            {/* {
-                getTimesOfWeekday && getTimesOfWeekday.length !== 0 ?
-                    <>
-                        <div className="w-full flex flex-row items-start pt-3">
-                            {getTimesOfWeekday.map((item, index) => (
-                                <div key={index} className="w-full flex flex-col">
-                                    <div onClick={() => setActiveTab(index)} className={`duration-200 w-full whitespace-nowrap text-center cursor-pointer text-sm py-2  border-b-2 ${activeTab === index ? "text-blue-600 border-blue-600" : "text-slate-600 border-b-slate-200"}`}>
-                                        {item.time}
+                {
+                    selected &&
+                    <div className="p-3 my-2 bg-indigo-50 rounded-lg grid grid-cols-2 gap-1">
+                        <p className="flex items-center gap-1 text-sm font-medium text-gray-600">
+                            <IoIosCalendar className="w-6 h-6 text-gray-700" />
+                            <span className="font-normal">{selected?.date}</span>
+                        </p>
+                        <p className="flex items-center gap-1 text-sm font-medium text-gray-600">
+                            <IoTimeOutline className="w-6 h-6 text-gray-700" />
+                            <span className="font-normal">{selected?.time}</span>
+                        </p>
+                    </div>
+                }
+                {
+                    getTimesOfWeekday.result ?
+                        <>
+                            <div className="w-full flex flex-row items-start pt-3">
+
+                                <div className="w-full flex flex-col">
+                                    <div className={`duration-200 w-full whitespace-nowrap text-center cursor-pointer text-sm py-2  border-b-2 text-blue-600 border-blue-600`}>
+                                        نوبت های قابل رزرو
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                        <div className="w-full h-auto max-h-44 overflow-y-auto pl-2 grid grid-cols-4 my-3 gap-2">
-                            {timeSlots(getTimesOfWeekday[activeTab].range.split("-")[0], getTimesOfWeekday[activeTab].range.split("-")[1], serviceData?.dedicated_time.split("-")[0]).map((item, index) => (
-                                <button
-                                    key={index}
-                                    type="button"
-                                    onClick={() => setSelected({ date: toPersianDateShort(date), time: item })}
-                                    className={`btn btn--outline !text-base !py-2 !px-4 !h-12 duration-200 !text-gray-600 border  ${selected?.time === item ? "!bg-gray-200 border-indigo-300" : "border-gray-300"}`}
-                                >
-                                    {item}
-                                </button>
-                            ))}
-                        </div>
-                    </>
-                    :
-                    <div className="w-full h-44 flex flex-col items-center justify-center gap-2">
-                        <MdOutlineTimerOff className="w-8 h-8 text-primary-01" />
-                        <span className="text-sm text-primary-01">
-                            روز غیر کاری متخصص
-                        </span>
-                    </div>
-            } */}
 
-
-            <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
-                {
-                    selected ?
-                        <Link href="/set-appointment" className="btn btn--primary !w-full">
-                            تایید
-                        </Link>
+                            </div>
+                            <div className="w-full h-auto max-h-44 overflow-y-auto pl-2 grid grid-cols-4 my-3 gap-2">
+                                {getTimesOfWeekday.result.times.map((item, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        onClick={() => setSelected({ date: toPersianDateShort(date), time: item })}
+                                        className={`btn btn--outline !text-base !py-2 !px-4 !h-12 duration-200 !text-gray-600 border  ${selected?.time === item ? "!bg-gray-200 border-indigo-300" : "border-gray-300"}`}
+                                    >
+                                        {item}
+                                    </button>
+                                ))}
+                            </div>
+                        </>
                         :
-                        <button disabled className="btn btn--primary !w-full disabled:opacity-30">
-                            تایید
-                        </button>
+                        <div className="w-full h-44 flex flex-col items-center justify-center gap-2">
+                            <MdOutlineTimerOff className="w-8 h-8 text-primary-01" />
+                            <span className="text-sm text-primary-01">
+                                روز غیر کاری متخصص
+                            </span>
+                        </div>
                 }
-                <button onClick={onClose} className="btn btn--outline !w-full">
-                    لغو
-                </button>
+
+
+                <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
+                    {
+                        selected ?
+                            <Link href="/set-appointment" className="btn btn--primary !w-full">
+                                تایید
+                            </Link>
+                            :
+                            <button disabled className="btn btn--primary !w-full disabled:opacity-30">
+                                تایید
+                            </button>
+                    }
+                    <button onClick={onClose} className="btn btn--outline !w-full">
+                        لغو
+                    </button>
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div>
+                <div>
+                    <div className="text-slate-800 font-bold text-sm">
+                        تاریخ برگزاری:
+                    </div>
+                    <div className="w-full grid grid-cols-2 text-sm text-blue-600 pt-4 pb-2">
+                        <div className="flex items-center gap-1">
+                            <IoIosCalendar className="w-6 h-6 text-gray-700" />
+                            تاریخ از : {getTimesOfWeekday.result.week[0]}
+                        </div>
+
+                        <div>
+                            تاریخ تا : {getTimesOfWeekday.result.week[1]}
+                        </div>
+                    </div>
+                    <div className="text-sm text-blue-600 flex items-center gap-1">
+                        <IoTimeOutline className="w-6 h-6 text-gray-700" />
+                        ساعت : {getTimesOfWeekday.result.time}
+                    </div>
+                </div>
+                <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
+                    {
+                        toEnglishNumber(toPersianDateShort(date)) > getTimesOfWeekday.result.week[1] ?
+                            <div className="w-full text-sm text-gray-500 text-center">
+                                به اتمام رسید
+                            </div>
+                            :
+                            <>
+                                <button className="btn btn--primary !w-full disabled:opacity-30">
+                                    ثبت نام
+                                </button>
+                                <button onClick={onClose} className="btn btn--outline !w-full">
+                                    لغو
+                                </button>
+                            </>
+                    }
+                </div>
+            </div>
+        )
+    }
 }
 
 

@@ -25,14 +25,20 @@ export default function CreateService() {
 
     const createServiceHandler = async (values) => {
         console.log(values);
-        
-        const activityTimeJson = values.activity_time.map(item => {
+
+        const activityTimeJson1 = values.activity_time.map(item => {
             const { day, ...rest } = item;
             return JSON.stringify({ week: day, ...rest });
         }).join(', ').replace(/"([^"]+)":/g, '$1:');
 
-        console.log(activityTimeJson);
-        
+        console.log(activityTimeJson1);
+
+        const activityTimeJson2 = values.activity_time.map(item => {
+            const { day, ...rest } = item;
+            return { week: day, ...rest };
+        });
+        console.log(JSON.stringify(activityTimeJson2));
+
 
         try {
             const { data } = await mutateAsync({
@@ -40,7 +46,7 @@ export default function CreateService() {
                 dedicated_time: "null",
                 price_type: values.price_type,
                 price: values.price,
-                activity_time: activityTimeJson,
+                activity_time: JSON.stringify(activityTimeJson2),
             })
             if (data) {
                 toast.success("خدمت جدید اضافه شد");

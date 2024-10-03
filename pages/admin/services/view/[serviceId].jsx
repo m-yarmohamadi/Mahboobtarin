@@ -1,48 +1,61 @@
 import ExpertDashboard from "@/components/admin/ExpertDashboard";
 import { useGetServiceById } from "@/hooks/useDashboard";
 import Loading from "@/tools/Loading";
+import toEnglishNumber from "@/utils/toEnglishNumber";
+import { toPersianDateShort } from "@/utils/toPersianDate";
 import { useParams } from "next/navigation"
+import { useEffect, useState } from "react";
 import { FaArrowRightLong, FaCircleCheck } from "react-icons/fa6";
+import { IoIosCalendar } from "react-icons/io";
+import { IoTimeOutline } from "react-icons/io5";
+
+const processActivityTimes = (activityTimes) => {
+    const daysMapping = {
+        saturday: "شنبه",
+        sunday: "یک‌شنبه",
+        monday: "دوشنبه",
+        tuesday: "سه‌شنبه",
+        wednesday: "چهارشنبه",
+        thursday: "پنج‌شنبه",
+        friday: "جمعه",
+    };
+
+
+    let isRoutine;
+
+    const activityTimeArray = JSON.parse(activityTimes);
+
+    const extractTimes = activityTimeArray.map((item) => {
+        if (!Array.isArray(item.week)) {
+            isRoutine = true;
+            return { ...item, week: daysMapping[item.week] };
+        } else {
+            isRoutine = false;
+            return item
+        }
+    })
+
+    return { result: extractTimes, isRoutine };
+};
 
 export default function viewService() {
     const id = useParams();
     const { serviceId } = id || "";
     const { isLoadingService, serviceData } = useGetServiceById(serviceId);
+    const getTimesOfWeekday = !isLoadingService && processActivityTimes(serviceData?.activity_time);
+    const [activeTab, setActiveTab] = useState(null);
 
-    const daysOfWeek = [
-        { value: "saturday", label: "شنبه" },
-        { value: "sunday", label: "یکشنبه" },
-        { value: "monday", label: "دوشنبه" },
-        { value: "tuesday", label: "سه شنبه" },
-        { value: "wednesday", label: "چهاشنبه" },
-        { value: "thursday", label: "پنجشنبه" },
-        { value: "friday", label: "جمعه" },
-    ];
-
-    const timesOfDay = [
-        { value: "morning", label: "صبح" },
-        { value: "evening", label: "ظهر" },
-        { value: "night", label: "شب" },
-    ];
-
-    const convertActivityTimeToArray = () => {
-        return serviceData?.activity_time.split('},').map((item, index, array) => {
-            if (index < array.length - 1) item += '}';
-            return JSON.parse(item.replace(/(\w+):/g, '"$1":'));
-        });
-    };
-
-    const activityTimeArray = convertActivityTimeToArray();
-
-    const isTimeAvailable = (day, time) => {
-        return activityTimeArray?.some(slot => slot.week === day && slot.time === time);
-    };
+    useEffect(() => {
+        if (!isLoadingService) {
+            setActiveTab(getTimesOfWeekday.result[0].week)
+        }
+    }, [isLoadingService])
 
     return (
         <ExpertDashboard>
             {
                 !isLoadingService ?
-                    <div>
+                    <div className="mx-auto md:max-w-screen-sm">
                         <div className="flex items-center gap-3 pb-4 border-b border-b-gray-300">
                             <button onClick={() => window.history.back()} className="text-gray-600 btn btn--secondary !p-2">
                                 <FaArrowRightLong className="w-5 h-5" />
@@ -62,43 +75,75 @@ export default function viewService() {
                                         serviceData.price_type === "custom" ?
                                             `${serviceData.price} تومان`
                                             :
-                                            serviceData.price_type
+                                            serviceData.price_type === "free" ? "رایگان" : "خیریه"
                                     }
                                 </div>
                             </div>
-                            <div className="w-full flex items-center justify-between text-gray-600">
-                                <span>
-                                    زمان اختصاصی
-                                </span>
-                                <div>
-                                    {serviceData.dedicated_time.split("-")[0]} دقیقه
-                                </div>
-                            </div>
+
                         </div>
-                        
-                        <div className="relative overflow-x-auto rounded-lg mt-6">
-                            <table className="w-full text-sm text-right text-gray-500">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3">زمان فعالیت شما</th>
-                                        {timesOfDay.map((time, index) => (
-                                            <th scope="col" className="text-xs px-6 py-3 !text-gray-600 !font-normal" key={index}>{time.label}</th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {daysOfWeek.map((day, index) => (
-                                        <tr key={index} className="odd:bg-white even:bg-gray-200 border-b border-b-gray-300">
-                                            <td className="!px-6 !py-4 !text-right">{day.label}</td>
-                                            {timesOfDay.map((time, index) => (
-                                                <td key={index} className="!px-6 !py-4 !text-right">
-                                                    {isTimeAvailable(day.value, time.value) && <FaCircleCheck className="w-6 h-6 text-blue-600" />}
-                                                </td>
-                                            ))}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+
+                        <div className="relative rounded-lg mt-6">
+
+                            {
+                                getTimesOfWeekday.isRoutine ?
+                                    <div className='w-full mx-auto md:max-w-screen-sm flex flex-col justify-start justify-items-start items-start'>
+                                        <label className='w-full font-bold inline-block pb-3 text-sm text-slate-800'>
+                                            زمان فعالیت شما
+                                        </label>
+                                        <div className="w-full">
+                                            <div className="w-full flex flexcol flex-row items-start">
+                                                {getTimesOfWeekday.result.map((item, index) => (
+                                                    <div key={index} className="w-full flex flex-col">
+                                                        <div onClick={() => setActiveTab(item.week)} className={`duration-200 w-full whitespace-nowrap text-center cursor-pointer text-xs md:text-sm py-2 px-1 md:px-3  border-b-2 ${activeTab === item.week ? "text-blue-600 border-blue-600" : "text-slate-600 border-b-slate-200"}`}>
+                                                            {item.week}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <div className="w-full flex-wrap flex items-center gap-2 py-5">
+                                                {getTimesOfWeekday.result.filter((s) => s.week === activeTab)[0]?.times.map((item, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className={`btn btn--outline gap-2 !text-xs sm:!text-sm !p-2 duration-200 !border-slate-500`}
+                                                    >
+                                                        {item}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    :
+                                    <div>
+                                        <div>
+                                            <div className="text-slate-800 font-bold text-sm">
+                                                تاریخ برگزاری:
+                                            </div>
+                                            <div className="w-full grid grid-cols-2 text-sm text-blue-600 pt-4 pb-2">
+                                                <div className="flex items-center gap-1">
+                                                    <IoIosCalendar className="w-6 h-6 text-gray-700" />
+                                                    تاریخ از : {getTimesOfWeekday?.result[0].week[0]}
+                                                </div>
+
+                                                <div>
+                                                    تاریخ تا : {getTimesOfWeekday?.result[0].week[1]}
+                                                </div>
+                                            </div>
+                                            <div className="text-sm text-blue-600 flex items-center gap-1">
+                                                <IoTimeOutline className="w-6 h-6 text-gray-700" />
+                                                ساعت : {getTimesOfWeekday.result[0].time}
+                                            </div>
+                                        </div>
+                                        {
+                                            toEnglishNumber(toPersianDateShort(new Date())) > getTimesOfWeekday.result[0].week[1] &&
+                                            <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
+                                                <div className="w-full text-sm text-gray-500 text-center">
+                                                    به اتمام رسید
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                            }
                         </div>
                     </div>
                     :
