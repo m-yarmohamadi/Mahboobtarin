@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  FaRegHeart,
-  FaRegStar,
-} from "react-icons/fa";
+import { FaRegHeart, FaRegStar } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import PN from "persian-number";
 import { FaHeart, FaRegCalendar } from "react-icons/fa6";
@@ -28,6 +25,7 @@ import PopularsList from "./detailProfileComponents/PopularsList";
 import About from "./detailProfileComponents/About";
 import ExpertDescription from "./detailProfileComponents/ExpertDescription";
 import HonorsDescription from "./detailProfileComponents/HonorsDescription";
+import MapView from "@/components/mapComponent/MapView";
 
 const mostPopular = [
   {
@@ -275,10 +273,9 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
               </div>
             </div>
             <div className="py-2">
-              <iframe
-                className="w-full border border-primary-01 rounded-md"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12965.515589214649!2d51.45349569305417!3d35.667671352622676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f91fd8c5df094a3%3A0x9838892b68822f61!2z2YXYrNmF2YjYudmHINmI2LHYsti024wg2KLbjNiqINin2YTZhNmHINiz2LnbjNiv24w!5e0!3m2!1sfa!2s!4v1719175469337!5m2!1sfa!2s"
-              ></iframe>
+              <div className="w-full h-[200px] border border-primary-01 rounded-md overflow-hidden">
+                <MapView />
+              </div>
             </div>
           </div>
         </div>

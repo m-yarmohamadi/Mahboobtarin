@@ -3,6 +3,8 @@ import { Countries } from '@/data/countries';
 import Select from '@/tools/Select';
 import { useGetCity, useGetProvinces } from '@/hooks/useCity';
 import { useEffect, useState } from 'react';
+import { FaLocationDot } from 'react-icons/fa6';
+import Map from '@/components/mapComponent/Map';
 
 
 
@@ -11,6 +13,7 @@ const Step02 = ({formik, children, error}) => {
 	const {transformCity} = useGetCity(Number(formik.values.province_id));
 	const [firstLoad, setFirstLoad] = useState(true);
 	const sortedCountries = [...Countries].sort((a, b) => a.label.localeCompare(b.label, 'fa'));
+	const [openMap, setOpenMap] = useState(false);
 
 	useEffect(()=>{
 		if(!firstLoad){
@@ -72,21 +75,26 @@ const Step02 = ({formik, children, error}) => {
 						type={'text'}
 					/> */}
 					</div>
-					<div className='grid grid-cols-1  gap-4 w-full items-start '>
+					<div className='grid grid-cols-1  gap-4 w-full items-start pt-4'>
+						<Input
+							name={'address'}
+							label={'آدرس محل سکونت'}
+							formik={formik}
+							type={'text'}
+						/>
+						<Input
+							name={'address_work'}
+							label={'آدرس محل کار'}
+							formik={formik}
+							type={'text'}
+						/>
+					</div>
 
-					<Input
-						name={'address'}
-						label={'آدرس محل سکونت'}
-						formik={formik}
-						type={'text'}
-					/>
-					<Input
-						name={'address_work'}
-						label={'آدرس محل کار'}
-						formik={formik}
-						type={'text'}
-					/>
-				</div>
+					<button type='button' onClick={()=>setOpenMap(true)} className='btn btn--primary max-w-fit gap-2 mt-4'>
+						<FaLocationDot className='w-5 h-5' />
+						انتخاب لوکیشن
+					</button>
+					<Map title='انتخاب لوکیشن' open={openMap} onClose={()=>setOpenMap(false)}/>
 				{children}
 			</form>
 			{error &&

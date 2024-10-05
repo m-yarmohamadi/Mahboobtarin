@@ -47,12 +47,13 @@ const yearsArray = Array.from({ length: currentYearMiladi - startYearMiladi + 1 
     return { id: year, label: year, value: year };
 });
 
+
 const Step01 = ({ formik, children }) => {
 	const [selectedDay, setSelectedDay] = useState(formik.values.birthday.split("-")[2] || "");
 	const [selectedMonth, setSelectedMonth] = useState(formik.values.birthday.split("-")[1] || "");
     const [selectedYear, setSelectedYear] = useState(formik.values.birthday.split("-")[0] || "");
 	const sortedCountries = [...Countries].sort((a, b) => a.label.localeCompare(b.label, 'fa'));
-		
+
 	return (
 		<div className='w-full h-full transition-all duration-1000 ease-in-out'>
 			<form

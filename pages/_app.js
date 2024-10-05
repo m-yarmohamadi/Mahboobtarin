@@ -1,5 +1,5 @@
 import '@/styles/globals.css';
-
+import "leaflet/dist/leaflet.css";
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
