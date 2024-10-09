@@ -1,3 +1,4 @@
+import useMainPage from "@/hooks/useMainPage";
 import { addNewRequest } from "@/services/expertDashboardService";
 import Input from "@/tools/Input";
 import Loading from "@/tools/Loading";
@@ -11,6 +12,8 @@ import { FaImage } from "react-icons/fa6";
 import * as Yup from "yup";
 
 export default function CreateCallingForm() {
+    const { categories, isLoading } = useMainPage();
+    const transformedCategory = !isLoading && categories.map((item) => ({ value: item.id, label: item.name }));
     const { mutateAsync: mutateAddRequest, isPending } = useMutation({ mutationFn: addNewRequest });
     const queryClient = useQueryClient();
     const router = useRouter();
@@ -49,7 +52,7 @@ export default function CreateCallingForm() {
             picture: Yup.string().required('تصویر را انتخاب کنید'),
         })
     });
-
+    
     return (
         <form onSubmit={formik.handleSubmit}>
             <div className="w-full max-w-[50%] border border-dashed border-slate-300 rounded-xl overflow-hidden">
@@ -76,7 +79,7 @@ export default function CreateCallingForm() {
                 </label>
             </div>
             <div className="text-xs text-error pb-6 pt-1">
-                {formik.errors.picture}
+                {formik.touched.picture && formik.errors.picture}
             </div>
             <div className="w-full flex flex-col gap-6 lg:flex-row">
                 <Input
@@ -84,10 +87,11 @@ export default function CreateCallingForm() {
                     name={'title'}
                     formik={formik}
                 />
-                <Input
+                <Select
                     label="دسته بندی"
                     name={'category'}
                     formik={formik}
+                    options={!isLoading ? [{ value: "", label: "دسته بندی را انتخاب کنید" }, ...transformedCategory] : [{ value: "", label: "دسته بندی را انتخاب کنید" }]}
                 />
             </div>
             <TextArea

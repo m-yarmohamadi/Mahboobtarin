@@ -14,7 +14,7 @@ import toast from 'react-hot-toast';
 export default function Gallery() {
 	const { user, isLoading } = useProfile();
 	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.id);
-	const { gallery } = data?.gallery || {};
+	const { gallery } = data?.user || {};
 	const [open, setOpen] = useState(false);
 
 	if (isLoading || iGetLinkdins) return (

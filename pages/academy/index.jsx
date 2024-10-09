@@ -5,7 +5,7 @@ import Suggestion from "@/components/academy/Suggestion";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
-export default function academy() {
+export default function AcademyPage() {
     return (
         <div>
             <Header />

@@ -133,7 +133,7 @@ export function addCommentExpertise(data) {
 }
 
 export function getCommentExpertise(motekhases_id) {
-  return http.post(
+  return http.get(
     "/api/v1/dashboard/comments",
     { motekhases_id },
     {

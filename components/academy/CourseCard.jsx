@@ -1,8 +1,9 @@
 import numberWithCommas from "@/utils/numberWithCommas";
+import Link from "next/link";
 
 export default function CourseCard({ course }) {
     return (
-        <div className="border border-gray-300 p-2 rounded-lg">
+        <Link href={'/academy/1'} className="block border border-gray-300 p-2 rounded-lg">
             <div className="mb-2">
                 <div className="aspect-w-16 aspect-h-10">
                     <img src={course.img} alt="" className="w-full h-full object-cover object-center rounded-md"/>
@@ -39,6 +40,6 @@ export default function CourseCard({ course }) {
                     تومان
                 </span>
             </div>
-        </div>
+        </Link>
     )
 }
