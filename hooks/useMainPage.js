@@ -12,7 +12,17 @@ export default function useMainPage() {
 
   const { sliders, categories, posts, expertises } = data?.data || {};
 
-  return { isLoading, sliders, categories, posts, expertises };
+  const transformCategories =
+    data && categories.map((item) => ({ value: item.id, label: item.name }));
+
+  return {
+    isLoading,
+    sliders,
+    categories,
+    transformCategories,
+    posts,
+    expertises,
+  };
 }
 
 export function useCategoryChild(categoryId) {

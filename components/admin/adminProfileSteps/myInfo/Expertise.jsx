@@ -1,3 +1,4 @@
+import useMainPage from "@/hooks/useMainPage";
 import Input from "@/tools/Input";
 import Select from "@/tools/Select";
 import { useEffect, useState } from "react";
@@ -16,6 +17,7 @@ const expertise = [
 export default function Expertise({ formik }) {
     const [list, setList] = useState(formik.values.expertise || []);
     const [selected, setSelected] = useState({ title: 0, subject: "" });
+    const { transformCategories, isLoading: isGetCategories } = useMainPage();
 
     const addExpertise = () => {
         if (selected.title !== 0 && selected.subject !== 0) {
@@ -35,7 +37,7 @@ export default function Expertise({ formik }) {
                 <div className="flex-1 flex flex-col lg:flex-row gap-4">
                     <Select
                         label="تخصص"
-                        options={expertise}
+                        options={!isGetCategories ? [{ id: -1, value: "", label: "موضوع تخصص را انتخاب کنید" }, ...transformCategories] : [{ id: -1, value: "", label: "موضوع تخصص را انتخاب کنید" }]}
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
                     />

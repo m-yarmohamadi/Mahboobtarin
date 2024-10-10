@@ -4,13 +4,7 @@ import { useFormik } from 'formik';
 import Select from '@/tools/Select';
 import Input from '@/tools/Input';
 import { useGetExpertisesList } from '@/hooks/useExpertiseUser';
-const Expertise = [
-	{ id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-	{ id: 1, label: 'پزشکی', value: 'medical' },
-	{ id: 2, label: 'سینما', value: 'cinema' },
-	{ id: 3, label: 'نقاشی', value: 'Painting' },
-	{ id: 4, label: 'معماری', value: 'architecture' },
-];
+import useMainPage from '@/hooks/useMainPage';
 
 const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, formikExpertise }) => {
 	const initialValues = {
@@ -18,6 +12,7 @@ const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, formikExper
 		subject: '',
 	};
 	const { isLoading, transformExpertises } = useGetExpertisesList();
+	const { transformCategories, isLoading:isGetCategories } = useMainPage();
 	
 	const onSubmit = (values, {resetForm }) => {
 		formikExpertise.setFieldValue("expertise", [...formikExpertise.values.expertise, values]);
@@ -58,7 +53,7 @@ const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, formikExper
 							<Select
 								name={'title'}
 								label={'موضوع تخصص'}
-								options={!isLoading ? [{id:-1, value:"", label:"موضوع تخصص را انتخاب کنید"}, ...transformExpertises] : [{id:-1, value:"", label:"موضوع تخصص را انتخاب کنید"}]}
+								options={!isGetCategories ? [{id:-1, value:"", label:"موضوع تخصص را انتخاب کنید"}, ...transformCategories] : [{id:-1, value:"", label:"موضوع تخصص را انتخاب کنید"}]}
 								formik={formik}
 							/>
 							<Input
