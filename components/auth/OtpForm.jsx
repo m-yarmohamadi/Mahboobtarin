@@ -9,7 +9,7 @@ import OTPInput from "react-otp-input";
 import { enToFaNumber } from "@/utils/enToFa";
 
 
-const RESEND_TIME = 20;
+const RESEND_TIME = 120;
 
 export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobile, onResendOtp, setStep, setNationalCodeInitial, setRegisterStep, setUserData }) {
     const [isLoginState, setIsLoginState] = useState(false);

@@ -144,7 +144,7 @@ const dataMenu = [
     {
         id: 16,
         title: 'پشتیبانی',
-        value: 'dashboard/#',
+        value: 'support',
         quanity: '',
         icon: BiSupport,
     },
@@ -206,7 +206,7 @@ export default function Sidebar({ open, onClose }) {
                         <div className='w-full col-span-7 flex flex-col justify-center items-start text-sm font-bold'>
                             <span >موجودی کیف پول</span>
                             <span>
-                                <span>{0}</span>
+                                <span>{200000}</span>
                                 <span>تومان</span>
                             </span>
                         </div>
@@ -226,7 +226,7 @@ export default function Sidebar({ open, onClose }) {
                             <Link
                                 key={index}
                                 href={`/admin/${item.value}`}
-                                className={`flex justify-start gap-6 items-center px-2 py-4 text-sm font-medium cursor-pointer ${pathname && pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-bold`}`}>
+                                className={`flex justify-start gap-6 items-center px-2 py-4 text-sm font-medium cursor-pointer ${pathname && pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-black shadow-md shadow-primary-03 bg-opacity-40 bg-white rounded-md`}`}>
                                 <span>
                                     {item.icon && <item.icon className="w-6 h-6" />}
                                 </span>
