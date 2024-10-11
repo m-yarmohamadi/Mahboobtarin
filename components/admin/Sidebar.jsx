@@ -94,7 +94,7 @@ const dataMenu = [
     },
     {
         id: 8,
-        title: 'نظزات و امتیازات',
+        title: 'نظرات و امتیازات',
         value: 'comments',
         quanity: '',
         icon: FaRegCommentDots,
