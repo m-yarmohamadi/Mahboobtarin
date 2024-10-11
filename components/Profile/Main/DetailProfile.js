@@ -152,6 +152,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     likeDislikeHandler(userData.id);
     router.replace(pathname, { scroll: false });
   };
+  console.log(userData);
 
   return (
     <div className="w-full">
@@ -240,7 +241,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
             <div className="flex items-center  text-xs md:text-sm text-gray-800 font-semibold">
               <BiMedal className="w-7 h-7 text-green-600 ml-1" />
               <span className="text-gray-600 font-normal">تجربه :</span>
-              12 سال
+              {userData?.amount_experience_year} سال
             </div>
             <span className="flex items-center gap-1 text-xs md:text-sm">
               <FaRegStar className="w-6 h-6 text-yellow-400 mr-[2px]" />
@@ -254,32 +255,34 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       <About description={userData?.description} />
 
       {/* نشانی */}
-      {userData?.phone && userData?.addresses.length ? (
-        <div id="address" className="pt-16">
-          <TitleItems title={"نشانی"} />
-          <div className=" grid grid-cols-1 gap-2">
-            <div className="w-full flex flex-col gap-4">
-              {userData?.phone && (
-                <div className="w-full text-gray-800 text-sm flex justify-start items-center gap-2">
-                  <span className="font-bold">تلفن:</span>
-                  <span>{userData?.phone} </span>
-                </div>
-              )}
+      <div id="address" className="pt-16">
+        <TitleItems title={"نشانی"} />
+        <div className=" grid grid-cols-1 gap-2">
+          <div className="w-full flex flex-col gap-4">
+            {userData?.phone && (
+              <div className="w-full text-gray-800 text-sm flex justify-start items-center gap-2">
+                <span className="font-bold">تلفن:</span>
+                <span>{userData?.phone} </span>
+              </div>
+            )}
+            {userData?.addresses.length ? (
               <div className="text-sm text-gray-800">
                 <span className="w-full font-bold">آدرس : </span>
                 <span className="w-full text-justify">
                   {userData?.addresses[0].address}
                 </span>
               </div>
-            </div>
-            <div className="py-2">
-              <div className="w-full h-[200px] border border-primary-01 rounded-md overflow-hidden">
-                <MapView />
-              </div>
+            ) : null}
+          </div>
+          <div className="py-2">
+            <div className="w-full h-[200px] border border-primary-01 rounded-md overflow-hidden">
+              <MapView
+                coord={[userData?.addresses[0].lat, userData?.addresses[0].lng]}
+              />
             </div>
           </div>
         </div>
-      ) : null}
+      </div>
 
       {/* تخصص و مهارت */}
       <ExpertDescription expert_description={userData?.expert_description} />

@@ -1,6 +1,33 @@
+import { useFormik } from "formik";
 import ProductFields from "./ProductFields";
 
+const initialValues = {
+    title: "",
+    entitle: "",
+    slug: "",
+    sku: "",
+    expiredate: "",
+    status: "",
+    price: "",
+    anbar: "",
+    discount_price: "",
+    description: "",
+    shortdescription: "",
+    brand_id: "",
+    meta_title: "",
+    meta_desc: "",
+    meta_keywords: "",
+    photo_id: "",
+    categories: "",
+};
+const validationSchema = {}
+
+
 export default function CreateProductForm() {
+    const formik = useFormik({
+        initialValues,
+        validationSchema
+    });
     return (
         <div>
             <div className="flex flex-col gap-1 items-center">
@@ -12,7 +39,7 @@ export default function CreateProductForm() {
                 </p>
             </div>
 
-            <ProductFields />
+            <ProductFields formik={formik}/>
         </div>
     )
 }
