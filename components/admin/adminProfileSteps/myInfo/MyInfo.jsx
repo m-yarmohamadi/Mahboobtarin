@@ -14,7 +14,7 @@ import Loading from '@/tools/Loading';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateProfile } from '@/services/authService';
 import toast from 'react-hot-toast';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '@/components/Modal';
 import ChangePasswordForm from './ChangePasswordForm';
 import useForgetPassword from '@/hooks/useForgetPassword';
@@ -64,7 +64,8 @@ export default function MyInfo() {
         language: language || [],
         grade: grade || [],
         honors_description: user?.honors_description || "",
-        description: user?.description || ""
+        description: user?.description || "",
+        amount_experience_year: user?.amount_experience_year || ""
     };
     const { mutate: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
     const queryClient = useQueryClient();
@@ -87,7 +88,8 @@ export default function MyInfo() {
             address: values.workAddress,
             honors_description: values.honors_description,
             description: values.description,
-            avatar: values.picture
+            avatar: values.picture,
+            amount_experience_year: values.amount_experience_year
         }
 
         const data = new FormData();
@@ -137,6 +139,8 @@ export default function MyInfo() {
             .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
         emergency_phone: Yup.string()
             .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
+        amount_experience_year: Yup.number()
+            .required("میزان تجربه خود را وارد کنید")
     });
 
     const { forgetPasswordMutate, isForgetPassLoadingt } = useForgetPassword();
@@ -188,6 +192,7 @@ export default function MyInfo() {
         },
     ];
 
+    
     if (isLoading) return (
         <div className='w-full h-full flex items-center justify-center'>
             <Loading customeColor="#0693a4" />
@@ -307,7 +312,7 @@ export default function MyInfo() {
                         disabled={true}
                     />
 
-                    <Address formik={formik} isLoading={isLoading}/>
+                    <Address formik={formik} isLoading={isLoading} />
 
                     <WorkAddress formik={formik} />
 
@@ -324,8 +329,11 @@ export default function MyInfo() {
                     <div className='lg:col-span-2 flex flex-col lg:flex-row gap-4'>
                         <div className='lg:w-[47%]'>
                             <Input
-                                label="میزان تجربه (به سال)"
-                                placeholder={'مثال 1360'}
+                                label="(به سال) میزان تجربه"
+                                placeholder={'مثال 5'}
+                                type={'number'}
+                                formik={formik}
+                                name={'amount_experience_year'}
                             />
                         </div>
 

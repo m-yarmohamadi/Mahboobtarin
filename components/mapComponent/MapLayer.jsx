@@ -12,7 +12,7 @@ const BASE_GEOCODING_URL =
     "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
 
-export default function MapLayer({ open, onClose, title = "انتخاب آدرس" }) {
+export default function MapLayer({ open, onClose, title = "انتخاب آدرس", setCoord }) {
     const [mapCenter, setMapCenter] = useState([35.6892, 51.3890]);
     const [addressData, setAddressData] = useState();
     const {
@@ -28,7 +28,9 @@ export default function MapLayer({ open, onClose, title = "انتخاب آدرس
     });
 
     const submitMapHandler = () => {
-
+        if (!mapCenter || !mapCenter.length) return;
+        setCoord(mapCenter);
+        onClose();
     }
 
     useEffect(() => {
@@ -45,7 +47,6 @@ export default function MapLayer({ open, onClose, title = "انتخاب آدرس
                     return;
                 }
 
-                console.log(data);
                 setAddressData(data.city || data.locality || "");
             } catch (error) {
 
@@ -97,7 +98,7 @@ export default function MapLayer({ open, onClose, title = "انتخاب آدرس
                         </div>
                     </div>
                     <div className="w-full">
-                        <button type="button" onClick={submitMapHandler} className="btn btn--primary w-full">
+                        <button type="button" onClick={submitMapHandler} disabled={!mapCenter || !mapCenter.length} className="btn btn--primary w-full disabled:bg-opacity-40">
                             تایید
                         </button>
                     </div>
@@ -126,7 +127,6 @@ function DetectClick({ setMapCenter }) {
         click: (e) => {
             const newCenter = [e.latlng.lat, e.latlng.lng];
             map.setView(newCenter);
-            console.log(e);
 
             setMapCenter(newCenter);
         },

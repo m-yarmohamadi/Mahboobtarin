@@ -8,7 +8,7 @@ export default function MapViewComponent({ coord = [35.6892, 51.3890] }) {
     });
 
     return (
-        <MapContainer center={coord} zoom={13} scrollWheelZoom={true} className="w-full h-full">
+        <MapContainer center={coord} zoom={13} scrollWheelZoom={true} className="w-full h-full !z-0">
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

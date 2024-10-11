@@ -11,7 +11,6 @@ export default function Address({ formik, isLoading }) {
     const { transformCity } = useGetCity(formik.values.province_id);
     const sortedCountries = [...Countries].sort((a, b) => a.label.localeCompare(b.label, 'fa'));
     const [firstLoad, setFirstLoad] = useState(true);
-    const [openMap, setOpenMap] = useState(false);
 
     useEffect(() => {
         if (!firstLoad) {
@@ -72,12 +71,6 @@ export default function Address({ formik, isLoading }) {
                     formik={formik}
                 />
             </div>
-
-            <button type='button' onClick={() => setOpenMap(true)} className='btn btn--primary max-w-fit gap-2 mt-4'>
-                <FaLocationDot className='w-5 h-5' />
-                انتخاب لوکیشن
-            </button>
-            <Map title='انتخاب لوکیشن' open={openMap} onClose={() => setOpenMap(false)} />
         </>
     )
 }
