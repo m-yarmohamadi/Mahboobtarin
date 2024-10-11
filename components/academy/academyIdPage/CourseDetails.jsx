@@ -22,7 +22,14 @@ export default function CourseDetails() {
 
             <div className="col-span-1 lg:col-span-5 xl:col-span-6 order-1 md:order-2 self-center">
                 <div className="aspect-w-16 aspect-h-9">
-                    <img src="/images/img01.jpg" alt="" className="w-full h-full object-cover object-center rounded-xl" />
+                    <video
+                        controls
+                        className='w-full h-full object-cover object-center rounded-xl'>
+                        <source
+                            // src={data.path}
+                            type='video/mp4'
+                        />
+                    </video>
                 </div>
             </div>
         </div>

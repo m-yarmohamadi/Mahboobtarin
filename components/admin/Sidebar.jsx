@@ -7,7 +7,7 @@ import { FaBlog, FaChartColumn, FaRegUser } from "react-icons/fa6";
 import { GiWallet } from "react-icons/gi";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { LiaUserFriendsSolid } from "react-icons/lia";
-import { LuBox, LuUsers2 } from "react-icons/lu";
+import { LuBookMarked, LuBox, LuUsers2 } from "react-icons/lu";
 import { MdOutlineFavoriteBorder, MdOutlineListAlt, MdOutlineMedicalServices, MdOutlineNotificationsNone, MdOutlineSettings } from "react-icons/md";
 import { TbDashboard, TbLogout } from "react-icons/tb";
 import { RiGalleryLine, RiVipCrownLine } from "react-icons/ri";
@@ -63,6 +63,13 @@ const dataMenu = [
         value: 'services',
         quanity: '',
         icon: MdOutlineMedicalServices,
+    },
+    {
+        id: 22,
+        title: 'آموزشگاه',
+        value: 'academy',
+        quanity: '',
+        icon: LuBookMarked,
     },
     {
         id: 6,
