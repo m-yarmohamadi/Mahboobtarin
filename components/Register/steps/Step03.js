@@ -13,12 +13,14 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 import FormData from 'form-data';
 import InputFileform from '@/tools/InputFileForm';
 import toast from 'react-hot-toast';
+import useMainPage from '@/hooks/useMainPage';
 
 const Step03 = ({ formik, children, error }) => {
 	const [openExpertiseModal, setOpenExpertiseModal] = useState(false);
 	const [openGradeModal, setOpenGradeModal] = useState(false);
 	const [openLanguageModal, setOpenLanguageModal] = useState(false);
-	
+	const { transformCategories, isLoading:isGetCategories } = useMainPage();
+
 	return (
 		<div className='w-full h-full flex flex-col justify-between'>
 			<form
@@ -50,6 +52,8 @@ const Step03 = ({ formik, children, error }) => {
 									openExpertiseModal={openExpertiseModal}
 									setOpenExpertiseModal={setOpenExpertiseModal}
 									formikExpertise={formik}
+									transformCategories={transformCategories}
+									isGetCategories={isGetCategories}
 								/>
 							</div>
 							<div className='w-full flex justify-start items-start'>{formik.errors.expertise && formik.touched.expertise && <p className='error_Message'>{enToFaNumber(`${formik.errors.expertise}`)}</p>}</div>
@@ -62,7 +66,7 @@ const Step03 = ({ formik, children, error }) => {
 									<div
 										key={index}
 										className='flex justify-between items-center bg-primary-01 bg-opacity-10 px-4'>
-										<div>{item.title}</div>
+										<div>{transformCategories.filter((i) => Number(i.value) === Number(item.title))[0].label}</div>
 										<div className='flex justify-center items-center gap-2 '>
 											<span className='flex justify-center items-center pt-2'>{item.subject}</span>
 											<span

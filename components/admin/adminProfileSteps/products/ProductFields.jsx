@@ -7,13 +7,24 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import { useGetProductCategory } from "@/hooks/useProducts";
+import ReactSelect from 'react-select';
+import MultiSelect from "@/tools/MultiSelect";
+import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import { updloadProductPhotos } from "@/services/productService";
+import Loading from "@/tools/Loading";
 
-export default function ProductFields({ formik }) {
+const statusItems = [
+    { value: "", label: "وضعیت محصول را انتخاب کنید" },
+    { value: 0, label: "غیر فعال" },
+    { value: 1, label: "فعال" },
+]
+
+export default function ProductFields({ formik, loading }) {
     const { categories, isGetCategory } = useGetProductCategory();
-    console.log(categories);
-    
+
     return (
-        <form className="w-full space-y-4 py-6">
+        <form onSubmit={formik.handleSubmit} className="w-full space-y-4 py-6">
 
             <PictureSelector formik={formik} />
 
@@ -22,21 +33,25 @@ export default function ProductFields({ formik }) {
                     label={'نام فارسی'}
                     formik={formik}
                     name={'title'}
+                    required={true}
                 />
                 <Input
                     label={'نام انگلیسی'}
                     formik={formik}
                     name={'entitle'}
+                    required={true}
                 />
                 <Input
                     label={'کد محصول'}
                     formik={formik}
                     name={'sku'}
+                    required={true}
                 />
                 <Input
                     label={'اسلاگ'}
                     formik={formik}
                     name={'slug'}
+                    required={true}
                 />
                 <ExpiredateInput
                     formik={formik}
@@ -46,68 +61,77 @@ export default function ProductFields({ formik }) {
                     label={'قیمت (به تومان)'}
                     formik={formik}
                     name={'price'}
+                    required={true}
+                    type={'number'}
                 />
                 <Input
                     label={'تعداد موجود در انبار'}
                     formik={formik}
                     name={'anbar'}
+                    required={true}
+                    type={'number'}
                 />
                 <Input
                     label={'تخفیف (درصد)'}
                     formik={formik}
                     name={'discount_price'}
+                    type={'number'}
                 />
                 <Input
                     label="توضیحات کوتاه"
                     formik={formik}
                     name={'shortdescription'}
+                    required={true}
                 />
                 <Input
                     label="عنوان متا"
                     formik={formik}
                     name={'meta_title'}
+                    required={true}
                 />
                 <Input
                     label="توضیحات متا"
                     formik={formik}
                     name={'meta_desc'}
+                    required={true}
                 />
                 <Input
                     label="کلمات کلیدی"
                     formik={formik}
                     name={'meta_keywords'}
+                    required={true}
                 />
                 <Select
                     label={'وضعیت'}
-                    options={[]}
+                    options={statusItems}
                     formik={formik}
                     name={'status'}
+                    required={true}
                 />
-                <Select
-                    label={'برند'}
-                    options={[]}
-                    formik={formik}
-                    name={'brand_id'}
-                />
-                <Select
+                <MultiSelect
                     label={'دسته بندی'}
-                    options={[]}
+                    required={true}
+                    value={formik.values.categories}
+                    onChange={(e) => formik.setFieldValue("categories", e)}
+                    name="categories"
+                    placeholder="دسته بندی"
                     formik={formik}
-                    name={'categories'}
+                    options={!isGetCategory ? categories : []}
                 />
                 <div className="col-span-2">
                     <TextArea
                         label={'توضیحات کامل'}
                         formik={formik}
                         name={'description'}
+                        required={true}
                     />
                 </div>
             </div>
 
             <div className="w-full border-t border-t-slate-300 pt-4">
                 <div className="w-1/2 gap-3 grid grid-cols-2 ">
-                    <button className="btn btn--primary">
-                        ثبت محصول
+                    <button type="submit" className="btn btn--primary">
+                        {loading ? <Loading /> : "ثبت محصول"}
                     </button>
                     <button className="btn btn--secondary">
                         لغو
@@ -120,23 +144,86 @@ export default function ProductFields({ formik }) {
 }
 
 function PictureSelector({ formik }) {
+    const { mutateAsync: mutateUploadPhotos, isPending: isUploading } = useMutation({ mutationFn: updloadProductPhotos });
+
+    const updloadPhotoHandler = async (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const { data } = await mutateUploadPhotos(formData);
+            if (data) {
+                formik.setFieldValue("files", [...formik.values.files, { id: Date.now(), file }])
+                formik.setFieldValue("photo_id", [...formik.values.photo_id, data.photo_id])
+            }
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
     return (
         <div>
-            <label htmlFor="select-product-img" className="w-full p-6 cursor-pointer flex flex-col items-center justify-center gap-4 border border-dashed border-slate-300 rounded-xl">
-                <input type="file" name="select-product-img" id="select-product-img" hidden accept="image/*" />
-                <FaImage className="w-8 h-8 text-primary-01/50" />
-                <p className="text-sm font-semibold text-primary-01/50">
-                    برای افزودن تصویر کلیک کنید
-                </p>
+            <label
+                htmlFor="select-product-img"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => {
+                    e.preventDefault();
+                    [...e.dataTransfer.files].forEach((file, i) => {
+                        const checkType = file.type.split("/")[0];
+                        if (checkType === "image") {
+                            updloadPhotoHandler(file)
+                        } else {
+                            toast.error("فقط تصویر انتخاب کنید")
+                        }
+                    });
+                }}
+                className="w-full p-6 cursor-pointer flex flex-col items-center justify-center gap-4 border border-dashed border-slate-300 rounded-xl"
+            >
+                <input
+                    type="file"
+                    name="select-product-img"
+                    id="select-product-img"
+                    hidden
+                    accept="image/*"
+                    onChange={(e) => updloadPhotoHandler(e.target.files[0])}
+                />
+                {!isUploading ?
+                    <>
+                        <FaImage className="w-8 h-8 text-primary-01/50" />
+                        <p className="text-sm font-semibold text-primary-01/50">
+                            برای افزودن تصویر کلیک کنید یا تصویر را در این بخش رها کنید
+                        </p>
+                    </>
+                    :
+                    <div className="text-sm font-semibold text-gray-700 flex flex-col items-center gap-2">
+                        <Loading customeColor={'#0693a4'} />
+                        درحال آپلود
+                    </div>
+                }
             </label>
 
             <div className="py-4">
-                <div className="w-24 h-24 rounded-lg overflow-hidden p-1 border border-slate-300 relative">
-                    <img src="/images/Book004.png" alt="" className="w-full h-full object-contain object-center" />
-                    <button className="w-5 h-5 flex items-center justify-center rounded-full bg-white shadow-md text-error absolute top-2 right-2">
-                        <IoMdClose className="w-4 h-4" />
-                    </button>
-                </div>
+                {formik.values.files.length ?
+                    <div className="flex flex-wrap gap-4">
+                        {formik.values.files.map((file) => (
+                            <div key={file.id} className="w-24 h-24 rounded-lg overflow-hidden p-1 border border-slate-300 relative">
+                                <img src={URL.createObjectURL(file.file)} alt="" className="w-full h-full object-contain object-center" />
+                                {/* <button onClick={() => formik.setFieldValue("files", formik.values.files.filter((f) => f.id !== file.id))} className="w-5 h-5 flex items-center justify-center rounded-full bg-white shadow-md text-error absolute top-2 right-2">
+                                    <IoMdClose className="w-4 h-4" />
+                                </button> */}
+                            </div>
+                        ))}
+                    </div>
+                    :
+                    formik?.errors?.files && formik?.touched?.files &&
+                    <div className='w-full flex justify-start items-start mt-2'>
+                        <p className='error_Message'>
+                            {formik?.errors?.files}
+                        </p>
+                    </div>
+                }
             </div>
         </div>
     )
@@ -150,15 +237,11 @@ function ExpiredateInput({ formik, name }) {
                 htmlFor={name}
             >
                 تاریخ انقضا
+                <span style={{ color: "red", fontSize: "18px", display: "inline-block", marginRight: "4px" }}>*</span>
             </label>
             <DatePicker
-                // value={dateTimeFormik.values.date}
-                // onChange={(e) => {
-                //     dateTimeFormik.setFieldValue("date", e);
-                //     let newArr = e.map((item) => toEnglishNumber(toPersianDateShort(item)));
-                //     let updateItem = formik.values.activity_time ? [{ ...formik.values.activity_time[0], day: newArr }] : [{ day: newArr, time: "" }];
-                //     formik.setFieldValue("activity_time", updateItem);
-                // }}
+                value={formik.values.expiredate}
+                onChange={(e) => formik.setFieldValue("expiredate", e)}
                 locale={persian_fa}
                 calendar={persian}
                 minDate={new Date()}

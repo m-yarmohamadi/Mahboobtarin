@@ -6,13 +6,11 @@ import Input from '@/tools/Input';
 import { useGetExpertisesList } from '@/hooks/useExpertiseUser';
 import useMainPage from '@/hooks/useMainPage';
 
-const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, formikExpertise }) => {
+const ExpertiseModal = ({ openExpertiseModal, setOpenExpertiseModal, formikExpertise, transformCategories,isGetCategories }) => {
 	const initialValues = {
 		title: '',
 		subject: '',
 	};
-	const { isLoading, transformExpertises } = useGetExpertisesList();
-	const { transformCategories, isLoading:isGetCategories } = useMainPage();
 	
 	const onSubmit = (values, {resetForm }) => {
 		formikExpertise.setFieldValue("expertise", [...formikExpertise.values.expertise, values]);

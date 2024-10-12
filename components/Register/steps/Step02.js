@@ -5,6 +5,7 @@ import { useGetCity, useGetProvinces } from '@/hooks/useCity';
 import { useEffect, useState } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import Map from '@/components/mapComponent/Map';
+import WorkAddress from './WorkAddress';
 
 
 
@@ -82,19 +83,8 @@ const Step02 = ({formik, children, error}) => {
 							formik={formik}
 							type={'text'}
 						/>
-						<Input
-							name={'address_work'}
-							label={'آدرس محل کار'}
-							formik={formik}
-							type={'text'}
-						/>
+						<WorkAddress formik={formik} name={'address_work'}/>
 					</div>
-
-					<button type='button' onClick={()=>setOpenMap(true)} className='btn btn--primary max-w-fit gap-2 mt-4'>
-						<FaLocationDot className='w-5 h-5' />
-						انتخاب لوکیشن
-					</button>
-					<Map title='انتخاب لوکیشن' open={openMap} onClose={()=>setOpenMap(false)}/>
 				{children}
 			</form>
 			{error &&

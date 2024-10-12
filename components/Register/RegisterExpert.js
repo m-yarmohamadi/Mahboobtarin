@@ -59,7 +59,7 @@ const validationSchemaStep2 = Yup.object({
 	province_id: Yup.string().required('وارد کردن استان محل سکونت اجباری است'),
 	city_id: Yup.string().required('وارد کردن شهر محل سکونت اجباری است'),
 	address: Yup.string().required('وارد کردن آدرس محل سکونت اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(200, 'حداکثر 200 حرف وارد کنید'),
-	address_work: Yup.string().required('وارد کردن آدرس محل کار اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(200, 'حداکثر 200 حرف وارد کنید'),
+	address_work: Yup.array().min(1,'وارد کردن آدرس محل کار اجباری است'),
 });
 
 const validationSchemaStep3 = Yup.object({
@@ -153,16 +153,28 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData, o
 		province_id: userData?.province_id || "",
 		city_id: userData?.city_id || "",
 		address: userData?.address || "",
-		address_work: userData?.address_work || "",
+		address_work: userData?.address_work || [],
 	}
 
 	const submitHandlerStep2 = (values) => {
-		mutateRegister({
-			...defaultDataRegister,
-			...values,
-			step:2,
-			national_code:nationalCode || formikStep1.values.national_code
-		}, {
+		const formData = new FormData();
+
+        for (const key in values) {
+            if (Array.isArray(values[key]) && values[key].length > 0) {
+                formData.append(key, JSON.stringify(values[key]));
+            } else {
+                formData.append(key, values[key]);
+            }
+        }
+
+		formData.append("national_code", nationalCode || formikStep1.values.national_code);
+		formData.append("step", 2);
+
+		for(const key in defaultDataRegister){
+			formData.append(key, defaultDataRegister[key]);
+		}
+
+		mutateRegister(formData, {
 			onSuccess:({data})=>{
 				if(data){
 					nextStep();

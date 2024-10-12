@@ -162,3 +162,21 @@ input[type=number] {
 .leaflet-container .leaflet-control-container .leaflet-bottom{
 	display: none !important;
 }
+
+
+/* react multi select */
+.react-select-container .react-select__control{
+	@apply w-full !h-[42px] !min-h-min appearance-none bg-transparent text-gray-700 border  border-primary-01 border-opacity-15 focus:!border-opacity-100 rounded-md !px-4  focus:!outline-none focus:!bg-white
+}
+
+.react-select-container .react-select__control .react-select__value-container{
+	@apply !p-0 !m-0
+}
+
+.react-select-container .react-select__control .react-select__value-container .react-select__placeholder{
+	@apply text-gray-700
+}
+
+.react-select-container .react-select__control .react-select__indicators{
+	@apply !hidden
+}

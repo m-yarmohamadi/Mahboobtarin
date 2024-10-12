@@ -1,4 +1,5 @@
 import {
+  getAllProductsApi,
   getBestSellProducts,
   getProductCategoryApi,
 } from "@/services/productService";
@@ -15,13 +16,33 @@ export function useGetBestSellProducts() {
   return { products, isLoading };
 }
 
+// **********************************
+// * expert dashboard ****************
+// **********************************
+
 export function useGetProductCategory() {
-  const { data: categories, isLoading: isGetCategory } = useQuery({
+  const { data, isLoading: isGetCategory } = useQuery({
     queryKey: ["get-product-categories"],
     queryFn: getProductCategoryApi,
     retry: false,
     refetchOnWindowFocus: true,
   });
 
+  const categories =
+    data && data?.data.map((item) => ({ value: item.id, label: item.name }));
+
   return { categories, isGetCategory };
+}
+
+export function useDashboardProducts(qs) {
+  const { data: productsData, isLoading } = useQuery({
+    queryKey: ["get-dashboard-products", qs],
+    queryFn: () => getAllProductsApi(qs),
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: products } = productsData || {};
+
+  return { products, isLoading };
 }

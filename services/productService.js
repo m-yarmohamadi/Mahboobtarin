@@ -29,3 +29,11 @@ export function getProductCategoryApi() {
     },
   });
 }
+
+export function getAllProductsApi(qs) {
+  return http.get(`/api/v1/dashboard/product?${qs}`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}

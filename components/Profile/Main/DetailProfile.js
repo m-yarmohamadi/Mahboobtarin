@@ -257,7 +257,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       {/* نشانی */}
       <div id="address" className="pt-16">
         <TitleItems title={"نشانی"} />
-        <div className=" grid grid-cols-1 gap-2">
+        <div className="w-full grid grid-cols-1 gap-2">
           <div className="w-full flex flex-col gap-4">
             {userData?.phone && (
               <div className="w-full text-gray-800 text-sm flex justify-start items-center gap-2">
@@ -266,21 +266,26 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
               </div>
             )}
             {userData?.addresses.length ? (
-              <div className="text-sm text-gray-800">
+              <div className="w-full text-sm text-gray-800 flex flex-col gap-1">
                 <span className="w-full font-bold">آدرس : </span>
-                <span className="w-full text-justify">
+                <span className="break-words">
                   {userData?.addresses[0].address}
                 </span>
               </div>
             ) : null}
           </div>
-          <div className="py-2">
-            <div className="w-full h-[200px] border border-primary-01 rounded-md overflow-hidden">
-              <MapView
-                coord={[userData?.addresses[0].lat, userData?.addresses[0].lng]}
-              />
+          {userData?.addresses.length && userData?.addresses[0].lat && userData?.addresses[0].lng ? (
+            <div className="py-2">
+              <div className="w-full h-[200px] border border-primary-01 rounded-md overflow-hidden">
+                <MapView
+                  coord={[
+                    userData?.addresses[0].lat,
+                    userData?.addresses[0].lng,
+                  ]}
+                />
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
       </div>
 

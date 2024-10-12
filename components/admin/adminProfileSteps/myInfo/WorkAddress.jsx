@@ -23,7 +23,7 @@ export default function WorkAddress({ formik }) {
             } else {
                 formik.setFieldValue("workAddress", [...workAddress, { address: addressText, lat: coord[0], lng: coord[1] }]);
                 setAddressText("");
-
+                setCoord();
             }
         }
     }
