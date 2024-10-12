@@ -2,6 +2,8 @@ import {
   getAllProductsApi,
   getBestSellProducts,
   getProductCategoryApi,
+  getProductsBestPrice,
+  getProductsBestSell,
 } from "@/services/productService";
 import { useQuery } from "@tanstack/react-query";
 
@@ -14,6 +16,32 @@ export function useGetBestSellProducts() {
   });
 
   return { products, isLoading };
+}
+
+export function useGetProductsBestPrice() {
+  const { data: productsData, isLoading } = useQuery({
+    queryKey: ["get-products-best-price"],
+    queryFn: getProductsBestPrice,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: productsList } = productsData || {};
+
+  return { productsList, isLoading };
+}
+
+export function useGetProductsBestSell() {
+  const { data: productsData, isLoading } = useQuery({
+    queryKey: ["get-products-best-sell"],
+    queryFn: getProductsBestSell,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: productsList } = productsData || {};
+
+  return { productsList, isLoading };
 }
 
 // **********************************

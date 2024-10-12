@@ -32,3 +32,19 @@ export function getAllAcademyApi(qs) {
     },
   });
 }
+
+export function getAcademyBestPrice() {
+  return http.get(`/api/v1/dashboard/academy/best-price`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function getAcademyBestSell() {
+  return http.get(`/api/v1/dashboard/academy/best-sell`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}

@@ -3,8 +3,11 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import CourseCard from "./CourseCard";
+import { useGetAcademyBestPrice } from "@/hooks/useAcademy";
 
 export default function Populars() {
+    const { academyList, isLoading } = useGetAcademyBestPrice();
+
     const course = {
         img: "/images/img01.jpg",
         title: "نام دوره",
@@ -13,6 +16,9 @@ export default function Populars() {
         teacherPic: "/images/AliArdam.jpg",
         price: "312000"
     }
+
+    if(isLoading) return null;
+
     return (
         <div className="md:mx-auto md:container p-4 my-8 bg-white rounded-lg">
             <div className="w-full flex flex-col sm:flex-row gap-6 items-center justify-between mb-6">
@@ -33,7 +39,7 @@ export default function Populars() {
                 }}
                 className="populars-course-slider"
             >
-                {Array(10).fill(course).map((item, index) => {
+                {academyList?.map((item, index) => {
                     return (
                         <SwiperSlide key={index} className="!w-[250px] ml-4">
                             <CourseCard course={item} />

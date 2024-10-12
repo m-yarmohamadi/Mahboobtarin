@@ -10,7 +10,9 @@ export default function CourseCard({ course }) {
         <Link href={`/academy/${course?.slug}`} className="block border border-gray-300 p-2 rounded-lg">
             <div className="mb-2">
                 <div className="aspect-w-16 aspect-h-10">
-                    <img src={course?.photos[0]?.path} alt={course?.title} className="w-full h-full object-cover object-center rounded-md" />
+                    {course?.photos &&
+                        <img src={course?.photos[0]?.path} alt={course?.title} className="w-full h-full object-cover object-center rounded-md" />
+                    }
                 </div>
             </div>
 

@@ -1,4 +1,6 @@
 import {
+  getAcademyBestPrice,
+  getAcademyBestSell,
   getAcademyCategoryApi,
   getAllAcademyApi,
 } from "@/services/academyService";
@@ -29,4 +31,30 @@ export function useDashboardAcademy(qs) {
   const { data: academy } = academyData || {};
 
   return { academy, isLoading };
+}
+
+export function useGetAcademyBestPrice() {
+  const { data: academyData, isLoading } = useQuery({
+    queryKey: ["get-academy-best-price"],
+    queryFn: getAcademyBestPrice,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: academyList } = academyData || {};
+
+  return { academyList, isLoading };
+}
+
+export function useGetAcademyBestSell() {
+  const { data: academyData, isLoading } = useQuery({
+    queryKey: ["get-academy-best-sell"],
+    queryFn: getAcademyBestSell,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: academyList } = academyData || {};
+
+  return { academyList, isLoading };
 }

@@ -5,6 +5,22 @@ export function getBestSellProducts() {
   return http.get(`/api/v1/best-sell-products`).then(({ data }) => data);
 }
 
+export function getProductsBestPrice() {
+  return http.get(`/api/v1/dashboard/product/best-price`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function getProductsBestSell() {
+  return http.get(`/api/v1/dashboard/product/best-sell`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
 // * expert dashboard *************
 export function addNewProduct(data) {
   return http.post("/api/v1/dashboard/product/store", data, {

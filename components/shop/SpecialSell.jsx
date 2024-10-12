@@ -5,9 +5,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { FaChevronLeft } from "react-icons/fa";
 import ProductCard from "./ProductCard";
+import { useGetProductsBestPrice } from "@/hooks/useProducts";
 
 
 export default function SpecialSell() {
+    const { productsList, isLoading } = useGetProductsBestPrice();
+
+    if (isLoading) return null;
 
     return (
         <div className="md:mx-auto md:container p-6 mt-6">
@@ -49,7 +53,7 @@ export default function SpecialSell() {
                             </div>
                         </div>
                     </SwiperSlide>
-                    {Array(10).fill({}).map((item, index) => {
+                    {productsList?.map((item, index) => {
                         return (
                             <SwiperSlide key={index} className="!w-[250px] ml-4">
                                 <ProductCard product={item} />

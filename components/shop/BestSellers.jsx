@@ -3,8 +3,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
 import ProductCard from './ProductCard';
+import { useGetProductsBestSell } from '@/hooks/useProducts';
 
 export default function BestSellers() {
+    const { productsList, isLoading } = useGetProductsBestSell();
+
+    if (isLoading) return null;
+
     return (
         <div className="md:mx-auto md:container p-6 mt-6">
             <div className="w-full flex flex-col sm:flex-row gap-6 items-center justify-between">
@@ -36,7 +41,7 @@ export default function BestSellers() {
                     }}
                     className="best-sellers-slider"
                 >
-                    {Array(10).fill({}).map((item, index) => {
+                    {productsList?.map((item, index) => {
                         return (
                             <SwiperSlide key={index} className="!w-[250px] ml-4">
                                 <ProductCard product={item} />
