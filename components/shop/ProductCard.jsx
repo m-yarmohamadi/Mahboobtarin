@@ -12,11 +12,13 @@ export default function ProductCard({ product, user }) {
         <div className='w-full h-full flex flex-col overflow-hidden bg-white rounded-xl duration-300 border border-gray-300 hover:shadow-md'>
             <Link href={link} className='block border-b border-sky-300 relative'>
                 <div className='aspect-w-10 aspect-h-10'>
-                    <img
-                        src={product?.photos[0]?.path}
-                        alt={product?.title}
-                        className='w-full h-full object-center object-cover'
-                    />
+                    {product?.photos &&
+                        <img
+                            src={product?.photos[0]?.path}
+                            alt={product?.title}
+                            className='w-full h-full object-center object-cover'
+                        />
+                    }
                 </div>
                 {/* <div className="flex items-center absolute bottom-2 left-2 text-sm text-white bg-blue-500 p-2 rounded-lg">
                     خرید قسطی
@@ -31,10 +33,10 @@ export default function ProductCard({ product, user }) {
                 </Link>
                 <div className='space-y-4'>
                     <div className={`w-full flex mt-4 gap-1 ${product?.discount_price ? "justify-between" : "justify-end"} items-center`}>
-                        {product?.discount_price && <span className='text-sm text-white bg-error px-4 py-2 rounded-md'>{3} %</span>}
+                        {product?.discount_price && <span className='text-sm text-white bg-error px-4 py-2 rounded-md'>{product?.discount_price} %</span>}
                         <div className='flex flex-col justify-center items-center'>
                             {product?.discount_price && <p className='text-md line-through  text-gray-400'>{numberWithCommas(product?.price)} </p>}
-                            <p className='text-lg font-bold text-gray-700 text-left'>{numberWithCommas(product?.discount_price ? addDiscount(product?.price, product?.discount_price) : product?.price)} تومان</p>
+                            <p className='text-lg font-bold text-gray-700 text-left'>{product?.price && numberWithCommas(product?.discount_price ? addDiscount(product?.price, product?.discount_price) : product?.price)} تومان</p>
 
                         </div>
                     </div>

@@ -15,6 +15,7 @@ export default function MultiSelect({ name, label, options, placeholder, require
                     onChange={onChange}
                     name={name}
                     id={name}
+                    instanceId={name}
                     isMulti
                     placeholder={placeholder}
                     options={options || []}
