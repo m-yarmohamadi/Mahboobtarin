@@ -153,8 +153,8 @@ function PictureSelector({ formik }) {
         try {
             const { data } = await mutateUploadPhotos(formData);
             if (data) {
-                formik.setFieldValue("files", [{ id: Date.now(), file }])
-                formik.setFieldValue("photo_id", [formik.values.photo_id, data.photo_id])
+                formik.setFieldValue("files", [...formik.values.files, { id: Date.now(), file }])
+                formik.setFieldValue("photo_id", [...formik.values.photo_id, data.photo_id])
             }
 
         } catch (error) {

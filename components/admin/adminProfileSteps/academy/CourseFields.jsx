@@ -67,7 +67,7 @@ export default function CourseFields({ formik, loading }) {
                     type={'number'}
                 />
                 <Input
-                    label={'تعداد موجودی'}
+                    label={'ظرفیت'}
                     formik={formik}
                     name={'anbar'}
                     required={true}
@@ -155,8 +155,8 @@ function CoverImage({ formik }) {
         try {
             const { data } = await mutateUploadPhotos(formData);
             if (data) {
-                formik.setFieldValue("files", [...formik.values.files, { id: Date.now(), file }])
-                formik.setFieldValue("photo_id", [...formik.values.photo_id, data.photo_id])
+                formik.setFieldValue("files", [{ id: Date.now(), file }])
+                formik.setFieldValue("photo_id", [data.photo_id])
             }
 
         } catch (error) {

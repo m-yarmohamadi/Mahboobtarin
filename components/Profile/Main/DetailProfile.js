@@ -137,8 +137,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
   )[0]?.label;
   const { provinces, isLoading } = useGetProvinces();
   const getProvinceLabel =
-    !isLoading && provinces.filter((p) => p.id === 5)[0]?.name;
-
+    !isLoading && provinces.filter((p) => Number(p.id) === Number(userData?.province_id))[0]?.name;
+  
   const DiscountCalculation = (i, d) => {
     return i - (i * d) / 100;
   };

@@ -11,7 +11,7 @@ import useGetExpertiseUser from '@/hooks/useExpertiseUser';
 export default function MyLinkdin() {
 	const queryClient = useQueryClient();
 	const { user, isLoading } = useProfile();
-	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.id);
+	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.unique_url_id);
 	const { link_dooni } = data?.user || {}
 	
 	const initialValues = {
@@ -32,7 +32,7 @@ export default function MyLinkdin() {
 			if (data) {
 				toast.success("خبر با موفقیت درج شد");
 				resetForm();
-				queryClient.invalidateQueries({queryKey:["get-expertise-user-by-id", user?.id]})
+				queryClient.invalidateQueries({queryKey:["get-expertise-user-by-id", user?.unique_url_id]})
 			}
 
 		} catch (error) {
@@ -77,7 +77,7 @@ export default function MyLinkdin() {
 					className='space-y-4'
 					onSubmit={formik.handleSubmit}>
 					<div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-4'>
-						<Linkdins userID={user.id} link_dooni={link_dooni} formik={formik} loading={isPending} />
+						<Linkdins userID={user.unique_url_id} link_dooni={link_dooni} formik={formik} loading={isPending} />
 					</div>
 				</form>
 			</div>

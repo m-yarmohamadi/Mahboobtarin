@@ -35,7 +35,7 @@ const validationSchema = Yup.object({
     expiredate: Yup.string().required("تاریخ انقضا را وارد کنید"),
     status: Yup.string().required("وضعیت محصول را مشخص کنید"),
     price: Yup.number().required("قیمت را وارد کنید"),
-    discount_price: Yup.number().max(100, "حداکثر درصد تخفیف نمیتواند بیشتر از 100 باشد"),
+    discount_price: Yup.number().required("کد تخفیف را وارد کنید").max(100, "حداکثر درصد تخفیف نمیتواند بیشتر از 100 باشد"),
     anbar: Yup.number().required("تعداد موجودی را وارد کنید"),
     description: Yup.string().required("توضیحات را وارد کنید"),
     shortdescription: Yup.string().required("توضیحات کامل را وارد کنید"),
@@ -73,7 +73,7 @@ export default function CreateProductForm() {
             photo_id: transformPhotoId,
             categories: transformCategories,
         }
-
+        
         const formData = new FormData();
 
         for (const key in productData) {

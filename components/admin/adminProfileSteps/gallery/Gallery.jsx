@@ -13,11 +13,11 @@ import toast from 'react-hot-toast';
 
 export default function Gallery() {
 	const { user, isLoading } = useProfile();
-	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.id);
+	const { data, isLoading: isGetGallery } = useGetExpertiseUser(user?.unique_url_id);
 	const { gallery } = data?.user || {};
 	const [open, setOpen] = useState(false);
 
-	if (isLoading || iGetLinkdins) return (
+	if (isLoading || isGetGallery) return (
 		<div className='w-full h-screen lg:h-full flex items-center justify-center'>
 			<Loading customeColor="#0693a4" />
 		</div>
@@ -41,7 +41,7 @@ export default function Gallery() {
 						<GalleryItem
 							key={index}
 							data={item}
-							userID={user.id}
+							userID={user.unique_url_id}
 						/>
 					))}
 				</div>
