@@ -63,7 +63,6 @@ export async function getServerSideProps(ctx) {
             `/api/v1/users/expertise/list/${query.expertUsername}${user ? `/${user.id}` : ""
             }`
         );
-        console.log(data);
 
         if (!data) {
             return {

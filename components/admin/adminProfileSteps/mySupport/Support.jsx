@@ -49,7 +49,7 @@ const Support = () => {
 						{tickets?.data?.map((ticket) => (
 							<tr key={ticket.id}>
 								<td>
-									<FaDotCircle className='w-7 text-green-900' />
+									<FaDotCircle className={`w-7 ${ticket.status === "0" ? "text-red-600" : "text-green-900"}`} />
 								</td>
 								<td>{ticket.title}</td>
 								<td>{toPersianDateShort(ticket.created_at)}</td>
