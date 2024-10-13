@@ -22,7 +22,7 @@ const MainProfile = ({ userData, isFollow, isLike, popularList }) => {
             </div>
           </div>
           <div className=" lg:col-span-4 w-full">
-            <LeftProfile />
+            <LeftProfile user={userData} />
           </div>
         </div>
       </div>

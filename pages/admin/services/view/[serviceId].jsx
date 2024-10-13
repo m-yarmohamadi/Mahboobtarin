@@ -1,5 +1,7 @@
 import ExpertDashboard from "@/components/admin/ExpertDashboard";
-import { useGetServiceById } from "@/hooks/useDashboard";
+import { useGetServiceById, useGetServicesProfile } from "@/hooks/useDashboard";
+import useProfile from "@/hooks/useProfile";
+import { getServiceProfile } from "@/services/expertDashboardService";
 import Loading from "@/tools/Loading";
 import toEnglishNumber from "@/utils/toEnglishNumber";
 import { toPersianDateShort } from "@/utils/toPersianDate";
@@ -41,27 +43,47 @@ const processActivityTimes = (activityTimes) => {
 export default function viewService() {
     const id = useParams();
     const { serviceId } = id || "";
-    const { isLoadingService, serviceData } = useGetServiceById(serviceId);
-    const getTimesOfWeekday = !isLoadingService && processActivityTimes(serviceData?.activity_time);
+    const { user, isLoading } = useProfile();
+    const [serviceLoading, setServiceLoading] = useState(true);
+    const [servicesData, setServicesData] = useState({});
+    const getTimesOfWeekday = !isLoading && !serviceLoading && servicesData && processActivityTimes(servicesData?.activity_time);
     const [activeTab, setActiveTab] = useState(null);
 
     useEffect(() => {
-        if (!isLoadingService) {
+        async function fetchServicesHandler() {
+            try {
+                const { data } = await getServiceProfile(user?.id, serviceId);
+                if (data) {
+                    setServicesData(data);
+                    setServiceLoading(false);
+                }
+            } catch (error) {
+
+            }
+        }
+
+        if (!isLoading) {
+            fetchServicesHandler();
+        }
+    }, [isLoading])
+
+    useEffect(() => {
+        if (servicesData && !serviceLoading) {
             setActiveTab(getTimesOfWeekday.result[0].week)
         }
-    }, [isLoadingService])
+    }, [servicesData, serviceLoading])
 
     return (
         <ExpertDashboard>
             {
-                !isLoadingService ?
+                !serviceLoading && !isLoading ?
                     <div className="mx-auto md:max-w-screen-sm">
                         <div className="flex items-center gap-3 pb-4 border-b border-b-gray-300">
                             <button onClick={() => window.history.back()} className="text-gray-600 btn btn--secondary !p-2">
                                 <FaArrowRightLong className="w-5 h-5" />
                             </button>
                             <h1 className="text-xl font-semibold text-gray-600">
-                                {serviceData.type}
+                                {servicesData.type}
                             </h1>
 
                         </div>
@@ -72,10 +94,10 @@ export default function viewService() {
                                 </span>
                                 <div>
                                     {
-                                        serviceData.price_type === "custom" ?
-                                            `${serviceData.price} تومان`
+                                        servicesData.price_type === "custom" ?
+                                            `${servicesData.price} تومان`
                                             :
-                                            serviceData.price_type === "free" ? "رایگان" : "خیریه"
+                                            servicesData.price_type === "free" ? "رایگان" : "خیریه"
                                     }
                                 </div>
                             </div>

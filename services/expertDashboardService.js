@@ -60,6 +60,12 @@ export function getServiceById(serviceId) {
   return http.get(`/api/v1/dashboard/service/${serviceId}`);
 }
 
+export function getServiceProfile(expertId, serviceId) {
+  return http.get(
+    `/api/v1/dashboard/service/motekhases/${expertId}/${serviceId || ""}`
+  );
+}
+
 export function getServiceItems() {
   return http.get(`/api/v1/dashboard/admin/service`);
 }
@@ -155,6 +161,23 @@ export function addNewRequest(data) {
 
 export function getRequestsList() {
   return http.get("/api/v1/dashboard/requests/list", {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+// * -------------- expert support --------------
+export function addTicket(data) {
+  return http.post("/api/v1/dashboard/support/store", data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function getTicket(ticketId) {
+  return http.get(`/api/v1/dashboard/support/${ticketId || ""}`, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },

@@ -152,7 +152,6 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     likeDislikeHandler(userData.id);
     router.replace(pathname, { scroll: false });
   };
-  console.log(userData);
 
   return (
     <div className="w-full">
@@ -274,7 +273,9 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
               </div>
             ) : null}
           </div>
-          {userData?.addresses.length && userData?.addresses[0].lat && userData?.addresses[0].lng ? (
+          {userData?.addresses.length &&
+          userData?.addresses[0].lat &&
+          userData?.addresses[0].lng ? (
             <div className="py-2">
               <div className="w-full h-[200px] border border-primary-01 rounded-md overflow-hidden">
                 <MapView

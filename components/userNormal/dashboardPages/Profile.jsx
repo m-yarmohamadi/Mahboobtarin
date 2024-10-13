@@ -36,6 +36,7 @@ export default function Profile() {
         nationality: getNationality || "Iran",
         birthday: user?.birthday || "",
         email: user?.email || "",
+        unique_url_id: user?.unique_url_id || "",
     };
 
     const { mutate: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
@@ -49,6 +50,7 @@ export default function Profile() {
             gender: values.gender,
             nationality: values.nationality,
             birthday: values.birthday,
+            unique_url_id: values.unique_url_id,
         }
 
         const data = new FormData();
@@ -124,6 +126,11 @@ export default function Profile() {
             name: "lastname",
             label: "نام خانوادگی",
             required: true
+        },
+        {
+            name: "unique_url_id",
+            label: "نام کاربری",
+            disabled: true
         },
         {
             name: (getNationality === "ایران" ? "national_code" : "passport_number"),

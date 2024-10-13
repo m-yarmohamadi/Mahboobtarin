@@ -185,7 +185,7 @@ export default function Sidebar({ open, onClose }) {
                     </div>
                     <div className='w-full p-2 flex flex-col items-center justify-center gap-2'>
                         <span className='font-bold'>{user?.name} {user?.lastname}</span>
-                        <span>{user?.email}</span>
+                        <span>{user?.unique_url_id}</span>
                         <span className='text-sm'>
                             سطح: <span className='font-bold'>نقره ای</span>
                         </span>

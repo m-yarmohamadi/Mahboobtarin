@@ -20,6 +20,8 @@ export const enToFaMessages = (msg) => {
 			return 'کد تایید وارد شده نادرست است';
 		case 'verifycode not valid':
 			return 'کد تایید وارد شده نادرست است';
+		case 'The unique url id has already been taken.':
+			return 'نام کاربری قبلا انتخاب شده است';
 
 		default:
 			return msg;

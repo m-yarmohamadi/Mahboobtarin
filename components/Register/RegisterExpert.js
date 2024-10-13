@@ -51,7 +51,8 @@ const validationSchemaStep1 = Yup.object({
 			) return false; 
 			return true;
 		  }),
-	email: Yup.string().email('لطفا یک ایمیل معتبر وارد کنید').required('وارد کردن ایمیل اجباری است').email('لطفاً یک ایمیل معتبر وارد کنید'),
+	email: Yup.string().required('وارد کردن ایمیل اجباری است').email('لطفاً یک ایمیل معتبر وارد کنید'),
+	unique_url_id: Yup.string().required('وارد کردن نام کاربری اجباری است').matches(/^[a-zA-Z][a-zA-Z0-9_]*$/, 'نام کاربری فقط می‌تواند شامل حروف انگلیسی، اعداد و _ باشد'),
 });
 
 const validationSchemaStep2 = Yup.object({
@@ -118,6 +119,7 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData, o
 		passport_number: userData?.passport_number || "",
 		birthday: userData?.birthday || "",
 		email: userData?.email || "",
+		unique_url_id: userData?.unique_url_id || "",
 	}
 
 	const submitHandlerStep1 = (values) => {
@@ -132,7 +134,7 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData, o
 				}
 			},
 			onError:(error)=>{
-				toast.error("خطایی رخ داده است");
+				toast.error(enToFaMessages(error?.response?.data?.message[0]));
 			}
 		})
 	}
@@ -273,7 +275,7 @@ const RegisterExpert = ({mobile, userStep=1, nationalCodeInitial="", userData, o
 					Cookies.set("accessToken" , data.token, {expires:1/48});
 					setCompleted(true);
 					toast.success("ثبت نام شما با موفقیت تکمیل شد");
-					router.replace(`/`);
+					router.replace(`/${data?.user?.unique_url_id}`);
 				}
 			},
 			onError:(error)=>{

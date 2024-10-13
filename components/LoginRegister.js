@@ -43,7 +43,7 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
 						>
 							{user?.type !== 'user' && (
 								<MenuOptionsItem
-									link={`/profile/${user?.id}`}
+									link={`/${user?.unique_url_id}`}
 									text='پروفایل'
 									icon={<BiUser className='w-6 h-6' />}
 								/>

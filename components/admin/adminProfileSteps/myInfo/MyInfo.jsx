@@ -65,7 +65,8 @@ export default function MyInfo() {
         grade: grade || [],
         honors_description: user?.honors_description || "",
         description: user?.description || "",
-        amount_experience_year: user?.amount_experience_year || ""
+        amount_experience_year: user?.amount_experience_year || "",
+        unique_url_id: user?.unique_url_id || "",
     };
     const { mutate: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
     const queryClient = useQueryClient();
@@ -75,6 +76,7 @@ export default function MyInfo() {
             name: values.name,
             lastname: values.lastname,
             email: values.email,
+            unique_url_id: values.unique_url_id,
             gender: values.gender,
             phone: values.phone,
             nationality: values.nationality,
@@ -117,6 +119,7 @@ export default function MyInfo() {
     const validationSchema = Yup.object({
         name: Yup.string().required('وارد کردن نام اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
         lastname: Yup.string().required('وارد کردن نام خانوادگی اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
+        unique_url_id: Yup.string().required('وارد کردن نام کاربری اجباری است').matches(/^[a-zA-Z][a-zA-Z0-9_]*$/, 'نام کاربری فقط می‌تواند شامل حروف انگلیسی، اعداد و _ باشد'),
         email: Yup.string().email("ایمیل نامعتبر است"),
         gender: Yup.string().required('وارد کردن جنسیت اجباری است'),
         nationality: Yup.string().required('وارد کردن ملیت اجباری است'),
@@ -171,6 +174,11 @@ export default function MyInfo() {
             name: "lastname",
             label: "نام خانوادگی",
             required: true
+        },
+        {
+            name: "unique_url_id",
+            label: "نام کاربری",
+            disabled: true
         },
         {
             name: (getNationality === "ایران" ? "national_code" : "passport_number"),

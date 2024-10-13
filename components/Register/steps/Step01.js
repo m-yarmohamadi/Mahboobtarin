@@ -73,20 +73,26 @@ const Step01 = ({ formik, children }) => {
 						type={'text'}
 					/>
 
-					<div className='flex justify-between items-start gap-4'>
-						<Select
-							name={'gender'}
-							label={'جنسیت'}
-							options={gender}
-							formik={formik}
-						/>
-						<Select
-							name={'nationality'}
-							label={'ملیت'}
-							options={sortedCountries}
-							formik={formik}
-						/>
-					</div>
+					<Input
+						name={'unique_url_id'}
+						label={'نام کاربری'}
+						formik={formik}
+						type={'text'}
+					/>
+
+					<Input
+						name={'email'}
+						label={'ایمیل'}
+						formik={formik}
+						type={'text'}
+					/>
+
+					<Select
+						name={'nationality'}
+						label={'ملیت'}
+						options={sortedCountries}
+						formik={formik}
+					/>
 
 					<div className='flex justify-between items-start gap-4'>
 						{formik.values.nationality === 'Iran' && (
@@ -136,12 +142,6 @@ const Step01 = ({ formik, children }) => {
 								}}
 								value={selectedYear}
 							/>
-							{/* <Input
-								name={'birthday'}
-								label={'تاریخ تولد'}
-								formik={formik}
-								type={'date'}
-							/> */}
 						</div>
 						<div className='w-full flex justify-start items-start'>
 							{formik?.errors.birthday && formik?.touched.birthday && 
@@ -152,20 +152,13 @@ const Step01 = ({ formik, children }) => {
 						</div>
 					</div>
 					<div className='flex justify-between items-start gap-4'>
-						{/* <Input
-							name={'mobile'}
-							label={'شماره تلفن همراه'}
-							formik={formik}
-							type={'text'}
-							placeholder={'+98'}
-							dir='ltr'
-						/> */}
-						<Input
-							name={'email'}
-							label={'ایمیل'}
-							formik={formik}
-							type={'text'}
-						/>
+					<Select
+						name={'gender'}
+						label={'جنسیت'}
+						options={gender}
+						formik={formik}
+					/>
+						
 					</div>
 				</div>
 				{children}

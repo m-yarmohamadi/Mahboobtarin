@@ -32,7 +32,11 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                     toast.success("با موفقیت وارد شدید");
                     Cookies.set("accessToken", data.token, { expires: 1 / 48 });
                     setIsLoginState(true);
-                    router.replace("/");
+                    if (data?.user?.type === "user") {
+                        router.replace("/");
+                    } else {
+                        router.replace(`/${data?.user?.unique_url_id}`);
+                    }
                 }
             } catch (error) {
                 // if (error?.response?.status === 422 && error?.response?.data?.message[0] === "The registration process has not been completed.") {
@@ -56,7 +60,7 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                     return
                 }
 
-                if(error?.response?.status === 401){
+                if (error?.response?.status === 401) {
                     toast.error("کد تایید نادرست است")
                 }
             }

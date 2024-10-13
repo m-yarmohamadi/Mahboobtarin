@@ -32,16 +32,16 @@ export default function PasswordForm({ onLoginOtp, mobile }) {
                 toast.success("با موفقیت وارد شدید");
                 setIsLoginState(true);
                 Cookies.set("accessToken", data.access_token, { expires: 1 / 48 });
-                
+
                 if (data?.user?.type === "user") {
                     router.replace(`/`);
                 } else {
-                    router.replace(`/profile/${data?.user?.id}`);
+                    router.replace(`/${data?.user?.unique_url_id}`);
                 }
             }
         } catch (error) {
             console.log(error);
-            
+
             formik.setFieldError("password", "خطایی رخ داده است");
         }
     }

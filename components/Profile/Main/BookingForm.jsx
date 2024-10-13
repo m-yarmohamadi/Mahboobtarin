@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
@@ -9,8 +9,9 @@ import { FaRegCalendar } from "react-icons/fa6";
 import { IoTimeOutline } from "react-icons/io5";
 import { toPersianDateShort } from "@/utils/toPersianDate";
 import { IoIosCalendar } from "react-icons/io";
-import { useGetServiceById } from "@/hooks/useDashboard";
 import { MdOutlineTimerOff } from "react-icons/md";
+import { getServiceProfile } from "@/services/expertDashboardService";
+import Loading from "@/tools/Loading";
 
 
 const processActivityTimes = (activityTimes, currentWeekday) => {
@@ -42,17 +43,38 @@ const processActivityTimes = (activityTimes, currentWeekday) => {
     return { result: extractTimes[0], isRoutine };
 };
 
-export default function BookingForm({ onClose, serviceID }) {
+export default function BookingForm({ onClose, serviceID, userId }) {
     const [selected, setSelected] = useState();
     const [date, setDate] = useState(new Date());
-    const { isLoadingService, serviceData } = useGetServiceById(serviceID);
     const currentWeekday = new Date(date).toLocaleDateString("fa-IR", { weekday: "long" });
-    const getTimesOfWeekday = !isLoadingService && processActivityTimes(serviceData?.activity_time, currentWeekday);
-
+    const [serviceData, setServiceData] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const getTimesOfWeekday = !isLoading && processActivityTimes(serviceData?.activity_time, currentWeekday);
+    
     const selectDate = (date) => {
         setDate(date);
         setSelected();
     }
+    
+    useEffect(()=>{
+		async function fetchServicesHandler() {
+			try {
+				const {data} = await getServiceProfile(userId, serviceID);
+				setServiceData(data);
+                setIsLoading(false);
+			} catch (error) {
+				
+			}
+		}
+
+        fetchServicesHandler();
+	},[])
+
+    if(isLoading) return (
+        <div className="w-full flex items-center justify-center h-44">
+            <Loading customeColor={'#0693a4'}/>
+        </div>
+    );
 
     if (getTimesOfWeekday.isRoutine) {
         return (

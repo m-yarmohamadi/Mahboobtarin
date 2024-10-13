@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TitleItems from './TitleItems';
 import { FaClock, FaComment, FaDochub, FaSearch, FaTextWidth, FaTimes } from 'react-icons/fa';
 import { BsChatText } from 'react-icons/bs';
 
 import { FaClockRotateLeft } from 'react-icons/fa6';
-import { enToFaNumber } from '@/utils/enToFa';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { IoPerson } from 'react-icons/io5';
 import Input from '@/tools/Input';
 import Modal from '@/components/Modal';
 import BookingForm from './BookingForm';
-import { useGetServices } from '@/hooks/useDashboard';
+import { useGetServices, useGetServicesProfile } from '@/hooks/useDashboard';
 import numberWithCommas from '@/utils/numberWithCommas';
 import getPriceService from '@/components/admin/adminProfileSteps/myservices/getPriceService';
 
@@ -57,76 +56,76 @@ const Followers = [
 	},
 ];
 
-const LeftProfile = () => {
+const LeftProfile = ({user}) => {
 	const [showIdeasDetail, setShowIdeasDetail] = useState(1);
-	const { isLoadingServices, servicesData } = useGetServices();
+	const { isLoadingServices, servicesData } = useGetServicesProfile(user?.id);
 	const [modal, setModal] = useState(0);
 
 	return (
 		<div className='w-full  '>
-			<div className='p-2'>
-				<div className=' border border-gray-200 rounded-md p-4  w-full'>
-					<TitleItems title={'پلن های خدمات'} />
-					<div className='w-full flex flex-col justify-center items-center gap-2'>
-						{!isLoadingServices && servicesData?.map((item, index) => {
-							return (
-								<div
-									key={item.id}
-									onClick={() => setShowIdeasDetail(index + 1)}
-									className='  cursor-pointer w-full flex flex-col justify-center items-start gap-2 p-1 pb-3  border border-gray-300 rounded-md'>
-									<div onClick={()=>setModal(item.id)} className='w-full flex-col sm:flex-row sm:items-center flex justify-between gap-4'>
-										<div className=' flex items-center gap-1 truncate'>
-											<div>
-												<span className='rounded-md flex justify-center items-center text-lg text-primary-01 bg-primary-01 bg-opacity-20 w-8 h-8'>
-													<BsChatText />
-												</span>
+				<div className='p-2'>
+					<div className=' border border-gray-200 rounded-md p-4  w-full'>
+						<TitleItems title={'پلن های خدمات'} />
+						<div className='w-full flex flex-col justify-center items-center gap-2'>
+							{!isLoadingServices && servicesData?.map((item, index) => {
+								return (
+									<div
+										key={item.id}
+										onClick={() => setShowIdeasDetail(index + 1)}
+										className='  cursor-pointer w-full flex flex-col justify-center items-start gap-2 p-1 pb-3  border border-gray-300 rounded-md'>
+										<div onClick={()=>setModal(item.id)} className='w-full flex-col sm:flex-row sm:items-center flex justify-between gap-4'>
+											<div className=' flex items-center gap-1 truncate'>
+												<div>
+													<span className='rounded-md flex justify-center items-center text-lg text-primary-01 bg-primary-01 bg-opacity-20 w-8 h-8'>
+														<BsChatText />
+													</span>
+												</div>
+												<span className='font-bold text-sm truncate'>{item.type}</span>
 											</div>
-											<span className='font-bold text-sm truncate'>{item.type}</span>
+											<span className='text-primary-01 flex-1 justify-end items-center gap-1 flex text-sm pl-3 font-bold'>
+												{
+													item.price_type === "custom" ?
+													<>
+													{numberWithCommas(item.price)}
+													<span className='text-xs font-normal'>
+														تومان
+													</span>
+													</>
+													:
+													getPriceService(item.price_type)
+												} 
+											</span>
 										</div>
-										<span className='text-primary-01 flex-1 justify-end items-center gap-1 flex text-sm pl-3 font-bold'>
-											{
-												item.price_type === "custom" ?
-												<>
-												{numberWithCommas(item.price)}
-												<span className='text-xs font-normal'>
-													تومان
-												</span>
-												</>
-												:
-												getPriceService(item.price_type)
-											} 
-										</span>
+										<Modal title={item.type} open={modal === Number(item.id)} onClose={()=>setModal(0)}>
+											<BookingForm onClose={()=>setModal(0)} serviceID={item.id} userId={user?.id}/>
+										</Modal>
+										{showIdeasDetail === index + 1 && (
+											<div className='ps-2 flex flex-col justify-start items-center gap-2 text-gray-600'>
+												<div className='w-full flex justify-start items-center gap-1'>
+													<span>
+														<FaClock />
+													</span>
+													<span className='text-xs'>پاسخ دهی کمتر از 1 ساعت (حداکثر 10 ساعت) </span>
+												</div>
+												<div className='w-full flex justify-start items-center gap-1'>
+													<span>
+														<FaClockRotateLeft />
+													</span>
+													<span className='text-sm'>پایان توافقی گفتگو </span>
+												</div>
+											</div>
+										)}
 									</div>
-									<Modal title={item.type} open={modal === item.id} onClose={()=>setModal(0)}>
-										<BookingForm onClose={()=>setModal(0)} serviceID={item.id}/>
-									</Modal>
-									{showIdeasDetail === index + 1 && (
-										<div className='ps-2 flex flex-col justify-start items-center gap-2 text-gray-600'>
-											<div className='w-full flex justify-start items-center gap-1'>
-												<span>
-													<FaClock />
-												</span>
-												<span className='text-xs'>پاسخ دهی کمتر از 1 ساعت (حداکثر 10 ساعت) </span>
-											</div>
-											<div className='w-full flex justify-start items-center gap-1'>
-												<span>
-													<FaClockRotateLeft />
-												</span>
-												<span className='text-sm'>پایان توافقی گفتگو </span>
-											</div>
-										</div>
-									)}
-								</div>
-							);
-						})}
-						{/* <button
-							className='p-2 text-sm w-full bg-primary-01 rounded-md text-white shadow hover:bg-opacity-90'
-							type=''>
-							ادامه و پرداخت
-						</button> */}
+								);
+							})}
+							{/* <button
+								className='p-2 text-sm w-full bg-primary-01 rounded-md text-white shadow hover:bg-opacity-90'
+								type=''>
+								ادامه و پرداخت
+							</button> */}
+						</div>
 					</div>
 				</div>
-			</div>
 			<div className='w-full p-2 '>
 				<div className='w-full p-4 bg-gray-200 shadow-md  rounded-md'>
 					<div className='w-full flex justify-between flex-col sm:flex-row items-center gap-2 text-md font-bold'>

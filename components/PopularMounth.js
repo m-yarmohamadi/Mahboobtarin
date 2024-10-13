@@ -72,7 +72,7 @@ const PopularMounth = () => {
           return (
             <SwiperSlide key={item.id} className="!w-auto !inline-block">
               <Link
-                href={`/profile/${item.id}`}
+                href={`/${item.unique_url_id}`}
                 className="w-full flex flex-col justify-center items-center justify-items-center text-center"
               >
                 <div className="w-full flex justify-center items-center justify-items-center text-center px-5">

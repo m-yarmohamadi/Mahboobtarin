@@ -57,7 +57,7 @@ export default function Expertise({ formik }) {
                         <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0">
                             <div className="flex-1 flex items-center gap-1">
                                 <p className="text-sm font-medium">
-                                    {item.title}
+                                    {transformCategories.filter((i) => Number(i.value) === Number(item.title))[0].label}
                                 </p>
                                 -
                                 <span className="text-xs">

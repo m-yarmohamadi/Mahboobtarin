@@ -9,6 +9,8 @@ import {
   getRequestsList,
   getServiceById,
   getServiceItems,
+  getServiceProfile,
+  getTicket,
   likeOrDislikeApi,
 } from "@/services/expertDashboardService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -40,6 +42,19 @@ export function useGetServiceById(serviceId) {
   const { data: serviceData } = data || {};
 
   return { serviceData, isLoadingService };
+}
+
+export function useGetServicesProfile(expertId, serviceId) {
+  const { data, isLoading: isLoadingServices } = useQuery({
+    queryKey: ["get-services-profile"],
+    queryFn: () => getServiceProfile(expertId, serviceId),
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: servicesData } = data || {};
+
+  return { servicesData, isLoadingServices };
 }
 
 export function useGetServiceItems() {
@@ -219,4 +234,18 @@ export function useGetRequests() {
   const { data: requests } = requestsData || {};
 
   return { requests, isGetRequests };
+}
+
+// * expert support --------------
+export function useGetTicket(ticketId) {
+  const { data: ticketData, isLoading } = useQuery({
+    queryKey: ["get-tickets", ticketId],
+    queryFn: ()=>getTicket(ticketId),
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: tickets } = ticketData || {};
+
+  return { tickets, isLoading };
 }

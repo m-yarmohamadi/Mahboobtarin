@@ -1,9 +1,18 @@
 import Modal from '@/components/Modal';
+import { useGetTicket } from '@/hooks/useDashboard';
+import { addTicket } from '@/services/expertDashboardService';
+import Loading from '@/tools/Loading';
+import { toPersianDateShort } from '@/utils/toPersianDate';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { FaDotCircle } from 'react-icons/fa';
 
 const Support = () => {
 	const [open, setOpen] = useState(false);
+	const { tickets, isLoading } = useGetTicket();
+
+	if (isLoading) return null
 
 	return (
 		<div>
@@ -37,55 +46,24 @@ const Support = () => {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>
-								<FaDotCircle className='w-7 text-green-900' />
-							</td>
-							<td>موضوع شماره 1</td>
-							<td>1403/07/01</td>
-							<td>1403/07/17</td>
-						</tr>
-						<tr>
-							<td>
-								<FaDotCircle className='w-7 text-red-900' />
-							</td>
-							<td>موضوع شماره 2</td>
-							<td>1403/07/02</td>
-							<td>1403/07/18</td>
-						</tr>
-						<tr>
-							<td>
-								<FaDotCircle className='w-7 text-green-900' />
-							</td>
-							<td>موضوع شماره 3</td>
-							<td>1403/07/03</td>
-							<td>1403/07/19</td>
-						</tr>
+						{tickets?.data?.map((ticket) => (
+							<tr key={ticket.id}>
+								<td>
+									<FaDotCircle className='w-7 text-green-900' />
+								</td>
+								<td>{ticket.title}</td>
+								<td>{toPersianDateShort(ticket.created_at)}</td>
+								<td>{toPersianDateShort(ticket.updated_at)}</td>
+							</tr>
+						))}
 					</tbody>
 				</table>
 				<Modal
 					open={open}
 					onClose={() => setOpen(false)}
-					title='تیکت جدید'>
-					<form>
-						<div className='w-full px-3 mb-6 md:mb-0'>
-							<label for=''>موضوع تیکت</label>
-							<input
-								type='text'
-								className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
-							/>
-						</div>
-						<div className='w-full px-3 mb-6 md:mb-0'>
-							<label for=''>شرح تیکت</label>
-							<textarea
-								type='text'
-								className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
-							/>
-						</div>
-						<div className='w-full flex justify-end items-center'>
-							<button className='p-2 bg-primary-01 text-white rounded-md'>ثبت تیکت</button>
-						</div>
-					</form>
+					title='تیکت جدید'
+				>
+					<CreateTicketForm onClose={() => setOpen(false)} />
 				</Modal>
 			</div>
 		</div>
@@ -93,3 +71,74 @@ const Support = () => {
 };
 
 export default Support;
+
+
+function CreateTicketForm({ onClose }) {
+	const { mutateAsync, isPending } = useMutation({ mutationFn: addTicket });
+	const queryClient = useQueryClient();
+	const [title, setTitle] = useState("");
+	const [description, setDescription] = useState("");
+
+	const submitTicketHandler = async (e) => {
+		e.preventDefault();
+
+		if (!title) {
+			toast.error("عنوان تیکت را وارد کنید");
+			return
+		}
+
+		if (!description) {
+			toast.error("توضیحات تیکت را وارد کنید");
+			return
+		}
+
+		if (title && description) {
+			try {
+				const { data } = await mutateAsync({ title, description });
+				if (data) {
+					toast.success("تیکت شما ثبت شد");
+					queryClient.invalidateQueries({ queryKey: ["get-tickets"] });
+					setTitle("");
+					setDescription("");
+					onClose();
+				}
+
+			} catch (error) {
+				if (error?.response?.status === 401) {
+					window.location.reload();
+					return;
+				}
+
+				toast.error("خطایی رخ داده است");
+			}
+		}
+	}
+
+	return (
+		<form onSubmit={submitTicketHandler}>
+			<div className='w-full px-3 mb-6 md:mb-0'>
+				<label for=''>موضوع تیکت</label>
+				<input
+					type='text'
+					value={title}
+					onChange={(e) => setTitle(e.target.value)}
+					className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
+				/>
+			</div>
+			<div className='w-full px-3 mb-6 md:mb-0'>
+				<label for=''>شرح تیکت</label>
+				<textarea
+					type='text'
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
+					className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
+				/>
+			</div>
+			<div className='w-full flex justify-end items-center'>
+				<button type='submit' className='p-2 bg-primary-01 text-white rounded-md'>
+					{!isPending ? "ثبت تیکت" : <Loading />}
+				</button>
+			</div>
+		</form>
+	)
+}

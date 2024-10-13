@@ -1,21 +1,24 @@
-import { useGetServices } from "@/hooks/useDashboard";
-import { deleteService } from "@/services/expertDashboardService";
+import { useGetServices, useGetServicesProfile } from "@/hooks/useDashboard";
+import useProfile from "@/hooks/useProfile";
+import { deleteService, getServiceProfile } from "@/services/expertDashboardService";
 import Loading from "@/tools/Loading";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 
 export default function MyServices() {
-	const { servicesData, isLoadingServices } = useGetServices();
+	const { user, isLoading } = useProfile();
+	const [servicesData, setServicesData] = useState([]);
 	const { isPending, mutateAsync: mutateDeleteService } = useMutation({ mutationFn: deleteService });
 	const queryClient = useQueryClient();
 
 	const deleteServiceHandler = async (id) => {
 		try {
 			const { data } = await mutateDeleteService({ id });
-			
+
 			if (data) {
 				toast.success("خدمت مورد نظر حذف شد");
 				queryClient.invalidateQueries({ queryKey: ['get-services'] });
@@ -31,7 +34,24 @@ export default function MyServices() {
 		}
 	}
 
-	if (isLoadingServices) return (
+	useEffect(() => {
+		async function fetchServicesHandler() {
+			try {
+				const { data } = await getServiceProfile(user?.id);
+				if (data) {
+					setServicesData(data);
+				}
+			} catch (error) {
+
+			}
+		}
+
+		if (!isLoading) {
+			fetchServicesHandler();
+		}
+	}, [isLoading])
+
+	if (isLoading) return (
 		<div className='w-full h-full flex items-center justify-center'>
 			<Loading customeColor="#0693a4" />
 		</div>

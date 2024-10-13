@@ -8,31 +8,31 @@ export async function middleware(req) {
   let isAuth;
   let userRole;
 
-  if (pathname.startsWith("/profile")) {
-    let expertData;
+  // if (pathname.startsWith("/profile")) {
+  //   let expertData;
 
-    await fetch(
-      `https://mahboobtarin.mostafaomrani.ir/api/v1/users/expertise/list/${
-        pathname.split("/")[2]
-      }`,
-      {
-        headers: {
-          Authorization: cookie,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && data?.message !== "User not found") {
-          expertData = data;
-        }
-      })
-      .catch((error) => {
-        if (error) expertData = null;
-      });
+  //   await fetch(
+  //     `https://mahboobtarin.mostafaomrani.ir/api/v1/users/expertise/list/${
+  //       pathname.split("/")[2]
+  //     }`,
+  //     {
+  //       headers: {
+  //         Authorization: cookie,
+  //       },
+  //     }
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data && data?.message !== "User not found") {
+  //         expertData = data;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       if (error) expertData = null;
+  //     });
 
-    if (!expertData) return NextResponse.redirect(new URL("/", url));
-  }
+  //   if (!expertData) return NextResponse.redirect(new URL("/", url));
+  // }
 
   if (pathname.startsWith("/admin")) {
     await fetch(API_URL, {

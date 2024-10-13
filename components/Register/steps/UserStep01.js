@@ -55,6 +55,7 @@ const initialValues = {
 	name: '',
 	lastname: '',
 	gender: '',
+	unique_url_id: '',
 	nationality: 'Iran',
 	national_code: '',
 	passport_number: '',
@@ -98,6 +99,7 @@ const validationSchema = Yup.object({
 	confirmPassword: Yup.string()
 		.required('وارد کردن تکرار کلمه عبور اجباری است')
 		.oneOf([Yup.ref('password'), null], 'کلمه عبور و تکرار آن باید یکسان باشند '),
+	unique_url_id: Yup.string().required('وارد کردن نام کاربری اجباری است').matches(/^[a-zA-Z][a-zA-Z0-9_]*$/, 'نام کاربری فقط می‌تواند شامل حروف انگلیسی، اعداد و _ باشد'),
 });
 
 
@@ -159,6 +161,13 @@ const UserStep01 = ({ setStepUser, setNationalCode, mobile, otp }) => {
 						type={'text'}
 					/>
 
+					<Input
+						name={'unique_url_id'}
+						label={'نام کاربری'}
+						formik={formik}
+						type={'text'}
+					/>
+
 					<div className='flex justify-between items-start gap-4'>
 						<Select
 							name={'gender'}
@@ -174,40 +183,29 @@ const UserStep01 = ({ setStepUser, setNationalCode, mobile, otp }) => {
 						/>
 					</div>
 
-					<div className='flex justify-between items-start gap-4'>
-						{formik.values.nationality === 'Iran' && (
-							<Input
-								name={'national_code'}
-								label={'کد ملی'}
-								formik={formik}
-								type={'text'}
-							/>
-						)}
-						{formik.values.nationality !== 'Iran' && (
-							<Input
-								name={'passport_number'}
-								label={'شماره پاسپورت'}
-								formik={formik}
-								type={'text'}
-							/>
-						)}
+					{formik.values.nationality === 'Iran' && (
 						<Input
-							name={'email'}
-							label={'ایمیل'}
+							name={'national_code'}
+							label={'کد ملی'}
 							formik={formik}
 							type={'text'}
 						/>
-					</div>
-					<div className='flex justify-between items-start gap-4'>
-						{/* <Input
-							name={'mobile'}
-							label={'شماره تلفن همراه'}
+					)}
+					{formik.values.nationality !== 'Iran' && (
+						<Input
+							name={'passport_number'}
+							label={'شماره پاسپورت'}
 							formik={formik}
 							type={'text'}
-							placeholder={'+98'}
-							dir='ltr'
-						/> */}
-
+						/>
+					)}
+					<Input
+						name={'email'}
+						label={'ایمیل'}
+						formik={formik}
+						type={'text'}
+					/>
+					<div className='flex justify-between items-start gap-4'>
 						<div className='flex flex-col gap-1'>
 							<div className='w-full flex items-end gap-2'>
 								<Select
