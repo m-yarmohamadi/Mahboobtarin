@@ -11,7 +11,7 @@ export default function Gallery({ gallery }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 ">
                     <div className="aspect-w-16 aspect-h-10">
                         <img
-                            src="/images/galery.jpg"
+                            src="/images/Galery.jpg"
                             className=" object-cover w-full h-full rounded-md"
                             alt=""
                         />
