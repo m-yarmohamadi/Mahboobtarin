@@ -137,11 +137,14 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
   )[0]?.label;
   const { provinces, isLoading } = useGetProvinces();
   const getProvinceLabel =
-    !isLoading && provinces.filter((p) => Number(p.id) === Number(userData?.province_id))[0]?.name;
-  
+    !isLoading &&
+    provinces.filter((p) => Number(p.id) === Number(userData?.province_id))[0]
+      ?.name;
+
   const DiscountCalculation = (i, d) => {
     return i - (i * d) / 100;
   };
+  console.log(userData);
 
   const expertFollowHandler = () => {
     followHandler(userData.id, `${userData?.name} ${userData?.lastname}`);
@@ -217,13 +220,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
             <span className="flex items-center w-full gap-4 text-sm md:text-base">
               <span className="flex justify-center items-center text-gray-800 font-semibold">
                 <HiOutlineLocationMarker className="w-6 h-6 ml-1" />
-                <span>{getCountryLabel}</span>
-                <span>
-                  ،{" "}
-                  {userData?.nationality === "Iran"
-                    ? getProvinceLabel
-                    : userData?.province_id}
-                </span>
+                <span>{getCountryLabel}، </span>
+                <span>{getProvinceLabel}</span>
               </span>
             </span>
             <span className="text-xs md:text-sm mr-[2px] flex items-center gap-1 whitespace-nowrap text-gray-800 font-semibold">
@@ -237,11 +235,13 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
             </span>
           </div>
           <div className="space-y-2">
-            <div className="flex items-center  text-xs md:text-sm text-gray-800 font-semibold">
-              <BiMedal className="w-7 h-7 text-green-600 ml-1" />
-              <span className="text-gray-600 font-normal">تجربه :</span>
-              {userData?.amount_experience_year} سال
-            </div>
+            {userData?.amount_experience_year ? (
+              <div className="flex items-center  text-xs md:text-sm text-gray-800 font-semibold">
+                <BiMedal className="w-7 h-7 text-green-600 ml-1" />
+                <span className="text-gray-600 font-normal">تجربه :</span>
+                {userData?.amount_experience_year} سال
+              </div>
+            ) : null}
             <span className="flex items-center gap-1 text-xs md:text-sm">
               <FaRegStar className="w-6 h-6 text-yellow-400 mr-[2px]" />
               <span>{enToFaNumber("4.90 (از 24 نظر)")}</span>
