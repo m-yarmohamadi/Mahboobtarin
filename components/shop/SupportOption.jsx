@@ -31,10 +31,10 @@ function Option({ image, title, description }) {
                 </div>
             </div>
             <div className="flex flex-col gap-2">
-                <p className="text-sm sm:text-lg font-bold text-gray-800">
+                <p className="text-sm sm:text-lg font-bold text-slate-800">
                     {title}
                 </p>
-                <span className="text-xs sm:text-sm text-gray-500">
+                <span className="text-xs sm:text-sm text-slate-500">
                     {description}
                 </span>
             </div>

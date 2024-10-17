@@ -52,17 +52,17 @@ export default function CreateCallingForm() {
             picture: Yup.string().required('تصویر را انتخاب کنید'),
         })
     });
-    
+
     return (
         <form onSubmit={formik.handleSubmit}>
-            <div className="w-full max-w-[50%] border border-dashed border-slate-300 rounded-xl overflow-hidden">
+            <div className="w-full max-w-[50%] border border-dashed border-slate-300 dark:border-slate-400 rounded-xl overflow-hidden">
                 <div className="aspect-w-16 aspect-h-10">
                     {
                         formik.values.picture ?
                             <img src={URL.createObjectURL(formik.values.picture)} alt="" className="w-full h-full object-cover object-center" />
                             :
                             <div className="w-full p-6 cursor-pointer flex flex-col items-center justify-center gap-4">
-                                <FaImage className="w-8 h-8 text-primary-01/50" />
+                                <FaImage className="w-8 h-8 text-primary-01 opacity-50" />
                             </div>
                     }
                 </div>

@@ -11,7 +11,7 @@ export default function CourseDetails() {
                     <h1 className="mb-2 text-lg lg:text-xl font-bold text-slate-800">
                         لورم ایپسوم متن ساختگی با تولید سادگی
                     </h1>
-                    <p className="mb-7 text-sm text-gray-500 font-medium leading-7 lg:leading-8">
+                    <p className="mb-7 text-sm text-slate-500 font-medium leading-7 lg:leading-8">
                         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                     </p>
                 </div>
@@ -70,10 +70,10 @@ function Details() {
 function Details2() {
     return (
         <div className="py-5 flex flex-col lg:flex-row lg:flex-wrap gap-2 items-start">
-            <div className="text-xs p-2 rounded-md font-bold bg-primary-01 bg-opacity-20 text-primary-01">
+            <div className="text-xs p-2 rounded-md font-bold bg-primary-01 bg-opacity-20 text-primary-02">
                 تاریخ انتشار : 1402/05/29
             </div>
-            <div className="text-xs p-2 rounded-md font-bold bg-primary-01 bg-opacity-20 text-primary-01">
+            <div className="text-xs p-2 rounded-md font-bold bg-primary-01 bg-opacity-20 text-primary-02">
                 تاریخ بروزرسانی : 1403/09/04
             </div>
         </div>

@@ -169,14 +169,14 @@ function CoverImage({ formik }) {
     }
     return (
         <>
-            <div className="w-full sm:max-w-[50%] border border-dashed border-slate-300 rounded-xl overflow-hidden">
+            <div className="w-full sm:max-w-[50%] border border-dashed border-slate-400 rounded-xl overflow-hidden">
                 <div className="aspect-w-16 aspect-h-10">
                     {
                         formik.values.files.length ?
                             <img src={URL.createObjectURL(formik.values.files[0].file)} alt="" className="w-full h-full object-cover object-center" />
                             :
                             <div className="w-full p-6 cursor-pointer flex flex-col items-center justify-center gap-4">
-                                <FaImage className="w-8 h-8 text-primary-01/50" />
+                                <FaImage className="w-8 h-8 text-primary-01 " />
                             </div>
                     }
                 </div>
@@ -236,7 +236,7 @@ function Lessons({ formik }) {
                                     </video>
                                 </div>
                             </div>
-                            <h3 className='w-full text-sm text-gray-800 font-bold px-4 pb-4'>
+                            <h3 className='w-full text-sm text-slate-800 font-bold px-4 pb-4'>
                                 قسمت اول
                             </h3>
                             <button className='btn btn--danger absolute top-5 left-5 !p-2'>
@@ -268,7 +268,7 @@ function ExpiredateInput({ formik, name }) {
                 minDate={new Date()}
                 calendarPosition="bottom-right"
                 containerClassName="w-full"
-                inputClass="w-full appearance-none outline-none bg-transparent text-gray-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg focus:shadow-red-300 transition-all duration-300 ease-in-out"
+                inputClass="w-full appearance-none outline-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg dark:shadow-darkLg focus:shadow-red-300 transition-all duration-300 ease-in-out"
             />
             <div className='w-full flex justify-start items-start mt-2'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{formik?.errors[name]}</p>}</div>
         </div>

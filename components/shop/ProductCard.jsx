@@ -9,8 +9,8 @@ export default function ProductCard({ product, user }) {
     const link = `/products/${product?.slug}`;
 
     return (
-        <div className='w-full h-full flex flex-col overflow-hidden bg-white rounded-xl duration-300 border border-gray-300 hover:shadow-md'>
-            <Link href={link} className='block border-b border-sky-300 relative'>
+        <div className='w-full h-full flex flex-col overflow-hidden bg-white rounded-xl duration-300 border border-slate-300 hover:shadow-md dark:shadow-darkMd'>
+            <Link href={link} className='block border-b border-slate-300 relative'>
                 <div className='aspect-w-10 aspect-h-10'>
                     {product?.photos &&
                         <img
@@ -27,21 +27,21 @@ export default function ProductCard({ product, user }) {
             </Link>
             <div className='p-4 flex-1 flex flex-col justify-between'>
                 <Link href={link} className='block'>
-                    <h3 className='text-gray-800 font-bold mb-2'>
+                    <h3 className='text-slate-800 font-bold mb-2'>
                         {product?.title || "محصول"}
                     </h3>
                 </Link>
                 <div className='space-y-4'>
                     <div className={`w-full flex mt-4 gap-1 ${product?.discount_price ? "justify-between" : "justify-end"} items-center`}>
-                        {product?.discount_price && <span className='text-sm text-white bg-error px-4 py-2 rounded-md'>{product?.discount_price} %</span>}
+                        {product?.discount_price && <span className='text-sm text-textDefault bg-error px-4 py-2 rounded-md'>{product?.discount_price} %</span>}
                         <div className='flex flex-col justify-center items-center'>
-                            {product?.discount_price && <p className='text-md line-through  text-gray-400'>{numberWithCommas(product?.price)} </p>}
-                            <p className='text-lg font-bold text-gray-700 text-left'>{product?.price && numberWithCommas(product?.discount_price ? addDiscount(product?.price, product?.discount_price) : product?.price)} تومان</p>
+                            {product?.discount_price && <p className='text-md line-through  text-slate-500'>{numberWithCommas(product?.price)} </p>}
+                            <p className='text-lg font-bold text-slate-700 text-left'>{product?.price && numberWithCommas(product?.discount_price ? addDiscount(product?.price, product?.discount_price) : product?.price)} تومان</p>
 
                         </div>
                     </div>
                     <div className='flex justify-between items-center'>
-                        <span className='flex flex-col justify-center items-start text-xs'>
+                        <span className='flex flex-col justify-center items-start text-xs text-textDefault'>
                             <span>عرضه کننده:</span>
                             <span>{user?.name} {user?.lastname}</span>
                         </span>

@@ -172,11 +172,11 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
                 alt={`${userData?.name} ${userData?.lastname} `}
               />
             </div>
-            <span className="bg-green-300 text-xs font-semibold text-gray-700 rounded-full py-1 px-4">
+            <span className="bg-green-300 dark:bg-green-700 text-xs font-semibold text-slate-700 rounded-full py-1 px-4">
               فعال
             </span>
           </div>
-          <div className="flex justify-end gap-3 text-sm font-medium text-gray-800 pt-10">
+          <div className="flex justify-end gap-3 text-sm font-medium text-slate-800 pt-10">
             <button
               onClick={expertLikeHandler}
               className="flex justify-end items-center gap-1"
@@ -194,14 +194,14 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         </div>
         <div className="mt-6 flex items-center justify-between">
           <div className="flex flex-col">
-            <span className=" font-bold text-xl md:text-2xl">
+            <span className=" font-bold text-xl md:text-2xl text-textDefault">
               {" "}
               {userData?.name}
               {` `}
               {userData?.lastname}
             </span>
-            <span className=" text-xs text-gray-700">{userData?.email}</span>
-            <span className="py-2  text-xs md:text-sm text-gray-700">
+            <span className=" text-xs text-slate-700">{userData?.email}</span>
+            <span className="py-2  text-xs md:text-sm text-slate-700">
               {userData?.expertises[0]?.subject}{" "}
             </span>
           </div>
@@ -218,15 +218,15 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         <div className="flex flex-col xs:flex-row justify-between gap-2 pt-6">
           <div className="space-y-2">
             <span className="flex items-center w-full gap-4 text-sm md:text-base">
-              <span className="flex justify-center items-center text-gray-800 font-semibold">
+              <span className="flex justify-center items-center text-slate-800 font-semibold">
                 <HiOutlineLocationMarker className="w-6 h-6 ml-1" />
                 <span>{getCountryLabel}، </span>
                 <span>{getProvinceLabel}</span>
               </span>
             </span>
-            <span className="text-xs md:text-sm mr-[2px] flex items-center gap-1 whitespace-nowrap text-gray-800 font-semibold">
-              <FaRegCalendar className="w-5 h-5 text-gray-800" />
-              <span className="text-gray-600 font-normal">تاریخ پیوستن :</span>
+            <span className="text-xs md:text-sm mr-[2px] flex items-center gap-1 whitespace-nowrap text-slate-800 font-semibold">
+              <FaRegCalendar className="w-5 h-5 text-slate-800" />
+              <span className="text-slate-600 font-normal">تاریخ پیوستن :</span>
               {new Date(userData?.created_at).toLocaleDateString("fa-IR", {
                 year: "numeric",
                 month: "long",
@@ -236,13 +236,13 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
           </div>
           <div className="space-y-2">
             {userData?.amount_experience_year ? (
-              <div className="flex items-center  text-xs md:text-sm text-gray-800 font-semibold">
+              <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
                 <BiMedal className="w-7 h-7 text-green-600 ml-1" />
-                <span className="text-gray-600 font-normal">تجربه :</span>
+                <span className="text-slate-600 font-normal">تجربه :</span>
                 {userData?.amount_experience_year} سال
               </div>
             ) : null}
-            <span className="flex items-center gap-1 text-xs md:text-sm">
+            <span className="flex items-center gap-1 text-xs md:text-sm text-slate-800">
               <FaRegStar className="w-6 h-6 text-yellow-400 mr-[2px]" />
               <span>{enToFaNumber("4.90 (از 24 نظر)")}</span>
             </span>
@@ -259,13 +259,13 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         <div className="w-full grid grid-cols-1 gap-2">
           <div className="w-full flex flex-col gap-4">
             {userData?.phone && (
-              <div className="w-full text-gray-800 text-sm flex justify-start items-center gap-2">
+              <div className="w-full text-slate-800 text-sm flex justify-start items-center gap-2">
                 <span className="font-bold">تلفن:</span>
                 <span>{userData?.phone} </span>
               </div>
             )}
             {userData?.addresses.length ? (
-              <div className="w-full text-sm text-gray-800 flex flex-col gap-1">
+              <div className="w-full text-sm text-slate-800 flex flex-col gap-1">
                 <span className="w-full font-bold">آدرس : </span>
                 <span className="break-words">
                   {userData?.addresses[0].address}
@@ -324,8 +324,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
             {product.map((item, index) => {
               return (
                 <SwiperSlide key={index} className="!w-[250px] ml-4">
-                  <div className="border border-gray-300 bg-gradient-to-b  from-blue-100  to-white overflow-hidden rounded-xl hover:shadow-md hover:cursor-pointer">
-                    <div className="border-b border-gray-300 rounded-t-xl bg-gradient-to-tl from-transparent hover:from-blue-100 to-white">
+                  <div className="border border-slate-300 bg-gradient-to-b  from-blue-100 dark:from-slate-500  to-white overflow-hidden rounded-xl hover:shadow-md dark:shadow-darkMd hover:cursor-pointer">
+                    <div className="border-b border-slate-300 rounded-t-xl bg-gradient-to-tl from-transparent hover:from-blue-100 to-white">
                       <div className="aspect-w-8 aspect-h-8">
                         <img
                           className="w-full h-full object-contain p-6 object-center"
@@ -339,7 +339,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
                         {item.name}
                       </span>
                       <span className="text-xs md:text-sm">{item.ouner}</span>
-                      <span className="line-clamp-1 text-xs text-gray-500">
+                      <span className="line-clamp-1 text-xs text-slate-500">
                         انتشارات:{item.Publications}
                       </span>
                     </div>
@@ -348,7 +348,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
                         %{PN.convertEnToPe(`${item.Discount}`)}
                       </div>
                       <div className=" flex flex-col justify-start items-center">
-                        <del className="text-gray-400">
+                        <del className="text-slate-400">
                           {numberWithCommas(`${item.Price}`)}
                         </del>
                         <span className="font-bold">

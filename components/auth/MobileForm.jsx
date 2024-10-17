@@ -9,7 +9,7 @@ export default function MobileForm({ mobile, setMobile, onSubmit, isLoading, set
     return (
         <>
             {!data && (
-                <div className="w-full h-full gap-3 font-bold backdrop-blur-sm text-xl  flex-col fixed top-0 right-0 flex items-center justify-center bg-white/80 z-[60]">
+                <div className="w-full h-full gap-3 font-bold backdrop-blur-sm text-xl  flex-col fixed top-0 right-0 flex items-center justify-center bg-white bg-opacity-80 z-[60]">
                     <Loading customeColor="#15aa7f" />
                 </div>
             )}

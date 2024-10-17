@@ -17,10 +17,10 @@ export default function Followings() {
         <div className='flex flex-col justify-between items-center w-full h-full'>
             <div className='w-full pb-8'>
                 <div className='w-full flex flex-col gap-1 items-center justify-center mb-7 pb-4 border-b border-b-slate-300'>
-                    <div className='text-xl text-gray-800 font-semibold'>
+                    <div className='text-xl text-slate-800 font-semibold'>
                         دنبال شونده ها
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-slate-600">
                         لیست افرادی که شما آنها را دنبال می کنید
                     </p>
                 </div>
@@ -39,7 +39,7 @@ function Following({ user }) {
     const { followHandler } = useFollow();
     return (
         <div className="w-full flex flex-col items-center bg-white rounded-xl p-5">
-            <Link  href={`/profile/${user?.follower?.id}`} className="mb-3 block">
+            <Link href={`/profile/${user?.follower?.id}`} className="mb-3 block">
                 <div className="w-20 h-20 rounded-full overflow-hidden">
                     <img
                         className={user?.follower?.avatar[0]?.path && "object-cover w-full h-full"}
@@ -49,7 +49,7 @@ function Following({ user }) {
                 </div>
             </Link>
             <Link href={`/profile/${user?.follower?.id}`} className="flex flex-col items-center gap-1 mb-6">
-                <h3 className="text-sm font-bold text-gray-800 text-center">
+                <h3 className="text-sm font-bold text-slate-800 text-center">
                     {user?.follower?.name} {user?.follower?.lastname}
                 </h3>
             </Link>

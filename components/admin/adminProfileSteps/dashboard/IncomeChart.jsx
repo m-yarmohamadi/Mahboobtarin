@@ -43,10 +43,10 @@ export default function IncomeChart() {
     }
 
     return (
-        <div className="w-full bg-white shadow-lg rounded-md">
+        <div className="w-full bg-white shadow-lg dark:shadow-darkLg rounded-md">
             <div className="p-5 space-y-5">
                 <div className="w-full flex items-center justify-between">
-                    <h1 className="font-bold text-gray-800">
+                    <h1 className="font-bold text-slate-800">
                         درآمد
                     </h1>
                     <div className="text-sm">
@@ -60,7 +60,7 @@ export default function IncomeChart() {
                     {showType.map((item, index) => (
                         <button
                             key={index}
-                            className={`${item.value === showState ? "font-bold border-b-2" : ""} border-b-gray-800 pb-2 text-sm text-gray-800`}
+                            className={`${item.value === showState ? "font-bold border-b-2" : ""} border-b-gray-800 pb-2 text-sm text-slate-800`}
                             onClick={() => setShowState(item.value)}
                         >
                             {item.label}

@@ -52,10 +52,10 @@ export default function Expertise({ formik }) {
                 </button>
             </div>
             {formik.values.expertise.length !== 0 && formik.values.expertise &&
-                <div className="w-full border border-slate-300 rounded-md mt-3">
+                <div className="w-full border border-slate-400 rounded-md mt-3">
                     {formik.values.expertise.map((item, index) => (
-                        <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0">
-                            <div className="flex-1 flex items-center gap-1">
+                        <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-400 last:border-0">
+                            <div className="flex-1 flex items-center gap-1 text-textDefault">
                                 <p className="text-sm font-medium">
                                     {transformCategories.filter((i) => Number(i.value) === Number(item.title))[0].label}
                                 </p>

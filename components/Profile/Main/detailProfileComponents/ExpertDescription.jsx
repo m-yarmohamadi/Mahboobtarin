@@ -30,7 +30,7 @@ export default function ExpertDescription({ expert_description }) {
                 <p
                     ref={textRef}
                     className={`${!showCompleteBio && "line-clamp-5 "
-                        } text-xs font-medium text-gray-800 sm:text-sm whitespace-pre-wrap`}
+                        } text-xs font-medium text-slate-800 sm:text-sm whitespace-pre-wrap`}
                 >
                     {expert_description}
                 </p>

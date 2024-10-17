@@ -52,7 +52,7 @@ export default function AddressList() {
                 <CreateAddressForm onClose={() => setOpen(false)} />
             </Modal>
             <div>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-slate-500">
                     آدرس تحویل سفارش
                 </span>
             </div>
@@ -60,34 +60,34 @@ export default function AddressList() {
                 {addressList.map((item, index) => (
                     <div
                         key={index}
-                        className="flex cursor-pointer items-start gap-3 border-b border-gray-300 pb-6 last:pb-0 last:border-0"
+                        className="flex cursor-pointer items-start gap-3 border-b border-slate-300 pb-6 last:pb-0 last:border-0"
                     >
-                        <div onClick={() => changeAddressOrder(item.id)} className={`w-5 h-5 p-[3px] mt-[2px] border rounded-full ${item.id === defaultAddress ? "border-gray-500 bg-transparent" : "border-primary-01"}`}>
+                        <div onClick={() => changeAddressOrder(item.id)} className={`w-5 h-5 p-[3px] mt-[2px] border rounded-full ${item.id === defaultAddress ? "border-slate-500 bg-transparent" : "border-primary-01"}`}>
                             {item.id === defaultAddress &&
                                 <div className="w-full h-full bg-primary-01 rounded-full"></div>
                             }
                         </div>
                         <div className="flex flex-col gap-5 flex-1">
                             <div onClick={() => changeAddressOrder(item.id)} className="space-y-5">
-                                <p className="text-gray-800">
+                                <p className="text-slate-800">
                                     {item.address}
                                 </p>
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-2 ">
-                                        <MdOutlineSubtitles className="text-gray-400" />
-                                        <span className="text-xs text-gray-600">
+                                        <MdOutlineSubtitles className="text-slate-400" />
+                                        <span className="text-xs text-slate-600">
                                             {item.title || "بدون عنوان"}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2 ">
-                                        <HiOutlineMail className="text-gray-400" />
-                                        <span className="text-xs text-gray-600">
+                                        <HiOutlineMail className="text-slate-400" />
+                                        <span className="text-xs text-slate-600">
                                             {item.postalcode || "---"}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2 ">
-                                        <MdOutlinePhoneIphone className="text-gray-400" />
-                                        <span className="text-xs text-gray-600">
+                                        <MdOutlinePhoneIphone className="text-slate-400" />
+                                        <span className="text-xs text-slate-600">
                                             {item.phone || "---"}
                                         </span>
                                     </div>

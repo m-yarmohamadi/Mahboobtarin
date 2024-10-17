@@ -7,7 +7,7 @@ import discountCalculator from "@/utils/discountCalculator";
 export default function SelectedDiscounts() {
     return (
         <div className="md:mx-auto md:container p-6 mt-14">
-            <h3 className="text-xl text-gray-900 font-medium flex items-center justify-center gap-2">
+            <h3 className="text-xl text-slate-900 font-medium flex items-center justify-center gap-2">
                 <TbDiscount className="w-5 h-5" />
                 منتخب محصولات تخفیف و حراج
             </h3>
@@ -53,14 +53,14 @@ function Product({ product }) {
                         </span>
                     }
                 </div>
-                <div className="text-gray-800 font-semibold flex items-center gap-1">
+                <div className="text-slate-800 font-semibold flex items-center gap-1">
                     {numberWithCommas(discountCalculator(product.price, product.discount || 0))}
                     <span className="text-xs font-normal">
                         تومان
                     </span>
                 </div>
             </div>
-            <p className='text-sm line-through text-gray-400 text-left'>{numberWithCommas(product.price)}</p>
+            <p className='text-sm line-through text-slate-400 text-left'>{numberWithCommas(product.price)}</p>
         </div>
     )
 }

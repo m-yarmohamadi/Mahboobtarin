@@ -13,7 +13,7 @@ export default function MyLinkdin() {
 	const { user, isLoading } = useProfile();
 	const { data, isLoading: iGetLinkdins } = useGetExpertiseUser(user?.unique_url_id);
 	const { link_dooni } = data?.user || {}
-	
+
 	const initialValues = {
 		title: "",
 		source: "",
@@ -32,7 +32,7 @@ export default function MyLinkdin() {
 			if (data) {
 				toast.success("خبر با موفقیت درج شد");
 				resetForm();
-				queryClient.invalidateQueries({queryKey:["get-expertise-user-by-id", user?.unique_url_id]})
+				queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] })
 			}
 
 		} catch (error) {
@@ -69,8 +69,8 @@ export default function MyLinkdin() {
 		<div className='flex flex-col justify-between items-center w-full h-full'>
 			<div className='w-full'>
 				<div className='flex flex-col justify-center items-center gap-3 py-4'>
-					<h1 className='text-lg text-gray-800 font-bold'>لینکدونی</h1>
-					<p className='text-sm text-gray-600'>لطفا اخباری را که می توانید در بخش لینکدونی پروفایل خود ارائه دهید ثبت کنید.</p>
+					<h1 className='text-lg text-slate-800 font-bold'>لینکدونی</h1>
+					<p className='text-sm text-slate-600'>لطفا اخباری را که می توانید در بخش لینکدونی پروفایل خود ارائه دهید ثبت کنید.</p>
 				</div>
 
 				<form

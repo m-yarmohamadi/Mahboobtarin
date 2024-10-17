@@ -31,7 +31,7 @@ export default function About({ description }) {
                 <p
                     ref={textRef}
                     className={`${!showCompleteBio && "line-clamp-5 "
-                        } text-xs sm:text-sm sm:leading-8 leading-6 font-medium text-gray-800 text-justify whitespace-pre-wrap`}
+                        } text-xs sm:text-sm sm:leading-8 leading-6 font-medium text-slate-800 text-justify whitespace-pre-wrap`}
                 >
                     {description}
                 </p>

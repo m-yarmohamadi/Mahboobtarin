@@ -2,7 +2,7 @@ import { CiLocationOn } from "react-icons/ci";
 
 export default function ExpertDetails() {
     return (
-        <div className="w-full bg-white border border-gray-200 rounded-lg p-6">
+        <div className="w-full bg-white border border-slate-200 dark:border-slate-500 rounded-lg p-6">
             <div className="flex items-center gap-3 mb-8">
                 <div className="w-20 h-20">
                     <img
@@ -21,8 +21,8 @@ export default function ExpertDetails() {
                 </div>
             </div>
             <div className="flex items-center gap-2">
-                <CiLocationOn className="w-5 h-5 text-gray-600"/>
-                <span className="text-sm text-gray-600">
+                <CiLocationOn className="w-5 h-5 text-slate-600" />
+                <span className="text-sm text-slate-600">
                     آدرس
                 </span>
             </div>

@@ -35,7 +35,7 @@ export default function Gallery({ gallery }) {
                                         </video>
                                     )}
                                 </div>
-                                <span className="flex justify-center items-center absolute bottom-0 right-0 w-full text-xs font-semibold p-1 bg-gray-800 text-white bg-opacity-80 rounded-b-md">
+                                <span className="flex justify-center items-center absolute bottom-0 right-0 w-full text-xs font-semibold p-1 bg-slate-800 text-white bg-opacity-80 rounded-b-md">
                                     {item.title}
                                 </span>
                             </div>

@@ -2,12 +2,12 @@ import numberWithCommas from '@/utils/numberWithCommas'
 
 export default function Summary() {
     return (
-        <div className="w-full bg-white border border-gray-200 rounded-lg p-6">
+        <div className="w-full bg-white border border-slate-200 dark:border-slate-500 rounded-lg p-6">
             <div className="text-primary-01 font-medium mb-6">
                 صورت حساب
             </div>
 
-            <div className='text-sm text-gray-700 flex flex-col gap-3 pb-4 border-b border-gray-200 mb-4'>
+            <div className='text-sm text-slate-700 flex flex-col gap-3 pb-4 border-b border-slate-200 dark:border-slate-500 mb-4'>
                 <div className='w-full flex items-center justify-between'>
                     <span>
                         هزینه

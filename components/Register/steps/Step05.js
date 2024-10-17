@@ -8,7 +8,6 @@ import Input from "@/tools/Input";
 import OTPInput from "react-otp-input";
 
 const Step05 = ({ formik, children, error }) => {
-
   return (
     <div className="w-full h-full flex flex-col justify-between">
       <form
@@ -17,12 +16,12 @@ const Step05 = ({ formik, children, error }) => {
       >
         <div className="w-full h-full flex flex-col justify-between mb-12">
           <div className=" w-full flex flex-col justify-center items-center gap-2  ">
-            <p className=" w-full flex items-center justify-center font-medium text-sm text-gray-700 mb-4">
+            <p className=" w-full flex items-center justify-center font-medium text-sm text-slate-700 mb-4">
               لطفا کد ارسال شده به تلفن همراه خود را در اینجا درج کنید
             </p>
             <OTPInput
               value={formik.values.verifycode}
-              onChange={(e)=>formik.setFieldValue("verifycode", e)}
+              onChange={(e) => formik.setFieldValue("verifycode", e)}
               numInputs={5}
               shouldAutoFocus
               containerStyle="flex flex-row-reverse items-center justify-center gap-3"
@@ -31,9 +30,7 @@ const Step05 = ({ formik, children, error }) => {
             />
           </div>
         </div>
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </form>
       {error &&
         error.map((item, index) => {

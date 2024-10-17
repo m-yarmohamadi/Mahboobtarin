@@ -12,7 +12,8 @@ import { IoIosCalendar } from "react-icons/io";
 import { MdOutlineTimerOff } from "react-icons/md";
 import { getServiceProfile } from "@/services/expertDashboardService";
 import Loading from "@/tools/Loading";
-
+import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
+import { useDarkMode } from "@/context/DarkModeContext";
 
 const processActivityTimes = (activityTimes, currentWeekday) => {
     const daysMappingEN = {
@@ -49,30 +50,31 @@ export default function BookingForm({ onClose, serviceID, userId }) {
     const currentWeekday = new Date(date).toLocaleDateString("fa-IR", { weekday: "long" });
     const [serviceData, setServiceData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const { isDarkMode } = useDarkMode();
     const getTimesOfWeekday = !isLoading && processActivityTimes(serviceData?.activity_time, currentWeekday);
-    
+
     const selectDate = (date) => {
         setDate(date);
         setSelected();
     }
-    
-    useEffect(()=>{
-		async function fetchServicesHandler() {
-			try {
-				const {data} = await getServiceProfile(userId, serviceID);
-				setServiceData(data);
+
+    useEffect(() => {
+        async function fetchServicesHandler() {
+            try {
+                const { data } = await getServiceProfile(userId, serviceID);
+                setServiceData(data);
                 setIsLoading(false);
-			} catch (error) {
-				
-			}
-		}
+            } catch (error) {
+
+            }
+        }
 
         fetchServicesHandler();
-	},[])
+    }, [])
 
-    if(isLoading) return (
+    if (isLoading) return (
         <div className="w-full flex items-center justify-center h-44">
-            <Loading customeColor={'#0693a4'}/>
+            <Loading customeColor={'#0693a4'} />
         </div>
     );
 
@@ -89,17 +91,18 @@ export default function BookingForm({ onClose, serviceID, userId }) {
                         render={<CustomeButtonDatePicker setDate={selectDate} />}
                         calendarPosition="bottom-center"
                         containerClassName="w-full"
+                        className={isDarkMode && "bg-dark"}
                     />
                 </div>
                 {
                     selected &&
-                    <div className="p-3 my-2 bg-indigo-50 rounded-lg grid grid-cols-2 gap-1">
-                        <p className="flex items-center gap-1 text-sm font-medium text-gray-600">
-                            <IoIosCalendar className="w-6 h-6 text-gray-700" />
+                    <div className="p-3 my-2 bg-slate-400 rounded-lg grid grid-cols-2 gap-1">
+                        <p className="flex items-center gap-1 text-sm font-medium text-slate-600">
+                            <IoIosCalendar className="w-6 h-6 text-slate-700" />
                             <span className="font-normal">{selected?.date}</span>
                         </p>
-                        <p className="flex items-center gap-1 text-sm font-medium text-gray-600">
-                            <IoTimeOutline className="w-6 h-6 text-gray-700" />
+                        <p className="flex items-center gap-1 text-sm font-medium text-slate-600">
+                            <IoTimeOutline className="w-6 h-6 text-slate-700" />
                             <span className="font-normal">{selected?.time}</span>
                         </p>
                     </div>
@@ -122,7 +125,7 @@ export default function BookingForm({ onClose, serviceID, userId }) {
                                         key={index}
                                         type="button"
                                         onClick={() => setSelected({ date: toPersianDateShort(date), time: item })}
-                                        className={`btn btn--outline !text-base !py-2 !px-4 !h-12 duration-200 !text-gray-600 border  ${selected?.time === item ? "!bg-gray-200 border-indigo-300" : "border-gray-300"}`}
+                                        className={`btn btn--outline !text-base !py-2 !px-4 !h-12 duration-200 !text-slate-600 border  ${selected?.time === item ? "!bg-slate-300 border-indigo-600" : "border-slate-300 dark:border-slate-600"}`}
                                     >
                                         {item}
                                     </button>
@@ -165,7 +168,7 @@ export default function BookingForm({ onClose, serviceID, userId }) {
                     </div>
                     <div className="w-full grid grid-cols-2 text-sm text-blue-600 pt-4 pb-2">
                         <div className="flex items-center gap-1">
-                            <IoIosCalendar className="w-6 h-6 text-gray-700" />
+                            <IoIosCalendar className="w-6 h-6 text-slate-700" />
                             تاریخ از : {getTimesOfWeekday.result.week[0]}
                         </div>
 
@@ -174,14 +177,14 @@ export default function BookingForm({ onClose, serviceID, userId }) {
                         </div>
                     </div>
                     <div className="text-sm text-blue-600 flex items-center gap-1">
-                        <IoTimeOutline className="w-6 h-6 text-gray-700" />
+                        <IoTimeOutline className="w-6 h-6 text-slate-700" />
                         ساعت : {getTimesOfWeekday.result.time}
                     </div>
                 </div>
                 <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
                     {
                         toEnglishNumber(toPersianDateShort(date)) > getTimesOfWeekday.result.week[1] ?
-                            <div className="w-full text-sm text-gray-500 text-center">
+                            <div className="w-full text-sm text-slate-500 text-center">
                                 به اتمام رسید
                             </div>
                             :
@@ -228,15 +231,15 @@ function CustomeButtonDatePicker({ openCalendar, value, setDate }) {
 
     return (
         <div className="w-full h-14 flex items-center">
-            <button disabled={isToday()} onClick={descDateHandler} className="w-16 disabled:!opacity-45 h-full rounded-r-md whitespace-nowrap p-3 text-xs text-gray-500 border border-gray-300">
+            <button disabled={isToday()} onClick={descDateHandler} className="w-16 disabled:!opacity-45 h-full rounded-r-md whitespace-nowrap p-3 text-xs text-slate-500 border border-slate-200">
                 روز قبل
             </button>
-            <button onClick={openCalendar} className="flex-1 h-full btn !rounded-none gap-2 bg-indigo-100 border-y border-indigo-100 text-[80%] text-gray-600">
+            <button onClick={openCalendar} className="flex-1 h-full btn !rounded-none gap-2 bg-slate-200 border-y border-slate-200 text-[80%] text-slate-600">
                 <FaRegCalendar className="w-4 h-4" />
                 {isToday() && "امروز، "}
                 {convertToLongDateFa}
             </button>
-            <button onClick={incDateHandler} className="w-16 h-full rounded-l-md whitespace-nowrap p-3 text-xs text-gray-500 border border-gray-300">
+            <button onClick={incDateHandler} className="w-16 h-full rounded-l-md whitespace-nowrap p-3 text-xs text-slate-500 border border-slate-200">
                 روز بعد
             </button>
         </div>

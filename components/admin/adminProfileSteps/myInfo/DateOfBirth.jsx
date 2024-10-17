@@ -37,7 +37,7 @@ export default function DateOfBirth({ formik, birthday }) {
     return (
         <div className={`w-full py-1 flex flex-col justify-start justify-items-start items-start`}>
             <label
-                className='text-sm font-bold px-2'
+                className='text-sm font-bold px-2 text-textDefault'
                 htmlFor="birthday">
                 تاریخ تولد
             </label>

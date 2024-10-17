@@ -34,7 +34,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
     return (
         <>
             {isOpen && (
-                <div onClick={setIsOpen} className={"hidden lg:block w-full h-screen z-50 fixed top-[68px] right-0 bg-black/50 backdrop-blur"}></div>
+                <div onClick={setIsOpen} className={"hidden lg:block w-full h-screen z-50 fixed top-[68px] right-0 bg-black/10 backdrop-blur"}></div>
             )}
 
             <div
@@ -49,7 +49,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                                     <div
                                         onMouseEnter={() => setLastHover(category.id)}
                                         className={`${lastHover === category.id &&
-                                            "bg-white text-primary-01 !border-y-gray-300"
+                                            "bg-white !text-primary-01 !border-y-gray-300"
                                             } category__list-items-parent-btn`}
                                     >
                                         {category.name}
@@ -58,7 +58,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                             ))}
                     </ul>
 
-                    <div className={`flex-1 flex h-[420px] p-7 z-50 bg-white overflow-y-auto drop-shadow-lg`}>
+                    <div className={`flex-1 flex h-[420px] p-7 z-50 bg-white overflow-y-auto drop-shadow-lg dark:shadow-darkLg`}>
                         {!isGetCateChild ?
                             <div className="flex-grow flex-1 h-full flex flex-col">
                                 <div
@@ -82,7 +82,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                                                 {subItem?.children?.map((subMenu) => (
                                                     <li key={subMenu.id} className="mb-1 w-auto">
                                                         <div
-                                                            className="text-gray-500  text-[10px] cursor-pointer duration-200"
+                                                            className="text-slate-500  text-[10px] cursor-pointer duration-200"
                                                         >
                                                             {subMenu.name}
                                                         </div>

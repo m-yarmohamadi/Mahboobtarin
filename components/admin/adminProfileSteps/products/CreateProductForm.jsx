@@ -73,7 +73,7 @@ export default function CreateProductForm() {
             photo_id: transformPhotoId,
             categories: transformCategories,
         }
-        
+
         const formData = new FormData();
 
         for (const key in productData) {
@@ -116,15 +116,15 @@ export default function CreateProductForm() {
     return (
         <div>
             <div className="flex flex-col gap-1 items-center">
-                <h1 className="font-semibold text-gray-800">
+                <h1 className="font-semibold text-slate-800">
                     افزودن محصول جدید
                 </h1>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-slate-500">
                     اطلاعات محصول خود را وارد کنید
                 </p>
             </div>
 
-            <ProductFields formik={formik} loading={isPending}/>
+            <ProductFields formik={formik} loading={isPending} />
         </div>
     )
 }

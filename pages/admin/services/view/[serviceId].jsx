@@ -79,16 +79,16 @@ export default function viewService() {
                 !serviceLoading && !isLoading ?
                     <div className="mx-auto md:max-w-screen-sm">
                         <div className="flex items-center gap-3 pb-4 border-b border-b-gray-300">
-                            <button onClick={() => window.history.back()} className="text-gray-600 btn btn--secondary !p-2">
+                            <button onClick={() => window.history.back()} className="text-slate-600 btn btn--secondary !p-2">
                                 <FaArrowRightLong className="w-5 h-5" />
                             </button>
-                            <h1 className="text-xl font-semibold text-gray-600">
+                            <h1 className="text-xl font-semibold text-slate-600">
                                 {servicesData.type}
                             </h1>
 
                         </div>
                         <div className="mt-5 flex flex-col gap-3 w-full">
-                            <div className="w-full flex items-center justify-between text-gray-600">
+                            <div className="w-full flex items-center justify-between text-slate-600">
                                 <span>
                                     هزینه
                                 </span>
@@ -143,7 +143,7 @@ export default function viewService() {
                                             </div>
                                             <div className="w-full grid grid-cols-2 text-sm text-blue-600 pt-4 pb-2">
                                                 <div className="flex items-center gap-1">
-                                                    <IoIosCalendar className="w-6 h-6 text-gray-700" />
+                                                    <IoIosCalendar className="w-6 h-6 text-slate-700" />
                                                     تاریخ از : {getTimesOfWeekday?.result[0].week[0]}
                                                 </div>
 
@@ -152,14 +152,14 @@ export default function viewService() {
                                                 </div>
                                             </div>
                                             <div className="text-sm text-blue-600 flex items-center gap-1">
-                                                <IoTimeOutline className="w-6 h-6 text-gray-700" />
+                                                <IoTimeOutline className="w-6 h-6 text-slate-700" />
                                                 ساعت : {getTimesOfWeekday.result[0].time}
                                             </div>
                                         </div>
                                         {
                                             toEnglishNumber(toPersianDateShort(new Date())) > getTimesOfWeekday.result[0].week[1] &&
                                             <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
-                                                <div className="w-full text-sm text-gray-500 text-center">
+                                                <div className="w-full text-sm text-slate-500 text-center">
                                                     به اتمام رسید
                                                 </div>
                                             </div>

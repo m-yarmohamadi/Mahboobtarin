@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function ProfilePage({ user }) {
     const [isLoading, setIsLoading] = useState(true);
-
+    
     useEffect(() => {
         setIsLoading(false);
     }, []);
@@ -58,7 +58,7 @@ export async function getServerSideProps(ctx) {
 
             user = userData.user;
         }
-
+        
         const { data } = await http.get(
             `/api/v1/users/expertise/list/${query.expertUsername}${user ? `/${user.id}` : ""
             }`

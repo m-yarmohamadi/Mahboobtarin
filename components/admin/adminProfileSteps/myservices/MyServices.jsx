@@ -60,8 +60,8 @@ export default function MyServices() {
 	return (
 		<div className='flex flex-col justify-between items-center w-full h-full'>
 			<div className='w-full'>
-				<div className='w-full flex items-end justify-between mb-7 pb-4 border-b border-b-slate-300'>
-					<div className='text-xl text-gray-800 font-semibold'>خدمات قابل ارائه شما</div>
+				<div className='w-full flex items-end justify-between mb-7 pb-4 border-b border-b-slate-300 dark:border-b-slate-400'>
+					<div className='text-xl text-slate-800 font-semibold'>خدمات قابل ارائه شما</div>
 					<Link href="/admin/services/create" className='btn btn--primary !px-5'>
 						<span>افزودن خدمت جدید</span>
 					</Link>
@@ -70,15 +70,15 @@ export default function MyServices() {
 				<div className='lg:col-span-2'>
 
 					{servicesData && servicesData.length !== 0 && (
-						<div className='w-full border border-slate-300 rounded-md mt-3'>
+						<div className='w-full border border-slate-300 dark:border-slate-400 rounded-md mt-3'>
 							{servicesData.map((item, index) => (
 								<div
 									key={index}
-									className='flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0'
+									className='flex items-center justify-between gap-4 p-3 border-b border-slate-300 dark:border-slate-400 last:border-0'
 								>
 									<div className='flex items-center gap-2'>
-										<p className='text-sm font-medium'>{item.type}</p>
-										<span>
+										<p className='text-sm font-medium text-textDefault'>{item.type}</p>
+										<span className="text-textDefault">
 											-
 										</span>
 										<span className=' text-xs flex justify-between items-center'>
@@ -88,7 +88,7 @@ export default function MyServices() {
 														<span className='text-primary-01 font-bold inline-block ml-1'>
 															{item.price}
 														</span>
-														<span>تومان</span>
+														<span className="text-textDefault">تومان</span>
 													</>
 													:
 													<span className='text-primary-01 font-bold'>

@@ -200,7 +200,7 @@ export default function MyInfo() {
         },
     ];
 
-    
+
     if (isLoading) return (
         <div className='w-full h-full flex items-center justify-center'>
             <Loading customeColor="#0693a4" />
@@ -210,10 +210,10 @@ export default function MyInfo() {
     return (
         <div>
             <div>
-                <h1 className='text-lg text-gray-800 font-bold'>
+                <h1 className='text-lg text-slate-800 font-bold'>
                     اطلاعات فردی
                 </h1>
-                <p className='text-sm text-gray-600'>
+                <p className='text-sm text-slate-600'>
                     سعی کنید متنی خلاصه و جذاب درباره خودتان بنویسید
                 </p>
             </div>
@@ -221,7 +221,7 @@ export default function MyInfo() {
             <form className='space-y-4' onSubmit={formik.handleSubmit}>
                 <div className='mt-6 flex flex-col gap-2 lg:gap-10 lg:flex-row'>
                     <div className='flex flex-col items-center gap-4'>
-                        <h5 className='text-gray-600 font-bold self-start'>
+                        <h5 className='text-slate-600 font-bold self-start'>
                             عکس پروفایل
                         </h5>
                         <div className='w-20 h-20 relative flex items-center justify-center rounded-full overflow-hidden bg-primary-03'>

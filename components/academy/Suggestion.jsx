@@ -16,7 +16,7 @@ export default function Suggestion() {
     return (
         <div className="md:mx-auto md:container p-4 my-8 bg-white rounded-lg">
             <div className="w-full flex flex-col sm:flex-row gap-6 items-center justify-between mb-6">
-                <h3 className="text-2xl text-gray-800 font-semibold">
+                <h3 className="text-2xl text-slate-800 font-semibold">
                     پیشنهاد محبوب ترین
                 </h3>
                 <button className='text-primary-01 btn gap-1 !text-sm !py-2'>

@@ -1,7 +1,10 @@
+import { useDarkMode } from "@/context/DarkModeContext";
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function ChartLine({ titleTooltip, categories, data }) {
+    const { isDarkMode } = useDarkMode();
+
     const option = {
         chart: {
             type: 'line',
@@ -24,13 +27,13 @@ export default function ChartLine({ titleTooltip, categories, data }) {
         tooltip: {
             marker: {
                 show: false,
-            }
+            },
         },
         markers: {
             colors: "#15aa7f"
         },
         grid: {
-            borderColor: "#eff0f2",
+            borderColor: isDarkMode ? "#374151" : "#eff0f2",
             xaxis: {
                 lines: {
                     show: true
@@ -46,7 +49,19 @@ export default function ChartLine({ titleTooltip, categories, data }) {
         xaxis: {
             categories,
             axisBorder: {
-                color: "#eff0f2"
+                color: isDarkMode ? "#374151" : "#eff0f2"
+            },
+            labels: {
+                style: {
+                    colors: "#0693a4"
+                }
+            }
+        },
+        yaxis: {
+            labels: {
+                style: {
+                    colors: "#0693a4"
+                }
             }
         },
     }

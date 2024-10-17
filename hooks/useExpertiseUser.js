@@ -20,7 +20,7 @@ export function useGetExpertiseAllUsers() {
 export default function useGetExpertiseUser(id) {
   const { user } = useProfile();
   const { data, isLoading } = useQuery({
-    queryKey: ["get-expertise-user-by-id", id],
+    queryKey: ["get-expertise-user-by-id"],
     queryFn: () => getExpertiseUserById(id, user?.id),
     retry: false,
     refetchOnWindowFocus: true,

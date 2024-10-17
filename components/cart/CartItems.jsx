@@ -25,8 +25,8 @@ export default function CartItems() {
     }, [cart])
 
     return (
-        <div className="w-full lg:col-span-8 border border-gray-300 rounded-lg">
-            <h1 className="w-full text-lg lg:text-xl text-gray-900 font-bold pb-4 px-6 pt-6 border-b border-b-gray-300">
+        <div className="w-full lg:col-span-8 border border-slate-300 rounded-lg">
+            <h1 className="w-full text-lg lg:text-xl text-slate-900 font-bold pb-4 px-6 pt-6 border-b border-b-gray-300">
                 سبد خرید شما
             </h1>
 
@@ -51,7 +51,7 @@ function CartItem({ cartData, qtyItem }) {
     const { incProductToCart, decProductToCart, removeProductCart, isAdding } = useAddToCart();
 
     return (
-        <div className="flex flex-col items-start p-6 border-b last:border-0 border-gray-400">
+        <div className="flex flex-col items-start p-6 border-b last:border-0 border-slate-400">
             <div className="w-full flex items-start gap-4">
                 <div className="w-28 lg:w-36">
                     <div className="aspect-w-16 aspect-h-16 rounded-xl overflow-hidden">
@@ -59,20 +59,20 @@ function CartItem({ cartData, qtyItem }) {
                     </div>
                 </div>
                 <div className="flex flex-col flex-1">
-                    <h2 className="text-gray-800 font-medium mb-1">
+                    <h2 className="text-slate-800 font-medium mb-1">
                         {cartData.title}
                     </h2>
-                    <div className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: cartData.shortdescription }}>
+                    <div className="text-sm text-slate-700" dangerouslySetInnerHTML={{ __html: cartData.shortdescription }}>
 
                     </div>
                     <div className="mt-4">
                         <span className="text-xs text-error">
                             {cartData.discount_price} % تخفیف
                         </span>
-                        <div className="text-lg font-bold text-gray-800">
+                        <div className="text-lg font-bold text-slate-800">
                             {numberWithCommas(cartData.price)}
                             &nbsp;
-                            <span className="text-sm font-normal text-gray-500">
+                            <span className="text-sm font-normal text-slate-500">
                                 تومان
                             </span>
                         </div>
@@ -84,7 +84,7 @@ function CartItem({ cartData, qtyItem }) {
                 <div className="flex flex-row-reverse items-center border border-primary-04 p-2 rounded-lg gap-5">
                     {
                         qtyItem !== "1" ?
-                            <button onClick={() => decProductToCart(cartData.id)} className="text-gray-800 flex justify-center">
+                            <button onClick={() => decProductToCart(cartData.id)} className="text-slate-800 flex justify-center">
                                 <FiMinus className="w-5 h-5" />
                             </button>
                             :
@@ -92,7 +92,7 @@ function CartItem({ cartData, qtyItem }) {
                                 <FaRegTrashAlt className="w-4 h-4" />
                             </button>
                     }
-                    <div className="font-bold text-gray-700 flex-1">
+                    <div className="font-bold text-slate-700 flex-1">
                         {isAdding ?
                             <ThreeDots
                                 visible={true}
@@ -107,7 +107,7 @@ function CartItem({ cartData, qtyItem }) {
                             : qtyItem
                         }
                     </div>
-                    <button onClick={() => incProductToCart(cartData.id)} className="text-gray-800 flex items-center justify-center">
+                    <button onClick={() => incProductToCart(cartData.id)} className="text-slate-800 flex items-center justify-center">
                         <MdAdd className="w-5 h-5" />
                     </button>
                 </div>

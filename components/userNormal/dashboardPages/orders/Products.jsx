@@ -26,7 +26,7 @@ function OrderProductItem() {
                     </Link>
                 </div>
             </div>
-            
+
             <div className="py-4 text-base font-medium text-slate-800 border-b border-b-slate-300 pb-4">
                 ✅ تحویل داده شد
             </div>
@@ -37,14 +37,14 @@ function OrderProductItem() {
                 <div className="hidden sm:block w-1.5 h-1.5 bg-slate-300 rounded-full"></div>
                 <div className="text-sm text-slate-500 flex items-center gap-1">
                     مبلغ
-                    <span className="text-gray-800 font-semibold">
+                    <span className="text-slate-800 font-semibold">
                         {numberWithCommas(2500000)} تومان
                     </span>
                 </div>
                 <div className="hidden sm:block w-1.5 h-1.5 bg-slate-300 rounded-full"></div>
                 <div className="text-sm text-slate-500 flex items-center gap-1">
                     تخفیف
-                    <span className="text-gray-800 font-semibold">
+                    <span className="text-slate-800 font-semibold">
                         {numberWithCommas(25000)} تومان
                     </span>
                 </div>

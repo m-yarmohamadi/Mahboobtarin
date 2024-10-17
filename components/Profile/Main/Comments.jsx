@@ -15,7 +15,7 @@ export default function Comments({ motekhases_id }) {
     useEffect(() => {
         async function getComments() {
             try {
-                const {data} = await getCommentExpertise(motekhases_id);
+                const { data } = await getCommentExpertise(motekhases_id);
                 setComments(data);
             } catch (error) {
                 setComments([]);
@@ -26,7 +26,7 @@ export default function Comments({ motekhases_id }) {
     }, [])
 
     return (
-        <div className="pb-4 border border-gray-400 rounded-lg w-full ">
+        <div className="pb-4 border border-slate-400 rounded-lg w-full ">
             <CreateCommentForm motekhases_id={motekhases_id} />
             <div className="p-4 w-full">
                 {comments.map((item) => {
@@ -35,21 +35,21 @@ export default function Comments({ motekhases_id }) {
                             key={item.id}
                             className="w-full border-b border-b-slate-300 py-6 last:border-b-0 flex flex-col justify-center items-start gap-1"
                         >
-                            <span className="font-bold text-sm text-gray-800">
+                            <span className="font-bold text-sm text-slate-800">
                                 {item.user.name} {item.user.lastname}
                             </span>
-                            <div className="w-full flex justify-between mb-4 items-center gap-4 text-gray-500 text-sm">
+                            <div className="w-full flex justify-between mb-4 items-center gap-4 text-slate-500 text-sm">
                                 <span className="flex justify-start items-center gap-1 text-primary-01">
                                     {Array(item.star).fill({}).map((item, index) => (
-                                        <FaStar key={index}/>
+                                        <FaStar key={index} />
                                     ))}
                                 </span>
-                                <span className="text-xs text-gray-400 flex items-center gap-1">
+                                <span className="text-xs text-slate-400 flex items-center gap-1">
                                     <MdAccessTime className="w-4 h-4" />
                                     {/* {enToFaNumber(`${item.time}`)} */}
                                 </span>
                             </div>
-                            <span className="text-gray-600 text-xs font-thin">
+                            <span className="text-slate-600 text-xs font-thin">
                                 {item.text}
                             </span>
                         </div>
@@ -92,12 +92,12 @@ function CreateCommentForm({ motekhases_id }) {
     return (
         <form className="w-full" onSubmit={formik.handleSubmit}>
             <div className=" flex flex-col items-center gap-4 w-full  p-4">
-                <span className="text-sm font-semibold text-gray-800">
+                <span className="text-sm font-semibold text-slate-800">
                     به این پزشک چه امتیازی می دهید؟
                 </span>
                 <div className="flex items-center gap-3">
                     {Array(5).fill({}).map((item, index) => (
-                        <div onClick={() => formik.setFieldValue("star", index + 1)} key={index} className={`cursor-pointer ${index < formik.values.star ? "text-gray-800" : "text-gray-300"}`}>
+                        <div onClick={() => formik.setFieldValue("star", index + 1)} key={index} className={`cursor-pointer ${index < formik.values.star ? "text-slate-800" : "text-slate-300"}`}>
                             <FaStar />
                         </div>
                     ))}
@@ -108,7 +108,7 @@ function CreateCommentForm({ motekhases_id }) {
                     <label htmlFor="Opinion"></label>
                     <textarea
                         rows="8"
-                        className=" w-full  text-sm  outline-none focus:ring-0 border border-gray-300 rounded-md p-2"
+                        className=" w-full bg-slate-200 text-sm  outline-none focus:ring-0 border border-slate-300 rounded-md p-2"
                         placeholder="لطفا نظر خود را درج فرمایید..."
                         required
                         name="text"

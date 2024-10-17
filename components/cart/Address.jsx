@@ -13,10 +13,10 @@ export default function Address({ setStep }) {
         <div className="w-full  max-w-screen-xl mx-auto p-6 lg:p-10">
             <div className="w-full flex items-center justify-between p-4 pl-6 border border-slate-300 rounded-xl">
                 <div className="flex items-center gap-3">
-                    <button onClick={() => setStep(1)} className="text-gray-800">
+                    <button onClick={() => setStep(1)} className="text-slate-800">
                         <FaArrowRight className="w-5 h-5" />
                     </button>
-                    <h1 className="text-gray-800 font-semibold text-sm sm:text-base">
+                    <h1 className="text-slate-800 font-semibold text-sm sm:text-base">
                         مشخصات ارسال
                     </h1>
                 </div>
@@ -41,12 +41,12 @@ function AddressSammary({ setStep }) {
 
     return (
         <div className="w-full lg:col-span-4 border border-slate-300 rounded-xl p-6 space-y-3">
-            <div className="w-full flex items-center justify-between text-gray-700">
+            <div className="w-full flex items-center justify-between text-slate-700">
                 <span className="text-xs font-medium">
                     قیمت کالا ها({cart?.totalqty})
                 </span>
                 <div className="font-bold text-sm">
-                    {numberWithCommas(cart.totalpureprice)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    {numberWithCommas(cart.totalpureprice)} <span className="text-xs text-slate-600 font-medium">تومان</span>
                 </div>
             </div>
             {cart.totaldiscountprice &&
@@ -55,7 +55,7 @@ function AddressSammary({ setStep }) {
                         سود شما از این خرید
                     </span>
                     <div className="font-bold text-sm">
-                        {numberWithCommas(cart.totaldiscountprice)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                        {numberWithCommas(cart.totaldiscountprice)} <span className="text-xs text-slate-600 font-medium">تومان</span>
                     </div>
                 </div>}
             <div className="w-full flex items-center justify-between">
@@ -63,15 +63,15 @@ function AddressSammary({ setStep }) {
                     هزینه ارسال
                 </span>
                 <div className="font-bold text-sm">
-                    {numberWithCommas(getPrice(cart.sendmethod))} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    {numberWithCommas(getPrice(cart.sendmethod))} <span className="text-xs text-slate-600 font-medium">تومان</span>
                 </div>
             </div>
-            <div className="w-full flex items-center justify-between text-gray-900 border-t border-gray-300 pt-4 !mt-4">
+            <div className="w-full flex items-center justify-between text-slate-900 border-t border-slate-300 pt-4 !mt-4">
                 <span className="font-bold text-sm">
                     قیمت نهایی
                 </span>
                 <div className="font-bold">
-                    {numberWithCommas(cart.totalprice)} <span className="text-xs text-gray-600 font-medium">تومان</span>
+                    {numberWithCommas(cart.totalprice)} <span className="text-xs text-slate-600 font-medium">تومان</span>
                 </div>
             </div>
 
@@ -100,7 +100,7 @@ function ProductsList() {
 
     return (
         <div className="w-full border border-slate-300 rounded-xl p-6">
-            <div className="flex items-center gap-2 text-sm font-semibold text-gray-800 mb-5">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-800 mb-5">
                 <HiShoppingCart className="w-6 h-6" />
                 محصولات شما ({products.length})
             </div>

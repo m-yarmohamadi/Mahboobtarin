@@ -56,10 +56,10 @@ export default function WorkAddress({ formik }) {
                 </button>
             </div>
             {workAddress.length !== 0 &&
-                <div className="w-full border border-slate-300 rounded-md mt-3">
+                <div className="w-full border border-slate-400 rounded-md mt-3">
                     {workAddress.map((item, index) => (
-                        <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0">
-                            <p className="flex-1 text-xs truncate">
+                        <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-400 last:border-0">
+                            <p className="flex-1 text-xs truncate text-textDefault">
                                 {item.address}
                             </p>
                             <button onClick={() => removeAddressHandler(item)} type="button" >

@@ -118,7 +118,7 @@ const dataMenu = [
         title: 'دنبال شونده',
         value: 'following',
         quanity: '',
-        icon: LuUsers2 ,
+        icon: LuUsers2,
     },
     {
         id: 12,
@@ -173,9 +173,9 @@ export default function Sidebar({ open, onClose }) {
         <>
             <div onClick={onClose} className={`${open ? "block" : "hidden"} lg:!hidden w-full h-full fixed top-0 right-0 z-50 bg-slate-900/50`}></div>
             <div className={`${open ? "translate-x-0" : "translate-x-full"} lg:!translate-x-0 duration-300 lg:duration-0 w-auto fixed lg:static top-0 right-0 z-50 lg:z-0 h-full lg:col-span-3 bg-primary-02 lg:w-full overflow-y-auto p-4`}>
-                <div className=' w-full bg-gray-200 rounded-md'>
+                <div className=' w-full bg-slate-200 rounded-md'>
                     <div className='w-full flex justify-center items-center p-2'>
-                        <div className="w-20 h-20 flex items-center justify-center rounded-full overflow-hidden border-4 border-white">
+                        <div className="w-20 h-20 flex items-center justify-center rounded-full overflow-hidden border-4 border-slate-100 dark:bg-slate-900">
                             <img
                                 className={user?.avatar[0]?.path && "object-cover w-full h-full"}
                                 src={user?.avatar[0]?.path || "/images/defaultUser.png"}
@@ -183,7 +183,7 @@ export default function Sidebar({ open, onClose }) {
                             />
                         </div>
                     </div>
-                    <div className='w-full p-2 flex flex-col items-center justify-center gap-2'>
+                    <div className='w-full p-2 flex flex-col items-center justify-center gap-2 text-textDefault'>
                         <span className='font-bold'>{user?.name} {user?.lastname}</span>
                         <span>{user?.unique_url_id}</span>
                         <span className='text-sm'>
@@ -192,12 +192,12 @@ export default function Sidebar({ open, onClose }) {
                     </div>
                     <div className='p-3'>
                         <div className='p-3 bg-white rounded-md'>
-                            <div className=' flex justify-between items-center'>
+                            <div className=' flex justify-between items-center text-textDefault'>
                                 <span>مانده تا سطح طلایی:</span>
                                 <span>21%</span>
                             </div>
                             <div className='w-full '>
-                                <div className='w-full bg-gray-300 rounded-full dark:bg-gray-800 flex flex-row-reverse'>
+                                <div className='w-full bg-slate-300 rounded-full dark:bg-slate-800 flex flex-row-reverse'>
                                     <div className='bg-primary-01 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full w-1/5'>21%</div>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@ export default function Sidebar({ open, onClose }) {
                 </div>
 
                 <div className='p-2'>
-                    <div className='grid grid-cols-12 justify-center items-center text-gray-800'>
+                    <div className='grid grid-cols-12 justify-center items-center text-slate-800'>
                         <div className='w-full col-span-2 text-3xl'>
                             <GiWallet />
                         </div>
@@ -233,12 +233,12 @@ export default function Sidebar({ open, onClose }) {
                             <Link
                                 key={index}
                                 href={`/admin/${item.value}`}
-                                className={`flex justify-start gap-6 items-center px-2 py-4 text-sm font-medium cursor-pointer ${pathname && pathname.split("/").includes(item.value) && item.value && `text-secondary-01 font-black shadow-md shadow-primary-03 bg-opacity-40 bg-white rounded-md`}`}>
+                                className={`flex justify-start gap-6 items-center px-2 py-4 text-sm font-medium cursor-pointer text-textDefault ${pathname && pathname.split("/").includes(item.value) && item.value && `!text-secondary-01 font-black shadow-md dark:shadow-darkMd shadow-primary-03 bg-opacity-40 bg-white rounded-md`}`}>
                                 <span>
                                     {item.icon && <item.icon className="w-6 h-6" />}
                                 </span>
                                 <span>{item.title}</span>
-                                {item.quanity && <span className='bg-primary-01 w-6 h-6 text-white flex justify-center items-center rounded-full'>{item.quanity}</span>}
+                                {item.quanity && <span className='text-textDefault bg-primary-01 w-6 h-6 flex justify-center items-center rounded-full'>{item.quanity}</span>}
                             </Link>
                         );
                     })}

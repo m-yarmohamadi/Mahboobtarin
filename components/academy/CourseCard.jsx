@@ -7,7 +7,7 @@ export default function CourseCard({ course }) {
     }
 
     return (
-        <Link href={`/academy/${course?.slug}`} className="block border border-gray-300 p-2 rounded-lg">
+        <Link href={`/academy/${course?.slug}`} className="block border border-slate-300 dark:border-slate-400 p-2 rounded-lg">
             <div className="mb-2">
                 <div className="aspect-w-16 aspect-h-10">
                     {course?.photos &&
@@ -17,10 +17,10 @@ export default function CourseCard({ course }) {
             </div>
 
             <div className="space-y-2">
-                <h2 className="text-gray-800 font-semibold">
+                <h2 className="text-slate-800 font-semibold">
                     {course?.title}
                 </h2>
-                <div className="text-sm font-medium text-gray-500">
+                <div className="text-sm font-medium text-slate-500">
                     مدرس:
                     <span>
                         {course?.teacher}
@@ -29,9 +29,9 @@ export default function CourseCard({ course }) {
             </div>
 
             <div className="mt-3 flex items-center justify-between">
-                <div className="text-sm text-gray-800 font-bold">
+                <div className="text-sm text-slate-800 font-bold">
                     {course?.numOfStudents || 0}
-                    <span className="text-gray-400 font-normal">
+                    <span className="text-slate-500 font-normal">
                         دانشجو
                     </span>
                 </div>
@@ -44,16 +44,16 @@ export default function CourseCard({ course }) {
                 </div>
             </div>
 
-            <div className="mt-5 flex items-center gap-1 justify-between p-1 rounded-md bg-slate-200">
+            <div className="mt-5 flex items-center gap-1 justify-between p-1 rounded-md">
                 <div className="flex items-center gap-1">
                     {course?.discount_price &&
                         <>
-                            <span className='text-sm text-white bg-error px-2 py-1 rounded-md'>{course?.discount_price} %</span>
-                            <p className='line-through  text-gray-400'>{numberWithCommas(course?.price)}</p>
+                            <span className='text-sm text-textDefault bg-error px-2 py-1 rounded-md'>{course?.discount_price} %</span>
+                            <p className='line-through  text-slate-500'>{numberWithCommas(course?.price)}</p>
                         </>
                     }
                 </div>
-                <div className="text-gray-800 font-semibold ">
+                <div className="text-slate-800 font-semibold ">
                     {numberWithCommas(course?.discount_price ? addDiscount(course?.price, course?.discount_price) : course?.price)}
                     <span className="text-xs font-normal">
                         تومان

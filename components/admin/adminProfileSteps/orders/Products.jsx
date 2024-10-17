@@ -33,14 +33,14 @@ function OrderProductItem() {
                 <div className="hidden sm:block w-1.5 h-1.5 bg-slate-300 rounded-full"></div>
                 <div className="text-sm text-slate-500 flex items-center gap-1">
                     مبلغ
-                    <span className="text-gray-800 font-semibold">
+                    <span className="text-slate-800 font-semibold">
                         {numberWithCommas(2500000)} تومان
                     </span>
                 </div>
                 <div className="hidden sm:block w-1.5 h-1.5 bg-slate-300 rounded-full"></div>
                 <div className="text-sm text-slate-500 flex items-center gap-1">
                     تخفیف
-                    <span className="text-gray-800 font-semibold">
+                    <span className="text-slate-800 font-semibold">
                         {numberWithCommas(25000)} تومان
                     </span>
                 </div>
@@ -56,7 +56,7 @@ function OrderProductItem() {
                 <div className="hidden sm:block w-1.5 h-1.5 bg-slate-300 rounded-full"></div>
                 <div className="text-sm text-slate-500 flex items-center gap-1">
                     زمان ارسال
-                    <span className="text-gray-800 font-semibold">
+                    <span className="text-slate-800 font-semibold">
                         4 مهر 1403
                     </span>
                 </div>
@@ -64,7 +64,7 @@ function OrderProductItem() {
 
             <div className="text-xs text-slate-500 flex items-center gap-1 border-b border-b-slate-300 pb-4">
                 <HiOutlineLocationMarker className="w-4 h-4" />
-                <span className="text-gray-800 font-semibold">
+                <span className="text-slate-800 font-semibold">
                     تهران، تهران
                 </span>
             </div>

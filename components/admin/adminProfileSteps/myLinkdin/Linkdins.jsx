@@ -23,10 +23,10 @@ export default function Linkdins({ formik, loading, link_dooni, userID }) {
 
 		try {
 			const data = await mutateDeleteLinkdooni(formData);
-			
+
 			if (data) {
 				toast.success("لینک مورد نظر حذف شد");
-				queryClient.invalidateQueries({ queryKey: ['get-expertise-user-by-id', userID] });
+				queryClient.invalidateQueries({ queryKey: ['get-expertise-user-by-id'] });
 			}
 
 		} catch (error) {
@@ -74,13 +74,13 @@ export default function Linkdins({ formik, loading, link_dooni, userID }) {
 				</div>
 			</div>
 			{link_dooni && link_dooni?.length !== 0 && (
-				<div className='w-full border border-slate-300 rounded-md mt-3'>
+				<div className='w-full border border-slate-400 rounded-md mt-3'>
 					{link_dooni?.map((item, index) => (
 						<div
 							key={index}
-							className='flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0'>
+							className='flex items-center justify-between gap-4 p-3 border-b border-slate-400 last:border-0'>
 							<div className='flex-1 flex items-center gap-1'>
-								<Link href={item.link} rel='nofollow' target='_blank' className='text-sm font-medium border-l hover:text-blue-600 hover:underline border-slate-400 pl-1'>
+								<Link href={item.link} rel='nofollow' target='_blank' className='text-sm text-textDefault font-medium border-l hover:text-blue-600 hover:underline border-slate-400 pl-1'>
 									{item.title}
 								</Link>
 								<span className='text-primary-01 font-bold text-xs'>

@@ -25,23 +25,23 @@ export default function CourseComment() {
                 {Array(4).fill({}).map((comment, index) => (
                     <div
                         key={index}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-center items-start gap-1"
+                        className="w-full bg-slate-100 border border-slate-300 rounded-xl p-4 flex flex-col justify-center items-start gap-1"
                     >
-                        <span className="font-bold text-sm text-gray-800">
+                        <span className="font-bold text-sm text-slate-800">
                             دانشجوی دوره
                         </span>
-                        <div className="w-full flex justify-between mb-4 items-center gap-4 text-gray-500 text-sm">
+                        <div className="w-full flex justify-between mb-4 items-center gap-4 text-slate-500 text-sm">
                             <span className="flex justify-start items-center gap-1 text-primary-01">
                                 {Array(3).fill({}).map((item, index) => (
                                     <FaStar key={index} />
                                 ))}
                             </span>
-                            <span className="text-xs text-gray-400 flex items-center gap-1">
+                            <span className="text-xs text-slate-400 flex items-center gap-1">
                                 <MdAccessTime className="w-4 h-4" />
                                 2 روز قبل
                             </span>
                         </div>
-                        <span className="text-gray-700 text-xs leading-6">
+                        <span className="text-slate-700 text-xs leading-6">
                             سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
                             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپس
                         </span>
@@ -63,12 +63,12 @@ function CreateCommentForm({ onClose }) {
     return (
         <div>
             <div className=" flex flex-col items-center gap-4 w-full  p-4">
-                <span className="text-sm font-semibold text-gray-800">
+                <span className="text-sm font-semibold text-slate-800">
                     به این دوره چه امتیازی می دهید؟
                 </span>
                 <div className="flex items-center gap-3">
                     {Array(5).fill({}).map((item, index) => (
-                        <div onClick={() => formik.setFieldValue("star", index + 1)} key={index} className={`cursor-pointer ${index < formik.values.star ? "text-gray-800" : "text-gray-300"}`}>
+                        <div onClick={() => formik.setFieldValue("star", index + 1)} key={index} className={`cursor-pointer ${index < formik.values.star ? "text-slate-800" : "text-slate-400"}`}>
                             <FaStar />
                         </div>
                     ))}
@@ -79,7 +79,7 @@ function CreateCommentForm({ onClose }) {
                     <label htmlFor="Opinion"></label>
                     <textarea
                         rows="8"
-                        className=" w-full  text-sm  outline-none focus:ring-0 border border-gray-300 rounded-md p-2"
+                        className=" w-full bg-slate-200 text-sm  outline-none focus:ring-0 border border-slate-300 rounded-md p-2"
                         placeholder="لطفا نظر خود را درج فرمایید..."
                         required
                         name="text"

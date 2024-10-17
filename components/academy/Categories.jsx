@@ -8,7 +8,7 @@ export default function Categories() {
     return (
         <div className='w-full p-6 bg-slate-200'>
             <div className="md:mx-auto md:container p-6 mt-6">
-                <h3 className="text-xl text-gray-900 font-semibold text-center">
+                <h3 className="text-xl text-slate-900 font-semibold text-center">
                     دسته بندی موضوعات آموزشی
                 </h3>
                 <div className='w-full mx-auto mt-10'>
@@ -32,7 +32,7 @@ export default function Categories() {
                                         <div className='w-32 h-32 rounded-full flex items-center justify-center p-6 bg-white'>
                                             <img src={item.img} alt="" className='w-full' />
                                         </div>
-                                        <div className='text-sm font-medium text-gray-900'>
+                                        <div className='text-sm font-medium text-slate-900'>
                                             {item.title}
                                         </div>
                                     </div>
@@ -41,7 +41,7 @@ export default function Categories() {
                         })}
 
                         <div className='w-full justify-between items-center flex mt-8'>
-                            <button id='course-categories-btn-prev' className='btn btn--secondary !p-2 !rounded-full disabled:!opacity-50 !text-white'>
+                            <button id='course-categories-btn-prev' className='btn btn--secondary !p-2 !rounded-full disabled:!opacity-50 !text-textDefault'>
                                 <FaAngleRight className='w-5 h-5' />
                             </button>
                             <div>
@@ -49,7 +49,7 @@ export default function Categories() {
 
                                 </div>
                             </div>
-                            <button id='course-categories-btn-next' className='btn btn--secondary !p-2 !rounded-full disabled:!opacity-50 !text-white'>
+                            <button id='course-categories-btn-next' className='btn btn--secondary !p-2 !rounded-full disabled:!opacity-50 !text-textDefault'>
                                 <FaAngleLeft className='w-5 h-5' />
                             </button>
                         </div>

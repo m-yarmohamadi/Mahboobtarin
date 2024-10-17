@@ -79,16 +79,16 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
     return (
         <>
             {isLoginState && (
-                <div className="w-full h-full gap-3 font-bold text-xl  flex-col fixed top-0 right-0 flex items-center justify-center bg-white/80 z-[60]">
+                <div className="w-full h-full gap-3 font-bold text-xl text-slate-900 flex-col fixed top-0 right-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-[60]">
                     در حال ورود به سایت
-                    <Loading customeColor="#15aa7f" numOfLoading={1} />
+                    <Loading customeColor="#15aa7f" />
                 </div>
             )}
             <form className="space-y-3" onSubmit={checkOtpHandler}>
                 <button type="button" onClick={() => setStep("exists")} className="text-sm text-primary-01 font-medium w-full flex justify-center">
                     ویرایش شماره موبایل
                 </button>
-                <p className=" w-full flex items-center justify-center font-medium text-sm text-gray-700">
+                <p className=" w-full flex items-center justify-center font-medium text-sm text-slate-700">
                     کد تایید ارسال شده را وارد نمایید
                 </p>
                 <OTPInput

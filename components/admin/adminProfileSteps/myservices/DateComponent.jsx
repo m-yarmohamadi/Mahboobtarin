@@ -39,7 +39,7 @@ export default function DateComponent({ formik }) {
                     format={'D MMMM YYYY'}
                     calendarPosition="bottom-right"
                     containerClassName="w-full"
-                    inputClass="w-full appearance-none outline-none bg-transparent text-gray-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg focus:shadow-red-300 transition-all duration-300 ease-in-out"
+                    inputClass="w-full appearance-none outline-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg dark:shadow-darkLg focus:shadow-red-300 transition-all duration-300 ease-in-out"
                 />
                 <div className='w-full flex justify-start items-start mt-2 text-xs text-error'>
                     {dateTimeFormik.errors.date}
@@ -66,7 +66,7 @@ export default function DateComponent({ formik }) {
                     locale={persian_fa}
                     calendarPosition="bottom-right"
                     containerClassName="w-full"
-                    inputClass="w-full appearance-none outline-none bg-transparent text-gray-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg focus:shadow-red-300 transition-all duration-300 ease-in-out"
+                    inputClass="w-full appearance-none outline-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg dark:shadow-darkLg focus:shadow-red-300 transition-all duration-300 ease-in-out"
                 />
                 <div className='w-full flex justify-start items-start mt-2 text-xs text-error'>
                     {dateTimeFormik.errors.time}

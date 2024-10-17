@@ -209,7 +209,7 @@ function TimeComponent({ formik }) {
                                 onClick={() => removeTimeHandler(item)}
                                 className="w-5 h-5 bg-error text-white rounded flex items-center justify-center"
                             >
-                                <HiOutlineTrash className="w-4 h-4" />
+                                <HiOutlineTrash className="w-4 h-4 text-[#fff]" />
                             </button>
                         </div>
                     ))}

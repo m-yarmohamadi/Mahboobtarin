@@ -24,7 +24,7 @@ export default function CreateGalleryForm({ onClose, userID }) {
 			if (data) {
 				toast.success("با موفقیت اضافه شد");
 				onClose();
-				queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id", userID] });
+				queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] });
 				resetForm();
 			}
 
@@ -100,7 +100,7 @@ export default function CreateGalleryForm({ onClose, userID }) {
 					<>
 						<label
 							htmlFor='src-gallery'
-							className='text-primary-01 cursor-pointer text-xs font-semibold w-full flex flex-col justify-center items-center gap-2 py-7 border border-dashed border-slate-300 rounded-lg'>
+							className='text-primary-01 cursor-pointer text-xs font-semibold w-full flex flex-col justify-center items-center gap-2 py-7 border border-dashed border-slate-400 rounded-lg'>
 							<GoPlusCircle className='w-12 h-12' />
 							برای افزودن تصویر یا ویدیو کلیک کنید
 						</label>

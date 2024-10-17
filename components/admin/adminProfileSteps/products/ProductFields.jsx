@@ -182,7 +182,7 @@ function PictureSelector({ formik }) {
                         }
                     });
                 }}
-                className="w-full p-6 cursor-pointer flex flex-col items-center justify-center gap-4 border border-dashed border-slate-300 rounded-xl"
+                className="w-full p-6 cursor-pointer flex flex-col items-center justify-center gap-4 border border-dashed border-slate-400 rounded-xl"
             >
                 <input
                     type="file"
@@ -194,13 +194,13 @@ function PictureSelector({ formik }) {
                 />
                 {!isUploading ?
                     <>
-                        <FaImage className="w-8 h-8 text-primary-01/50" />
-                        <p className="text-sm font-semibold text-primary-01/50">
+                        <FaImage className="w-8 h-8 text-textDefault opacity-40" />
+                        <p className="text-sm font-semibold text-textDefault opacity-40">
                             برای افزودن تصویر کلیک کنید یا تصویر را در این بخش رها کنید
                         </p>
                     </>
                     :
-                    <div className="text-sm font-semibold text-gray-700 flex flex-col items-center gap-2">
+                    <div className="text-sm font-semibold text-slate-700 flex flex-col items-center gap-2">
                         <Loading customeColor={'#0693a4'} />
                         درحال آپلود
                     </div>
@@ -213,7 +213,7 @@ function PictureSelector({ formik }) {
                         {formik.values.files.map((file) => (
                             <div key={file.id} className="w-24 h-24 rounded-lg overflow-hidden p-1 border border-slate-300 relative">
                                 <img src={URL.createObjectURL(file.file)} alt="" className="w-full h-full object-contain object-center" />
-                                {/* <button onClick={() => formik.setFieldValue("files", formik.values.files.filter((f) => f.id !== file.id))} className="w-5 h-5 flex items-center justify-center rounded-full bg-white shadow-md text-error absolute top-2 right-2">
+                                {/* <button onClick={() => formik.setFieldValue("files", formik.values.files.filter((f) => f.id !== file.id))} className="w-5 h-5 flex items-center justify-center rounded-full bg-white shadow-md dark:shadow-darkMd text-error absolute top-2 right-2">
                                     <IoMdClose className="w-4 h-4" />
                                 </button> */}
                             </div>
@@ -250,7 +250,7 @@ function ExpiredateInput({ formik, name }) {
                 minDate={new Date()}
                 calendarPosition="bottom-right"
                 containerClassName="w-full"
-                inputClass="w-full appearance-none outline-none bg-transparent text-gray-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg focus:shadow-red-300 transition-all duration-300 ease-in-out"
+                inputClass="w-full appearance-none outline-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg dark:shadow-darkLg focus:shadow-red-300 transition-all duration-300 ease-in-out"
             />
             <div className='w-full flex justify-start items-start mt-2'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{formik?.errors[name]}</p>}</div>
         </div>

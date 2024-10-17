@@ -26,7 +26,7 @@ const PopularMounth = () => {
 
   return (
     <div className="w-full container mx-auto pt-12 ">
-      <div className="w-full px-2 py-4 flex  justify-center items-center justify-items-center font-extrabold text-2xl">
+      <div className="w-full text-textDefault px-2 py-4 flex  justify-center items-center justify-items-center font-extrabold text-2xl">
         محبوب ترین های ماه
       </div>
       <Swiper
@@ -92,10 +92,10 @@ const PopularMounth = () => {
                     />
                   </div>
                 </div>
-                <span className="pt-2 flex justify-center items-center">
+                <span className="pt-2 flex justify-center items-center text-textDefault">
                   {item.name} {item.lastname}
                 </span>
-                <span className="pb-2 flex justify-center items-center text-gray-400 text-sm">
+                <span className="pb-2 flex justify-center items-center text-slate-400 dark:text-slate-600 text-sm">
                   {item?.expertises[0]?.subject}
                 </span>
               </Link>

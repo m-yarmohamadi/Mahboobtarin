@@ -45,9 +45,9 @@ export default function Mahbobtarin() {
 
     return (
         <div>
-            <div className='flex flex-col justify-center items-center gap-3 py-4 border-b border-slate-300'>
-                <h1 className='text-lg text-gray-800 font-bold'>محبوب ترین های شما</h1>
-                <p className='text-sm text-gray-600'>
+            <div className='flex flex-col justify-center items-center gap-3 py-4 border-b border-slate-400'>
+                <h1 className='text-lg text-slate-800 font-bold'>محبوب ترین های شما</h1>
+                <p className='text-sm text-slate-600'>
                     محبوب ترین های خود را در این بخش اضافه کنید
                 </p>
             </div>
@@ -83,7 +83,7 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
             <label className='text-sm font-bold px-2 inline-block text-slate-800'>
                 {item?.popularname?.name}
             </label>
-            <div className="w-full flex items-center bg-transparent text-gray-700 border  border-primary-01 border-opacity-25 rounded-md">
+            <div className="w-full flex items-center bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 rounded-md">
                 {
                     edit ?
                         <input

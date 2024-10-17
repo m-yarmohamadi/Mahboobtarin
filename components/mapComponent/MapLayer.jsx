@@ -66,7 +66,7 @@ export default function MapLayer({ open, onClose, title = "انتخاب آدرس
         return (
             <>
                 <div onClick={onClose} className="w-full h-full fixed top-0 right-0 bg-slate-900/60 z-50"></div>
-                <div className="w-full h-[calc(100%-48px)] flex flex-col gap-6 max-w-[650px] bg-white shadow-lg rounded-xl p-6 fixed top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 z-50">
+                <div className="w-full h-[calc(100%-48px)] flex flex-col gap-6 max-w-[650px] bg-white shadow-lg dark:shadow-darkLg rounded-xl p-6 fixed top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 z-50">
                     <div className="w-full flex items-center justify-between font-bold text-slate-800 border-b border-slate-300 pb-4">
                         <div>
                             {title}

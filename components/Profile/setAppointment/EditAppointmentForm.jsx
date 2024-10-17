@@ -51,12 +51,12 @@ export default function EditAppointmentForm({ onClose, lastSelected, onLastSelec
             {
                 selected &&
                 <div className="p-3 my-2 bg-indigo-50 rounded-lg grid grid-cols-2 gap-1">
-                    <p className="flex items-center gap-1 text-sm font-medium text-gray-600">
-                        <IoIosCalendar className="w-6 h-6 text-gray-700" />
+                    <p className="flex items-center gap-1 text-sm font-medium text-slate-600">
+                        <IoIosCalendar className="w-6 h-6 text-slate-700" />
                         <span className="font-normal">{selected?.date}</span>
                     </p>
-                    <p className="flex items-center gap-1 text-sm font-medium text-gray-600">
-                        <IoTimeOutline className="w-6 h-6 text-gray-700" />
+                    <p className="flex items-center gap-1 text-sm font-medium text-slate-600">
+                        <IoTimeOutline className="w-6 h-6 text-slate-700" />
                         <span className="font-normal">{selected?.time}</span>
                     </p>
                 </div>
@@ -76,7 +76,7 @@ export default function EditAppointmentForm({ onClose, lastSelected, onLastSelec
                         key={index}
                         type="button"
                         onClick={() => setSelected({ ...selected, time: item })}
-                        className={`btn btn--outline !text-base !py-2 !px-4 !h-12 duration-200 !text-gray-600 border  ${selected?.time === item ? "!bg-gray-200 border-indigo-300" : "border-gray-300"}`}
+                        className={`btn btn--outline !text-base !py-2 !px-4 !h-12 duration-200 !text-slate-600 border  ${selected?.time === item ? "!bg-slate-200 border-indigo-300" : "border-slate-300"}`}
                     >
                         {item}
                     </button>
@@ -123,15 +123,15 @@ function CustomeButtonDatePicker({ openCalendar, value, setDate }) {
 
     return (
         <div className="w-full h-14 flex items-center">
-            <button disabled={isToday()} onClick={descDateHandler} className="w-16 disabled:!opacity-45 h-full rounded-r-md whitespace-nowrap p-3 text-xs text-gray-500 border border-gray-300">
+            <button disabled={isToday()} onClick={descDateHandler} className="w-16 disabled:!opacity-45 h-full rounded-r-md whitespace-nowrap p-3 text-xs text-slate-500 border border-slate-300">
                 روز قبل
             </button>
-            <button onClick={openCalendar} className="flex-1 h-full btn !rounded-none gap-2 bg-indigo-100 border-y border-indigo-100 text-[80%] text-gray-600">
+            <button onClick={openCalendar} className="flex-1 h-full btn !rounded-none gap-2 bg-indigo-100 border-y border-indigo-100 text-[80%] text-slate-600">
                 <FaRegCalendar className="w-4 h-4" />
                 {isToday() && "امروز، "}
                 {convertToLongDateFa}
             </button>
-            <button onClick={incDateHandler} className="w-16 h-full rounded-l-md whitespace-nowrap p-3 text-xs text-gray-500 border border-gray-300">
+            <button onClick={incDateHandler} className="w-16 h-full rounded-l-md whitespace-nowrap p-3 text-xs text-slate-500 border border-slate-300">
                 روز بعد
             </button>
         </div>

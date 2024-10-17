@@ -4,7 +4,7 @@ import 'swiper/css';
 export default function Categoreis() {
     return (
         <div className="md:mx-auto md:container p-6 mt-14">
-            <h3 className="text-2xl text-gray-900 font-medium text-center">
+            <h3 className="text-2xl text-slate-900 font-medium text-center">
                 خرید بر اساس دسته بندی
             </h3>
 
@@ -34,7 +34,7 @@ function CategoryCard({ category }) {
             <div className='w-[90px] h-[90px] flex items-center justify-center rounded-full bg-slate-300'>
                 <img src={category.img} alt={category.title} className='w-full h-full object-contain' />
             </div>
-            <div className='text-xs text-gray-800'>
+            <div className='text-xs text-slate-800'>
                 {category.title}
             </div>
         </div>

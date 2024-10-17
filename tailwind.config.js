@@ -5,6 +5,9 @@ export const content = [
 	'./app/**/*.{js,ts,jsx,tsx,mdx}',
 	'./tools/**/*.{js,ts,jsx,tsx,mdx}'
 ];
+
+export const darkMode = "class";
+
 export const theme = {
 	extend: {
 		fontFamily: {
@@ -12,22 +15,65 @@ export const theme = {
 		},
 		colors: {
 			tertiary: {
-				'01': '#f1be49',
-				'02': '#dc2626',
+				'01': 'var(--tertiary-01)',
+				'02': 'var(--tertiary-02)',
 			},
 			secondary: {
-				'01': '#15aa7f',
-				'02': '#15aa7f',
+				'01': 'var(--secondary-01)',
+				'02': 'var(--secondary-02)',
 			},
 			primary: {
-				'01': '#0693a4',
-				'02': '#eff0f2',
-				'03': '#cbcbcb',
-				'04': '#dc2626',
-				'05': '#ededed',
+				'01': 'var(--primary-01)',
+				'02': 'var(--primary-02)',
+				'03': 'var(--primary-03)',
+				'04': 'var(--primary-04)',
+				'05': 'var(--primary-05)',
 			},
-			oorange: '#FF0000',
-			error: '#dc2626',
+			slate: {
+				'50': 'var(--color-slate-50)',
+				'100': 'var(--color-slate-100)',
+				'200': 'var(--color-slate-200)',
+				'300': 'var(--color-slate-300)',
+				'400': 'var(--color-slate-400)',
+				'500': 'var(--color-slate-500)',
+				'600': 'var(--color-slate-600)',
+				'700': 'var(--color-slate-700)',
+				'800': 'var(--color-slate-800)',
+				'900': 'var(--color-slate-900)',
+				'950': 'var(--color-slate-950)',
+			},
+			oorange: 'var(--orange)',
+			error: 'var(--error)',
+			white: 'var(--white)',
+			textDefault: {
+				DEFAULT: 'var(--text-color)', 
+			},
+
+			// tertiary: {
+			// 	'01': '#f1be49',
+			// 	'02': '#dc2626',
+			// },
+			// secondary: {
+			// 	'01': '#15aa7f',
+			// 	'02': '#15aa7f',
+			// },
+			// primary: {
+			// 	'01': '#0693a4',
+			// 	'02': '#eff0f2',
+			// 	'03': '#cbcbcb',
+			// 	'04': '#dc2626',
+			// 	'05': '#ededed',
+			// },
+			// oorange: '#FF0000',
+			// error: '#dc2626',
+		},
+		boxShadow: {
+			sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', // سایه پیش‌فرض روشن
+			md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', // سایه متوسط روشن
+			lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', // سایه بزرگ روشن
+			darkSm: '0 1px 2px 0 rgba(255, 255, 255, 0.1)', // سایه پیش‌فرض تاریک
+			darkMd: '0 4px 6px -1px rgba(255, 255, 255, 0.1)', // سایه متوسط تاریک
+			darkLg: '0 10px 15px -3px rgba(255, 255, 255, 0.2)', // سایه بزرگ تاریک
 		},
 		screens: {
 			xs: '475px',

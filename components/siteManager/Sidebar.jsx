@@ -77,7 +77,7 @@ export default function Sidebar({ onClose, open }) {
         <>
             <div onClick={onClose} className={`${open ? "block" : "hidden"} lg:!hidden w-full h-full fixed top-0 right-0 z-50 bg-slate-900/50`}></div>
             <div className={`${open ? "translate-x-0" : "translate-x-full"} lg:col-span-4 xl:col-span-3 lg:!translate-x-0 duration-300 lg:duration-0 w-full max-w-[300px] lg:max-w-none fixed lg:static top-0 right-0 z-50 lg:z-0 h-full bg-white overflow-y-auto p-4`}>
-                <div className='w-full bg-gray-200 rounded-xl py-2'>
+                <div className='w-full bg-slate-200 rounded-xl py-2'>
                     <div className='w-full flex justify-center items-center p-2'>
                         <div className="w-20 h-20 flex items-center justify-center rounded-full overflow-hidden border-4 border-white">
                             <img

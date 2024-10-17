@@ -50,10 +50,10 @@ export default function Grade({ formik }) {
                 </button>
             </div>
             {grade.length !== 0 &&
-                <div className="w-full border border-slate-300 rounded-md mt-3">
+                <div className="w-full border border-slate-400 rounded-md mt-3">
                     {grade.map((item, index) => (
-                        <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-300 last:border-0">
-                            <div className="flex-1 flex items-center gap-1">
+                        <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-400 last:border-0">
+                            <div className="flex-1 flex items-center gap-1 text-textDefault">
                                 <p className="text-sm font-medium">
                                     {item.title}
                                 </p>

@@ -16,7 +16,7 @@ export default function PopularsList({ userData, popularList }) {
                         return (
                             <div
                                 key={item.id}
-                                className=" flex justify-start items-center text-xs sm:text-sm text-gray-800 gap-1"
+                                className=" flex justify-start items-center text-xs sm:text-sm text-slate-800 gap-1"
                             >
                                 <span className="font-bold"> {item?.popularname?.name} : </span>
                                 <span> {item?.value}</span>

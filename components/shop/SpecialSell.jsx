@@ -43,7 +43,7 @@ export default function SpecialSell() {
                     className="special-sell-slider"
                 >
                     <SwiperSlide className="!w-[250px] ml-4">
-                        <div className='w-full h-full flex rounded-xl flex-col bg-yellow-400 hover:bg-yellow-500 hover:shadow-md'>
+                        <div className='w-full h-full flex rounded-xl flex-col bg-yellow-400 hover:bg-yellow-500 hover:shadow-md dark:shadow-darkMd'>
 
                             <div className='p-2 flex-1 flex justify-center items-center gap-2 font-bold'>
                                 <span>مشاهده همه</span>
@@ -69,10 +69,10 @@ export default function SpecialSell() {
 function Timer() {
     return (
         <div className="flex flex-col sm:flex-row items-center gap-2">
-            <div className="text-gray-500 font-medium">
+            <div className="text-slate-500 font-medium">
                 زمان باقی مانده:
             </div>
-            <div className="flex items-center gap-3 bg-gray-800 text-yellow-400 px-3 rounded-md">
+            <div className="flex items-center gap-3 bg-slate-800 text-yellow-400 px-3 rounded-md">
                 <div className="border-l border-l-slate-500 py-2 pl-3">
                     20:12:05
                 </div>

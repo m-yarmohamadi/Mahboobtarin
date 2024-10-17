@@ -76,13 +76,13 @@ export default function CreateService() {
 
     return (
         <div className='w-full mx-auto md:max-w-screen-sm flex flex-col items-center gap-10'>
-            <div className="w-full flex items-center gap-2 py-4 border-b-2 border-slate-300">
-                <button onClick={() => window.history.back()} className="text-gray-600 btn btn--secondary !p-2">
+            <div className="w-full flex items-center gap-2 py-4 border-b-2 border-slate-300 dark:border-slate-400">
+                <button onClick={() => window.history.back()} className="text-slate-600 btn btn--secondary !p-2">
                     <FaArrowRightLong className="w-5 h-5" />
                 </button>
                 <div className='flex flex-col justify-center itemscenter gap-1'>
-                    <h1 className='text-lg text-gray-800 font-bold'>خدمت جدید</h1>
-                    <p className='text-xs text-gray-600'>لطفا خدماتی را که می توانید در پروفایل خود ارائه دهید ثبت کنید.</p>
+                    <h1 className='text-lg text-slate-800 font-bold'>خدمت جدید</h1>
+                    <p className='text-xs text-slate-600'>لطفا خدماتی را که می توانید در پروفایل خود ارائه دهید ثبت کنید.</p>
                 </div>
             </div>
 

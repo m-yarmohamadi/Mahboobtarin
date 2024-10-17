@@ -12,17 +12,75 @@
 }
 
 
+@layer base {
+	:root {
+	  &,
+	  & {
+		background-color: #eff0f2;
+		--tertiary-01: #f1be49;
+		--tertiary-02: #dc2626;
+
+		--secondary-01: #15aa7f;
+		--secondary-02: #15aa7f;
+
+		--primary-01: #0693a4;
+		--primary-02: #eff0f2;
+		--primary-03: #cbcbcb;
+		--primary-04: #dc2626;
+		--primary-05: #ededed;
+
+		--orange: #FF0000;
+		--error: #dc2626;
+
+		--white: #ffffff;
+		--text-color: #000000;
+
+		--color-slate-50: #f8fafc;
+		--color-slate-100: #f1f5f9;
+		--color-slate-200: #e2e8f0;
+		--color-slate-300: #cbd5e1;
+		--color-slate-400: #94a3b8;
+		--color-slate-500: #64748b;
+		--color-slate-600: #475569;
+		--color-slate-700: #334155;
+		--color-slate-800: #1e293b;
+		--color-slate-900: #0f172a;
+		--color-slate-950: #020617;
+	  }
+	  &.dark {
+		background-color: #374151;
+		--white: #1f2937;
+
+		--primary-02: #374151;
+
+		--color-slate-950: #f8fafc;
+		--color-slate-900: #f1f5f9;
+		--color-slate-800: #e2e8f0;
+		--color-slate-700: #cbd5e1;
+		--color-slate-600: #94a3b8;
+		--color-slate-500: #64748b;
+		--color-slate-400: #475569;
+		--color-slate-300: #334155;
+		--color-slate-200: #1e293b;
+		--color-slate-100: #0f172a;
+		--color-slate-50: #020617;
+
+		--text-color: #ffffff;
+	  }	
+	}
+}
+  
 @layer components{
 	.btn{
 		@apply py-3 px-4 flex items-center justify-center rounded-lg text-sm
 	}
 
 	.btn--primary{
-		@apply bg-primary-01 text-white
+		@apply bg-primary-01 text-[#fff]
 	}
 
 	.btn--secondary{
-		@apply bg-slate-300 text-gray-800
+		@apply bg-slate-300 dark:bg-slate-400 text-slate-800
 	}
 
 	.btn--outline{
@@ -30,11 +88,11 @@
 	}
 
 	.btn--success{
-		@apply bg-green-600 text-white
+		@apply bg-green-600 text-[#fff]
 	}
 
 	.btn--danger{
-		@apply bg-error text-white
+		@apply bg-error text-[#fff]
 	}
 }
 
@@ -60,8 +118,9 @@ font-size: x-small;
 .react-international-phone-country-selector-button {
     height: 100%;
 	padding: 0 16px;
-	border: 1px solid #cbd5e1;
+	border: 1px solid var(--color-slate-300);
 	border-radius: 0.5rem;
+	background-color: var(--white);
 }
 
 .react-international-phone-input-container 
@@ -113,11 +172,11 @@ input[type=number] {
 }
 
 .shop-slider .custome-pagination .swiper-pagination-bullet{
-	@apply !bg-gray-700 opacity-100 rounded-full duration-300 ease-out
+	@apply !bg-slate-700 opacity-100 rounded-full duration-300 ease-out
 }
 
 .shop-slider .custome-pagination .swiper-pagination-bullet-active{
-	@apply w-4 !bg-white shadow-md
+	@apply w-4 !bg-white shadow-md dark:shadow-darkMd
 }
 
 .special-sell-slider .swiper-wrapper,
@@ -136,7 +195,7 @@ input[type=number] {
 
 .popular-brands-swiper .custome-pagination .swiper-pagination-bullet,
 .course-categories-swiper .custome-pagination .swiper-pagination-bullet{
-	@apply !bg-gray-400 opacity-100 rounded-full duration-300 ease-out
+	@apply !bg-slate-400 opacity-100 rounded-full duration-300 ease-out
 }
 
 .popular-brands-swiper .custome-pagination .swiper-pagination-bullet-active,
@@ -150,11 +209,11 @@ input[type=number] {
 
 /* ----- category header ----- */
 .category .category__list{
-	@apply  w-[968px] h-[420px] items-center justify-center hidden  fixed top-[68px] right-0 z-50 bg-white overflow-hidden
+	@apply  w-[968px] h-[420px] items-center justify-center hidden  fixed top-[68px] right-10 z-50 bg-white overflow-hidden
 }
 
 .category .category__list .category__list-items ul li .category__list-items-parent-btn{
-	@apply  w-[200px] py-3 px-2 flex items-center text-[13px] font-semibold cursor-pointer border-y border-transparent;
+	@apply  w-[200px] text-textDefault py-3 px-2 flex items-center text-[13px] font-semibold cursor-pointer border-y border-transparent;
 }
 
 
@@ -166,7 +225,7 @@ input[type=number] {
 
 /* react multi select */
 .react-select-container .react-select__control{
-	@apply w-full !h-[42px] !min-h-min appearance-none bg-transparent text-gray-700 border  border-primary-01 border-opacity-15 focus:!border-opacity-100 rounded-md !px-4  focus:!outline-none focus:!bg-white
+	@apply w-full !h-[42px] !min-h-min appearance-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-15 focus:!border-opacity-100 rounded-md !px-4  focus:!outline-none focus:!bg-white
 }
 
 .react-select-container .react-select__control .react-select__value-container{
@@ -174,7 +233,7 @@ input[type=number] {
 }
 
 .react-select-container .react-select__control .react-select__value-container .react-select__placeholder{
-	@apply text-gray-700
+	@apply text-slate-700
 }
 
 .react-select-container .react-select__control .react-select__indicators{

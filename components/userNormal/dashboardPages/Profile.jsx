@@ -153,7 +153,7 @@ export default function Profile() {
     return (
         <div>
             <div>
-                <h1 className='text-lg text-gray-800 font-bold'>
+                <h1 className='text-lg text-slate-800 font-bold'>
                     اطلاعات فردی
                 </h1>
             </div>

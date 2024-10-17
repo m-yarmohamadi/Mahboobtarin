@@ -13,7 +13,7 @@ export default function cart() {
     const { user, isLoading } = useProfile();
     const [step, setStep] = useState(1);
     const { cart, isGetCart } = useGetCart();
-   
+
     const renderStep = () => {
         switch (step) {
             case 1: return (
@@ -48,7 +48,7 @@ export default function cart() {
                         <Link href="/auth" className="text-lg font-semibold text-primary-01">
                             ورود | ثبت نام
                         </Link>
-                        <p className="text-sm text-gray-800">
+                        <p className="text-sm text-slate-800">
                             لطفا وارد حساب کاربری خود شوید
                         </p>
                     </div>
@@ -57,8 +57,8 @@ export default function cart() {
                 {
                     !isLoading && user && !cart && !isGetCart &&
                     <div className="w-full h-full flex items-center flex-col gap-2 justify-center">
-                        <IoCartOutline className="w-20 h-20 text-gray-400" />
-                        <p className="text-lg font-medium text-gray-800">
+                        <IoCartOutline className="w-20 h-20 text-slate-400" />
+                        <p className="text-lg font-medium text-slate-800">
                             سبد خرید شما خالی است!
                         </p>
                     </div>

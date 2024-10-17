@@ -72,7 +72,7 @@ export default function CreateCourseForm() {
             photo_id: transformPhotoId,
             categories: transformCategories,
         }
-        
+
         const formData = new FormData();
 
         for (const key in productData) {
@@ -116,10 +116,10 @@ export default function CreateCourseForm() {
     return (
         <div>
             <div className="flex flex-col gap-1 items-center border-b border-slate-300 pb-4 mb-5">
-                <h1 className="font-semibold text-gray-800">
+                <h1 className="font-semibold text-slate-800">
                     افزودن دوره جدید
                 </h1>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-slate-500">
                     اطلاعات دوره آموزشی را وارد کنید
                 </p>
             </div>

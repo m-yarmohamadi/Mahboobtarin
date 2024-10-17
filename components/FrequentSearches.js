@@ -287,7 +287,7 @@ const FrequentSearches = () => {
     <div className=" md:container px-0 pb-16">
       <div className="w-full lg:h-[45rem] flex flex-col lg:flex-row gap-8 lg:gap-5">
         <div className="lg:w-[65%] flex flex-col overflow-auto">
-          <h4 className="text-gray-800 font-bold text-lg md:text-xl lg:text-2xl text-center mb-3">
+          <h4 className="text-slate-800 font-bold text-lg md:text-xl lg:text-2xl text-center mb-3">
             جستجو های پر تکرار
           </h4>
           <div className="w-full bg-white md:rounded-lg overflow-auto scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin flex-1">
@@ -307,10 +307,10 @@ const FrequentSearches = () => {
                     </div>
                   </div>
                   <div>
-                    <p className="text-lg text-gray-800 font-bold mb-2 whitespace-nowrap">
+                    <p className="text-lg text-slate-800 font-bold mb-2 whitespace-nowrap">
                       {item.title}
                     </p>
-                    <span className="text-sm text-gray-700 whitespace-nowrap">
+                    <span className="text-sm text-slate-700 whitespace-nowrap">
                       {item.subtitle}
                     </span>
 
@@ -324,7 +324,7 @@ const FrequentSearches = () => {
                           />
                         </div>
                       ))}
-                      <div className="w-10 h-10 -ms-2 bg-white shadow-lg text-gray-800 text-sm font-semibold rounded-full flex items-center justify-center">
+                      <div className="w-10 h-10 -ms-2 bg-white shadow-lg dark:shadow-darkLg text-slate-800 text-sm font-semibold rounded-full flex items-center justify-center">
                         {item.number}+
                       </div>
                     </div>
@@ -333,7 +333,7 @@ const FrequentSearches = () => {
               ))}
             </div>
             <div className="w-full bg-slate-200 p-1 flex justify-end">
-              <button className="btn gap-2 text-sm text-gray-800 font-bold">
+              <button className="btn gap-2 text-sm text-slate-800 font-bold">
                 همه تخصص ها
                 <FaChevronLeft />
               </button>
@@ -342,10 +342,10 @@ const FrequentSearches = () => {
         </div>
 
         <div className="lg:w-[35%] flex flex-col overflow-auto">
-          <h4 className="text-gray-800 font-bold text-lg md:text-xl lg:text-2xl text-center mb-3">
+          <h4 className="text-slate-800 font-bold text-lg md:text-xl lg:text-2xl text-center mb-3">
             محبوب ترین های هفته
           </h4>
-          <div className="bg-white shadow-lg md:rounded-lg overflow-auto flex-1">
+          <div className="bg-white shadow-lg dark:shadow-darkLg md:rounded-lg overflow-auto flex-1">
             <div className="lg:max-h-full flex md:grid grid-cols-2 lg:grid-cols-1 overflow-x-auto lg:overflow-y-auto scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin gap-12 p-8">
               {data2.map((item) => (
                 <div
@@ -379,14 +379,14 @@ const FrequentSearches = () => {
 
       {/* <div className='md:grid grid-cols-3 gap-8 md:h-[45rem] md:max-h-[45rem] '>
 				<div className=' col-span-2 '>
-					<div className='flex justify-center items-center w-full text-2xl font-bold text-gray-800 p-2 pt-6 md:pt-2'>جستجوهای پرتکرار</div>
-					<div className='xs:h-fit xs:w-full md:h-[43rem] md:max-h-[43rem] flex flex-col justify-between items-center bg-white  md:rounded-xl shadow-lg'>
+					<div className='flex justify-center items-center w-full text-2xl font-bold text-slate-800 p-2 pt-6 md:pt-2'>جستجوهای پرتکرار</div>
+					<div className='xs:h-fit xs:w-full md:h-[43rem] md:max-h-[43rem] flex flex-col justify-between items-center bg-white  md:rounded-xl shadow-lg dark:shadow-darkLg'>
 						<div className='xs:flex scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin xs:overflow-x-scroll md:overflow-hidden md:grid md:grid-cols-2 gap-8 h-fit max-h-fit'>
 							{data.map((item) => {
 								return (
 									<div
 										key={item.id}
-										className=' border-b border-gray-200 py-2 w-full min-w-full flex flex-col justify-center items-center'>
+										className=' border-b border-slate-200 py-2 w-full min-w-full flex flex-col justify-center items-center'>
 										<div className='w-full grid grid-cols-12'>
 											<div className='p-3 w-full col-span-3  flex justify-center items-center'>
 												<div className='p-3 border border-primary-02 rounded-xl'>
@@ -420,7 +420,7 @@ const FrequentSearches = () => {
 												})}
 
 												<div className='-ms-2'>
-													<div className=' flex justify-center items-center w-10 h-10 rounded-full border border-white bg-white shadow-md text-sm font-bold hover:cursor-pointer hover:bg-primary-02'>{PN.convertEnToPe(`${item.number}`)}+</div>
+													<div className=' flex justify-center items-center w-10 h-10 rounded-full border border-white bg-white shadow-md dark:shadow-darkMd text-sm font-bold hover:cursor-pointer hover:bg-primary-02'>{PN.convertEnToPe(`${item.number}`)}+</div>
 												</div>
 											</div>
 										</div>
@@ -437,8 +437,8 @@ const FrequentSearches = () => {
 					</div>
 				</div>
 				<div className=''>
-					<div className='flex justify-center items-center w-full text-2xl font-bold text-gray-800 p-2 pt-6 md:pt-2'>محبوب ترین های هفته</div>
-					<div className='md:h-[43rem] max-h-[43rem] scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin xs:overflow-x-scroll  md:overflow-y-scroll flex md:flex-col justify-between items-center bg-white  rounded-xl shadow-lg min-w-full '>
+					<div className='flex justify-center items-center w-full text-2xl font-bold text-slate-800 p-2 pt-6 md:pt-2'>محبوب ترین های هفته</div>
+					<div className='md:h-[43rem] max-h-[43rem] scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin xs:overflow-x-scroll  md:overflow-y-scroll flex md:flex-col justify-between items-center bg-white  rounded-xl shadow-lg dark:shadow-darkLg min-w-full '>
 						{data2.map((item) => {
 							return (
 								<div key={item.id} className='min-w-full  '>

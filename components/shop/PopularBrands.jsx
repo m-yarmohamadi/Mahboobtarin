@@ -6,7 +6,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 export default function PopularBrands() {
     return (
         <div className="md:mx-auto md:container p-6 mt-6">
-            <h3 className="text-xl text-gray-900 font-semibold text-center">
+            <h3 className="text-xl text-slate-900 font-semibold text-center">
                 محبوب ترین برند ها
             </h3>
             <div className='w-full mx-auto mt-10'>
@@ -30,7 +30,7 @@ export default function PopularBrands() {
                                     <div className='w-32 h-32 rounded-full flex items-center justify-center p-6 bg-white'>
                                         <img src={item.img} alt="" className='w-full' />
                                     </div>
-                                    <div className='text-sm font-medium text-gray-900'>
+                                    <div className='text-sm font-medium text-slate-900'>
                                         {item.title}
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@ export default function PopularBrands() {
                     })}
 
                     <div className='w-full justify-between items-center flex mt-8'>
-                        <button id='poular-brands-btn-prev' className='btn btn--secondary !p-2 !rounded-full disabled:!opacity-50 !text-white'>
+                        <button id='poular-brands-btn-prev' className='btn btn--secondary !p-2 !rounded-full disabled:!opacity-50 !text-slate-900'>
                             <FaAngleRight className='w-5 h-5' />
                         </button>
                         <div>
@@ -47,7 +47,7 @@ export default function PopularBrands() {
 
                             </div>
                         </div>
-                        <button id='poular-brands-btn-next' className='btn btn--secondary !p-2 !rounded-full disabled:!opacity-50 !text-white'>
+                        <button id='poular-brands-btn-next' className='btn btn--secondary !p-2 !rounded-full disabled:!opacity-50 !text-slate-900'>
                             <FaAngleLeft className='w-5 h-5' />
                         </button>
                     </div>

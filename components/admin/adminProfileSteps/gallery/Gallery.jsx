@@ -26,8 +26,8 @@ export default function Gallery() {
 	return (
 		<div className='h-full w-full flex flex-col justify-between '>
 			<div>
-				<div className='w-full flex items-end justify-between mb-7 pb-1 border-b border-b-slate-300'>
-					<div className='text-2xl text-gray-800 font-semibold'>گالری</div>
+				<div className='w-full flex items-end justify-between mb-7 pb-1 border-b border-b-slate-400'>
+					<div className='text-2xl text-slate-800 font-semibold'>گالری</div>
 					<div className='text-primary-01 text-sm  h-full flex justify-center items-end'>لطفاً عکس ها و فیلمهای مورد علاقه خود را با یک تیتر کوتاه در این قسمت درج کنید.</div>
 					<button
 						onClick={() => setOpen(true)}
@@ -71,10 +71,10 @@ function GalleryItem({ data, userID }) {
 		try {
 			const data = await mutateDeleteGallery(formData);
 			console.log(data);
-			
+
 			if (data) {
 				toast.success("گالری مورد نظر حذف شد");
-				queryClient.invalidateQueries({ queryKey: ['get-expertise-user-by-id', userID] });
+				queryClient.invalidateQueries({ queryKey: ['get-expertise-user-by-id'] });
 			}
 
 		} catch (error) {
@@ -88,7 +88,7 @@ function GalleryItem({ data, userID }) {
 	}
 
 	return (
-		<div className='flex flex-col gap-2 relative bg-primary-01 bg-opacity-10 rounded-lg p-1'>
+		<div className='flex flex-col gap-2 relative bg-primary-01 bg-opacity-05 rounded-lg p-1'>
 			{data.type === 'gallery-image' ? (
 				<div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
 					<img
@@ -109,7 +109,7 @@ function GalleryItem({ data, userID }) {
 					</video>
 				</div>
 			)}
-			<h3 className='w-full text-md text-gray-800 font-bold px-2'>{data.title}</h3>
+			<h3 className='w-full text-md text-slate-800 font-bold px-2'>{data.title}</h3>
 			<button onClick={() => deleteGalleryHandler(data.id)} className='btn btn--danger absolute top-2 left-2 !p-1'>
 				<HiOutlineTrash className='w-5 h-5' />
 			</button>
