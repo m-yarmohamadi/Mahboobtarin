@@ -48,32 +48,14 @@ export const theme = {
 			textDefault: {
 				DEFAULT: 'var(--text-color)', 
 			},
-
-			// tertiary: {
-			// 	'01': '#f1be49',
-			// 	'02': '#dc2626',
-			// },
-			// secondary: {
-			// 	'01': '#15aa7f',
-			// 	'02': '#15aa7f',
-			// },
-			// primary: {
-			// 	'01': '#0693a4',
-			// 	'02': '#eff0f2',
-			// 	'03': '#cbcbcb',
-			// 	'04': '#dc2626',
-			// 	'05': '#ededed',
-			// },
-			// oorange: '#FF0000',
-			// error: '#dc2626',
 		},
 		boxShadow: {
-			sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', // سایه پیش‌فرض روشن
-			md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', // سایه متوسط روشن
-			lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', // سایه بزرگ روشن
-			darkSm: '0 1px 2px 0 rgba(255, 255, 255, 0.1)', // سایه پیش‌فرض تاریک
-			darkMd: '0 4px 6px -1px rgba(255, 255, 255, 0.1)', // سایه متوسط تاریک
-			darkLg: '0 10px 15px -3px rgba(255, 255, 255, 0.2)', // سایه بزرگ تاریک
+			sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', 
+			md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', 
+			lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', 
+			darkSm: '0 1px 2px 0 rgba(255, 255, 255, 0.1)', 
+			darkMd: '0 4px 6px -1px rgba(255, 255, 255, 0.1)',
+			darkLg: '0 10px 15px -3px rgba(255, 255, 255, 0.2)',
 		},
 		screens: {
 			xs: '475px',

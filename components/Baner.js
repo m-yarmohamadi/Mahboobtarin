@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiFilter, BiSearch, BiSlider, BiSolidDiscount } from "react-icons/bi";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import { FaMasksTheater, FaSackDollar, FaUserDoctor } from "react-icons/fa6";
@@ -20,6 +20,7 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
+import { CiCircleMore } from "react-icons/ci";
 
 const iconMap = {
   FaSackDollar,
@@ -99,11 +100,12 @@ const data = [
 ];
 const Baner = () => {
   const { isLoading, categories, sliders } = useMainPage();
+  const [showComplete, setShowComplete] = useState(false);
 
   return (
     <div className="xxs:container ">
       <div className="xs:full md:w-5/6 mx-auto  bg-white  rounded-2xl -mt-16  text-slate-800">
-        <div className="w-full h-full relative flex justify-evenly items-start py-2 gap-2 text-xs  scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin overflow-auto">
+        <div className="hidden lg:flex w-full h-full relative justify-evenly items-start py-2 gap-2 text-xs  scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin overflow-auto">
           <button className="disabled:text-primary-01/30 swiper-categroy-prev flex flex-col justify-center items-center text-primary-01  hover:text-opacity-80 hover:cursor-pointer">
             <span className="justify-items-center text-3xl p-4 flex justify-center items-center">
               <FaChevronCircleRight />
@@ -143,6 +145,35 @@ const Baner = () => {
               <FaChevronCircleLeft />
             </span>
           </button>
+        </div>
+        <div className="lg:hidden grid grid-cols-4 gap-4 p-4">
+          {!isLoading &&
+            categories
+              .slice(0, showComplete ? categories.length : 7)
+              .map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    className="flex flex-col text-xs justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer"
+                  >
+                    <span className="text-3xl p-2">
+                      <div
+                        dangerouslySetInnerHTML={{ __html: item.icon }}
+                      ></div>
+                    </span>
+                    <span className="lg:text-sm text-center">{item.name}</span>
+                  </div>
+                );
+              })}
+          <div
+            onClick={()=>setShowComplete(!showComplete)}
+            className="flex flex-col text-xs justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer"
+          >
+            <span className="text-3xl p-2">
+              <CiCircleMore />
+            </span>
+            <span className="lg:text-sm text-center">موارد {showComplete ? "کمتر" : "بیشتر"}</span>
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-1 h-73 ">
           <div className=" hidden md:block w-full h-full   ">

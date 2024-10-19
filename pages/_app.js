@@ -27,7 +27,9 @@ export default function App({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <DarkModeProvider>
           <Toaster />
-          <Component {...pageProps} />
+          <div className="pb-20 lg:pb-0">
+            <Component {...pageProps} />
+          </div>
         </DarkModeProvider>
       </QueryClientProvider>
     </>

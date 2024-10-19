@@ -15,8 +15,7 @@ import { IoPerson } from "react-icons/io5";
 import { useDarkMode } from "@/context/DarkModeContext";
 import { MdDarkMode, MdLightMode, MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 
-const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size }) => {
-  const { user, isLoading } = useProfile();
+const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size, user, isLoading }) => {
   const [openMenuOptions, setOpenMenuOptions] = useState(false);
   const menuOptionsRef = useRef(null);
   const { cart, isGetCart } = useGetCart();

@@ -36,6 +36,8 @@ import useAllSettings from "@/hooks/useAllSettings";
 import Categories from "./Categories";
 import useMainPage, { useCategoryChild } from "@/hooks/useMainPage";
 import { getCategoryChild } from "@/services/mainPageService";
+import MobileMenu from "./MobileMenu";
+import useProfile from "@/hooks/useProfile";
 
 const products = [
   {
@@ -94,6 +96,7 @@ export default function Header() {
   const logout = useLogout();
   const data = useAllSettings();
   const { categories, isLoading } = useMainPage();
+  const { user, isLoading: isLoadingUser } = useProfile();
 
   useEffect(() => {
     const tokenCooke = Cookies.get("accessToken")
@@ -168,6 +171,8 @@ export default function Header() {
           <LoginRegister
             setOpenRegisterModal={setOpenRegisterModal}
             handleLogOut={logout}
+            user={user}
+            isLoading={isLoadingUser}
           />
         </nav>
         <Dialog
@@ -247,11 +252,14 @@ export default function Header() {
                 setOpenRegisterModal={setOpenRegisterModal}
                 handleLogOut={logout}
                 size="sm"
+                user={user}
+                isLoading={isLoadingUser}
               />
             </div>
           </DialogPanel>
         </Dialog>
       </header>
+      <MobileMenu user={user} isLoading={isLoadingUser} />
       <RegisterModal
         openRegisterModal={openRegisterModal}
         setOpenRegisterModal={setOpenRegisterModal}
