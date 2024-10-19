@@ -31,7 +31,7 @@ const Step03 = ({ formik, children, error }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full h-full items-start justify-between ">
             <div>
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
-                <div className="font-bold">تخصص</div>
+                <div className="font-bold text-textDefault">تخصص</div>
                 <div>
                   {formik.values.expertise.length > 2 ? (
                     <button
@@ -44,7 +44,7 @@ const Step03 = ({ formik, children, error }) => {
                   ) : (
                     <button
                       onClick={() => setOpenExpertiseModal(!openExpertiseModal)}
-                      className="bg-primary-01 p-2 rounded-md text-white text-xs font-bold"
+                      className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
                       type=""
                     >
                       افزودن
@@ -77,7 +77,7 @@ const Step03 = ({ formik, children, error }) => {
                 return (
                   <div
                     key={index}
-                    className="flex justify-between items-center bg-primary-01 bg-opacity-10 px-4"
+                    className="flex justify-between items-center bg-primary-02 text-textDefault px-4"
                   >
                     <div>
                       {
@@ -104,7 +104,7 @@ const Step03 = ({ formik, children, error }) => {
 
             <div>
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
-                <div className="font-bold">مقطع تحصیلی</div>
+                <div className="font-bold text-textDefault">مقطع تحصیلی</div>
                 <div>
                   {formik.values.grade.length > 2 ? (
                     <button
@@ -117,7 +117,7 @@ const Step03 = ({ formik, children, error }) => {
                   ) : (
                     <button
                       onClick={() => setOpenGradeModal(!openGradeModal)}
-                      className="bg-primary-01 p-2 rounded-md text-white text-xs font-bold"
+                      className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
                       type=""
                     >
                       افزودن
@@ -149,7 +149,7 @@ const Step03 = ({ formik, children, error }) => {
                 return (
                   <div
                     key={index}
-                    className="flex justify-between items-center bg-primary-01 bg-opacity-10 px-4"
+                    className="flex justify-between items-center bg-primary-02 text-textDefault px-4"
                   >
                     <div>{item.title}</div>
                     <div className="flex justify-center items-center gap-2 ">
@@ -170,7 +170,7 @@ const Step03 = ({ formik, children, error }) => {
 
             <div>
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
-                <div className="font-bold">زبان و گویش</div>
+                <div className="font-bold text-textDefault">زبان و گویش</div>
                 <div>
                   {formik.values.language.length > 2 ? (
                     <button
@@ -183,7 +183,7 @@ const Step03 = ({ formik, children, error }) => {
                   ) : (
                     <button
                       onClick={() => setOpenLanguageModal(!openLanguageModal)}
-                      className="bg-primary-01 p-2 rounded-md text-white text-xs font-bold"
+                      className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
                       type=""
                     >
                       افزودن
@@ -214,7 +214,7 @@ const Step03 = ({ formik, children, error }) => {
                 return (
                   <div
                     key={index}
-                    className="flex justify-between items-center bg-primary-01 bg-opacity-10 px-4"
+                    className="flex justify-between items-center bg-primary-02 text-textDefault px-4"
                   >
                     <div>{item.title}</div>
                     <div className="flex justify-center items-center gap-2 ">

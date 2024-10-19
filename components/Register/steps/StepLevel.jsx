@@ -25,9 +25,9 @@ const levels = [
 export default function StepLevel({ currentStep }) {
     return (
         <>
-            <div className='hidden lg:flex w-full justify-between items-center py-4 rounded-lg overflow-hidden border border-slate-200 mb-9'>
+            <div className='hidden lg:flex w-full justify-between items-center py-4 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-400 mb-9'>
                 {levels.map((item, index) => (
-                    <div key={index} className={`${currentStep > item.step ? '' : 'justify-center'} px-4 flex items-center gap-2 w-full border-l last:border-0 border-slate-200`}>
+                    <div key={index} className={`${currentStep > item.step ? '' : 'justify-center'} px-4 flex items-center gap-2 w-full border-l last:border-0 border-slate-200 dark:border-slate-400`}>
                         <div className={`${currentStep > item.step ? "bg-primary-01 text-white" : "text-primary-01 bg-slate-100"} text-2xl w-12 h-12 flex items-center justify-center rounded-full`}>
                             {item.step + 1}
                         </div>

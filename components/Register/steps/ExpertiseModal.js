@@ -97,17 +97,17 @@ const ExpertiseModal = ({
                 type={"text"}
                 formik={formik}
               />
-              <div className="bg-slate-50 ps-4 py-3 sm:flex sm:flex-row-reverse ">
+              <div className="bg-slate-50 dark:bg-slate-100 ps-4 py-3 sm:flex sm:flex-row-reverse ">
                 <button
                   type="submit"
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-primary-01 px-3 py-2 text-sm font-semibold text-white shadow-sm dark:shadow-darkSm ring-1 ring-inset ring-gray-300 hover:bg-opacity-85 sm:mt-0 sm:w-auto"
+                  className="mt-3 inline-flex w-full justify-center rounded-md bg-primary-01 px-3 py-2 text-sm font-semibold text-[#fff] shadow-sm dark:shadow-darkSm ring-1 ring-inset ring-gray-300 hover:bg-opacity-85 sm:mt-0 sm:w-auto"
                 >
                   ثبت
                 </button>
                 <button
                   onClick={() => setOpenExpertiseModal(false)}
                   type="submit"
-                  className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm dark:shadow-darkSm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                  className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-[#fff] shadow-sm dark:shadow-darkSm hover:bg-red-500 sm:ml-3 sm:w-auto"
                 >
                   انصراف
                 </button>
