@@ -40,6 +40,28 @@ export default function CreateGalleryForm({ onClose, userID }) {
 		}
 	};
 
+	const importFileHandler = (e) => {
+		const file = e.target.files[0];
+		const maxImageSizeInMB = 3;
+		const maxVideoSizeInMB = 5;
+		const maxImageSizeInBytes = maxImageSizeInMB * 1024 * 1024;
+		const maxVideoSizeInBytes = maxVideoSizeInMB * 1024 * 1024;
+
+		const fileType = file.type.split('/')[0];
+		
+		if (fileType === 'image' && file.size > maxImageSizeInBytes) {
+			toast.error(`حجم تصویر نباید بیشتر از ${maxImageSizeInMB} مگابایت باشد`);
+			return;
+		}
+
+		if (fileType === 'video' && file.size > maxVideoSizeInBytes) {
+			toast.error(`حجم ویدیو نباید بیشتر از ${maxVideoSizeInMB} مگابایت باشد`);
+			return;
+		}
+
+		formik.setFieldValue('src', file);
+	}
+
 	const formik = useFormik({
 		initialValues: { title: '', src: '' },
 		onSubmit,
@@ -59,7 +81,7 @@ export default function CreateGalleryForm({ onClose, userID }) {
 					hidden
 					id='src-gallery'
 					accept='image/png, image/gif, image/jpeg , image/jpg, video/*'
-					onChange={(e) => formik.setFieldValue('src', e.target.files[0])}
+					onChange={importFileHandler}
 				/>
 				{formik.values.src ? (
 					formik.values.src.type.split('/')[0] === 'image' ? (

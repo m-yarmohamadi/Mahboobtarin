@@ -147,6 +147,14 @@ function PictureSelector({ formik }) {
     const { mutateAsync: mutateUploadPhotos, isPending: isUploading } = useMutation({ mutationFn: updloadProductPhotos });
 
     const updloadPhotoHandler = async (file) => {
+        const maxSizeInMB = 3;
+        const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+        if (file.size > maxSizeInBytes) {
+            toast.error(`حجم فایل نباید بیشتر از ${maxSizeInMB} مگابایت باشد`);
+            return;
+        }
+
         const formData = new FormData();
         formData.append('file', file);
 
@@ -250,7 +258,7 @@ function ExpiredateInput({ formik, name }) {
                 minDate={new Date()}
                 calendarPosition="bottom-right"
                 containerClassName="w-full"
-                inputClass="w-full appearance-none outline-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg dark:shadow-darkLg focus:shadow-red-300 transition-all duration-300 ease-in-out"
+                inputClass="w-full appearance-none outline-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg dark:focus:shadow-darkLg focus:shadow-red-300 transition-all duration-300 ease-in-out"
             />
             <div className='w-full flex justify-start items-start mt-2'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{formik?.errors[name]}</p>}</div>
         </div>
