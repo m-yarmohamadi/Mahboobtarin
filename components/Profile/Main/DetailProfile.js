@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaRegHeart, FaRegStar } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import PN from "persian-number";
-import { FaHeart, FaRegCalendar } from "react-icons/fa6";
+import { FaHeart, FaMapLocationDot, FaRegCalendar } from "react-icons/fa6";
 import TitleItems from "./TitleItems";
 import LeftAndRightArrows from "@/tools/LeftAndRightArrows";
 import { enToFaNumber } from "@/utils/enToFa";
@@ -26,6 +26,8 @@ import About from "./detailProfileComponents/About";
 import ExpertDescription from "./detailProfileComponents/ExpertDescription";
 import HonorsDescription from "./detailProfileComponents/HonorsDescription";
 import MapView from "@/components/mapComponent/MapView";
+import Link from "next/link";
+import getOS from "@/utils/getOS";
 
 const mostPopular = [
   {
@@ -156,6 +158,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     router.replace(pathname, { scroll: false });
   };
 
+  const locationUrl = `https://www.google.com/maps?q=25,57`;
+
   return (
     <div className="w-full">
       <div id="personalinfo" className="w-full">
@@ -276,16 +280,38 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
           {userData?.addresses.length &&
           userData?.addresses[0].lat &&
           userData?.addresses[0].lng ? (
-            <div className="py-2">
-              <div className="w-full h-[200px] border border-primary-01 rounded-md overflow-hidden">
-                <MapView
-                  coord={[
-                    userData?.addresses[0].lat,
-                    userData?.addresses[0].lng,
-                  ]}
-                />
+            <>
+              <div className="py-2">
+                <div className="w-full h-[200px] relative border border-primary-01 rounded-md overflow-hidden">
+                  <MapView
+                    coord={[
+                      userData?.addresses[0].lat,
+                      userData?.addresses[0].lng,
+                    ]}
+                  />
+                  <div className="absolute bottom-4 right-4">
+                    {getOS() === "android" ? (
+                      <Link
+                        href={`geo:${userData?.addresses[0].lat},${userData?.addresses[0].lng}`}
+                        className="btn btn--secondary !text-xs !w-auto !gap-2"
+                      >
+                        <FaMapLocationDot className="w-4 h-4" />
+                        مشاهده روی مسیریاب
+                      </Link>
+                    ) : (
+                      <Link
+                        href={`https://www.google.com/maps?q=${userData?.addresses[0].lat},${userData?.addresses[0].lng}`}
+                        className="btn btn--secondary !text-xs !w-auto !gap-2"
+                        target="_blank"
+                      >
+                        <FaMapLocationDot className="w-4 h-4" />
+                        مشاهده روی مسیریاب
+                      </Link>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
+            </>
           ) : null}
         </div>
       </div>
