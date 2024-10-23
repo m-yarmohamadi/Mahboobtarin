@@ -161,7 +161,7 @@ export default function Header() {
                 <Link
                   key={item.id}
                   href={item?.link || "#"}
-                  className="text-sm xl:text-base truncate py-4 px-2 text-textDefault relative before:duration-200 before:ease-out cursor-pointer before:h-1 before:w-0 before:rounded-t-full hover:before:w-full before:absolute before:-bottom-2 before:right-0 before:bg-primary-01"
+                  className="text-sm xl:text-base whitespace-nowrap py-4 px-2 text-textDefault relative before:duration-200 before:ease-out cursor-pointer before:h-1 before:w-0 before:rounded-t-full hover:before:w-full before:absolute before:-bottom-2 before:right-0 before:bg-primary-01"
                 >
                   {item.title}
                 </Link>

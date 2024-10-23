@@ -20,7 +20,7 @@ export default function CourseCard({ course }) {
                 <h2 className="text-slate-800 font-semibold">
                     {course?.title}
                 </h2>
-                <div className="text-sm font-medium text-slate-500">
+                <div className="text-sm font-medium text-slate-500 dark:text-slate-700">
                     مدرس:
                     <span>
                         {course?.teacher}
@@ -29,9 +29,9 @@ export default function CourseCard({ course }) {
             </div>
 
             <div className="mt-3 flex items-center justify-between">
-                <div className="text-sm text-slate-800 font-bold">
+                <div className="text-sm text-slate-800 font-bold flex items-center gap-1">
                     {course?.numOfStudents || 0}
-                    <span className="text-slate-500 font-normal">
+                    <span className="text-slate-500 dark:text-slate-700 font-normal">
                         دانشجو
                     </span>
                 </div>
@@ -48,7 +48,7 @@ export default function CourseCard({ course }) {
                 <div className="flex items-center gap-1">
                     {course?.discount_price &&
                         <>
-                            <span className='text-sm text-textDefault bg-error px-2 py-1 rounded-md'>{course?.discount_price} %</span>
+                            <span className='text-sm text-[#fff] bg-error px-2 py-1 rounded-md'>{course?.discount_price} %</span>
                             <p className='line-through  text-slate-500'>{numberWithCommas(course?.price)}</p>
                         </>
                     }

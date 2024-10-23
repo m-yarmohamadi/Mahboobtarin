@@ -44,7 +44,7 @@ const processActivityTimes = (activityTimes, currentWeekday) => {
     return { result: extractTimes[0], isRoutine };
 };
 
-export default function BookingForm({ onClose, serviceID, userId }) {
+export default function BookingForm({ onClose, serviceID, userId, expert }) {
     const [selected, setSelected] = useState();
     const [date, setDate] = useState(new Date());
     const currentWeekday = new Date(date).toLocaleDateString("fa-IR", { weekday: "long" });
@@ -96,7 +96,7 @@ export default function BookingForm({ onClose, serviceID, userId }) {
                 </div>
                 {
                     selected &&
-                    <div className="p-3 my-2 bg-slate-400 rounded-lg grid grid-cols-2 gap-1">
+                    <div className="p-3 my-2 bg-slate-200 dark:bg-slate-400  rounded-lg grid grid-cols-2 gap-1">
                         <p className="flex items-center gap-1 text-sm font-medium text-slate-600">
                             <IoIosCalendar className="w-6 h-6 text-slate-700" />
                             <span className="font-normal">{selected?.date}</span>
@@ -145,7 +145,10 @@ export default function BookingForm({ onClose, serviceID, userId }) {
                 <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
                     {
                         selected ?
-                            <Link href="/set-appointment" className="btn btn--primary !w-full">
+                            <Link
+                                href={`/set-appointment?type=turn&serviceId=${serviceID}&expert=${JSON.stringify({ name: expert.name, lastname: expert.lastname, id: expert.id, img: expert.avatar, expertise: expert?.expertises[0]?.subject, address: expert?.addresses[0]?.address })}&date=${selected.date}&time=${selected.time}`}
+                                className="btn btn--primary !w-full"
+                            >
                                 تایید
                             </Link>
                             :
@@ -189,9 +192,12 @@ export default function BookingForm({ onClose, serviceID, userId }) {
                             </div>
                             :
                             <>
-                                <button className="btn btn--primary !w-full disabled:opacity-30">
+                                <Link
+                                    href={`/set-appointment?type=seminar&serviceId=${serviceID}&expert=${JSON.stringify({ name: expert.name, lastname: expert.lastname, id: expert.id, img: expert.avatar, expertise: expert?.expertises[0]?.subject, address: expert?.addresses[0]?.address })}&date=${getTimesOfWeekday.result.week}&time=${getTimesOfWeekday.result.time}`}
+                                    className="btn btn--primary !w-full disabled:opacity-30"
+                                >
                                     ثبت نام
-                                </button>
+                                </Link>
                                 <button onClick={onClose} className="btn btn--outline !w-full">
                                     لغو
                                 </button>
@@ -231,7 +237,7 @@ function CustomeButtonDatePicker({ openCalendar, value, setDate }) {
 
     return (
         <div className="w-full h-14 flex items-center">
-            <button disabled={isToday()} onClick={descDateHandler} className="w-16 disabled:!opacity-45 h-full rounded-r-md whitespace-nowrap p-3 text-xs text-slate-500 border border-slate-200">
+            <button disabled={isToday()} onClick={descDateHandler} className="w-16 disabled:!opacity-45 h-full rounded-r-md whitespace-nowrap p-3 text-xs text-slate-500 dark:text-slate-700 border border-slate-200">
                 روز قبل
             </button>
             <button onClick={openCalendar} className="flex-1 h-full btn !rounded-none gap-2 bg-slate-200 border-y border-slate-200 text-[80%] text-slate-600">
@@ -239,7 +245,7 @@ function CustomeButtonDatePicker({ openCalendar, value, setDate }) {
                 {isToday() && "امروز، "}
                 {convertToLongDateFa}
             </button>
-            <button onClick={incDateHandler} className="w-16 h-full rounded-l-md whitespace-nowrap p-3 text-xs text-slate-500 border border-slate-200">
+            <button onClick={incDateHandler} className="w-16 h-full rounded-l-md whitespace-nowrap p-3 text-xs text-slate-500 dark:text-slate-700 border border-slate-200">
                 روز بعد
             </button>
         </div>

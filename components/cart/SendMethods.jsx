@@ -8,9 +8,9 @@ export default function SendMethods() {
     const { cart } = useGetCart();
 
     return (
-        <div className="w-full border border-slate-300 rounded-xl p-6">
+        <div className="w-full border border-slate-300 dark:border-slate-400 rounded-xl p-6">
             <div>
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-slate-500 dark:text-slate-600">
                     انتخاب روش ارسال
                 </span>
             </div>
@@ -20,7 +20,7 @@ export default function SendMethods() {
                     !isGetMethods ?
                         <div className="space-y-2 mt-5">
                             {sendMethods.map((item, index) => (
-                                <div onClick={() => changeSendMethodOrder(item.englishTitle)} key={index} className={`w-full p-4 rounded-xl border cursor-pointer border-slate-300 ${cart.sendmethod === item.englishTitle && "bg-primary-01 bg-opacity-20"}`}>
+                                <div onClick={() => changeSendMethodOrder(item.englishTitle)} key={index} className={`w-full p-4 rounded-xl border cursor-pointer border-slate-300 dark:border-slate-400 ${cart.sendmethod === item.englishTitle && "bg-slate-400"}`}>
                                     <h3 className="text-sm font-semibold text-slate-800 mb-2">
                                         {item.title}
                                     </h3>

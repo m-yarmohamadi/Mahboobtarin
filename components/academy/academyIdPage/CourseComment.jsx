@@ -1,4 +1,5 @@
 import Modal from "@/components/Modal";
+import TextArea from "@/tools/TextArea";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
@@ -31,12 +32,12 @@ export default function CourseComment() {
                             دانشجوی دوره
                         </span>
                         <div className="w-full flex justify-between mb-4 items-center gap-4 text-slate-500 text-sm">
-                            <span className="flex justify-start items-center gap-1 text-primary-01">
+                            <span className="flex justify-start items-center gap-1 text-yellow-500">
                                 {Array(3).fill({}).map((item, index) => (
                                     <FaStar key={index} />
                                 ))}
                             </span>
-                            <span className="text-xs text-slate-400 flex items-center gap-1">
+                            <span className="text-xs text-slate-400 dark:text-slate-600 flex items-center gap-1">
                                 <MdAccessTime className="w-4 h-4" />
                                 2 روز قبل
                             </span>
@@ -62,13 +63,13 @@ function CreateCommentForm({ onClose }) {
     });
     return (
         <div>
-            <div className=" flex flex-col items-center gap-4 w-full  p-4">
+            <div className=" flex flex-col items-center gap-4 w-full px-4">
                 <span className="text-sm font-semibold text-slate-800">
                     به این دوره چه امتیازی می دهید؟
                 </span>
                 <div className="flex items-center gap-3">
                     {Array(5).fill({}).map((item, index) => (
-                        <div onClick={() => formik.setFieldValue("star", index + 1)} key={index} className={`cursor-pointer ${index < formik.values.star ? "text-slate-800" : "text-slate-400"}`}>
+                        <div onClick={() => formik.setFieldValue("star", index + 1)} key={index} className={`cursor-pointer ${index < formik.values.star ? "text-yellow-500" : "text-slate-400"}`}>
                             <FaStar />
                         </div>
                     ))}
@@ -76,16 +77,11 @@ function CreateCommentForm({ onClose }) {
             </div>
             <div>
                 <div className="p-4">
-                    <label htmlFor="Opinion"></label>
-                    <textarea
-                        rows="8"
-                        className=" w-full bg-slate-200 text-sm  outline-none focus:ring-0 border border-slate-300 rounded-md p-2"
-                        placeholder="لطفا نظر خود را درج فرمایید..."
-                        required
-                        name="text"
-                        value={formik.values.text}
-                        onChange={formik.handleChange}
-                    ></textarea>
+                    <TextArea
+                        formik={formik}
+                        name={'text'}
+                        label={'نظر خود را بنویسید'}
+                    />
                     {formik.errors.text && formik.touched.text &&
                         <span className="text-xs text-error inline-block">
                             {formik.errors.text}

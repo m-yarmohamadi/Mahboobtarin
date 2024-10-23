@@ -47,12 +47,12 @@ export default function AddressList() {
     )
 
     return (
-        <div className="w-full border border-slate-300 rounded-xl p-6">
+        <div className="w-full border border-slate-300 dark:border-slate-400 rounded-xl p-6">
             <Modal open={open} onClose={() => setOpen(false)} title="آدرس جدید">
                 <CreateAddressForm onClose={() => setOpen(false)} />
             </Modal>
             <div>
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-slate-500 dark:text-slate-600">
                     آدرس تحویل سفارش
                 </span>
             </div>
@@ -60,7 +60,7 @@ export default function AddressList() {
                 {addressList.map((item, index) => (
                     <div
                         key={index}
-                        className="flex cursor-pointer items-start gap-3 border-b border-slate-300 pb-6 last:pb-0 last:border-0"
+                        className="flex cursor-pointer items-start gap-3 border-b border-slate-300 dark:border-slate-400 pb-6 last:pb-0 last:border-0"
                     >
                         <div onClick={() => changeAddressOrder(item.id)} className={`w-5 h-5 p-[3px] mt-[2px] border rounded-full ${item.id === defaultAddress ? "border-slate-500 bg-transparent" : "border-primary-01"}`}>
                             {item.id === defaultAddress &&
@@ -74,19 +74,19 @@ export default function AddressList() {
                                 </p>
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-2 ">
-                                        <MdOutlineSubtitles className="text-slate-400" />
+                                        <MdOutlineSubtitles className="text-slate-500" />
                                         <span className="text-xs text-slate-600">
                                             {item.title || "بدون عنوان"}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2 ">
-                                        <HiOutlineMail className="text-slate-400" />
+                                        <HiOutlineMail className="text-slate-500" />
                                         <span className="text-xs text-slate-600">
                                             {item.postalcode || "---"}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2 ">
-                                        <MdOutlinePhoneIphone className="text-slate-400" />
+                                        <MdOutlinePhoneIphone className="text-slate-500" />
                                         <span className="text-xs text-slate-600">
                                             {item.phone || "---"}
                                         </span>
@@ -106,7 +106,7 @@ export default function AddressList() {
                 ))}
             </div>
             <div className="w-full mt-4">
-                <button onClick={() => setOpen(true)} className="w-full flex items-center justify-center gap-1 text-primary-01 pt-4 mt-5 border-t border-t-slate-300 font-bold">
+                <button onClick={() => setOpen(true)} className="w-full flex items-center justify-center gap-1 text-primary-01 pt-4 mt-5 border-t border-t-slate-300 dark:border-t-slate-400 font-bold">
                     آدرس جدید
                     <MdAdd className="w-6 h-6" />
                 </button>
@@ -130,7 +130,7 @@ function CreateAddressForm({ onClose }) {
     const validationSchema = Yup.object({
         title: Yup.string().required("عنوان آدرس را وارد نمایید"),
         address: Yup.string().required("آدرس را وارد نمایید").matches(/^[\u0600-\u06FF\s\d-–]+$/, "ادرس نامعتبر است"),
-        postalcode: Yup.string().required("کد پستی را وارد نمایید").matches(/\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/, "کد پستی نامعتبر است"),
+        postalcode: Yup.string().required("کد پستی را وارد نمایید"),
         ostan: Yup.string().required("استان را انتخاب نمایید"),
         shahr: Yup.string().required("شهر را انتخاب نمایید"),
         phone: Yup.string().required("شماره تماس را وارد کنید").matches(/^09\d{9}$/, "شماره موبایل نامعتبر است"),

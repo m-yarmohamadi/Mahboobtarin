@@ -30,40 +30,13 @@ const PopularMounth = () => {
         محبوب ترین های ماه
       </div>
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+        modules={[Navigation, Pagination, Scrollbar, Autoplay]}
         navigation={{
           nextEl: "#most-populars-btn-next",
           prevEl: "#most-populars-btn-prev",
         }}
-        loop
         slidesPerView={"auto"}
         spaceBetween={3}
-        // breakpoints={{
-        //   480: {
-        //     slidesPerView: 2,
-        //     spaceBetween: 5,
-        //   },
-        //   640: {
-        //     slidesPerView: 3,
-        //     spaceBetween: 10,
-        //   },
-        //   768: {
-        //     slidesPerView: 4,
-        //     spaceBetween: 10,
-        //   },
-        //   1024: {
-        //     slidesPerView: 6,
-        //     spaceBetween: 15,
-        //   },
-        //   1280: {
-        //     slidesPerView: 7,
-        //     spaceBetween: 15,
-        //   },
-        //   1536: {
-        //     slidesPerView: 8,
-        //     spaceBetween: 20,
-        //   },
-        // }}
         autoplay={{ delay: 4000 }}
         pagination={false}
         scrollbar={false}

@@ -5,7 +5,7 @@ export default function CartSammary({ cartSammary, setStep }) {
     const { cart } = useGetCart();
 
     return (
-        <div className="w-full lg:col-span-4 border border-slate-300 rounded-lg p-6 space-y-3">
+        <div className="w-full lg:col-span-4 border border-slate-300 dark:border-slate-400 rounded-lg p-6 space-y-3">
             <div className="w-full flex items-center justify-between text-slate-700">
                 <span className="text-xs font-medium">
                     قیمت کالا ها({cart?.totalqty})
@@ -22,7 +22,7 @@ export default function CartSammary({ cartSammary, setStep }) {
                     {numberWithCommas(cart.totaldiscountprice)} <span className="text-xs text-slate-600 font-medium">تومان</span>
                 </div>
             </div>}
-            <div className="w-full flex items-center justify-between text-slate-900 border-t border-slate-300 pt-4 !mt-4">
+            <div className="w-full flex items-center justify-between text-slate-900 border-t border-slate-300 dark:border-slate-400 pt-4 !mt-4">
                 <span className="font-bold text-sm">
                     قیمت نهایی
                 </span>

@@ -3,7 +3,7 @@ import { HiShoppingCart } from "react-icons/hi";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import AddressList from "./AddressList";
 import { FaArrowRight } from "react-icons/fa6";
-import { useGetCart, useGetSendMethods } from "@/hooks/useCart";
+import { useAddToCart, useGetCart, useGetSendMethods } from "@/hooks/useCart";
 import { useEffect, useState } from "react";
 import Loading from "@/tools/Loading";
 import SendMethods from "./SendMethods";
@@ -11,7 +11,7 @@ import SendMethods from "./SendMethods";
 export default function Address({ setStep }) {
     return (
         <div className="w-full  max-w-screen-xl mx-auto p-6 lg:p-10">
-            <div className="w-full flex items-center justify-between p-4 pl-6 border border-slate-300 rounded-xl">
+            <div className="w-full flex items-center justify-between p-4 pl-6 border border-slate-300 dark:border-slate-400 rounded-xl">
                 <div className="flex items-center gap-3">
                     <button onClick={() => setStep(1)} className="text-slate-800">
                         <FaArrowRight className="w-5 h-5" />
@@ -37,10 +37,11 @@ export default function Address({ setStep }) {
 
 function AddressSammary({ setStep }) {
     const { cart } = useGetCart();
+    const { clearCart } = useAddToCart();
     const { getPrice } = useGetSendMethods();
 
     return (
-        <div className="w-full lg:col-span-4 border border-slate-300 rounded-xl p-6 space-y-3">
+        <div className="w-full lg:col-span-4 border border-slate-300 dark:border-slate-400 rounded-xl p-6 space-y-3">
             <div className="w-full flex items-center justify-between text-slate-700">
                 <span className="text-xs font-medium">
                     قیمت کالا ها({cart?.totalqty})
@@ -58,7 +59,7 @@ function AddressSammary({ setStep }) {
                         {numberWithCommas(cart.totaldiscountprice)} <span className="text-xs text-slate-600 font-medium">تومان</span>
                     </div>
                 </div>}
-            <div className="w-full flex items-center justify-between">
+            <div className="w-full flex items-center justify-between text-slate-700">
                 <span className="text-xs font-medium">
                     هزینه ارسال
                 </span>
@@ -66,7 +67,7 @@ function AddressSammary({ setStep }) {
                     {numberWithCommas(getPrice(cart.sendmethod))} <span className="text-xs text-slate-600 font-medium">تومان</span>
                 </div>
             </div>
-            <div className="w-full flex items-center justify-between text-slate-900 border-t border-slate-300 pt-4 !mt-4">
+            <div className="w-full flex items-center justify-between text-slate-900 border-t border-slate-300 dark:border-slate-400 pt-4 !mt-4">
                 <span className="font-bold text-sm">
                     قیمت نهایی
                 </span>
@@ -75,8 +76,14 @@ function AddressSammary({ setStep }) {
                 </div>
             </div>
 
-            <button onClick={() => setStep(3)} className="btn btn--primary w-full !mt-6">
-                تایید و ادامه
+            <button
+                onClick={() => {
+                    setStep(3);
+                    clearCart();
+                }}
+                className="btn btn--primary w-full !mt-6"
+            >
+                پرداخت
             </button>
         </div>
     )
@@ -99,7 +106,7 @@ function ProductsList() {
     }, [cart])
 
     return (
-        <div className="w-full border border-slate-300 rounded-xl p-6">
+        <div className="w-full border border-slate-300 dark:border-slate-400 rounded-xl p-6">
             <div className="flex items-center gap-2 text-sm font-semibold text-slate-800 mb-5">
                 <HiShoppingCart className="w-6 h-6" />
                 محصولات شما ({products.length})
@@ -107,7 +114,7 @@ function ProductsList() {
 
             <div className="flex items-center flex-wrap gap-4">
                 {products?.map((item, index) => (
-                    <div key={item.id} className="border-l border-l-slate-300 pl-4 last:border-0 py-4">
+                    <div key={item.id} className="border-l border-l-slate-300 dark:border-l-slate-400 pl-4 last:border-0 py-4">
                         <div className="w-32">
                             <div className="aspect-w-10 aspect-h-10">
                                 <img src={item.photos[0].path} alt="" className="w-full h-full object-cover object-center  rounded-lg overflow-hidden" />

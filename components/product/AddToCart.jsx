@@ -5,29 +5,38 @@ import { FiMinus } from "react-icons/fi";
 import { MdAdd } from "react-icons/md";
 import { ThreeDots } from "react-loader-spinner";
 
-export default function AddToCart({ productId }) {
+export default function AddToCart({ productId, inventory }) {
     const { incProductToCart, decProductToCart, removeProductCart, addNewToCart, isAdding } = useAddToCart();
     const { cart, isGetCart, isProductInCart } = useGetCart();
-    const productIndex = cart && cart?.products.split(cart.products.length > 2 ? "," : "").indexOf(productId.toString());
-    const productQty = cart && cart?.productqty.split(cart.productqty.length > 2 ? "," : "")[productIndex];
-
+    const productIndex = cart && cart?.products.split(",").indexOf(productId.toString());
+    const productQty = cart && cart?.productqty.split(",")[productIndex];
+    console.log(productId);
+    
     if (isGetCart) return (
         <div className="flex-1 lg:w-full"></div>
     )
+
+    if (Number(inventory) === 0) {
+        return (
+            <div className="flex-1 lg:w-full btn btn--secondary !text-error whitespace-nowrap">
+                ناموجود
+            </div>
+        )
+    }
 
     return (
         <>
             {
                 !isProductInCart(productId) ?
-                    <button onClick={()=>addNewToCart(productId)} className="flex-1 lg:w-full btn btn--primary whitespace-nowrap">
+                    <button onClick={() => addNewToCart(productId)} className="flex-1 lg:w-full btn btn--primary whitespace-nowrap">
                         افزودن به سبد خرید
                     </button>
                     :
                     <div className="btn btn--secondary !justify-between flex-1 lg:w-full">
-                        <button onClick={() => incProductToCart(productId)}>
+                        <button disabled={Number(productQty) >= Number(inventory)} onClick={() => incProductToCart(productId)} className="disabled:opacity-45">
                             <MdAdd className="w-6 h-6" />
                         </button>
-                        <div className="font-bold text-lg">
+                        <div className="font-bold text-lg px-4">
                             {
                                 isAdding ?
                                     <ThreeDots

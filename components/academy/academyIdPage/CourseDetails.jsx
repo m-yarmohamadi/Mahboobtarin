@@ -1,4 +1,5 @@
 import numberWithCommas from "@/utils/numberWithCommas";
+import Link from "next/link";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { RxTimer } from "react-icons/rx";
 import { TiClipboard } from "react-icons/ti";
@@ -84,16 +85,18 @@ function CoursePrice() {
     return (
         <div className="flex items-center justify-between w-full border-t border-t-slate-300 pt-4 mt-6">
             <div>
-                <button className="btn btn--primary font-bold !px-10 !text-base">
+                <Link href={'/register-course'} className="btn btn--primary font-bold !px-10 !text-base">
                     ثبت نام در دوره
-                </button>
+                </Link>
             </div>
             <div className="flex flex-col items-end gap-2">
                 <div className="flex items-center gap-2">
-                    <div class="text-base text-slate-400 lg:text-xl line-through font-bold">
+                    <div class="text-base text-slate-400 dark:text-slate-600 lg:text-xl line-through font-bold">
                         {numberWithCommas(1680000)}
                     </div>
-                    <div class="bg-error rounded-md py-0.5 px-2 text-white text-xs flex justify-center items-center">% 13</div>
+                    <div class="bg-error rounded-md py-0.5 px-2 text-[#fff] text-xs flex justify-center items-center">
+                        % 13
+                    </div>
                 </div>
                 <div className="text-2xl lg:text-3xl font-bold text-slate-700 flex items-center gap-1">
                     <span>

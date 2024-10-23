@@ -13,7 +13,7 @@ export default function Dashboard() {
     <div className="space-y-6">
       <div className="flex items-start p-6 gap-2 bg-orange-300/40 rounded-lg">
         <span>
-          <BiInfoCircle className="w-6 h-6" />
+          <BiInfoCircle className="w-6 h-6 text-textDefault" />
         </span>
         <div className="text-sm lg:text-base text-orange-500 leading-6">
           <span className="font-bold">توجه:</span>
@@ -26,7 +26,7 @@ export default function Dashboard() {
       <Alert>
         <div className="w-full flex items-start gap-2">
           <span>
-            <HiOutlineUserCircle className="w-10 h-10" />
+            <HiOutlineUserCircle className="w-10 h-10 text-slate-700" />
           </span>
           <div className="space-y-3">
             <h4 className="lg:text-lg font-bold text-slate-700">

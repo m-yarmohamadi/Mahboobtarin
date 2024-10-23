@@ -120,6 +120,7 @@ const LeftProfile = ({ user }) => {
                         onClose={() => setModal(0)}
                         serviceID={item.id}
                         userId={user?.id}
+                        expert={user}
                       />
                     </Modal>
                     {showIdeasDetail === index + 1 && (

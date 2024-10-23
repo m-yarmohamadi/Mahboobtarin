@@ -392,9 +392,9 @@ const RegisterExpert = ({
   return (
     <>
       {completed && (
-        <div className="w-full h-full gap-3 font-bold text-xl text-slate-900 flex-col fixed top-0 right-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-[60]">
+        <div className="w-full h-full gap-3 font-bold text-xl text-[#fff] flex-col fixed top-0 right-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-[60]">
           در حال ورود به سایت
-          <Loading customeColor="#15aa7f" />
+          <Loading />
         </div>
       )}
       <div className="w-full flex flex-col gap-7">

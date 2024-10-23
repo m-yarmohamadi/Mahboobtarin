@@ -49,7 +49,7 @@ export default function IncomeChart() {
                     <h1 className="font-bold text-slate-800">
                         درآمد
                     </h1>
-                    <div className="text-sm">
+                    <div className="text-sm text-textDefault">
                         <span className="font-semibold"> درآمد کل:</span>
                         &nbsp;
                         <span>47</span>

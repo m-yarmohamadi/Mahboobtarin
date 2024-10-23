@@ -1,6 +1,6 @@
 import numberWithCommas from '@/utils/numberWithCommas'
 
-export default function Summary() {
+export default function Summary({ serviceData, setSuccess }) {
     return (
         <div className="w-full bg-white border border-slate-200 dark:border-slate-500 rounded-lg p-6">
             <div className="text-primary-01 font-medium mb-6">
@@ -12,16 +12,22 @@ export default function Summary() {
                     <span>
                         هزینه
                     </span>
-                    <span>
-                        {numberWithCommas(250000)} تومان
-                    </span>
+                    {
+                        serviceData.price !== "0" ?
+                            <span>
+                                {numberWithCommas(serviceData.price)} تومان
+                            </span>
+                            :
+                            "رایگان"
+                    }
+
                 </div>
                 <div className='w-full flex items-center justify-between'>
                     <span>
                         مالیات
                     </span>
                     <span>
-                        {numberWithCommas(5000)} تومان
+                        {numberWithCommas(0)} تومان
                     </span>
                 </div>
             </div>
@@ -31,12 +37,17 @@ export default function Summary() {
                     <span className='text-sm font-bold'>
                         قابل پرداخت
                     </span>
-                    <span className='text-xl font-medium'>
-                        {numberWithCommas(5000)} تومان
-                    </span>
+                    {
+                        serviceData.price !== "0" ?
+                            <span className='text-xl font-medium'>
+                                {numberWithCommas(serviceData.price)} تومان
+                            </span>
+                            :
+                            "رایگان"
+                    }
                 </div>
 
-                <button className='btn btn--primary !w-full !font-medium'>
+                <button onClick={setSuccess} className='btn btn--primary !w-full !font-medium'>
                     پرداخت
                 </button>
             </div>

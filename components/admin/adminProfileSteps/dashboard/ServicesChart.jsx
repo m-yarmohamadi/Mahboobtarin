@@ -49,7 +49,7 @@ export default function ServicesChart() {
                     <h1 className="font-bold text-slate-800">
                         تعداد خدمات موفق
                     </h1>
-                    <div className="text-sm">
+                    <div className="text-sm text-textDefault">
                         <span className="font-semibold"> تعداد کل:</span>
                         &nbsp;
                         <span>47</span>

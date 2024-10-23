@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 
 export default function product({ productData }) {
     const [isLoading, setIsLoading] = useState(true);
-
+    console.log(productData);
+    
     useEffect(() => {
         setIsLoading(false);
     }, []);
@@ -22,8 +23,8 @@ export default function product({ productData }) {
     return (
         <>
             <Header />
-            <Mobile product={productData} />
-            <Desktop product={productData} />
+            <Mobile product={productData.data} relatedProducts={productData.relatedproducts} />
+            <Desktop product={productData.data} relatedProducts={productData.relatedproducts} />
         </>
     )
 }
@@ -33,7 +34,7 @@ export async function getServerSideProps(ctx) {
     const { query, req } = ctx;
 
     try {
-        const { data: { data } } = await http.get(`/api/v1/product/${query.id}`);
+        const { data } = await http.get(`/api/v1/product/${query.id}`);
 
         if (!data) {
             return {

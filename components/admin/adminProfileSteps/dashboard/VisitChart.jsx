@@ -48,7 +48,7 @@ export default function VisitChart() {
                     <h1 className="font-bold text-slate-800">
                         تعداد بازدید از صفحات شما
                     </h1>
-                    <div className="text-sm">
+                    <div className="text-sm text-textDefault">
                         <span className="font-semibold">بازدید کل:</span>
                         &nbsp;
                         <span>4</span>

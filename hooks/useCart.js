@@ -22,8 +22,7 @@ export function useGetCart() {
       mutationFn: getProductsInCart,
     });
 
-  const productsIds =
-    cart && cart.products.split(cart.products.length > 2 ? "," : "");
+  const productsIds = cart && cart.products.split(",");
 
   const isProductInCart = (productId) => {
     if (cart && productId) {
@@ -58,10 +57,8 @@ export function useAddToCart() {
   });
 
   // ! convert product ids and product quantity to array
-  const productsIds =
-    cart && cart.products.split(cart.products.length > 2 ? "," : "");
-  const productsQty =
-    cart && cart.productqty.split(cart.productqty.length > 2 ? "," : "");
+  const productsIds = cart && cart.products.split(",");
+  const productsQty = cart && cart.productqty.split(",");
 
   const mutateHandler = (products) => {
     mutateCart(
@@ -131,7 +128,7 @@ export function useAddToCart() {
         }
       );
     } else {
-      toast.error("ابتدا وارد حساب کاربری خود شوید")
+      toast.error("ابتدا وارد حساب کاربری خود شوید");
     }
   };
 
@@ -170,6 +167,13 @@ export function useAddToCart() {
       }));
 
       mutateHandler(lastProducts.filter((p) => p.id !== productId.toString()));
+    }
+  };
+
+  //  * clear cart
+  const clearCart = () => {
+    if (cart) {
+      mutateHandler([]);
     }
   };
 
@@ -245,6 +249,7 @@ export function useAddToCart() {
     incProductToCart,
     decProductToCart,
     removeProductCart,
+    clearCart,
     changeAddressOrder,
     changeSendMethodOrder,
   };
