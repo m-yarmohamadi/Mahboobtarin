@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import TitleItems from "../TitleItems";
 import ViewMore from "../ViewMore";
+import isRichText from "@/utils/isRichText";
 
 export default function ExpertDescription({ expert_description }) {
     const [showCompleteBio, setShowCompleteBio] = useState(false);
@@ -27,13 +28,24 @@ export default function ExpertDescription({ expert_description }) {
         return (
             <div id="skills" className="pt-16">
                 <TitleItems title={"تخصص و مهارت"} />
-                <p
-                    ref={textRef}
-                    className={`${!showCompleteBio && "line-clamp-5 "
-                        } text-xs font-medium text-slate-800 sm:text-sm whitespace-pre-wrap`}
-                >
-                    {expert_description}
-                </p>
+                {
+                    isRichText(expert_description) ?
+                        <div
+                            ref={textRef}
+                            dangerouslySetInnerHTML={{ __html: expert_description }}
+                            className={`${!showCompleteBio && "line-clamp-5 "
+                                } text-xs font-medium text-slate-800 sm:text-sm whitespace-pre-wrap`}
+                        >
+                        </div>
+                        :
+                        <p
+                            ref={textRef}
+                            className={`${!showCompleteBio && "line-clamp-5 "
+                                } text-xs font-medium text-slate-800 sm:text-sm whitespace-pre-wrap`}
+                        >
+                            {expert_description}
+                        </p>
+                }
                 {isClamped && (
                     <ViewMore
                         complete={showCompleteBio}

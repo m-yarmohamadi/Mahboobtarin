@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import TitleItems from "../TitleItems";
 import ViewMore from "../ViewMore";
+import isRichText from "@/utils/isRichText";
 
 export default function About({ description }) {
     const [showCompleteBio, setShowCompleteBio] = useState(false);
@@ -28,13 +29,26 @@ export default function About({ description }) {
         return (
             <div id="bio" className="pt-16">
                 <TitleItems title={"بیوگرافی"} />
-                <p
-                    ref={textRef}
-                    className={`${!showCompleteBio && "line-clamp-5 "
-                        } text-xs sm:text-sm sm:leading-8 leading-6 font-medium text-slate-800 text-justify whitespace-pre-wrap`}
-                >
-                    {description}
-                </p>
+                {
+                    isRichText(description) ?
+                        <div
+                            ref={textRef}
+                            dangerouslySetInnerHTML={{ __html: description }}
+                            className={`${!showCompleteBio && "line-clamp-5 "
+                                } text-xs sm:text-sm sm:leading-8 leading-6 font-medium text-slate-800 text-justify whitespace-pre-wrap`}
+                        >
+
+                        </div>
+                        :
+                        <p
+                            ref={textRef}
+                            className={`${!showCompleteBio && "line-clamp-5 "
+                                } text-xs sm:text-sm sm:leading-8 leading-6 font-medium text-slate-800 text-justify whitespace-pre-wrap`}
+                        >
+                            {!isRichText(description) && description}
+                        </p>
+                }
+
                 {isClamped && (
                     <ViewMore
                         complete={showCompleteBio}
