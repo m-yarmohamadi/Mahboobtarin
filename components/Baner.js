@@ -122,22 +122,30 @@ const Baner = () => {
             }}
           >
             {!isLoading &&
-              categories.map((item, index) => {
-                return (
-                  <SwiperSlide key={index} className="!w-auto !mr-5">
-                    <div className="flex flex-col justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer">
-                      <span className="text-3xl p-2">
-                        <div
-                          dangerouslySetInnerHTML={{ __html: item.icon }}
-                        ></div>
-                      </span>
-                      <span className="lg:text-sm text-center">
-                        {item.name}
-                      </span>
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
+              categories
+                .filter((c) => c.parent_id === 0)
+                .map((item, index) => {
+                  return (
+                    <SwiperSlide key={index} className="!w-auto !mr-5">
+                      <div className="flex flex-col justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer">
+                        <span className="text-3xl p-2">
+                          <div>
+                            {item.icon ? (
+                              <div
+                                dangerouslySetInnerHTML={{ __html: item.icon }}
+                              ></div>
+                            ) : (
+                              <img src={item.pic} alt="" className="w-10" />
+                            )}
+                          </div>
+                        </span>
+                        <span className="lg:text-sm text-center">
+                          {item.name}
+                        </span>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
           </Swiper>
 
           <button className="swiper-categroy-next disabled:text-primary-01/30 flex flex-col justify-center items-center text-primary-01  hover:text-opacity-80 hover:cursor-pointer">
@@ -149,6 +157,7 @@ const Baner = () => {
         <div className="lg:hidden grid grid-cols-4 gap-4 p-4">
           {!isLoading &&
             categories
+              .filter((c) => c.parent_id === 0)
               .slice(0, showComplete ? categories.length : 7)
               .map((item) => {
                 return (
@@ -157,22 +166,30 @@ const Baner = () => {
                     className="flex flex-col text-xs justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer"
                   >
                     <span className="text-3xl p-2">
-                      <div
-                        dangerouslySetInnerHTML={{ __html: item.icon }}
-                      ></div>
+                      <div>
+                        {item.icon ? (
+                          <div
+                            dangerouslySetInnerHTML={{ __html: item.icon }}
+                          ></div>
+                        ) : (
+                          <img src={item.pic} alt="" className="w-10" />
+                        )}
+                      </div>
                     </span>
                     <span className="lg:text-sm text-center">{item.name}</span>
                   </div>
                 );
               })}
           <div
-            onClick={()=>setShowComplete(!showComplete)}
+            onClick={() => setShowComplete(!showComplete)}
             className="flex flex-col text-xs justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer"
           >
             <span className="text-3xl p-2">
               <CiCircleMore />
             </span>
-            <span className="lg:text-sm text-center">موارد {showComplete ? "کمتر" : "بیشتر"}</span>
+            <span className="lg:text-sm text-center">
+              موارد {showComplete ? "کمتر" : "بیشتر"}
+            </span>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-1 h-73 ">

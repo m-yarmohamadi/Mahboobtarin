@@ -44,7 +44,7 @@ export default function StepLevel({ currentStep }) {
                 {levels.map((item, index) => (
                     <div key={index} className={`${currentStep === item.step + 1 ? 'flex' : 'hidden'} items-center`}>
                         <div className={`ml-3 ${currentStep > item.step ? "bg-primary-01 text-white" : "text-primary-01 bg-slate-100"} text-2xl w-12 h-12 flex items-center justify-center rounded-full`}>
-                            {item.step + 1}
+                            {item.step + 1}/4
                         </div>
                         <span className="text-sm font-semibold text-slate-800 whitespace-nowrap">
                             {item.title}

@@ -10,7 +10,15 @@ export default function useMainPage() {
     refetchOnWindowFocus: true,
   });
 
-  const { sliders, categories, posts, expertises } = data?.data || {};
+  const {
+    sliders,
+    categories,
+    posts,
+    expertises,
+    offer_categories,
+    top_search,
+    popular_week,
+  } = data?.data || {};
 
   const transformCategories =
     data && categories.map((item) => ({ value: item.id, label: item.name }));
@@ -22,6 +30,9 @@ export default function useMainPage() {
     transformCategories,
     posts,
     expertises,
+    offer_categories,
+    top_search,
+    popular_week,
   };
 }
 

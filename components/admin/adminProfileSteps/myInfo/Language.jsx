@@ -1,17 +1,9 @@
+import { LanguagesData } from "@/data/LanguagesData";
 import Select from "@/tools/Select";
 import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { IoMdAdd } from "react-icons/io";
 
-const languageList = [
-    { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-    { id: 1, label: 'ترکی', value: 'torki' },
-    { id: 2, label: 'کردی', value: 'kordi' },
-    { id: 3, label: 'لری', value: 'lori' },
-    { id: 4, label: 'تالشی', value: 'taleshi' },
-    { id: 5, label: 'عربی', value: 'arabic' },
-    { id: 6, label: 'بلوچ', value: 'baloochi' },
-];
 const proficiency = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
     { id: 1, label: 'خیلی ضعیف', value: 'VeryWeak' },
@@ -23,7 +15,7 @@ const proficiency = [
 ];
 
 export default function Language({ formik }) {
-    const [selected, setSelected] = useState({ title: 0, subject: 0 });
+    const [selected, setSelected] = useState({ title: "انگلیسی", subject: 0 });
     const { language } = formik.values;
 
     const addLanguage = () => {
@@ -42,8 +34,9 @@ export default function Language({ formik }) {
             <div className="flex items-end gap-4">
                 <div className="flex-1 flex flex-col lg:flex-row gap-4">
                     <Select
-                        label="زبان خارجی"
-                        options={languageList}
+                        label="زبان و گویش"
+                        options={LanguagesData}
+                        smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
                     />

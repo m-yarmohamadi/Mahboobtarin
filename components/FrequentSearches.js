@@ -1,6 +1,7 @@
 import React from "react";
 import PN from "persian-number";
 import { FaChevronLeft } from "react-icons/fa";
+import useMainPage from "@/hooks/useMainPage";
 
 const data = [
   {
@@ -283,6 +284,10 @@ const data2 = [
   },
 ];
 const FrequentSearches = () => {
+  const { top_search, popular_week, isLoading } = useMainPage();
+
+  if (isLoading) return null;
+
   return (
     <div className=" md:container px-0 pb-16">
       <div className="w-full lg:h-[45rem] flex flex-col lg:flex-row gap-8 lg:gap-5">
@@ -292,7 +297,7 @@ const FrequentSearches = () => {
           </h4>
           <div className="w-full bg-white md:rounded-lg overflow-auto scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin flex-1">
             <div className="w-full flex items-center gap-20 md:grid lg:grid-cols-1 xl:grid-cols-2 xl:gap-x-5 overflow-x-auto lg:overflow-hidden scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin p-8">
-              {data.map((item) => (
+              {top_search.map((item) => (
                 <div
                   key={item.id}
                   className="flex-1 flex gap-4 md:border-b border-b-primary-02 md:pb-5"
@@ -300,7 +305,7 @@ const FrequentSearches = () => {
                   <div>
                     <div className="w-28 h-32 xl:w-24 xl:h-28 flex items-center justify-center border border-primary-02 rounded-lg">
                       <img
-                        src={item.iconUrl}
+                        src={item.picture}
                         alt=""
                         className="w-[70%] object-cover object-center"
                       />
@@ -310,22 +315,23 @@ const FrequentSearches = () => {
                     <p className="text-lg text-slate-800 font-bold mb-2 whitespace-nowrap">
                       {item.title}
                     </p>
-                    <span className="text-sm text-slate-700 whitespace-nowrap">
-                      {item.subtitle}
-                    </span>
+                    <span
+                      className="text-sm text-slate-700 whitespace-nowrap"
+                      dangerouslySetInnerHTML={{ __html: item.description }}
+                    ></span>
 
                     <div className="flex items-center mt-6">
-                      {item.picUrl.map((pic) => (
+                      {item.metekhases.map((pic) => (
                         <div key={pic.id} className="w-10 h-10 -ms-2">
                           <img
-                            src={pic.url}
+                            src={pic.avatar || "/images/user.png"}
                             alt=""
                             className="w-full h-full object-cover object-center rounded-full border border-white"
                           />
                         </div>
                       ))}
                       <div className="w-10 h-10 -ms-2 bg-white shadow-lg dark:shadow-darkLg text-slate-800 text-sm font-semibold rounded-full flex items-center justify-center">
-                        {item.number}+
+                        {item?.number || 0}+
                       </div>
                     </div>
                   </div>
@@ -347,19 +353,19 @@ const FrequentSearches = () => {
           </h4>
           <div className="bg-white shadow-lg dark:shadow-darkLg md:rounded-lg overflow-auto flex-1">
             <div className="lg:max-h-full flex md:grid grid-cols-2 lg:grid-cols-1 overflow-x-auto lg:overflow-y-auto scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin gap-12 p-8">
-              {data2.map((item) => (
+              {popular_week.map((item) => (
                 <div
                   key={item.id}
                   className="flex-1 md:flex flex-col justify-center"
                 >
                   <div className="flex items-center md:justify-center">
-                    {item.picUrl.map((pic) => (
+                    {item.metekhases.map((pic) => (
                       <div
                         key={pic.id}
                         className="w-12 h-12 md:w-20 md:h-20 -ms-2"
                       >
                         <img
-                          src={pic.url}
+                          src={pic.avatar || "/images/user.png"}
                           alt=""
                           className="w-full h-full border border-white object-cover object-center rounded-full"
                         />
@@ -367,7 +373,7 @@ const FrequentSearches = () => {
                     ))}
                   </div>
                   <button className="text-sm font-bold text-primary-01 btn !px-0 gap-2 whitespace-nowrap">
-                    {item.title}
+                    {item.name}
                     <FaChevronLeft />
                   </button>
                 </div>

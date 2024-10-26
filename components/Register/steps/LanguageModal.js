@@ -7,6 +7,7 @@ import {
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Select from "@/tools/Select";
+import { LanguagesData } from "@/data/LanguagesData";
 
 const Language = [
   { id: 0, label: "یک گزینه را انتخاب کنید", value: "" },
@@ -27,13 +28,9 @@ const Proficiency = [
   { id: 6, label: "عالی", value: "عالی" },
 ];
 
-const LanguageModal = ({
-  openLanguageModal,
-  setOpenLanguageModal,
-  formikLanguage,
-}) => {
+const LanguageModal = ({openLanguageModal,setOpenLanguageModal,formikLanguage,}) => {
   const initialValues = {
-    title: "",
+    title: "انگلیسی",
     subject: "",
   };
   const onSubmit = (values, { resetForm }) => {
@@ -81,7 +78,7 @@ const LanguageModal = ({
               <Select
                 name={"title"}
                 label={"زبان و گویش"}
-                options={Language}
+                options={LanguagesData}
                 formik={formik}
               />
               <Select

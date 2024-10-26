@@ -14,12 +14,14 @@ import FormData from "form-data";
 import InputFileform from "@/tools/InputFileForm";
 import toast from "react-hot-toast";
 import useMainPage from "@/hooks/useMainPage";
+import PictureEditor from "@/components/PictureEditor";
 
 const Step03 = ({ formik, children, error }) => {
   const [openExpertiseModal, setOpenExpertiseModal] = useState(false);
   const [openGradeModal, setOpenGradeModal] = useState(false);
   const [openLanguageModal, setOpenLanguageModal] = useState(false);
   const { transformCategories, isLoading: isGetCategories } = useMainPage();
+  const [profileImg, setProfileImg] = useState(null);
 
   return (
     <div className="w-full h-full flex flex-col justify-between">
@@ -254,15 +256,21 @@ const Step03 = ({ formik, children, error }) => {
                 const maxFileSize = 2 * 1024 * 1024; // 2MB
 
                 if (file && file.size > maxFileSize) {
-                  toast.error("حجم تصویر باید حداقل 2 مگابایت باشد");
+                  toast.error("حجم تصویر باید حداکثر 2 مگابایت باشد");
                   e.target.value = null;
                 } else {
-                  formik.setFieldValue("picture", e.target.files[0]);
+                  setProfileImg(file);
                 }
               }}
               name={"picture"}
               label="تصویر پروفایل"
               type={"file"}
+            />
+            <PictureEditor
+              open={profileImg ? true : false}
+              onClose={() => setProfileImg(null)}
+              image={profileImg}
+              onCrop={(e) => formik.setFieldValue("picture", e)}
             />
           </div>
         </div>

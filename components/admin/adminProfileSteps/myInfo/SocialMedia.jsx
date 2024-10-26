@@ -1,17 +1,10 @@
+import { SocialMedias } from "@/data/SocialMedias";
 import Input from "@/tools/Input";
 import Select from "@/tools/Select";
 import Link from "next/link";
 import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { IoMdAdd } from "react-icons/io";
-
-const socialMedias = [
-    { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-    { id: 1, label: 'تلگرام', value: 'telegram' },
-    { id: 2, label: 'اینستاگرام', value: 'instagram' },
-    { id: 3, label: 'توییتر', value: 'twitter' },
-    { id: 4, label: 'لینکدین', value: 'linkedin' },
-];
 
 export default function SocialMedia() {
     const [list, setList] = useState([]);
@@ -36,8 +29,9 @@ export default function SocialMedia() {
             <div className="flex items-end gap-4">
                 <div className="flex-1 flex flex-col lg:flex-row gap-4">
                     <Select
-                        label="صفحه مجازی"
-                        options={socialMedias}
+                        label="شبکه های اجتماعی"
+                        smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
+                        options={[{id:0, value:"", label:"یک گزینه را انتخاب کنید"}, ...SocialMedias]}
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
                     />

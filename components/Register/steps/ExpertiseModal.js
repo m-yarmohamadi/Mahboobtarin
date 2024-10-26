@@ -70,7 +70,7 @@ const ExpertiseModal = ({
             >
               <Select
                 name={"title"}
-                label={"موضوع تخصص"}
+                label={"حوزه تخصصی"}
                 options={
                   !isGetCategories
                     ? [
@@ -93,7 +93,7 @@ const ExpertiseModal = ({
               />
               <Input
                 name={"subject"}
-                label={"عنوان تخصص"}
+                label={"حوزه تخصصی"}
                 type={"text"}
                 formik={formik}
               />

@@ -21,49 +21,52 @@ export default function Address({ formik, isLoading }) {
 
     return (
         <>
-            <Select
-                label="کشور محل سکونت"
-                name="country"
-                formik={formik}
-                onClickSelect={() => setFirstLoad(false)}
-                options={sortedCountries}
-            />
+            <div className="w-full grid grid-cols-1 gap-4 lg:grid-cols-3 lg:col-span-2">
 
-            {
-                formik.values.country === "Iran" ?
 
-                    <>
-                        <Select
-                            label="استان محل سکونت"
-                            name="province_id"
-                            formik={formik}
-                            options={[{ id: -1, value: "", label: "استان محل سکونت را انتخاب کنید" }, ...transformProvinces || []]}
-                        />
+                <Select
+                    label="کشور محل سکونت"
+                    name="country"
+                    formik={formik}
+                    onClickSelect={() => setFirstLoad(false)}
+                    options={sortedCountries}
+                />
 
-                        <Select
-                            label="شهر محل سکونت"
-                            name="city_id"
-                            formik={formik}
-                            options={[{ id: -1, value: "", label: "شهر محل سکونت را انتخاب کنید" }, ...transformCity || []]}
-                            disabled={!formik.values.province_id}
-                        />
-                    </>
-                    :
-                    <>
-                        <Input
-                            label="استان محل سکونت"
-                            name="province_id"
-                            formik={formik}
-                        />
+                {
+                    formik.values.country === "Iran" ?
 
-                        <Input
-                            label="شهر محل سکونت"
-                            name="city_id"
-                            formik={formik}
-                        />
-                    </>
-            }
+                        <>
+                            <Select
+                                label="استان محل سکونت"
+                                name="province_id"
+                                formik={formik}
+                                options={[{ id: -1, value: "", label: "استان محل سکونت را انتخاب کنید" }, ...transformProvinces || []]}
+                            />
 
+                            <Select
+                                label="شهر محل سکونت"
+                                name="city_id"
+                                formik={formik}
+                                options={[{ id: -1, value: "", label: "شهر محل سکونت را انتخاب کنید" }, ...transformCity || []]}
+                                disabled={!formik.values.province_id}
+                            />
+                        </>
+                        :
+                        <>
+                            <Input
+                                label="استان محل سکونت"
+                                name="province_id"
+                                formik={formik}
+                            />
+
+                            <Input
+                                label="شهر محل سکونت"
+                                name="city_id"
+                                formik={formik}
+                            />
+                        </>
+                }
+            </div>
             <div className='lg:col-span-2'>
                 <Input
                     label="آدرس محل سکونت"

@@ -35,6 +35,7 @@ export default function Grade({ formik }) {
                 <div className="flex-1 flex flex-col lg:flex-row gap-4">
                     <Select
                         label="مقطع تحصیلی"
+                        smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
                         options={gradeOptions}
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}

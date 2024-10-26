@@ -4,6 +4,7 @@ import React from "react";
 const Select = ({
   name,
   label,
+  smallDesc,
   options,
   required,
   formik,
@@ -16,10 +17,11 @@ const Select = ({
   return (
     <div className="w-full py-1 flex flex-col justify-start justify-items-start items-start">
       <label
-        className="text-sm font-bold px-2 inline-block mb-2 text-slate-800"
+        className="text-sm font-bold px-2 mb-2 text-slate-800 flex items-center gap-1 truncate"
         htmlFor={name}
       >
         {label}
+        {smallDesc && <span className="text-[10px] font-normal">({smallDesc})</span>}
         {required && (
           <span
             style={{

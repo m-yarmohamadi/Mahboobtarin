@@ -239,3 +239,5 @@ input[type=number] {
 .react-select-container .react-select__control .react-select__indicators{
 	@apply !hidden
 }
+
+/* Cropper */

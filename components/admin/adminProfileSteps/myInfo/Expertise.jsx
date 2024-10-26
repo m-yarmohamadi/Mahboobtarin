@@ -1,18 +1,9 @@
 import useMainPage from "@/hooks/useMainPage";
 import Input from "@/tools/Input";
 import Select from "@/tools/Select";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { IoMdAdd } from "react-icons/io";
-
-
-const expertise = [
-    { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-    { id: 1, label: 'پزشکی', value: 'medical' },
-    { id: 2, label: 'سینما', value: 'cinema' },
-    { id: 3, label: 'نقاشی', value: 'Painting' },
-    { id: 4, label: 'معماری', value: 'architecture' },
-];
 
 export default function Expertise({ formik }) {
     const [list, setList] = useState(formik.values.expertise || []);
@@ -36,7 +27,8 @@ export default function Expertise({ formik }) {
             <div className="flex items-end gap-4">
                 <div className="flex-1 flex flex-col lg:flex-row gap-4">
                     <Select
-                        label="تخصص"
+                        label="حوزه تخصصی"
+                        smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
                         options={!isGetCategories ? [{ id: -1, value: "", label: "موضوع تخصص را انتخاب کنید" }, ...transformCategories] : [{ id: -1, value: "", label: "موضوع تخصص را انتخاب کنید" }]}
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
@@ -57,7 +49,7 @@ export default function Expertise({ formik }) {
                         <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-400 last:border-0">
                             <div className="flex-1 flex items-center gap-1 text-textDefault">
                                 <p className="text-sm font-medium">
-                                    {transformCategories.filter((i) => Number(i.value) === Number(item.title))[0].label}
+                                    {transformCategories?.filter((i) => Number(i.value) === Number(item.title))[0].label}
                                 </p>
                                 -
                                 <span className="text-xs">

@@ -218,11 +218,12 @@ export default function Sidebar({ open, onClose }) {
                             </span>
                         </div>
                         <div className='w-full col-span-3'>
-                            <button
+                            <Link
                                 className='btn btn--primary !p-2 !w-full'
-                                type=''>
+                                href={'/admin/wallet'}
+                            >
                                 مشاهده
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

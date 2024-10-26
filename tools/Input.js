@@ -8,6 +8,7 @@ const Input = ({
   required,
   name,
   label,
+  smallDesc,
   type,
   formik,
   display = "block",
@@ -22,10 +23,11 @@ const Input = ({
       } py-1 flex flex-col justify-start justify-items-start items-start ${display}`}
     >
       <label
-        className="text-sm font-bold px-2 mb-2 inline-block text-slate-800"
+        className="text-sm font-bold px-2 mb-2 text-slate-800 flex items-center gap-1"
         htmlFor={name}
       >
         {label}
+        {smallDesc && <span className="text-[10px] font-normal">({smallDesc})</span>}
         {required && (
           <span
             style={{

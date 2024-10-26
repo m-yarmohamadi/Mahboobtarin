@@ -39,6 +39,7 @@ export default function WorkAddress({ formik }) {
                     <Input
                         label="آدرس محل کار"
                         name="address"
+                        smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
                         value={addressText}
                         onChange={(e) => setAddressText(e.target.value)}
                     />

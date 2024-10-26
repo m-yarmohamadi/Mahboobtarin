@@ -21,6 +21,7 @@ import useForgetPassword from '@/hooks/useForgetPassword';
 import { ThreeDots } from 'react-loader-spinner';
 import DateOfBirth from './DateOfBirth';
 import { Countries } from "@/data/countries";
+import PictureEditor from '@/components/PictureEditor';
 
 const gender = [
     { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -37,6 +38,7 @@ const taaholStatus = [
 export default function MyInfo() {
     const { user, expertise, grade, language, isLoading, address } = useProfile();
     const [passwordModal, setPasswordModal] = useState(false);
+    const [profileImg, setProfileImg] = useState(null);
     const getNationality = Countries.filter((c) => c.value === user?.nationality)[0]?.label;
 
     const initialValues = {
@@ -213,9 +215,6 @@ export default function MyInfo() {
                 <h1 className='text-lg text-slate-800 font-bold'>
                     اطلاعات فردی
                 </h1>
-                <p className='text-sm text-slate-600'>
-                    سعی کنید متنی خلاصه و جذاب درباره خودتان بنویسید
-                </p>
             </div>
 
             <form className='space-y-4' onSubmit={formik.handleSubmit}>
@@ -234,10 +233,10 @@ export default function MyInfo() {
                                     const maxFileSize = 2 * 1024 * 1024; // 2MB
 
                                     if (file && file.size > maxFileSize) {
-                                        toast.error("حجم تصویر باید حداقل 2 مگابایت باشد")
+                                        toast.error("حجم تصویر باید حداکثر 2 مگابایت باشد")
                                         e.target.value = null;
                                     } else {
-                                        formik.setFieldValue("picture", e.target.files[0]);
+                                        setProfileImg(file);
                                     }
                                 }}
                                 hidden
@@ -259,10 +258,16 @@ export default function MyInfo() {
                         <label htmlFor='userProfilePic' className='btn btn--secondary !px-8 cursor-pointer'>
                             تغییر تصویر
                         </label>
+                        <PictureEditor
+                            open={profileImg ? true : false}
+                            onClose={() => setProfileImg(null)}
+                            image={profileImg}
+                            onCrop={(e) => formik.setFieldValue("picture", e)}
+                        />
                     </div>
                     <div className='flex-1'>
                         <TextArea
-                            label="درباره شما"
+                            label="لطفا خود را در قالب متنی خلاصه و جذاب معرفی کنید!"
                             row={6}
                             name="description"
                             formik={formik}
