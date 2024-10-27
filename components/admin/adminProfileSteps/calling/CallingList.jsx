@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function CallingList() {
     const tabs = [
-        { label: "فراخوان های ثبت شده", name: "addedCalling", component: <AddedCalling /> },
-        { label: "فراخوان های دریافتی", name: "incomingCalling", component: <IncomingCalling /> }
+        { label: "فراخوان های ثبت شده" },
+        { label: "فراخوان های دریافتی" }
     ];
 
     return (
@@ -19,7 +19,14 @@ export default function CallingList() {
                     </Link>
                 </div>
 
-                <TabGroup tabs={tabs} />
+                <TabGroup tabs={tabs}>
+                    <TabGroup.Item>
+                        <AddedCalling />
+                    </TabGroup.Item>
+                    <TabGroup.Item>
+                        <IncomingCalling />
+                    </TabGroup.Item>
+                </TabGroup>
             </div>
         </div>
     )

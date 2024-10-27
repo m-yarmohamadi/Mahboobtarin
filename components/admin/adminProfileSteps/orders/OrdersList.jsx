@@ -4,8 +4,8 @@ import Products from "./Products";
 
 export default function OrdersList() {
     const tabs = [
-        { label: "نوبت ها", name: "turns", component: <Turns /> },
-        { label: "محصولات", name: "products", component: <Products /> }
+        { label: "نوبت ها" },
+        { label: "محصولات" }
     ];
 
     return (
@@ -15,7 +15,14 @@ export default function OrdersList() {
                     <div className='text-xl text-slate-800 font-semibold'>سفارشات</div>
                 </div>
 
-                <TabGroup tabs={tabs} />
+                <TabGroup tabs={tabs}>
+                    <TabGroup.Item>
+                        <Turns />
+                    </TabGroup.Item>
+                    <TabGroup.Item>
+                        <Products />
+                    </TabGroup.Item>
+                </TabGroup>
             </div>
         </div>
     )

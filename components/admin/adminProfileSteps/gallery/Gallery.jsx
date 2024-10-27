@@ -17,9 +17,9 @@ export default function Gallery() {
 	const [open, setOpen] = useState(false);
 
 	const tabs = [
-		{ label: "عکس", name: "picture", component: <PictureGallery user={user}/> },
-		{ label: "فیلم", name: "video", component: <VideoGallery user={user} /> },
-		{ label: "صوت", name: "voice", component: <VoiceGallery user={user} /> }
+		{ label: "عکس" },
+		{ label: "فیلم" },
+		{ label: "صوت" }
 	];
 
 
@@ -52,7 +52,17 @@ export default function Gallery() {
 					))}
 				</div> */}
 			</div>
-			<TabGroup tabs={tabs} />
+			<TabGroup tabs={tabs}>
+				<TabGroup.Item>
+					<PictureGallery user={user} />
+				</TabGroup.Item>
+				<TabGroup.Item>
+					<VideoGallery user={user} />
+				</TabGroup.Item>
+				<TabGroup.Item>
+					<VoiceGallery user={user} />
+				</TabGroup.Item>
+			</TabGroup>
 
 			<Modal
 				open={open}

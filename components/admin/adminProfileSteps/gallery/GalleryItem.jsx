@@ -15,7 +15,7 @@ export default function GalleryItem({ data }) {
             const data = await mutateDeleteGallery(formData);
 
             if (data) {
-                toast.success("گالری مورد نظر حذف شد");
+                toast.success("فایل مورد نظر حذف شد");
                 queryClient.invalidateQueries({ queryKey: ['get-expertise-user-by-id'] });
             }
 

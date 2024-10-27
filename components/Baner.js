@@ -135,7 +135,7 @@ const Baner = () => {
                                 dangerouslySetInnerHTML={{ __html: item.icon }}
                               ></div>
                             ) : (
-                              <img src={item.pic} alt="" className="w-10" />
+                              <img src={item.pic} alt="" className="w-[30px]" />
                             )}
                           </div>
                         </span>
@@ -172,7 +172,7 @@ const Baner = () => {
                             dangerouslySetInnerHTML={{ __html: item.icon }}
                           ></div>
                         ) : (
-                          <img src={item.pic} alt="" className="w-10" />
+                          <img src={item.pic} alt="" className="w-[30px]" />
                         )}
                       </div>
                     </span>
