@@ -4,8 +4,15 @@ import Products from "./Products";
 
 export default function OrdersList() {
     const tabs = [
-        { label: "نوبت ها" },
-        { label: "محصولات" }
+        { label: "همه موارد" },
+        { label: "مشاوره" },
+        { label: "اموزش" },
+        { label: "تبلیغات" },
+        { label: "دعوتنامه" },
+        { label: "همکاری" },
+        { label: "غرفه" },
+        { label: "حامی" },
+        { label: "مشارکت" },
     ];
 
     return (
@@ -16,12 +23,12 @@ export default function OrdersList() {
                 </div>
 
                 <TabGroup tabs={tabs}>
-                    <TabGroup.Item>
+                    {/* <TabGroup.Item>
                         <Turns />
                     </TabGroup.Item>
                     <TabGroup.Item>
                         <Products />
-                    </TabGroup.Item>
+                    </TabGroup.Item> */}
                 </TabGroup>
             </div>
         </div>
