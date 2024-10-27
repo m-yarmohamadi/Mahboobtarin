@@ -93,7 +93,7 @@ function CreateCommentForm({ motekhases_id }) {
         <form className="w-full" onSubmit={formik.handleSubmit}>
             <div className=" flex flex-col items-center gap-4 w-full  p-4">
                 <span className="text-sm font-semibold text-slate-800">
-                    به این پزشک چه امتیازی می دهید؟
+                    به صاحب این صفحه چه امتیازی می دهید؟
                 </span>
                 <div className="flex items-center gap-3">
                     {Array(5).fill({}).map((item, index) => (

@@ -36,11 +36,11 @@ const Baner03 = () => {
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={2000}
-        navigation
+        navigation={false}
         loop
         slidesPerView={1}
         autoplay
-        pagination={{ clickable: true }}
+        // pagination={{ clickable: true }}
         scrollbar={false}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}

@@ -44,10 +44,10 @@ const Baner02 = () => {
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={60}
-        navigation={{
-          nextEl: ".custom-button-next",
-          prevEl: ".custom-button-prev",
-        }}
+        // navigation={{
+        //   nextEl: ".custom-button-next",
+        //   prevEl: ".custom-button-prev",
+        // }}
         loop
         slidesPerView={1}
         autoplay={{ delay: 4000 }}
@@ -101,12 +101,12 @@ const Baner02 = () => {
                   </div>
                 </div>
               </div>
-              <button className="custom-button-prev   hover:cursor-pointer left-3">
+              {/* <button className="custom-button-prev   hover:cursor-pointer left-3">
                 <FaChevronLeft />
               </button>
               <button className="custom-button-next   hover:cursor-pointer right-3">
                 <FaChevronRight />
-              </button>
+              </button> */}
             </SwiperSlide>
           );
         })}

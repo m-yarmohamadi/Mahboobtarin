@@ -81,10 +81,10 @@ const Services = () => {
         </div>
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-          navigation={{
-            nextEl: ".custom-button-next",
-            prevEl: ".custom-button-prev",
-          }}
+          // navigation={{
+          //   nextEl: ".custom-button-next",
+          //   prevEl: ".custom-button-prev",
+          // }}
           loop
           className={"px-4"}
           slidesPerView={1}
@@ -144,12 +144,12 @@ const Services = () => {
               </SwiperSlide>
             );
           })}
-          <button className="custom-button-prev px-10   -left-3">
+          {/* <button className="custom-button-prev px-10   -left-3">
             <FaChevronLeft />
           </button>
           <button className="custom-button-next   -right-3">
             <FaChevronRight />
-          </button>
+          </button> */}
         </Swiper>
       </div>
     </div>
