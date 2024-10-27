@@ -128,7 +128,7 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
             </form>
             {isRegister &&
                 <div className="flex flex-col items-center justify-center gap-2 mt-5">
-                    <p className=" w-full flex items-center justify-center font-medium text-xs text-primary-04">در صورتی که در سایت مراحل ثبت نام را کامل طی کردید، میتوانید با رمز عبور وارد شوید</p>
+                    <p className=" w-full flex items-center justify-center font-medium text-xs text-primary-04">در صورتی که در سایت مراحل ثبت‌نام را کامل طی کردید، میتوانید با رمز عبور وارد شوید</p>
                     <button type="button" onClick={onLoginPassword} className="btn btn--outline !text-xs">
                         ورود با رمز عبور
                     </button>

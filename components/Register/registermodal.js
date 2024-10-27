@@ -40,14 +40,14 @@ const RegisterModal = ({ openRegisterModal, setOpenRegisterModal }) => {
                 className="bg-primary-01 shadow-md dark:shadow-darkMd hover:bg-opacity-90 text-white font-bold px-4 py-2 rounded-md"
                 type=""
               >
-                ثبت نام کاربران
+                ثبت‌نام کاربران
               </button>
               <button
                 onClick={handleClickRegisterSpecialists}
                 className="bg-primary-01 shadow-md dark:shadow-darkMd hover:bg-opacity-90 text-white font-bold px-4 py-2 rounded-md"
                 type=""
               >
-                ثبت نام متخصصین
+                ثبت‌نام متخصصین
               </button>
             </div>
           </DialogPanel>

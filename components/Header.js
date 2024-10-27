@@ -76,7 +76,7 @@ const menu = [
   { id: 2, title: "محبوب مال" },
   { id: 3, title: "فراخوان", link: "/requests" },
   { id: 4, title: "لینکدونی" },
-  { id: 5, title: "مجله محبوب ترین" },
+  { id: 5, title: "مجله محبوب‌ترین" },
 ];
 
 const callsToAction = [
@@ -114,7 +114,7 @@ export default function Header() {
         >
           <div className="flex">
             <Link href="/">
-              <span className="sr-only">محبوبترین</span>
+              <span className="sr-only">محبوب‌ترین</span>
 
               <img
                 className="w-40 "

@@ -86,7 +86,7 @@ function CoursePrice() {
         <div className="flex items-center justify-between w-full border-t border-t-slate-300 pt-4 mt-6">
             <div>
                 <Link href={'/register-course'} className="btn btn--primary font-bold !px-10 !text-base">
-                    ثبت نام در دوره
+                    ثبت‌نام در دوره
                 </Link>
             </div>
             <div className="flex flex-col items-end gap-2">

@@ -14,12 +14,12 @@ const RegisterType = ({ setUserType }) => {
 						<button
 							onClick={() => setUserType('user')}
 							className='btn btn--primary flex-1 w-full'>
-							ثبت نام کاربران
+							ثبت‌نام کاربران
 						</button>
 						<button
 							onClick={() => setUserType('expert')}
 							className='btn btn--primary flex-1 w-full'>
-							ثبت نام متخصصین
+							ثبت‌نام متخصصین
 						</button>
 					</div>
 				</div>

@@ -74,7 +74,7 @@ const Baner02 = () => {
                               به هوای بهار
                             </span>
                             <span className="text-lg font-medium">
-                              جدیدترین های تیشرت
+                              جدیدترین‌های تیشرت
                             </span>
                             <span className="text-lg font-medium">
                               پلوشرت و پیراهن مردانه

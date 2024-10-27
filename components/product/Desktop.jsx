@@ -13,7 +13,7 @@ export default function Desktop({ product, relatedProducts }) {
     return (
         <div className="hidden lg:block ">
             <div className="max-w-screen-xl mx-auto px-6">
-                <UrlBar urls={['محبوب ترین', product?.categories[0]?.name]} />
+                <UrlBar urls={['محبوب‌ترین', product?.categories[0]?.name]} />
                 <div className="w-full flex items-start gap-8">
                     <div className="flex-1">
                         <div className="w[300px] aspect-w-9 aspect-h-9">

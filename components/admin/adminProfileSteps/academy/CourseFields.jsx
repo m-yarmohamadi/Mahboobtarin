@@ -265,7 +265,7 @@ function ExpiredateInput({ formik, name }) {
                 className='text-sm font-bold px-2 mb-2 inline-block text-slate-800'
                 htmlFor={name}
             >
-                مهلت ثبت نام
+                مهلت ثبت‌نام
                 <span style={{ color: "red", fontSize: "18px", display: "inline-block", marginRight: "4px" }}>*</span>
             </label>
             <DatePicker

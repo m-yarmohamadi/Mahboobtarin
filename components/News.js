@@ -74,7 +74,7 @@ const News = () => {
                     className="py-2 px-8 bg-primary-01 text-white text-xl font-bold rounded-lg"
                     type=""
                   >
-                    مجله محبوب ترین
+                    مجله محبوب‌ترین
                   </button>
                   <div className="text-textDefault  font-semibold text-xl md:text-2xl py-8">
                     <p className="text-justify border-r-8 border-primary-01 p-2 ">

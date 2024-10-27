@@ -349,7 +349,7 @@ const FrequentSearches = () => {
 
         <div className="lg:w-[35%] flex flex-col overflow-auto">
           <h4 className="text-slate-800 font-bold text-lg md:text-xl lg:text-2xl text-center mb-3">
-            محبوب ترین های هفته
+          محبوب‌ترین‌های هفته
           </h4>
           <div className="bg-white shadow-lg dark:shadow-darkLg md:rounded-lg overflow-auto flex-1">
             <div className="lg:max-h-full flex md:grid grid-cols-2 lg:grid-cols-1 overflow-x-auto lg:overflow-y-auto scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin gap-12 p-8">
@@ -443,7 +443,7 @@ const FrequentSearches = () => {
 					</div>
 				</div>
 				<div className=''>
-					<div className='flex justify-center items-center w-full text-2xl font-bold text-slate-800 p-2 pt-6 md:pt-2'>محبوب ترین های هفته</div>
+					<div className='flex justify-center items-center w-full text-2xl font-bold text-slate-800 p-2 pt-6 md:pt-2'>محبوب‌ترین‌های هفته</div>
 					<div className='md:h-[43rem] max-h-[43rem] scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin xs:overflow-x-scroll  md:overflow-y-scroll flex md:flex-col justify-between items-center bg-white  rounded-xl shadow-lg dark:shadow-darkLg min-w-full '>
 						{data2.map((item) => {
 							return (
