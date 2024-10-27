@@ -321,7 +321,7 @@ const FrequentSearches = () => {
                     ></span>
 
                     <div className="flex items-center mt-6">
-                      {item.metekhases.map((pic) => (
+                      {item.metekhases.slice(0,3).map((pic) => (
                         <div key={pic.id} className="w-10 h-10 -ms-2">
                           <img
                             src={pic.avatar || "/images/user.png"}
@@ -331,7 +331,7 @@ const FrequentSearches = () => {
                         </div>
                       ))}
                       <div className="w-10 h-10 -ms-2 bg-white shadow-lg dark:shadow-darkLg text-slate-800 text-sm font-semibold rounded-full flex items-center justify-center">
-                        {item?.number || 0}+
+                        {item.metekhases.length - 3 || 0} +
                       </div>
                     </div>
                   </div>

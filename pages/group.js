@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer';
-import Groups from '@/components/Group/Groups';
+import Groups from '@/components/groups/Groups';
 import Header from '@/components/Header';
 import React from 'react';
 
