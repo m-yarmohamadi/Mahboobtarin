@@ -269,7 +269,7 @@ export default function Header() {
 }
 
 function CateMobileItem({ category }) {
-  const { categoryChilds, isGetCateChild } = useCategoryChild(category.id);
+  // const { categoryChilds, isGetCateChild } = useCategoryChild(category.id);
 
   return (
     <Disclosure as="div" className="pl-5">
@@ -285,14 +285,15 @@ function CateMobileItem({ category }) {
             />
           </DisclosureButton>
           <DisclosurePanel className="mt-2 space-y-4">
-            {!isGetCateChild &&
-              categoryChilds?.children?.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center gap-2 text-slate-800 font-semibold pr-3 text-xs"
-                >
-                  {item.name}
-                </div>
+            {category &&
+              category?.children_recursive?.map((item) => (
+                // <div
+                //   key={item.id}
+                //   className="flex items-center gap-2 text-slate-800 font-semibold pr-3 text-xs"
+                // >
+                //   {item.name}
+                // </div>
+                <CateMobileItem category={item}/>
               ))}
             <div className="w-full  bg-primary-01 h-1"></div>
           </DisclosurePanel>

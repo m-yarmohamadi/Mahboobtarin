@@ -6,11 +6,12 @@ import { useCategoryChild } from "@/hooks/useMainPage";
 
 export default function Categories({ isOpen, setIsOpen, categories, isLoading }) {
     const [lastHover, setLastHover] = useState(0);
-    const { categoryChilds, isGetCateChild } = useCategoryChild(lastHover);
+    // const { categoryChilds, isGetCateChild } = useCategoryChild(lastHover);
     const categoryListRef = useRef(null);
+    const [childrenRecursive, setChildrenRecursive] = useState({});
 
     useEffect(() => {
-        if (!isLoading) setLastHover(categories[0].id);
+        if (!isLoading) setChildrenRecursive(categories[0] || {});
     }, [isLoading]);
 
     useEffect(() => {
@@ -47,7 +48,10 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                             categories.filter((c) => c.parent_id === 0).map((category) => (
                                 <li key={category.id}>
                                     <div
-                                        onMouseEnter={() => setLastHover(category.id)}
+                                        onMouseEnter={() => {
+                                            setLastHover(category.id);
+                                            setChildrenRecursive(category);
+                                        }}
                                         className={`${lastHover === category.id &&
                                             "bg-white !text-primary-01 !border-y-gray-300"
                                             } category__list-items-parent-btn`}
@@ -59,16 +63,16 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                     </ul>
 
                     <div className={`flex-1 flex h-[420px] p-7 z-50 bg-white overflow-y-auto drop-shadow-lg dark:shadow-darkLg`}>
-                        {!isGetCateChild ?
+                        {!isLoading ?
                             <div className="flex-grow flex-1 h-full flex flex-col">
                                 <div
                                     className=" text-xs mb-5 font-medium text-secondary-01 inline-flex items-center gap-2 !p-0"
                                 >
-                                    همه موارد مرتبط با {categoryChilds?.name}
+                                    همه موارد مرتبط با {childrenRecursive?.name}
                                     <FaAngleLeft className="w-3 h-3" />
                                 </div>
-                                <ul className="h-[400px] flex flex-col flex-wrap items-start">
-                                    {categoryChilds?.children?.map(
+                                <ul className="h-[400px] max-w-full flex-1 flex flex-col flex-wrap">
+                                    {childrenRecursive?.children_recursive?.map(
                                         (subItem) => (
                                             <React.Fragment key={subItem.id}>
                                                 <li className="w-auto">
@@ -79,8 +83,8 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                                                         <FaAngleLeft className="w-3 h-3" />
                                                     </div>
                                                 </li>
-                                                {subItem?.children?.map((subMenu) => (
-                                                    <li key={subMenu.id} className="mb-1 w-auto">
+                                                {subItem?.children_recursive?.map((subMenu) => (
+                                                    <li key={subMenu.id} className="mb-1 w-auto pr-2">
                                                         <div
                                                             className="text-slate-500  text-[10px] cursor-pointer duration-200"
                                                         >
