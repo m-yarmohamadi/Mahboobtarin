@@ -1,5 +1,6 @@
 import CheckBoxInput from "@/components/CheckBoxInput";
 import Modal from "@/components/Modal";
+import { LanguagesData } from "@/data/LanguagesData";
 import { useGetExpertisesList } from "@/hooks/useExpertiseUser";
 import React, { useState } from "react";
 import { BiSearch, BiSlider } from "react-icons/bi";
@@ -65,6 +66,11 @@ function FilterModal({ open, onClose }) {
           setShow={setOpenFilter}
           name="genderFilter"
         />
+        <LanguageFilter
+          show={openFilter}
+          setShow={setOpenFilter}
+          name="languageFilter"
+        />
       </div>
       <div className="flex items-center gap-4 mt-3">
         <button className="w-1/2 btn btn--primary" onClick={onClose}>
@@ -91,7 +97,7 @@ function ExpertiseFilter({ show, setShow, name }) {
         onClick={() => setShow(show === name ? "" : name)}
         className="w-full flex items-center justify-between p-3 bg-slate-200 text-slate-800 font-semibold"
       >
-        تخصص ها
+        حوزه تخصصی
         <FaAngleDown
           className={`w-4 h-4 duration-200 ${show === name && "rotate-180"}`}
         />
@@ -222,6 +228,43 @@ function GenderFilter({ show, setShow, name }) {
       >
         <ul>
           {genders.map((item, index) => (
+            <li
+              key={index}
+              className="w-full py-3 border-b border-b-slate-200 last:border-b-0"
+            >
+              <CheckBoxInput label={item.label} name={item.value} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function LanguageFilter({ show, setShow, name }) {
+
+  return (
+    <div
+      className={`w-full overflow-hidden ${
+        show === name ? "my-3 rounded-t-lg" : "my-2 rounded-lg"
+      }`}
+    >
+      <button
+        onClick={() => setShow(show === name ? "" : name)}
+        className="w-full flex items-center justify-between p-3 bg-slate-200 text-slate-800 font-semibold"
+      >
+        زبان
+        <FaAngleDown
+          className={`w-4 h-4 duration-200 ${show === name && "rotate-180"}`}
+        />
+      </button>
+      <div
+        className={`w-full bg-slate-100 rounded-b-lg px-4 ${
+          show === name ? "max-h-screen" : "max-h-0"
+        } duration-300 ease-in-out`}
+      >
+        <ul>
+          {LanguagesData.map((item, index) => (
             <li
               key={index}
               className="w-full py-3 border-b border-b-slate-200 last:border-b-0"

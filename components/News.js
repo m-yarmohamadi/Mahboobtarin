@@ -65,7 +65,7 @@ const News = () => {
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
       >
-        {posts.map((item, index) => {
+        {posts.slice(0,4).map((item, index) => {
           return (
             <SwiperSlide key={index}>
               <div className="md:container px-8 md:px-0 grid sm:grid-cols-1 lg:grid-cols-2 md:gap-x-20 ">
@@ -85,7 +85,7 @@ const News = () => {
                     <div className=" text-justify text-sm md:text-base leading-7 md:leading-8">
                       <div
                         dangerouslySetInnerHTML={{ __html: item.descriptin }}
-                        className="!min-w-none text-textDefault"
+                        className="!min-w-none text-textDefault line-clamp-6"
                       ></div>
                       <span className=" text-primary-01 cursor-pointer">
                         ادامه مطلب...
@@ -108,7 +108,7 @@ const News = () => {
 
       <div className=" md:container px-8 md:px-0 pt-16">
         <div className="w-full sm:grid xs:flex sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 xs:overflow-x-scroll md:overflow-hidden">
-          {posts.map((item, index) => (
+          {posts.slice(5,8).map((item, index) => (
             <div key={index} className="w-full xs:min-w-full">
               <div className="aspect-w-16 aspect-h-10">
                 <img

@@ -8,6 +8,7 @@ import ViewMore from "./ViewMore";
 import { FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { MdAccessTime } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 export default function Comments({ motekhases_id }) {
     const [comments, setComments] = useState([]);
@@ -63,6 +64,7 @@ export default function Comments({ motekhases_id }) {
 
 function CreateCommentForm({ motekhases_id }) {
     const { mutateAsync, isPending } = useMutation({ mutationFn: addCommentExpertise });
+    const router = useRouter();
 
     const onSubmit = async (values, { resetForm }) => {
         try {
@@ -74,6 +76,7 @@ function CreateCommentForm({ motekhases_id }) {
         } catch (error) {
             if (error?.response?.status === 401) {
                 toast.error("ابتدا وارد حساب کاربری خود شوید");
+                router.push("/auth")
                 return
             }
 
@@ -93,7 +96,7 @@ function CreateCommentForm({ motekhases_id }) {
         <form className="w-full" onSubmit={formik.handleSubmit}>
             <div className=" flex flex-col items-center gap-4 w-full  p-4">
                 <span className="text-sm font-semibold text-slate-800">
-                    به این پزشک چه امتیازی می دهید؟
+                    به این صاحب این صفحه چه امتیازی می دهید؟
                 </span>
                 <div className="flex items-center gap-3">
                     {Array(5).fill({}).map((item, index) => (

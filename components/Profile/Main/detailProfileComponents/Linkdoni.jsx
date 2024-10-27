@@ -8,6 +8,19 @@ import { toPersianDateLong } from "@/utils/toPersianDate";
 export default function Linkdoni({ link_dooni }) {
     const [showMore, setShowMore] = useState(false);
 
+    // const formatUrl = (url) => {
+    //     const protocolRegex = /^(http:\/\/|https:\/\/)/;
+    //     return protocolRegex.test(url) ? url : `https://${url}`;
+    // };
+
+    // const removeProtocol = (url) => {
+    //     return url.replace(/^(http:\/\/|https:\/\/)?(www\.)?[^/]+/, '');
+    // };
+
+
+    // console.log(removeProtocol("https://www.shahrekhabar.com/"));
+    
+
     if (link_dooni && link_dooni.length) {
         return (
             <div id="linkdins" className="pt-16">
@@ -23,6 +36,7 @@ export default function Linkdoni({ link_dooni }) {
                                 <Link
                                     href={item.link}
                                     rel="nofollow"
+                                    target="_blank"
                                     className="font-semibold hover:text-blue-500 hover:underline text-slate-800 mt-1 mb-3 flex items-center gap-2"
                                 >
                                     <span className="w-2 h-2 rounded-full bg-slate-700 inline-block"></span>

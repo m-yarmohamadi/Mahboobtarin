@@ -28,6 +28,8 @@ import HonorsDescription from "./detailProfileComponents/HonorsDescription";
 import MapView from "@/components/mapComponent/MapView";
 import Link from "next/link";
 import getOS from "@/utils/getOS";
+import ExpertServicesList from "./detailProfileComponents/ExpertServicesList";
+import OtherExpert from "./detailProfileComponents/OtherExpert";
 
 const mostPopular = [
   {
@@ -254,6 +256,10 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         </div>
       </div>
 
+      <div className="lg:hidden pt-6">
+          <ExpertServicesList user={userData}/>
+      </div>
+
       {/* بیوگرافی */}
       <About description={userData?.description} />
 
@@ -324,6 +330,10 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
 
       {/* محبوب‌ترین‌های .... */}
       <PopularsList userData={userData} popularList={popularList || []} />
+
+      <div className="lg:hidden">
+        <OtherExpert />
+      </div>
 
       {/* گالری */}
       <Gallery gallery={userData?.gallery || []} />

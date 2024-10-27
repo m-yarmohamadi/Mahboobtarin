@@ -19,53 +19,9 @@ import BookingForm from "./BookingForm";
 import { useGetServices, useGetServicesProfile } from "@/hooks/useDashboard";
 import numberWithCommas from "@/utils/numberWithCommas";
 import getPriceService from "@/components/admin/adminProfileSteps/myservices/getPriceService";
+import ExpertServicesList from "./detailProfileComponents/ExpertServicesList";
+import OtherExpert from "./detailProfileComponents/OtherExpert";
 
-const Followers = [
-  {
-    id: 1,
-    picUrl: "/images/FaribaEghdami.webp",
-    name: "علی رسولی",
-    idCloud: "@Ali_Rasouli",
-    position:
-      "معاون مرکز توسعه فناوری های راهبردی، معاونت علمی، فناوری و اقتصاد دانش بنیان",
-    ablution: 0,
-  },
-  {
-    id: 2,
-    picUrl: "/images/FaribaEghdami.webp",
-    name: "مهدی انجدینی",
-    idCloud: "@Anjidani",
-    position:
-      "معاون مرکز توسعه فناوری های راهبردی، معاونت علمی، فناوری و اقتصاد دانش بنیان",
-    ablution: 2,
-  },
-  {
-    id: 3,
-    picUrl: "/images/FaribaEghdami.webp",
-    name: "محمدرضا پاکدل",
-    idCloud: "@m_pakdel",
-    position: "عضو هیأت مدیره شرکت ملی پست",
-    ablution: 1,
-  },
-  {
-    id: 4,
-    picUrl: "/images/FaribaEghdami.webp",
-    name: "امیر جهانی",
-    idCloud: "@Amir_Jahani",
-    position:
-      "معاون مرکز توسعه فناوری های راهبردی، معاونت علمی، فناوری و اقتصاد دانش بنیان",
-    ablution: 2,
-  },
-  {
-    id: 5,
-    picUrl: "/images/FaribaEghdami.webp",
-    name: "خبرگزاری حوزه (حوزه علمیه قم)",
-    idCloud: "@Hoze",
-    position:
-      "معاون مرکز توسعه فناوری های راهبردی، معاونت علمی، فناوری و اقتصاد دانش بنیان",
-    ablution: 0,
-  },
-];
 
 const LeftProfile = ({ user }) => {
   const [showIdeasDetail, setShowIdeasDetail] = useState(1);
@@ -74,166 +30,86 @@ const LeftProfile = ({ user }) => {
 
   return (
     <div className="w-full  ">
-      <div className="p-2">
-        <div className=" border border-slate-400 rounded-md p-4  w-full">
-          <TitleItems title={"پلن های خدمات"} />
-          <div className="w-full flex flex-col justify-center items-center gap-2">
-            {!isLoadingServices &&
-              servicesData?.map((item, index) => {
-                return (
-                  <div
-                    key={item.id}
-                    onClick={() => setShowIdeasDetail(index + 1)}
-                    className="  cursor-pointer w-full flex flex-col justify-center items-start gap-2 p-1 pb-3  border border-slate-400 rounded-md"
-                  >
-                    <div
-                      onClick={() => setModal(item.id)}
-                      className="w-full flex-col sm:flex-row sm:items-center flex justify-between gap-4"
-                    >
-                      <div className=" flex items-center gap-1 truncate">
-                        <div>
-                          <span className="rounded-md flex justify-center items-center text-lg text-primary-01 bg-primary-01 bg-opacity-20 w-8 h-8">
-                            <BsChatText />
-                          </span>
-                        </div>
-                        <span className="font-bold text-sm truncate text-textDefault">
-                          {item.type}
-                        </span>
-                      </div>
-                      <span className="text-primary-01 flex-1 justify-end items-center gap-1 flex text-sm pl-3 font-bold">
-                        {item.price_type === "custom" ? (
-                          <>
-                            {numberWithCommas(item.price)}
-                            <span className="text-xs font-normal">تومان</span>
-                          </>
-                        ) : (
-                          getPriceService(item.price_type)
-                        )}
-                      </span>
-                    </div>
-                    <Modal
-                      title={item.type}
-                      open={modal === Number(item.id)}
-                      onClose={() => setModal(0)}
-                    >
-                      <BookingForm
-                        onClose={() => setModal(0)}
-                        serviceID={item.id}
-                        userId={user?.id}
-                        expert={user}
-                      />
-                    </Modal>
-                    {showIdeasDetail === index + 1 && (
-                      <div className="ps-2 flex flex-col justify-start items-center gap-2 text-slate-600">
-                        <div className="w-full flex justify-start items-center gap-1">
-                          <span>
-                            <FaClock />
-                          </span>
-                          <span className="text-xs">
-                            پاسخ دهی کمتر از 1 ساعت (حداکثر 10 ساعت){" "}
-                          </span>
-                        </div>
-                        <div className="w-full flex justify-start items-center gap-1">
-                          <span>
-                            <FaClockRotateLeft />
-                          </span>
-                          <span className="text-sm">پایان توافقی گفتگو </span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            {/* <button
-								className='p-2 text-sm w-full bg-primary-01 rounded-md text-white shadow hover:bg-opacity-90'
-								type=''>
-								ادامه و پرداخت
-							</button> */}
-          </div>
-        </div>
+      <div className="hidden lg:block">
+        <ExpertServicesList user={user}/>
       </div>
-      <div className="w-full p-2 ">
-        <div className="w-full p-4 bg-slate-200 shadow-md dark:shadow-darkMd  rounded-md">
-          <div className="w-full flex justify-between flex-col sm:flex-row items-center gap-2 text-md font-bold">
-            <span className="truncate text-textDefault">
-              افرادی برای دنبال کردن
-            </span>
-            <div className="text-white text-xl rounded-full flex justify-between items-center w-24 bg-slate-300  h-fit">
-              <div className="w-full h-full bg-blue-800 px-4 py-1 rounded-full">
-                <AiOutlineCheckCircle />
-              </div>
-              <div className="w-full h-full p-1  rounded-full text-slate-500">
-                <IoPerson />
-              </div>
-            </div>
-          </div>
-          <div className="w-full flex flex-col">
-            {Followers.map((item) => {
-              return (
-                <div
-                  key={item.id}
-                  className="w-full min-h-full justify-between flex flex-col gap-3 px-2 py-8"
-                >
-                  <div className="w-full flex flex-col items-center sm:flex-row lg:flex-col xl:flex-row gap-2 justify-between">
-                    <div className="">
-                      <div className="w-12 h-12">
-                        <img
-                          className="w-full h-full object-cover object-center rounded-[18px]"
-                          src={item.picUrl}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full flex items-center justify-between gap-2">
-                      <div className="flex-1 flex flex-col gap-1 justify-center items-start">
-                        <span className="flex justify-start items-center gap-1">
-                          <h3 className="text-sm font-bold text-slate-800">
-                            {item.name}
-                          </h3>
-                          {item.ablution === 1 ? (
-                            <span className="font-bold text-green-600 text-sm">
-                              <AiOutlineCheckCircle />
+      {/* {!isLoadingServices && servicesData && servicesData.length ? (
+        <div className="p-2 ">
+          <div className="border border-slate-400 rounded-md p-4  w-full">
+            <TitleItems title={"پلن های خدمات"} />
+            <div className="w-full flex flex-col justify-center items-center gap-2">
+              {!isLoadingServices &&
+                servicesData?.map((item, index) => {
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => setShowIdeasDetail(index + 1)}
+                      className="  cursor-pointer w-full flex flex-col justify-center items-start gap-2 p-1 pb-3  border border-slate-400 rounded-md"
+                    >
+                      <div
+                        onClick={() => setModal(item.id)}
+                        className="w-full flex-col sm:flex-row sm:items-center flex justify-between gap-4"
+                      >
+                        <div className=" flex items-center gap-1 truncate">
+                          <div>
+                            <span className="rounded-md flex justify-center items-center text-lg text-primary-01 bg-primary-01 bg-opacity-20 w-8 h-8">
+                              <BsChatText />
                             </span>
-                          ) : item.ablution === 2 ? (
-                            <span className="font-bold text-blue-600 text-xs">
-                              <AiOutlineCheckCircle />
-                            </span>
+                          </div>
+                          <span className="font-bold text-sm truncate text-textDefault">
+                            {item.type}
+                          </span>
+                        </div>
+                        <span className="text-primary-01 flex-1 justify-end items-center gap-1 flex text-sm pl-3 font-bold">
+                          {item.price_type === "custom" ? (
+                            <>
+                              {numberWithCommas(item.price)}
+                              <span className="text-xs font-normal">تومان</span>
+                            </>
                           ) : (
-                            ""
+                            getPriceService(item.price_type)
                           )}
                         </span>
-                        <span className="text-slate-500 text-xs">
-                          {item.idCloud}
-                        </span>
                       </div>
-                      <button
-                        className="w-auto text-xs bg-primary-01 p-2 rounded-md text-white font-bold hover:bg-opacity-95"
-                        type=""
+                      <Modal
+                        title={item.type}
+                        open={modal === Number(item.id)}
+                        onClose={() => setModal(0)}
                       >
-                        مشاهده پروفایل
-                      </button>
+                        <BookingForm
+                          onClose={() => setModal(0)}
+                          serviceID={item.id}
+                          userId={user?.id}
+                          expert={user}
+                        />
+                      </Modal>
+                      {showIdeasDetail === index + 1 && (
+                        <div className="ps-2 flex flex-col justify-start items-center gap-2 text-slate-600">
+                          <div className="w-full flex justify-start items-center gap-1">
+                            <span>
+                              <FaClock />
+                            </span>
+                            <span className="text-xs">
+                              پاسخ دهی کمتر از 1 ساعت (حداکثر 10 ساعت){" "}
+                            </span>
+                          </div>
+                          <div className="w-full flex justify-start items-center gap-1">
+                            <span>
+                              <FaClockRotateLeft />
+                            </span>
+                            <span className="text-sm">پایان توافقی گفتگو </span>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                  <div className="w-full flex flex-col items-center sm:items-start justify-between gap-2 text-xs">
-                    <div>
-                      <span className="w-full text-xs text-slate-800 leading-5 font-medium">
-                        {item.position}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="w-full">
-            <button
-              className=" flex justify-center items-center  px-4 py-2 rounded-md text-primary-01 "
-              type=""
-            >
-              بیشتر
-            </button>
+                  );
+                })}
+            </div>
           </div>
         </div>
+      ) : null} */}
+      <div className="hidden lg:block">
+        <OtherExpert />
       </div>
       <div className="p-3">
         <div className="bg-slate-200 px-3 h-12 gap-1 flex justify-start items-center border border-slate-400 rounded-full">
@@ -251,7 +127,9 @@ const LeftProfile = ({ user }) => {
         </div>
         <div className="w-full h- px-2 my-2 bg-slate-200 rounded-md shadow-md dark:shadow-darkMd">
           <div className="p-4">
-            <span className="text-lg font-bold text-textDefault">جستجو های پرتکرار</span>
+            <span className="text-lg font-bold text-textDefault">
+              جستجو های پرتکرار
+            </span>
           </div>
           <div className=" flex flex-wrap items-center gap-2 text-xs font-medium">
             <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
