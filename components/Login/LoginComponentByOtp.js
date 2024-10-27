@@ -7,7 +7,6 @@ import { login } from "@/services/authService";
 import { useRouter } from "next/router";
 import { toastFunction } from "@/utils/Toast";
 import Cookies from "js-cookie";
-import { useUserDataContext } from "@/context/UserDataContext";
 const resend_time = 20;
 
 const LoginComponentByOtp = () => {
@@ -16,7 +15,6 @@ const LoginComponentByOtp = () => {
   const [time, setTime] = useState(resend_time);
   const [otp, setOtp] = useState();
   const router = useRouter();
-  const { saveUserDataHandler } = useUserDataContext();
 
   const { isPending, error, data, mutateAsync } = useMutation({
     mutationFn: login,
