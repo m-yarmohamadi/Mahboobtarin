@@ -31,7 +31,7 @@ const validationSchema = Yup.object({
     entitle: Yup.string().required("عنوان انگلیسی را وارد کنید").matches(/^[A-Za-z0-9]+$/, "فقط حروف انگلیسی وارد کنید"),
     slug: Yup.string().required("اسلاگ را وارد کنید"),
     sku: Yup.string().required("کد دوره را وارد کنید").matches(/^[A-Za-z0-9]+$/, "فقط حروف انگلیسی وارد کنید"),
-    expiredate: Yup.string().required("مهلت ثبت نام را تعیین کنید"),
+    expiredate: Yup.string().required("مهلت ثبت‌نام را تعیین کنید"),
     status: Yup.string().required("وضعیت دوره را مشخص کنید"),
     price: Yup.number().required("قیمت را وارد کنید"),
     discount_price: Yup.number().required("کد تخفیف را وارد کنید").max(100, "حداکثر درصد تخفیف نمیتواند بیشتر از 100 باشد"),

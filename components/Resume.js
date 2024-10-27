@@ -10,7 +10,7 @@ const Resume = () => {
     <div className="py-8 bg-gradient-to-b from-primary-02 to-white">
       <div className=" md:container px-8 md:px-0 ">
         <div className="flex justify-center items-center text-2xl font-bold p-8 text-textDefault">
-          چرا محبوب ترین؟
+          چرا محبوب‌ترین؟
         </div>
         <div className="grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16 items-start justify-items-center text-4xl text-primary-01">
           <div className="w-full flex flex-col justify-center items-center">

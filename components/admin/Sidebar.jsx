@@ -87,7 +87,7 @@ const dataMenu = [
     },
     {
         id: 20,
-        title: 'محبوب ترین',
+        title: 'محبوب‌ترین',
         value: 'mahbobtarin',
         quanity: '',
         icon: MdOutlineFavoriteBorder,

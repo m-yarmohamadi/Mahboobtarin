@@ -45,7 +45,7 @@ const RightMenu = () => {
         className="duration-150 w-full flex justify-start items-center gap-1 hover:bg-primary-01 hover:text-white rounded-se-xl py-4 px-6 cursor-pointer bg-opacity-30"
       >
         <FaAngleLeft />
-        <span>محبوبترین</span>
+        <span>محبوب‌ترین</span>
       </Link>
       <Link
         href="#gallery"

@@ -33,7 +33,7 @@ export default function Mobile({ product, relatedProducts }) {
                 </div>
             </div>
 
-            <UrlBar urls={['محبوب ترین', product?.categories[0]?.name]} />
+            <UrlBar urls={['محبوب‌ترین', product?.categories[0]?.name]} />
 
             <div className="p-6">
                 <div className="aspect-w-9 aspect-h-9">

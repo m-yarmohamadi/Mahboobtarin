@@ -19,7 +19,7 @@ const SendMobile = ({
         className="rtl:mr-3  w-full flex flex-col justify-center items-center transition-all duration-1000 ease-in-out"
       >
         <p className=" w-full flex items-center font-medium text-sm text-slate-700">
-          لطفا جهت ورود یا ثبت نام در سایت شماره تلفن همراه خود را وارد کنید.
+          لطفا جهت ورود یا ثبت‌نام در سایت شماره تلفن همراه خود را وارد کنید.
         </p>
 
         <div className="w-full flex items-center gap-3 mt-9">

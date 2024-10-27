@@ -7,26 +7,26 @@ const LoginregisterProfile = () => {
 			<div className=' w-full '>
 				<div className='md:h-64 w-full flex flex-col justify-center items-start gap-8 bg-primary-01 bg-opacity-30 px-12 py-6 rounded-xl'>
 					<span className='text-primary-01 font-bold text-lg'>کاربر هستید؟</span>
-					<p className='text-justify'>شما با عضویت در سامانه محبوبترین ضمن آشنایی با برترین های حوزه های مختلف، از دریافت خدمات آنلاین و حضوری آنان بهره و لذت ببرید.</p>
+					<p className='text-justify'>شما با عضویت در سامانه محبوب‌ترین ضمن آشنایی با برترین‌های حوزه های مختلف، از دریافت خدمات آنلاین و حضوری آنان بهره و لذت ببرید.</p>
 					<Link
 						href={{
 							pathname: '/users/register',
 							query: { type: 'user' },
 						}}>
-						<button className='bg-primary-01 px-8 py-2 rounded-md text-white font-bold'>ثبت نام کاربران</button>
+						<button className='bg-primary-01 px-8 py-2 rounded-md text-white font-bold'>ثبت‌نام کاربران</button>
 					</Link>
 				</div>
 			</div>
 			<div className=' w-full '>
 				<div className='md:h-64 w-full flex flex-col justify-center items-end gap-8 bg-primary-01 bg-opacity-30 px-12 py-6 rounded-xl'>
 					<span className='text-primary-01 font-bold text-lg'>متخصص هستید؟</span>
-					<p className='text-justify'>شما با عضویت در بخش متخصصین سامانه محبوبترین ضمن معرفی دقیق و ماندگار خود جهت تکمیل دانشنامه، درگاه ارتباطی خود با مردم را افتتاح نمایید. .</p>
+					<p className='text-justify'>شما با عضویت در بخش متخصصین سامانه محبوب‌ترین ضمن معرفی دقیق و ماندگار خود جهت تکمیل دانشنامه، درگاه ارتباطی خود با مردم را افتتاح نمایید. .</p>
 					<Link
 						href={{
 							pathname: '/users/register',
 							query: { type: 'expert' },
 						}}>
-						<button className='bg-primary-01 px-8 py-2 rounded-md text-white font-bold'>ثبت نام متخصصین</button>
+						<button className='bg-primary-01 px-8 py-2 rounded-md text-white font-bold'>ثبت‌نام متخصصین</button>
 					</Link>
 				</div>
 			</div>

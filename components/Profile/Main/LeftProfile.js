@@ -243,7 +243,7 @@ const LeftProfile = ({ user }) => {
 
           <input
             className="bg-slate-200 rounded-md text-sm focus:ring-red-200  p-1 w-full outline-none text-slate-900"
-            placeholder="جستجو در محبوبترین"
+            placeholder="جستجو در محبوب‌ترین"
             type="search"
             name=""
             value=""

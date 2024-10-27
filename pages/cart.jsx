@@ -64,7 +64,7 @@ export default function cart() {
                     !isLoading && !user &&
                     <div className="w-full fixed top-1/2 -translate-y-1/2 right-0 h-screen flex items-center flex-col gap-2 justify-center">
                         <Link href="/auth" className="text-lg font-semibold text-primary-01">
-                            ورود | ثبت نام
+                            ورود | ثبت‌نام
                         </Link>
                         <p className="text-sm text-slate-800">
                             لطفا وارد حساب کاربری خود شوید

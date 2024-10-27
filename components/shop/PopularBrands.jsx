@@ -7,7 +7,7 @@ export default function PopularBrands() {
     return (
         <div className="md:mx-auto md:container p-6 mt-6">
             <h3 className="text-xl text-slate-900 font-semibold text-center">
-                محبوب ترین برند ها
+            محبوب‌ترین برند ها
             </h3>
             <div className='w-full mx-auto mt-10'>
                 <Swiper

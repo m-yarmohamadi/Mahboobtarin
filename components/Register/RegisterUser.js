@@ -29,12 +29,12 @@ const RegisterUser = ({ mobile, otp }) => {
   return (
     <div className="w-full flex flex-col gap-7">
       <Head>
-        <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} |   ثبت نام کاربران`}</title>
+        <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} |   ثبت‌نام کاربران`}</title>
       </Head>
       <Header />
       <div className="w-full max-w-screen-lg mx-auto bg-white rounded-lg shadow-sm dark:shadow-darkSm p-6">
         <h1 className="text-xl font-semibold text-slate-800 text-center pb-4 mb-4 border-b border-slate-300">
-          ثبت نام کاربران
+          ثبت‌نام کاربران
         </h1>
 
         <div className="">

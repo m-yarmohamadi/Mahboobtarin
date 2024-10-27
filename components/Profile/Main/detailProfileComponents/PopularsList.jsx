@@ -9,7 +9,7 @@ export default function PopularsList({ userData, popularList }) {
         return (
             <div id="populars" className="pt-16">
                 <TitleItems
-                    title={`محبوب ترین های ${userData?.name} ${userData?.lastname}`}
+                    title={`محبوب‌ترین‌های ${userData?.name} ${userData?.lastname}`}
                 />
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2 mb-4">
                     {popularList.slice(0, showMore ? gallery.length : 10).map((item) => {

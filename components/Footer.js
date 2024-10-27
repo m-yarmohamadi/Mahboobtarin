@@ -31,16 +31,16 @@ const Footer = () => {
               <div className="flex flex-col justify-start items-start w-full gap-2">
                 <span>ارتباط با ما</span>
                 <span>درباره ما</span>
-                <span>مجله محبوب ترین</span>
-                <span>ثبت نام کاربران</span>
-                <span>ثبت نام متخصصان</span>
+                <span>مجله محبوب‌ترین</span>
+                <span>ثبت‌نام کاربران</span>
+                <span>ثبت‌نام متخصصان</span>
               </div>
               <div className="flex flex-col justify-start items-start w-full gap-2">
                 <span>سوالات متداول</span>
-                <span>دسته بندی محبوبترین</span>
+                <span>دسته بندی محبوب‌ترین</span>
                 <span>قوانین و مقررات</span>
                 <span>راهنمای عضویت</span>
-                <span>خط و مشی محبوبترین</span>
+                <span>خط و مشی محبوب‌ترین</span>
               </div>
             </div>
           </div>
@@ -50,25 +50,25 @@ const Footer = () => {
                 دریافت اتاقک
               </div>
               <div className=" w-full grid grid-cols-1 xs:grid-cols-2  gap-y-2 gap-x-4 text-sm font-bold  justify-between items-center">
-                <div className="w-full bg-white p-2 rounded-md flex justify-between items-center shadow-sm dark:shadow-darkSm hover:text-primary-01 hover:cursor-pointer hover:shadow-md dark:shadow-darkMd">
+                <div className="w-full bg-white p-2 rounded-md flex justify-between items-center shadow-sm  hover:text-primary-01 hover:cursor-pointer hover:shadow-md dark:shadow-darkMd">
                   <span>دریافت از بازار</span>
                   <span>
                     <FaGooglePlay />
                   </span>
                 </div>
-                <div className="w-full bg-white p-2 rounded-md flex justify-between items-center shadow-sm dark:shadow-darkSm hover:text-primary-01 hover:cursor-pointer hover:shadow-md dark:shadow-darkMd">
+                <div className="w-full bg-white p-2 rounded-md flex justify-between items-center shadow-sm  hover:text-primary-01 hover:cursor-pointer hover:shadow-md dark:shadow-darkMd">
                   <span>دریافت از گوگل پلی</span>
                   <span>
                     <FaGooglePlay />
                   </span>
                 </div>
-                <div className="w-full bg-white p-2 rounded-md flex justify-between items-center shadow-sm dark:shadow-darkSm hover:text-primary-01 hover:cursor-pointer hover:shadow-md dark:shadow-darkMd">
+                <div className="w-full bg-white p-2 rounded-md flex justify-between items-center shadow-sm  hover:text-primary-01 hover:cursor-pointer hover:shadow-md dark:shadow-darkMd">
                   <span>دریافت از مایکت</span>
                   <span>
                     <FaGooglePlay />
                   </span>
                 </div>
-                <div className="w-full bg-white p-2 rounded-md flex justify-between items-center shadow-sm dark:shadow-darkSm hover:text-primary-01 hover:cursor-pointer hover:shadow-md dark:shadow-darkMd">
+                <div className="w-full bg-white p-2 rounded-md flex justify-between items-center shadow-sm  hover:text-primary-01 hover:cursor-pointer hover:shadow-md dark:shadow-darkMd">
                   <span>دریافت مستقیم</span>
                   <span>
                     <FaGooglePlay />

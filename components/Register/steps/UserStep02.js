@@ -35,7 +35,7 @@ const UserStep02 = ({ setStepUser, nationalCode, mobile, otp }) => {
         onSuccess: ({ data }) => {
           if (data) {
             Cookies.set("accessToken", data.token, { expires: 1 / 48 });
-            toast.success("ثبت نام شما با موفقیت تکمیل شد");
+            toast.success("ثبت‌نام شما با موفقیت تکمیل شد");
             setCompleted(true);
             router.replace("/");
           }

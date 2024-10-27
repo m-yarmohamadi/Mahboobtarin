@@ -95,7 +95,7 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size, user, 
             className="!w-full lg:!w-auto btn btn--primary gap-2 !py-0 h-10"
           >
             <IoPerson />
-            ورود | ثبت نام
+            ورود | ثبت‌نام
           </Link>
         )}
       </div>
@@ -173,7 +173,7 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size, user, 
     // 			href='/auth'
     // 			className={`${size === 'sm' ? `w-full flex items-center  justify-center gap-2  text-center ` : `hidden md:flex md:flex-1 md:justify-center md:items-center md:gap-2`}  w-full bg-primary-01 hover:opacity-95 cursor-pointer h-10 px-5 rounded-xl text-white  text-sm`}>
     // 			<IoPerson />
-    // 			ورود | ثبت نام
+    // 			ورود | ثبت‌نام
     // 		</Link>
     // 	)}
     // 	<Link href="/cart" className={`${size === "sm" ? "hidden" : ""} btn btn--primary !p-0 w-10 h-10 relative`}>

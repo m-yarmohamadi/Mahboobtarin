@@ -15,13 +15,13 @@ export default function MobileMenu({ user, isLoading }) {
             activeIcon: IoHome
         },
         {
-            label: "محبوب ترین ها",
+            label: "محبوب‌ترین‌ها",
             link: "#",
             icon: FaRegHeart,
             activeIcon: FaHeart
         },
         {
-            label: "درخواست ها",
+            label: "درخواست‌ها",
             link: "/requests",
             icon: HiOutlineSpeakerphone,
             activeIcon: HiSpeakerphone
@@ -33,7 +33,7 @@ export default function MobileMenu({ user, isLoading }) {
             activeIcon: IoChatboxEllipses
         },
         {
-            label: !isLoading && user ? "داشبورد" : "ورود | ثبت نام",
+            label: !isLoading && user ? "داشبورد" : "ورود | ثبت‌نام",
             link: !isLoading && user ? user?.type === "user" ? "/user/profile" : "/admin/dashboard" : "/auth",
             icon: FaRegUser,
             activeIcon: FaUser,

@@ -313,7 +313,7 @@ const RegisterExpert = ({
           if (data) {
             Cookies.set("accessToken", data.token, { expires: 1 / 48 });
             setCompleted(true);
-            toast.success("ثبت نام شما با موفقیت تکمیل شد");
+            toast.success("ثبت‌نام شما با موفقیت تکمیل شد");
             router.replace(`/${data?.user?.unique_url_id}`);
           }
         },
@@ -357,7 +357,7 @@ const RegisterExpert = ({
           if (data) {
             Cookies.set("accessToken", data.token, { expires: 1 / 48 });
             setCompleted(true);
-            toast.success("ثبت نام شما با موفقیت تکمیل شد");
+            toast.success("ثبت‌نام شما با موفقیت تکمیل شد");
             router.replace(`/`);
           }
         },
@@ -399,12 +399,12 @@ const RegisterExpert = ({
       )}
       <div className="w-full flex flex-col gap-7">
         <Head>
-          <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | ثبت نام`}</title>
+          <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | ثبت‌نام`}</title>
         </Head>
         <Header />
         <div className="w-full max-w-screen-lg mx-auto bg-white rounded-lg shadow-sm dark:shadow-darkSm p-6">
           <h1 className="text-xl font-semibold text-slate-800 text-center pb-4 mb-4 border-b border-slate-300">
-            ثبت نام متخصصین
+            ثبت‌نام متخصصین
           </h1>
           <div className="">
             <StepLevel currentStep={step} />

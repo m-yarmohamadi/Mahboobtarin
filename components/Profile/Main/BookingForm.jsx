@@ -196,7 +196,7 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
                                     href={`/set-appointment?type=seminar&serviceId=${serviceID}&expert=${JSON.stringify({ name: expert.name, lastname: expert.lastname, id: expert.id, img: expert.avatar, expertise: expert?.expertises[0]?.subject, address: expert?.addresses[0]?.address })}&date=${getTimesOfWeekday.result.week}&time=${getTimesOfWeekday.result.time}`}
                                     className="btn btn--primary !w-full disabled:opacity-30"
                                 >
-                                    ثبت نام
+                                    ثبت‌نام
                                 </Link>
                                 <button onClick={onClose} className="btn btn--outline !w-full">
                                     لغو
