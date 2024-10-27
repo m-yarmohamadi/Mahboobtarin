@@ -225,7 +225,7 @@ export default function Header() {
                         </DisclosureButton>
                         <DisclosurePanel className="mt-2 space-y-2">
                           {!isLoading &&
-                            categories.map((item) => (
+                            categories.filter((c) => c.parent_id === 0).map((item) => (
                               <CateMobileItem key={item.id} category={item} />
                             ))}
                           <div className="w-full  bg-primary-01 h-1"></div>

@@ -44,7 +44,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                 <div className="category__list-items w-full h-full flex overflo-y-auto bg-primary-02/50">
                     <ul className="w-[218px] flex flex-col overflow-y-auto overflow-x-hidden">
                         {!isLoading &&
-                            categories.map((category) => (
+                            categories.filter((c) => c.parent_id === 0).map((category) => (
                                 <li key={category.id}>
                                     <div
                                         onMouseEnter={() => setLastHover(category.id)}
