@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react";
-import TitleItems from "./TitleItems";
-import {
-  FaClock,
-  FaComment,
-  FaDochub,
-  FaSearch,
-  FaTextWidth,
-  FaTimes,
-} from "react-icons/fa";
-import { BsChatText } from "react-icons/bs";
+import React, { useEffect, useState } from 'react';
+import TitleItems from './TitleItems';
+import { FaClock, FaComment, FaDochub, FaSearch, FaTextWidth, FaTimes } from 'react-icons/fa';
+import { BsChatText } from 'react-icons/bs';
 
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -24,9 +17,9 @@ import OtherExpert from "./detailProfileComponents/OtherExpert";
 
 
 const LeftProfile = ({ user }) => {
-  const [showIdeasDetail, setShowIdeasDetail] = useState(1);
-  const { isLoadingServices, servicesData } = useGetServicesProfile(user?.id);
-  const [modal, setModal] = useState(0);
+	const [showIdeasDetail, setShowIdeasDetail] = useState(1);
+	const { isLoadingServices, servicesData } = useGetServicesProfile(user?.id);
+	const [modal, setModal] = useState(0);
 
   return (
     <div className="w-full  ">

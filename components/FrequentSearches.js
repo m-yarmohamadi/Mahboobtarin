@@ -307,7 +307,7 @@ const FrequentSearches = () => {
                       <img
                         src={item.picture}
                         alt=""
-                        className="w-[70%] object-cover object-center"
+                        className="w-full h-full border border-primary-01 rounded-s-lg border-double object-cover object-center"
                       />
                     </div>
                   </div>

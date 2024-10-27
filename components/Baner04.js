@@ -36,7 +36,7 @@ const Baner04 = () => {
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 spaceBetween={60}
-                navigation
+                navigation={false}
                 loop
                 slidesPerView={1}
                 autoplay

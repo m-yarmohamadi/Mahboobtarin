@@ -31,14 +31,15 @@ const PopularMounth = () => {
       </div>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
-        navigation={{
-          nextEl: "#most-populars-btn-next",
-          prevEl: "#most-populars-btn-prev",
-        }}
+        // navigation={{
+        //   nextEl: "#most-populars-btn-next",
+        //   prevEl: "#most-populars-btn-prev",
+        // }}
         slidesPerView={"auto"}
         spaceBetween={3}
         autoplay={{ delay: 4000 }}
         pagination={false}
+        navigation={false}
         scrollbar={false}
       >
         {expertises.map((item) => {
@@ -76,7 +77,7 @@ const PopularMounth = () => {
           );
         })}
 
-        <button
+        {/* <button
           id="most-populars-btn-next"
           className="custom-button-prev z-40  -left-3"
         >
@@ -87,7 +88,7 @@ const PopularMounth = () => {
           className="custom-button-next z-40  -right-3"
         >
           <FaChevronRight />
-        </button>
+        </button> */}
       </Swiper>
     </div>
   );
