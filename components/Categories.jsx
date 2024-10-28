@@ -40,6 +40,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
 
             <div
                 ref={categoryListRef}
+                onMouseLeave={() => setIsOpen(false)}
                 className="category__list opacity-0 duration-300 ease-in-out items-start"
             >
                 <div className="category__list-items w-full h-full flex overflo-y-auto bg-primary-02/50">
@@ -62,7 +63,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                             ))}
                     </ul>
 
-                    <div className={`flex-1 flex h-[420px] p-7 z-50 bg-white overflow-y-auto drop-shadow-lg dark:shadow-darkLg`}>
+                    <div className={`flex-1 flex min-h-full p-7 z-50 bg-white overflow-y-auto drop-shadow-lg dark:shadow-darkLg`}>
                         {!isLoading ?
                             <div className="flex-grow flex-1 h-full flex flex-col">
                                 <div
@@ -71,7 +72,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                                     همه موارد مرتبط با {childrenRecursive?.name}
                                     <FaAngleLeft className="w-3 h-3" />
                                 </div>
-                                <ul className="h-[400px] max-w-full flex-1 flex flex-col flex-wrap">
+                                <ul className="h-auto min-h-[400px] flex-1 grid grid-cols-4 auto-rows-min">
                                     {childrenRecursive?.children_recursive?.map(
                                         (subItem) => (
                                             <React.Fragment key={subItem.id}>

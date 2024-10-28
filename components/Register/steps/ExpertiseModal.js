@@ -2,14 +2,11 @@ import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
-  DialogTitle,
 } from "@headlessui/react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import Select from "@/tools/Select";
 import Input from "@/tools/Input";
-import { useGetExpertisesList } from "@/hooks/useExpertiseUser";
-import useMainPage from "@/hooks/useMainPage";
+import ExpertiseSelectMulit from "./ExpertiseSelectMulit";
 
 const ExpertiseModal = ({
   openExpertiseModal,
@@ -45,7 +42,7 @@ const ExpertiseModal = ({
     validationSchema,
     validateOnMount: true,
     enableReinitialize: true,
-  });
+  });  
 
   return (
     <Dialog
@@ -62,13 +59,13 @@ const ExpertiseModal = ({
         <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
           <DialogPanel
             transition
-            className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+            className="relative transform rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
           >
             <form
               onSubmit={formik.handleSubmit}
-              className="w-full bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
+              className="w-full bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 rounded-lg"
             >
-              <Select
+              {/* <Select
                 name={"title"}
                 label={"حوزه تخصصی"}
                 options={
@@ -90,10 +87,19 @@ const ExpertiseModal = ({
                       ]
                 }
                 formik={formik}
+              /> */}
+              <ExpertiseSelectMulit
+                name={"title"}
+                label={"حوزه تخصصی"}
+                options={!isGetCategories ? transformCategories : []}
+                selected={formik.values.title}
+                onChange={(e) => formik.setFieldValue("title", e)}
+                smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
+                error={formik.errors.title && formik.touched.title && formik.errors.title}
               />
               <Input
                 name={"subject"}
-                label={"حوزه تخصصی"}
+                label={"تخصص"}
                 type={"text"}
                 formik={formik}
               />

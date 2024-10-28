@@ -220,7 +220,7 @@ input[type=number] {
 
 /* ----- category header ----- */
 .category .category__list{
-	@apply  w-[968px] h-[420px] items-center justify-center hidden  fixed top-[68px] right-10 z-50 bg-white overflow-hidden
+	@apply  w-[980px] h-[480px] items-center justify-center hidden  fixed top-[68px] right-10 z-50 bg-white overflow-hidden rounded-b-xl
 }
 
 .category .category__list .category__list-items ul li .category__list-items-parent-btn{
@@ -251,4 +251,6 @@ input[type=number] {
 	@apply !hidden
 }
 
-/* Cropper */
+.url-params-profile-page .url-params-profile-page__item:nth-last-child(2){
+	@apply font-bold
+}
