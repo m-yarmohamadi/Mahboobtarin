@@ -8,9 +8,10 @@ import { useGetExpertisesList } from "@/hooks/useExpertiseUser";
 import News from "../News";
 import OthersExpertises from "./OthersExpertises";
 import LoginregisterProfile from "../Profile/Main/LoginregisterProfile";
+import useMainPage from "@/hooks/useMainPage";
 
 export default function Groups() {
-    const { data, isLoading } = useGetExpertisesList();
+    const { categories, isLoading } = useMainPage();
 
     if (isLoading) return (
         <div className="w-full h-screen flex items-center justify-center">
@@ -29,7 +30,7 @@ export default function Groups() {
                     <div className="w-full lg:grid grid-cols-12 border-b border-b-slate-300">
                         <div className="hidden lg:flex flex-col gap-4 col-span-3 border-l border-slate-300 p-4 lg:p-6">
                             <Search />
-                            <GroupExpertises data={data} />
+                            <GroupExpertises data={categories} />
                         </div>
                         <div className="lg:col-span-9 p-4 lg:p-6">
                             <GroupFilters />
