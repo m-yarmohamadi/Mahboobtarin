@@ -1,3 +1,4 @@
+import ExpertiseSelectMulit from "@/components/Register/steps/ExpertiseSelectMulit";
 import useMainPage from "@/hooks/useMainPage";
 import { addNewRequest } from "@/services/expertDashboardService";
 import Input from "@/tools/Input";
@@ -12,8 +13,8 @@ import { FaImage } from "react-icons/fa6";
 import * as Yup from "yup";
 
 export default function CreateCallingForm() {
-    const { categories, isLoading } = useMainPage();
-    const transformedCategory = !isLoading && categories.map((item) => ({ value: item.id, label: item.name }));
+    const { transformCategories, isLoading } = useMainPage();
+    // const transformedCategory = !isLoading && categories.map((item) => ({ value: item.id, label: item.name }));
     const { mutateAsync: mutateAddRequest, isPending } = useMutation({ mutationFn: addNewRequest });
     const queryClient = useQueryClient();
     const router = useRouter();
@@ -87,11 +88,12 @@ export default function CreateCallingForm() {
                     name={'title'}
                     formik={formik}
                 />
-                <Select
+                <ExpertiseSelectMulit
                     label="دسته بندی"
-                    name={'category'}
-                    formik={formik}
-                    options={!isLoading ? [{ value: "", label: "دسته بندی را انتخاب کنید" }, ...transformedCategory] : [{ value: "", label: "دسته بندی را انتخاب کنید" }]}
+                    options={!isLoading ? transformCategories : []}
+                    selected={formik.values.category}
+                    onChange={(e) => formik.setFieldValue("category", e)}
+                    error={formik.errors.category && formik.touched.category && formik.errors.category}
                 />
             </div>
             <TextArea
