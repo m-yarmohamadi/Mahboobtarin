@@ -9,3 +9,9 @@ export function getCategoryChild(categoryId) {
     .get(`/api/v1/categories-child/${categoryId}`)
     .then(({ data }) => data);
 }
+
+export function getCategoryParents(categoryId) {
+  return http
+    .get(`/api/v1/categories-parents/${categoryId}`)
+    .then(({ data }) => data);
+}

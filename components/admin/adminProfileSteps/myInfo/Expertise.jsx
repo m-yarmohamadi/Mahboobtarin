@@ -1,3 +1,4 @@
+import ExpertiseSelectMulit from "@/components/Register/steps/ExpertiseSelectMulit";
 import useMainPage from "@/hooks/useMainPage";
 import Input from "@/tools/Input";
 import Select from "@/tools/Select";
@@ -26,12 +27,20 @@ export default function Expertise({ formik }) {
         <div className="lg:col-span-2">
             <div className="flex items-end gap-4">
                 <div className="flex-1 flex flex-col lg:flex-row gap-4">
-                    <Select
+                    {/* <Select
                         label="حوزه تخصصی"
                         smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
                         options={!isGetCategories ? [{ id: -1, value: "", label: "موضوع تخصص را انتخاب کنید" }, ...transformCategories] : [{ id: -1, value: "", label: "موضوع تخصص را انتخاب کنید" }]}
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
+                    /> */}
+                    <ExpertiseSelectMulit
+                        name={"title"}
+                        label={"حوزه تخصصی"}
+                        options={!isGetCategories ? transformCategories : []}
+                        selected={selected.title}
+                        onChange={(e) => setSelected((perv) => ({ ...perv, title: e }))}
+                        smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
                     />
                     <Input
                         label="عنوان تخصص"

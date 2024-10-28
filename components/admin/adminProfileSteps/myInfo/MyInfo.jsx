@@ -113,6 +113,11 @@ export default function MyInfo() {
                 }
             },
             onError: (error) => {
+                if(error?.response?.status === 401){
+                    toast.error("وارد حساب کاربری خود شوید")
+                    window.location.reload();
+                    return;
+                }
                 toast.error("خطا در ویرایش پروفایل!")
             }
         })
