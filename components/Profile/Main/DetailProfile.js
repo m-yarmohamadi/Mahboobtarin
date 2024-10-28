@@ -358,7 +358,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       <Gallery gallery={userData?.gallery || []} />
 
       {/* لینکدونی */}
-      <Linkdoni link_dooni={userData?.link_dooni || []} />
+      <Linkdoni link_dooni={userData?.link_dooni || []} user={userData}/>
 
       {/* غرفه */}
       <div id="booth" className="w-full pt-16">

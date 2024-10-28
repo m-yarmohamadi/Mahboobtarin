@@ -5,21 +5,8 @@ import { useState } from "react";
 import { MdAccessTime } from "react-icons/md";
 import { toPersianDateLong } from "@/utils/toPersianDate";
 
-export default function Linkdoni({ link_dooni }) {
-    const [showMore, setShowMore] = useState(false);
-
-    // const formatUrl = (url) => {
-    //     const protocolRegex = /^(http:\/\/|https:\/\/)/;
-    //     return protocolRegex.test(url) ? url : `https://${url}`;
-    // };
-
-    // const removeProtocol = (url) => {
-    //     return url.replace(/^(http:\/\/|https:\/\/)?(www\.)?[^/]+/, '');
-    // };
-
-
-    // console.log(removeProtocol("https://www.shahrekhabar.com/"));
-    
+export default function Linkdoni({ link_dooni, user }) {
+    const [showMore, setShowMore] = useState(false);    
 
     if (link_dooni && link_dooni.length) {
         return (
@@ -34,7 +21,7 @@ export default function Linkdoni({ link_dooni }) {
                                     }`}
                             >
                                 <Link
-                                    href={item.link}
+                                    href={`/${user?.unique_url_id}/linkdoni/${item.id}?url=${item.link}`}
                                     rel="nofollow"
                                     target="_blank"
                                     className="font-semibold hover:text-blue-500 hover:underline text-slate-800 mt-1 mb-3 flex items-center gap-2"
