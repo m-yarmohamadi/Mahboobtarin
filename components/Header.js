@@ -276,7 +276,7 @@ function CateMobileItem({ category }) {
       {({ open }) => (
         <>
           <DisclosureButton className="flex w-full items-center justify-between rounded-lg p-2 font-semibold leading-7 text-slate-900 hover:bg-slate-50 text-sm">
-            <div className="flex items-center gap-2">{category.name}</div>
+            <Link href={`/group/${category.id}`} className="flex items-center gap-2">{category.name}</Link>
             <ChevronDownIcon
               className={classNames(
                 open ? "rotate-180" : "",
