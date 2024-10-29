@@ -1,42 +1,75 @@
+import { useGetProvinces } from "@/hooks/useCity";
+import { useGetServicesProfile } from "@/hooks/useDashboard";
+import copyToClipboard from "@/utils/copyToClipboard";
+import Link from "next/link";
 import { FaShareAlt } from "react-icons/fa"
 import { FaAngleLeft, FaBattleNet, FaLocationDot, FaPhoneFlip, FaRegHeart, FaStar, FaStethoscope } from "react-icons/fa6"
 import { MdCastForEducation, MdInsertInvitation, MdOutlineTextsms, MdWifiProtectedSetup } from "react-icons/md"
 
-export default function GroupsList() {
+export default function GroupsList({ users }) {
     return (
         <div className="w-full flex flex-col gap-4 pt-6">
-            {Array(6).fill({}).map((item, index) => (
-                <GroupItem key={index} />
-            ))}
+            {
+                users && users.length ?
+                    users.map((user, index) => (
+                        <GroupItem key={index} user={user} />
+                    ))
+                    :
+                    <div className="w-full py-28 flex flex-col gap-4 items-center justify-center">
+                        <img src="/images/emptyList.png" alt="" />
+                        <div className="text-slate-800 font-medium">
+                            متخصصی یافت نشد!
+                        </div>
+                    </div>
+            }
         </div>
     )
 }
 
 
-function GroupItem() {
+function GroupItem({ user }) {
+    const { provinces, isLoading } = useGetProvinces();
+    const { isLoadingServices, servicesData } = useGetServicesProfile(user?.id);
+    const getProvinceLabel =
+        !isLoading &&
+        provinces.filter((p) => Number(p.id) === Number(user?.province_id))[0]
+            ?.name;
+
     return (
         <div className="w-full flex flex-col gap-6 p-4 rounded-lg border border-slate-300">
             <div className="w-full flex flex-col gap-4">
                 <div className="w-full flex items-center gap-4">
                     <div className="w-14 h-14">
-                        <img src="/images/PopularMounth/l-hatami.jpg" alt="" className="w-full h-full object-cover object-center rounded-full" />
+                        <img
+                            src={user.avatar.length ? user.avatar[0].path : "/images/user.png"}
+                            alt={`${user.name} ${user.lastname}`}
+                            className="w-full h-full object-cover object-center rounded-full"
+                        />
                     </div>
                     <div className="flex flex-col gap-1">
-                        <h2 className="font-black text-textDefault text-sm">حمیده جنگجو</h2>
-                        <span className="text-[10px] text-slate-700">HamidehJangjoo@</span>
-                        <span className="text-[10px] text-slate-700">کارشناس ارشد روانشناسی</span>
+                        <h2 className="font-black text-textDefault text-sm">
+                            {user.name} {user.lastname}
+                        </h2>
+                        <span className="text-[10px] text-slate-700">
+                            {user.unique_url_id}@
+                        </span>
+                        <span className="text-[10px] text-slate-700">
+                            {user.expertises.length ? user.expertises[0].subject : null}
+                        </span>
                     </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
-                    <div className="w-16 h-10  flex items-center justify-center gap-1 rounded-lg bg-slate-300">
+                    {/* <div className="w-16 h-10  flex items-center justify-center gap-1 rounded-lg bg-slate-300">
                         <FaRegHeart className="w-5 h-5 text-red-600" />
-                    </div>
-                    <div className="w-16 h-10  flex items-center justify-center gap-1 rounded-lg bg-slate-300">
+                    </div> */}
+                    <div onClick={() => copyToClipboard(`${window.location.origin}/${user?.unique_url_id}`, "لینک اشتراک گذاری کپی شد")} className="w-16 h-10  flex items-center justify-center gap-1 rounded-lg bg-slate-300">
                         <FaShareAlt className="w-5 h-5 text-slate-700" />
                     </div>
                     <div className="w-16 h-10 flex items-center justify-center gap-1 rounded-lg bg-slate-300">
                         <FaLocationDot className="w-4 h-4 text-slate-700" />
-                        <span className="text-xs text-slate-700">تهران</span>
+                        <span className="text-xs text-slate-700">
+                            {getProvinceLabel || ""}
+                        </span>
                     </div>
                     <div className="px-2 text-xs h-10 flex flex-col items-center justify-center gap-1 rounded-lg bg-slate-300">
                         <div className="flex justify-center items-center gap-1 text-primary-01">
@@ -64,15 +97,28 @@ function GroupItem() {
                             از {1996} نظر
                         </span>
                     </div>
-                    <div className="px-2 h-10 text-xs text-slate-700 flex items-center justify-center gap-1 rounded-lg bg-slate-300">
-                        {12} سال تجربه
-                    </div>
+                    {user.amount_experience_year &&
+                        <div className="px-2 h-10 text-xs text-slate-700 flex items-center justify-center gap-1 rounded-lg bg-slate-300">
+                            {user.amount_experience_year} سال تجربه
+                        </div>
+                    }
                 </div>
             </div>
 
             <div className="w-full flex flex-col lg:flex-row gap-4">
                 <div className="w-full flex flex-wrap items-center gap-2 text-xs text-slate-700">
-                    <div className="flex justify-center items-center gap-1 p-1 bg-slate-300 rounded-md ">
+                    {!isLoadingServices && servicesData?.map((service) => (
+                        <div key={service.id} className="flex justify-center items-center gap-1 p-1 bg-slate-300 rounded-md ">
+                            <span>
+                                <FaPhoneFlip />
+                            </span>
+                            <span>
+                                {service.type}
+                            </span>
+                        </div>
+                    ))}
+
+                    {/* <div className="flex justify-center items-center gap-1 p-1 bg-slate-300 rounded-md ">
                         <span>
                             <FaPhoneFlip />
                         </span>
@@ -107,15 +153,15 @@ function GroupItem() {
                             <MdWifiProtectedSetup />
                         </span>
                         <span>حمایت</span>
-                    </div>
+                    </div> */}
                 </div>
 
-                <div className=" flex justify-center items-center gap-1 text-primary-01 text-sm whitespace-nowrap">
+                <Link href={`/${user.unique_url_id}`} className=" flex justify-center items-center gap-1 text-primary-01 text-sm whitespace-nowrap">
                     <span>مشاهده پروفایل</span>
                     <span>
                         <FaAngleLeft />
                     </span>
-                </div>
+                </Link>
             </div>
         </div>
     )

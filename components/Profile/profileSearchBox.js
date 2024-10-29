@@ -1,6 +1,7 @@
 import { useCategoryParents } from "@/hooks/useMainPage";
 import Platform from "@/tools/Platform";
 import SearchBox from "@/tools/SearchBox";
+import Link from "next/link";
 import React from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
@@ -40,9 +41,9 @@ function UrlItem({ data }) {
   return (
     <>
       {data.parent_recursive && <UrlItem data={data.parent_recursive} />}
-      <span className="url-params-profile-page__item">
+      <Link href={`/group/${data.id}`} className="url-params-profile-page__item">
         {data.name}
-      </span>
+      </Link>
       <FaAngleLeft className="last:hidden"/>
     </>
   );

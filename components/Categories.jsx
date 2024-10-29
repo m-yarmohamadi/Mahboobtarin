@@ -48,7 +48,8 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                         {!isLoading &&
                             categories.filter((c) => c.parent_id === 0).map((category) => (
                                 <li key={category.id}>
-                                    <div
+                                    <Link
+                                        href={`/group/${category.id}`}
                                         onMouseEnter={() => {
                                             setLastHover(category.id);
                                             setChildrenRecursive(category);
@@ -58,7 +59,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                                             } category__list-items-parent-btn`}
                                     >
                                         {category.name}
-                                    </div>
+                                    </Link>
                                 </li>
                             ))}
                     </ul>
@@ -66,31 +67,34 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
                     <div className={`flex-1 flex min-h-full p-7 z-50 bg-white overflow-y-auto drop-shadow-lg dark:shadow-darkLg`}>
                         {!isLoading ?
                             <div className="flex-grow flex-1 h-full flex flex-col">
-                                <div
+                                <Link
+                                    href={`/group/${childrenRecursive?.id}`}
                                     className=" text-xs mb-5 font-medium text-secondary-01 inline-flex items-center gap-2 !p-0"
                                 >
                                     همه موارد مرتبط با {childrenRecursive?.name}
                                     <FaAngleLeft className="w-3 h-3" />
-                                </div>
+                                </Link>
                                 <ul className="h-auto min-h-[400px] flex-1 grid grid-cols-4 auto-rows-min">
                                     {childrenRecursive?.children_recursive?.map(
                                         (subItem) => (
                                             <React.Fragment key={subItem.id}>
                                                 <li className="w-auto">
-                                                    <div
+                                                    <Link
+                                                        href={`/group/${subItem.id}`}
                                                         className="text-slate-800 flex items-center border-r-2 pr-2 mb-1 mt-4 border-r-primary-01 font-semibold text-xs  cursor-pointer duration-200"
                                                     >
                                                         {subItem.name}
                                                         <FaAngleLeft className="w-3 h-3" />
-                                                    </div>
+                                                    </Link>
                                                 </li>
                                                 {subItem?.children_recursive?.map((subMenu) => (
                                                     <li key={subMenu.id} className="mb-1 w-auto pr-2">
-                                                        <div
+                                                        <Link
+                                                            href={`/group/${subItem.id}`}
                                                             className="text-slate-500  text-[10px] cursor-pointer duration-200"
                                                         >
                                                             {subMenu.name}
-                                                        </div>
+                                                        </Link>
                                                     </li>
                                                 ))}
                                             </React.Fragment>

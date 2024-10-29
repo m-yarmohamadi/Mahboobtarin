@@ -251,6 +251,12 @@ input[type=number] {
 	@apply !hidden
 }
 
+
+
 .url-params-profile-page .url-params-profile-page__item:nth-last-child(2){
 	@apply font-bold
+}
+
+.url-params-group-page .url-params-group-page__item:nth-last-child(2){
+	@apply text-primary-01
 }

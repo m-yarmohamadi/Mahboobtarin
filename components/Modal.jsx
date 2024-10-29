@@ -1,8 +1,8 @@
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
-export default function Modal({ children, open, onClose, title }) {
+export default function Modal({ children, open, onClose, title, className }) {
     return (
-        <Dialog open={open} as="div" className="relative z-50 focus:outline-none" onClose={onClose}>
+        <Dialog open={open} as="div" className={`${className} relative z-50 focus:outline-none`} onClose={onClose}>
             <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
                 <div className="w-full fixed top-0 right-0 h-full bg-black/50"></div>
                 <div className="flex min-h-full items-center justify-center p-4">

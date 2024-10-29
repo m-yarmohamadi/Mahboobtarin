@@ -2,6 +2,7 @@ import React from "react";
 import PN from "persian-number";
 import { FaChevronLeft } from "react-icons/fa";
 import useMainPage from "@/hooks/useMainPage";
+import Link from "next/link";
 
 const data = [
   {
@@ -322,13 +323,13 @@ const FrequentSearches = () => {
 
                     <div className="flex items-center mt-6">
                       {item.metekhases.slice(0,3).map((pic) => (
-                        <div key={pic.id} className="w-10 h-10 -ms-2">
+                        <Link href={`/${pic.unique_url_id}`} key={pic.id} className="w-10 h-10 -ms-2">
                           <img
                             src={pic.avatar || "/images/user.png"}
                             alt=""
                             className="w-full h-full object-cover object-center rounded-full border border-white"
                           />
-                        </div>
+                        </Link>
                       ))}
                       <div className="w-10 h-10 -ms-2 bg-white shadow-lg dark:shadow-darkLg text-slate-800 text-sm font-semibold rounded-full flex items-center justify-center">
                         {item.metekhases.length - 3 || 0} +
@@ -360,8 +361,9 @@ const FrequentSearches = () => {
                 >
                   <div className="flex items-center md:justify-center">
                     {item.metekhases.map((pic) => (
-                      <div
+                      <Link
                         key={pic.id}
+                        href={`/${pic.unique_url_id}`}
                         className="w-12 h-12 md:w-20 md:h-20 -ms-2"
                       >
                         <img
@@ -369,13 +371,13 @@ const FrequentSearches = () => {
                           alt=""
                           className="w-full h-full border border-white object-cover object-center rounded-full"
                         />
-                      </div>
+                      </Link>
                     ))}
                   </div>
-                  <button className="text-sm font-bold text-primary-01 btn !px-0 gap-2 whitespace-nowrap">
+                  <Link href={`/group/${item.id}`} className="text-sm font-bold text-primary-01 btn !px-0 gap-2 whitespace-nowrap">
                     {item.name}
                     <FaChevronLeft />
-                  </button>
+                  </Link>
                 </div>
               ))}
             </div>

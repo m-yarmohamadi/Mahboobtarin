@@ -9,9 +9,11 @@ import News from "../News";
 import OthersExpertises from "./OthersExpertises";
 import LoginregisterProfile from "../Profile/Main/LoginregisterProfile";
 import useMainPage from "@/hooks/useMainPage";
+import { useState } from "react";
 
-export default function Groups() {
+export default function Groups({ users, expertiseId }) {
     const { categories, isLoading } = useMainPage();
+    const [searchTerm, setSearchTerm] = useState("");
 
     if (isLoading) return (
         <div className="w-full h-screen flex items-center justify-center">
@@ -29,12 +31,12 @@ export default function Groups() {
                 <div className="w-full bg-white rounded-3xl">
                     <div className="w-full lg:grid grid-cols-12 border-b border-b-slate-300">
                         <div className="hidden lg:flex flex-col gap-4 col-span-3 border-l border-slate-300 p-4 lg:p-6">
-                            <Search />
-                            <GroupExpertises data={categories} />
+                            <Search value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                            <GroupExpertises data={categories} searchTerm={searchTerm} />
                         </div>
                         <div className="lg:col-span-9 p-4 lg:p-6">
-                            <GroupFilters />
-                            <GroupsList />
+                            <GroupFilters expertiseId={expertiseId}  categories={categories}/>
+                            <GroupsList users={users} />
                         </div>
                     </div>
                     <div className="p-4 lg:p-6">

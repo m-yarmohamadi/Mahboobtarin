@@ -21,6 +21,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { CiCircleMore } from "react-icons/ci";
+import Link from "next/link";
 
 const iconMap = {
   FaSackDollar,
@@ -105,7 +106,7 @@ const Baner = () => {
   return (
     <div className="xxs:container ">
       <div className="xs:full md:w-5/6 mx-auto  bg-white  rounded-2xl -mt-16  text-slate-800">
-        <div className="hidden lg:flex w-full h-full relative justify-evenly items-start py-2 gap-2 text-xs  scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin overflow-auto">
+        <div className="hidden w-full h-full relative justify-evenly items-start py-2 gap-2 text-xs  scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin overflow-auto">
           <button className="disabled:text-primary-01/30 swiper-categroy-prev flex flex-col justify-center items-center text-primary-01  hover:text-opacity-80 hover:cursor-pointer">
             <span className="justify-items-center text-3xl p-4 flex justify-center items-center">
               <FaChevronCircleRight />
@@ -127,7 +128,7 @@ const Baner = () => {
                 .map((item, index) => {
                   return (
                     <SwiperSlide key={index} className="!w-auto !mr-5">
-                      <div className="flex flex-col justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer">
+                      <Link href={`/group/${item.id}`} className="flex flex-col justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer">
                         <span className="text-3xl p-2">
                           <div>
                             {item.icon ? (
@@ -142,7 +143,7 @@ const Baner = () => {
                         <span className="lg:text-sm text-center">
                           {item.name}
                         </span>
-                      </div>
+                      </Link>
                     </SwiperSlide>
                   );
                 })}
@@ -154,15 +155,16 @@ const Baner = () => {
             </span>
           </button>
         </div>
-        <div className="lg:hidden grid grid-cols-4 gap-4 p-4">
+        <div className="grid grid-cols-4 lg:grid-cols-8 gap-4 p-4">
           {!isLoading &&
             categories
               .filter((c) => c.parent_id === 0)
               .slice(0, showComplete ? categories.length : 7)
               .map((item) => {
                 return (
-                  <div
+                  <Link
                     key={item.id}
+                    href={`/group/${item.id}`}
                     className="flex flex-col text-xs justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer"
                   >
                     <span className="text-3xl p-2">
@@ -177,7 +179,7 @@ const Baner = () => {
                       </div>
                     </span>
                     <span className="lg:text-sm text-center">{item.name}</span>
-                  </div>
+                  </Link>
                 );
               })}
           <div

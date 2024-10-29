@@ -35,6 +35,8 @@ import Link from "next/link";
 import getOS from "@/utils/getOS";
 import ExpertServicesList from "./detailProfileComponents/ExpertServicesList";
 import OtherExpert from "./detailProfileComponents/OtherExpert";
+import ExpertGrade from "./detailProfileComponents/ExpertGrade";
+import ExpertLanguage from "./detailProfileComponents/ExpertLanguage";
 
 const mostPopular = [
   {
@@ -349,6 +351,11 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
 
       {/* آثار و افتخارات */}
       <HonorsDescription honors_description={userData?.honors_description} />
+
+      <PopularsList popularList={popularList || []}/>
+
+      <ExpertGrade grade={userData?.usergrade || []}/>
+      <ExpertLanguage languages={userData?.userlanguage || []}/>
 
       <div className="lg:hidden">
         <OtherExpert />
