@@ -114,9 +114,10 @@ const Baner = () => {
           </button>
 
           <Swiper
-            modules={[Navigation]}
+            modules={[Navigation, Pagination]}
             slidesPerView={"auto"}
             autoplay
+
             navigation={{
               nextEl: ".swiper-categroy-next",
               prevEl: ".swiper-categroy-prev",
@@ -207,7 +208,9 @@ const Baner = () => {
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
               className={"h-full rounded-ee-2xl"}
               spaceBetween={60}
-              navigation
+              // navigation
+              pagination={{ clickable: true }}
+
               loop
               slidesPerView={1}
               autoplay={{ delay: 4000 }}
