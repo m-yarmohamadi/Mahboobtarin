@@ -5,9 +5,11 @@
 @import 'slick-carousel/slick/slick-theme.css';
 
 @import url('./fonts.css');
+
 :root {
 	background-color: #eff0f2;
 	direction: rtl;
+	--font-primary: 'IRANSans';
 	/* box-sizing: content-box; */
 }
 
@@ -97,7 +99,7 @@
 }
 
 body {
-	font-family: 'IRANSans';
+	font-family: var(--font-primary);
 	direction: rtl;
 }
 

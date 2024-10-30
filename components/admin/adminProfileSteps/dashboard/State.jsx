@@ -1,6 +1,5 @@
 
 
-
 const data = [
     {
         title: "محبوبیت",
@@ -32,11 +31,11 @@ const data = [
     },
 ];
 
-export default function State() {
+export default function State({ otherData = [] }) {
     return (
         <div className="w-full bg-white shadow-lg dark:shadow-darkLg p-5 rounded-md">
             <ul className="w-full h-full flex flex-col gap-4 justify-between">
-                {data.map((item, index) => (
+                {[...data, ...otherData].map((item, index) => (
                     <li key={index} className="flex items-center text-sm font-medium">
                         <span className="inline-block w-3 h-3 bg-secondary-01"></span>
                         <div className="mr-4 ml-1 text-slate-800">
