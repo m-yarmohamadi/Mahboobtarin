@@ -101,8 +101,8 @@ const dataMenu = [
     },
     {
         id: 9,
-        title: 'درخواست تولید محتوا',
-        value: 'dashboard/#',
+        title: 'درخواست خدمات',
+        value: 'request_services',
         quanity: '',
         icon: FaBlog,
     },
