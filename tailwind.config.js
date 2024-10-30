@@ -11,7 +11,7 @@ export const darkMode = "class";
 export const theme = {
 	extend: {
 		fontFamily: {
-			sans: ['IRANSans'],
+			sans:  "var(--font-primary)",
 		},
 		colors: {
 			tertiary: {

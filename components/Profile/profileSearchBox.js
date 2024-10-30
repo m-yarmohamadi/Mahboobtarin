@@ -6,9 +6,7 @@ import React from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
 const ProfileSearchBox = ({ user }) => {
-  const { categoryParents, isGetCateParent } = useCategoryParents(
-    user?.expertises[0].title
-  );
+  const { categoryParents, isGetCateParent } = useCategoryParents(user?.expertises[0]?.title || 0);  
 
   return (
     <div className="">
@@ -20,7 +18,7 @@ const ProfileSearchBox = ({ user }) => {
             }`}
           >
             <div className="url-params-profile-page flex justify-center items-center gap-1 text-xs md:text-sm group">
-              {!isGetCateParent && <UrlItem data={categoryParents} />}
+              {!isGetCateParent && categoryParents && <UrlItem data={categoryParents} />}
             </div>
             <div className="flex justify-center items-center ">
               <Platform color={`text-primary-03`} colorHover={`text-white`} />

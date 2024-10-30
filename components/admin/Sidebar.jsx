@@ -130,7 +130,7 @@ const dataMenu = [
     {
         id: 13,
         title: 'آمار',
-        value: 'dashboard/#',
+        value: 'statistics',
         quanity: '',
         icon: FaChartColumn,
     },
@@ -144,7 +144,7 @@ const dataMenu = [
     {
         id: 15,
         title: 'خرید اشتراک',
-        value: 'dashboard/#',
+        value: 'buy_vip',
         quanity: '',
         icon: RiVipCrownLine,
     },
@@ -158,7 +158,7 @@ const dataMenu = [
     {
         id: 17,
         title: 'تنظیمات',
-        value: 'dashboard/#',
+        value: 'settings',
         quanity: '',
         icon: MdOutlineSettings,
     },
