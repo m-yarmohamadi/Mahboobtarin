@@ -5,6 +5,7 @@ import {
   getCommentExpertise,
   getFollowers,
   getFollowings,
+  getPlans,
   getPopularFavorites,
   getRequestsList,
   getServiceById,
@@ -248,4 +249,18 @@ export function useGetTicket(ticketId) {
   const { data: tickets } = ticketData || {};
 
   return { tickets, isLoading };
+}
+
+// * expert plans --------------
+export function useGetPlans() {
+  const { data: plansData, isLoading } = useQuery({
+    queryKey: ["get-tickets"],
+    queryFn: ()=>getPlans(),
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: plans } = plansData || {};
+
+  return { plans, isLoading };
 }

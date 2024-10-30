@@ -183,3 +183,13 @@ export function getTicket(ticketId) {
     },
   });
 }
+
+// * -------------- expert plans --------------
+
+export function getPlans() {
+  return http.get(`/api/v1/dashboard/plans`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
