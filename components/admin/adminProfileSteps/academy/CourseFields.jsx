@@ -311,11 +311,7 @@ function CreateCourse({ formik, onClose }) {
                 window.location.reload();
                 return;
             }
-            if (error?.response?.status === 413) {
-                toast.error("حجم فایل زیاد است")
-                return;
-            }
-            toast.error("خطا در بارگزاری ویدیو");
+            toast.error("حجم فایل زیاد است");
         }
     }
 
@@ -328,6 +324,7 @@ function CreateCourse({ formik, onClose }) {
             file: Yup.string("").required("ویدیو را انتخاب کنید")
         })
     });
+    
 
     return (
         <div className="w-full flex flex-col gap-4">
