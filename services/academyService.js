@@ -17,6 +17,14 @@ export function updloadAcademyPhotos(data) {
   });
 }
 
+export function updloadAcademyVideos(data) {
+  return http.post("/api/v1/dashboard/academy/videos/upload", data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
 export function getAcademyCategoryApi() {
   return http.get("/api/v1/dashboard/academy/categories", {
     headers: {

@@ -13,9 +13,13 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import { useMutation } from "@tanstack/react-query";
-import { updloadAcademyPhotos } from "@/services/academyService";
+import { updloadAcademyPhotos, updloadAcademyVideos } from "@/services/academyService";
 import toast from "react-hot-toast";
 import Loading from "@/tools/Loading";
+import { useFormik } from "formik";
+import { BiEditAlt } from "react-icons/bi";
+import * as Yup from "yup";
+import { GoPlusCircle } from "react-icons/go";
 
 const statusItems = [
     { value: "", label: "وضعیت دوره را انتخاب کنید" },
@@ -156,7 +160,7 @@ function CoverImage({ formik }) {
             toast.error(`حجم فایل نباید بیشتر از ${maxSizeInMB} مگابایت باشد`);
             return;
         }
-        
+
         const formData = new FormData();
         formData.append('file', file);
 
@@ -220,15 +224,15 @@ function Lessons({ formik }) {
                 <div className="font-bold text-slate-800">
                     لیست جلسات
                 </div>
-                <button onClick={() => setAddLesson(true)} className="btn btn--outline gap-2 !py-2">
+                <button type="button" onClick={() => setAddLesson(true)} className="btn btn--outline gap-2 !py-2">
                     افزودن فیلم آموزشی <IoAddCircleOutline className="w-6 h-6" />
                 </button>
                 <Modal open={addLesson} onClose={() => setAddLesson(false)} title={'افزودن فیلم آموزشی'}>
-
+                    <CreateCourse formik={formik} onClose={() => setAddLesson(false)} />
                 </Modal>
             </div>
             <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-                {Array(5).fill({}).map((item, index) => (
+                {formik.values.videos.map((item, index) => (
                     <li key={index} className="">
                         <div className='flex flex-col relative bg-slate-100 rounded-xl'>
 
@@ -238,18 +242,18 @@ function Lessons({ formik }) {
                                         controls
                                         className='w-full h-full object-cover object-center rounded-xl'>
                                         <source
-                                            // src={data.path}
+                                            src={URL.createObjectURL(item.file)}
                                             type='video/mp4'
                                         />
                                     </video>
                                 </div>
                             </div>
                             <h3 className='w-full text-sm text-slate-800 font-bold px-4 pb-4'>
-                                قسمت اول
+                                {item.title}
                             </h3>
-                            <button className='btn btn--danger absolute top-5 left-5 !p-2'>
+                            {/* <button className='btn btn--danger absolute top-5 left-5 !p-2'>
                                 <HiOutlineTrash className='w-5 h-5' />
-                            </button>
+                            </button> */}
                         </div>
                     </li>
                 ))}
@@ -279,6 +283,116 @@ function ExpiredateInput({ formik, name }) {
                 inputClass="w-full appearance-none outline-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg dark:focus:shadow-darkLg focus:shadow-red-300 transition-all duration-300 ease-in-out"
             />
             <div className='w-full flex justify-start items-start mt-2'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{formik?.errors[name]}</p>}</div>
+        </div>
+    )
+}
+
+function CreateCourse({ formik, onClose }) {
+    const { mutateAsync: mutateUploadVideos, isPending: isUploading } = useMutation({ mutationFn: updloadAcademyVideos });
+
+    const onSubmit = async (values) => {
+        const formData = new FormData();
+
+        for (const key in values) {
+            formData.append(key, values[key]);
+        }
+        formData.append("type", values.file.type.split("/")[0]);
+
+        try {
+            const { data } = await mutateUploadVideos(formData);
+            if (data) {
+                formik.setFieldValue("videos", [...formik.values.videos, { id: Date.now(), ...values }])
+                formik.setFieldValue("video_id", [...formik.values.video_id, data.video_id])
+                onClose();
+            }
+
+        } catch (error) {
+            if (error?.response?.status === 401) {
+                window.location.reload();
+                return;
+            }
+            if (error?.response?.status === 413) {
+                toast.error("حجم فایل زیاد است")
+                return;
+            }
+            toast.error("خطا در بارگزاری ویدیو");
+        }
+    }
+
+    const formikCourse = useFormik({
+        initialValues: { title: "", video_type: "kavimo_academy", free_price: "", file: "" },
+        onSubmit,
+        validationSchema: Yup.object({
+            title: Yup.string("").required("عنوان را وارد کنید"),
+            free_price: Yup.string("").required("نوع ویدیو را انتخاب کنید"),
+            file: Yup.string("").required("ویدیو را انتخاب کنید")
+        })
+    });
+
+    return (
+        <div className="w-full flex flex-col gap-4">
+            <div>
+                <input
+                    type='file'
+                    hidden
+                    id='video-file'
+                    accept='video/*'
+                    onChange={(e) => formikCourse.setFieldValue("file", e.target.files[0])}
+                />
+                {formikCourse.values.file ? (
+                    <div className='relative'>
+                        <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
+                            <video
+                                controls
+                                className='w-full h-full object-cover'>
+                                <source
+                                    src={URL.createObjectURL(formikCourse.values.file)}
+                                    type='video/mp4'
+                                />
+                            </video>
+                        </div>
+                        <label
+                            htmlFor='video-file'
+                            className='btn btn--secondary cursor-pointer !p-2 absolute top-4 right-4'>
+                            <BiEditAlt className='w-5 h-5' />
+                        </label>
+                    </div>
+                ) : (
+                    <>
+                        <label
+                            htmlFor='video-file'
+                            className='text-primary-01 cursor-pointer text-xs font-semibold w-full flex flex-col justify-center items-center gap-2 py-7 border border-dashed border-slate-400 rounded-lg'>
+                            <GoPlusCircle className='w-12 h-12' />
+                            برای افزودن فیلم کلیک کنید
+                        </label>
+                        <div className='w-full flex justify-start items-start mt-2'>{formikCourse?.errors.file && formikCourse?.touched.file && <p className='error_Message'>{formikCourse?.errors.file}</p>}</div>
+                    </>
+                )}
+            </div>
+
+            <Input
+                name={'title'}
+                label={'عنوان'}
+                formik={formikCourse}
+            />
+            <div className="flex gap-4">
+                <Select
+                    name={'video_type'}
+                    label={'محل آپلود'}
+                    formik={formikCourse}
+                    options={[{ value: "kavimo_academy", label: "kavimo_academy" }, { value: "innternal_academy", label: "innternal_academy" }]}
+                />
+                <Select
+                    name={'free_price'}
+                    label={'نوع ویدیو'}
+                    formik={formikCourse}
+                    options={[{ value: "", label: "یک گزینه را انتخاب کنید" }, { value: "free", label: "رایگان" }, { value: "price", label: "پولی" }]}
+                />
+            </div>
+
+            <button type="button" onClick={formikCourse.handleSubmit} className="btn btn--primary !w-full">
+                {isUploading ? <Loading /> : "ثبت"}
+            </button>
         </div>
     )
 }

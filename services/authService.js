@@ -72,3 +72,19 @@ export function forgetPassword(data) {
 export function changePassword(data) {
   return http.post("/api/v1/changepass", data);
 }
+
+export function getDashboardSettings() {
+  return http.get("/api/v1/dashboard/setting", {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function updateDashboardSettings(data) {
+  return http.post("/api/v1/dashboard/setting", data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}

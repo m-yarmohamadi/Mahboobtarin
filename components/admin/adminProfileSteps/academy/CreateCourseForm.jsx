@@ -23,8 +23,10 @@ const initialValues = {
     meta_desc: "",
     meta_keywords: "",
     photo_id: [],
+    video_id: [],
     categories: [],
-    files: []
+    files: [],
+    videos: []
 };
 const validationSchema = Yup.object({
     title: Yup.string().required("عنوان را وارد کنید"),
@@ -42,7 +44,8 @@ const validationSchema = Yup.object({
     meta_desc: Yup.string().required("توضیحات متا را وارد کنید"),
     meta_keywords: Yup.string().required("تگ های متا را وارد کنید"),
     categories: Yup.array().min(1, "دسته بندی را انتخاب کنید"),
-    files: Yup.array().required("تصویر را انتخاب کنید").min(1, "تصویر را انتخاب کنید")
+    files: Yup.array().required("تصویر را انتخاب کنید").min(1, "تصویر را انتخاب کنید"),
+    video_id: Yup.array().required("فیلم اموزشی را اپلود کنید").min(1, "فیلم اموزشی را اپلود کنید")
 })
 
 export default function CreateCourseForm() {
@@ -53,6 +56,7 @@ export default function CreateCourseForm() {
     const onSubmit = async (values) => {
         const transformCategories = formik.values.categories.map((item) => item.value).join(",");
         const transformPhotoId = formik.values.photo_id.join(",");
+        const transformVideoId = formik.values.video_id.join(",");
 
         const productData = {
             title: values.title,
@@ -70,6 +74,7 @@ export default function CreateCourseForm() {
             meta_desc: values.meta_desc,
             meta_keywords: values.meta_keywords,
             photo_id: transformPhotoId,
+            video_id: transformVideoId,
             categories: transformCategories,
         }
 
