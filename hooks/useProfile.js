@@ -1,4 +1,4 @@
-import { getProfile, getUserAddress } from "@/services/authService";
+import { getDashboardSettings, getProfile, getUserAddress } from "@/services/authService";
 import { useQuery } from "@tanstack/react-query";
 
 export default function useProfile() {
@@ -25,4 +25,17 @@ export function useGetAddress() {
   const { data: addressList } = data || {};
 
   return { addressList, isLoading };
+}
+
+export function useDashboardSettings() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get-dashboard-settings"],
+    queryFn: getDashboardSettings,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: settings } = data || {};
+
+  return { settings, isLoading };
 }
