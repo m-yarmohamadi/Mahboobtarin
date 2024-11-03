@@ -31,8 +31,6 @@ export default function WorkAddress({ formik, name }) {
     const removeAddressHandler = (value) => {
         formik.setFieldValue("address_work", address_work.filter((i) => address_work.indexOf(i) !== address_work.indexOf(value)))
     }
-    console.log(formik.values);
-
 
     return (
         <div>

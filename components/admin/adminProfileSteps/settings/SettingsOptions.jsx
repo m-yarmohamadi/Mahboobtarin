@@ -49,7 +49,7 @@ export default function SettingsOptions() {
     }
 
     const formik = useFormik({
-        initialValues: { font: "IRANSans", theme: "light", notification_type: [{ value: "sms", label: "پیامک" }], notification_sound: "", notification_vibration: "", notification_farakhan: "" },
+        initialValues: { font: "IRANSans", theme: "light", notification_type: [], notification_sound: false, notification_vibration: false, notification_farakhan: false },
         onSubmit,
         validationSchema: Yup.object({
             notification_type: Yup.array().min(1, "حداقل یک نوع روش اطلاع رسانی را انتخاب نمایید")
@@ -58,7 +58,7 @@ export default function SettingsOptions() {
 
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoading && settings) {
             const notificationsTypeArray = settings.notification_type
                 ? settings.notification_type.split(',').map(value => {
                     return { value, label: getLabel(value) };
