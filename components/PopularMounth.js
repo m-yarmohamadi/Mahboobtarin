@@ -18,16 +18,22 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useGetExpertiseAllUsers } from "@/hooks/useExpertiseUser";
 import Link from "next/link";
 import useMainPage from "@/hooks/useMainPage";
+import { useRouter } from "next/navigation";
 
 const PopularMounth = () => {
   const { expertises, isLoading } = useMainPage();
+  const router = useRouter();
+
+  const handleLinks = (link) => {
+    router.push(`/${link}`);
+  };
 
   if (isLoading) return null;
 
   return (
     <div className="w-full container mx-auto pt-12 ">
       <div className="w-full text-textDefault px-2 py-4 flex  justify-center items-center justify-items-center font-extrabold text-2xl">
-      محبوب‌ترین‌های ماه
+        محبوب‌ترین‌های ماه
       </div>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
@@ -45,8 +51,8 @@ const PopularMounth = () => {
         {expertises.map((item) => {
           return (
             <SwiperSlide key={item.id} className="!w-auto !inline-block">
-              <Link
-                href={`/${item.unique_url_id}`}
+              <button
+                onClick={() => handleLinks(item.unique_url_id)}
                 className="w-full flex flex-col justify-center items-center justify-items-center text-center"
               >
                 <div className="w-full flex justify-center items-center justify-items-center text-center px-5">
@@ -72,7 +78,7 @@ const PopularMounth = () => {
                 <span className="pb-2 flex justify-center items-center text-slate-400 dark:text-slate-600 text-sm">
                   {item?.expertises[0]?.subject}
                 </span>
-              </Link>
+              </button>
             </SwiperSlide>
           );
         })}

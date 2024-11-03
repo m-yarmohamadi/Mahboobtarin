@@ -3,7 +3,7 @@ import "react-international-phone/style.css";
 import axios from "axios";
 import CheckOtp from "@/tools/CheckOtp";
 import SendMobile from "@/components/auth/SendMobile";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { enToFaNumber } from "@/utils/enToFa";
 import { toastFunction } from "@/utils/Toast";
 import Cookies from "js-cookie";

@@ -5,7 +5,7 @@ import axios from "axios";
 import { toastFunction } from "@/utils/Toast";
 import { useState } from "react";
 import Loading from "@/tools/Loading";
-import { Router, useRouter } from "next/router";
+import { Router, useRouter } from "next/navigation";
 import OTPInput from "react-otp-input";
 import { useMutation } from "@tanstack/react-query";
 import { register } from "@/services/authService";

@@ -7,9 +7,32 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
 import DarkModeProvider from "@/context/DarkModeContext";
+import { useEffect } from "react";
+import { getDashboardSettings } from "@/services/authService";
+import { usePathname } from "next/navigation";
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }) {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    async function fetchUserSettings() {
+      try {
+        const { data } = await getDashboardSettings();
+        document.documentElement.style.setProperty("--font-primary", data.font);
+
+        if (data.theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+
+      } catch (error) {}
+    }
+
+    fetchUserSettings();
+  }, [pathname]);
+
   return (
     <>
       <Head>

@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import "react-international-phone/style.css";
 import { login } from "@/services/authService";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { toastFunction } from "@/utils/Toast";
 import Cookies from "js-cookie";
 const resend_time = 20;

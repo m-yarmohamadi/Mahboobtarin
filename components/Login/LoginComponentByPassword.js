@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import Input from "@/tools/Input";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { toastFunction } from "@/utils/Toast";
 

@@ -15,15 +15,15 @@ export default function DarkModeProvider({ children }) {
     }, []);
 
     useEffect(() => {
-        if (isDarkMode !== null) {
-            if (isDarkMode) {
-                document.documentElement.classList.add("dark");
-            } else {
-                document.documentElement.classList.remove("dark");
-            }
+        // if (isDarkMode !== null) {
+        //     if (isDarkMode) {
+        //         document.documentElement.classList.add("dark");
+        //     } else {
+        //         document.documentElement.classList.remove("dark");
+        //     }
 
-            localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
-        }
+        //     localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+        // }
     }, [isDarkMode]);
 
     if (isDarkMode === null) return null;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Head from "next/head";
 import UserStep from "./steps/UserStep";
 
