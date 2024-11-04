@@ -39,7 +39,7 @@ export default function ExpertiseSelectMulit({ name, label, smallDesc, required,
                     <FaAngleDown className={`w-5 h-5 ${openBody && "rotate-180"}`} />
                 </div>
                 {openBody &&
-                    <div ref={selectBodyRef} className={"w-full h-auto max-h-[250px] z-50 overflow-y-auto no-scrollbar bg-white border border-primary-01 absolute top-[44px] right-0 rounded-md shadow-lg dark:shadow-darkLg"}>
+                    <div ref={selectBodyRef} className={"w-full h-auto max-h-[250px] z-50 overflow-y-auto bg-white border border-primary-01 absolute top-[44px] right-0 rounded-md shadow-lg dark:shadow-darkLg"}>
                         <ul className="w-full h-full flex flex-col">
                             {options?.filter((o) => o.parent_id === 0).map((option) => (
                                 <OptionItem
