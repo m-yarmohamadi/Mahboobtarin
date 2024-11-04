@@ -10,7 +10,7 @@ const MainProfile = ({ userData, isFollow, isLike, popularList }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full">
           <div className="w-full flex flex-col md:grid md:grid-cols-10 lg:col-span-8 gap-8">
             <div className="md:col-span-3 w-full ">
-              <RightMenu />
+              <RightMenu userData={userData} popularList={popularList}/>
             </div>
             <div className=" md:col-span-7 bg-white w-full">
               <DetailProfile

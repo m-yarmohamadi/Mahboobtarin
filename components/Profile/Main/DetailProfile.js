@@ -155,7 +155,6 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
   const DiscountCalculation = (i, d) => {
     return i - (i * d) / 100;
   };
-  console.log(userData);
 
   const expertFollowHandler = () => {
     followHandler(userData.id, `${userData?.name} ${userData?.lastname}`);
@@ -355,17 +354,18 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       <PopularsList popularList={popularList || []}/>
 
       <ExpertGrade grade={userData?.usergrade || []}/>
-      <ExpertLanguage languages={userData?.userlanguage || []}/>
 
-      <div className="lg:hidden">
-        <OtherExpert />
-      </div>
+      <ExpertLanguage languages={userData?.userlanguage || []}/>
 
       {/* گالری */}
       <Gallery gallery={userData?.gallery || []} />
 
       {/* لینکدونی */}
       <Linkdoni link_dooni={userData?.link_dooni || []} user={userData}/>
+
+      <div className="lg:hidden">
+        <OtherExpert />
+      </div>
 
       {/* غرفه */}
       <div id="booth" className="w-full pt-16">

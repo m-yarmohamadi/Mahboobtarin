@@ -7,19 +7,36 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaDotCircle } from 'react-icons/fa';
+import LoadingAdmin from '../../LoadingAdmin';
 
 const Support = () => {
 	const [open, setOpen] = useState(false);
 	const { tickets, isLoading } = useGetTicket();
+	const [previewTicket, setPreviewTicket] = useState(null);
+	const [filter, setFilter] = useState();
 
-	if (isLoading) return null
+	let filteredData = !isLoading && tickets?.data;
+
+	if (filter === 0) {
+		filteredData = tickets?.data?.filter((t) => t.status === "0");
+	}
+	if (filter === 1) {
+		filteredData = tickets?.data?.filter((t) => t.status === "1");
+	}
+	if (filter === 2) {
+		filteredData = tickets?.data?.filter((t) => t.status === "2");
+	}
+	if (filter === 3) {
+		filteredData = tickets?.data?.filter((t) => t.status === "3");
+	}
+
+	if (isLoading) return <LoadingAdmin />
 
 	return (
 		<div>
 			<div className='w-full flex items-center justify-between border-b border-b-gray-300 pb-4 mb-4'>
 				<h1 className='text-xl text-slate-800 font-semibold'>پشتیبانی</h1>
 				<button
-					button
 					onClick={() => setOpen(true)}
 					className='btn btn--primary'>
 					ثبت تیکت
@@ -29,10 +46,10 @@ const Support = () => {
 				<div className='w-full flex justify-between items-center px-2 py-8 '>
 					<div className='w-full flex justify-center items-center font-extrabold text-textDefault'>تیکتهای من</div>
 					<div className='w-full flex justify-center items-center gap-4 text-primary-02'>
-						<button className='focus:outline focus:outline-offset-1 focus:outline-2 focus:outline-primary-01 p-2 rounded-md bg-green-900 text-[#fff] hover:shadow-md dark:shadow-darkMd w-32'>بسته شده</button>
-						<button className='focus:outline focus:outline-offset-1 focus:outline-2 focus:outline-primary-01 p-2 rounded-md bg-yellow-400 text-[#fff] hover:shadow-md dark:shadow-darkMd w-32'>پاسخ داده شده</button>
-						<button className='focus:outline focus:outline-offset-1 focus:outline-2 focus:outline-primary-01 p-2 rounded-md bg-yellow-900 text-[#fff] hover:shadow-md dark:shadow-darkMd w-32'>در انتظار پاسخ</button>
-						<button className='focus:outline focus:outline-offset-1 focus:outline-2 focus:outline-primary-01 p-2 rounded-md bg-red-900 text-[#fff] hover:shadow-md dark:shadow-darkMd w-32'>باز</button>
+						<button onClick={() => setFilter(1)} className='focus:outline focus:outline-offset-1 focus:outline-2 focus:outline-primary-01 p-2 rounded-md bg-green-900 text-[#fff] hover:shadow-md dark:shadow-darkMd w-32'>بسته شده</button>
+						<button onClick={() => setFilter(3)} className='focus:outline focus:outline-offset-1 focus:outline-2 focus:outline-primary-01 p-2 rounded-md bg-yellow-400 text-[#fff] hover:shadow-md dark:shadow-darkMd w-32'>پاسخ داده شده</button>
+						<button onClick={() => setFilter(0)} className='focus:outline focus:outline-offset-1 focus:outline-2 focus:outline-primary-01 p-2 rounded-md bg-yellow-900 text-[#fff] hover:shadow-md dark:shadow-darkMd w-32'>در انتظار پاسخ</button>
+						<button onClick={() => setFilter(2)} className='focus:outline focus:outline-offset-1 focus:outline-2 focus:outline-primary-01 p-2 rounded-md bg-red-900 text-[#fff] hover:shadow-md dark:shadow-darkMd w-32'>باز</button>
 					</div>
 				</div>
 
@@ -46,15 +63,20 @@ const Support = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{tickets?.data?.map((ticket) => (
-							<tr key={ticket.id}>
-								<td>
-									<FaDotCircle className={`w-7 ${ticket.status === "0" ? "text-red-600" : "text-green-900"}`} />
-								</td>
-								<td className='text-textDefault'>{ticket.title}</td>
-								<td className='text-textDefault'>{toPersianDateShort(ticket.created_at)}</td>
-								<td className='text-textDefault'>{toPersianDateShort(ticket.updated_at)}</td>
-							</tr>
+						{filteredData?.map((ticket) => (
+							<React.Fragment key={ticket.id}>
+								<tr onClick={() => setPreviewTicket(ticket.id)}>
+									<td>
+										<FaDotCircle className={`w-7 ${ticket.status === "0" ? "text-red-600" : "text-green-900"}`} />
+									</td>
+									<td className='text-textDefault'>{ticket.title}</td>
+									<td className='text-textDefault'>{toPersianDateShort(ticket.created_at)}</td>
+									<td className='text-textDefault'>{toPersianDateShort(ticket.updated_at)}</td>
+								</tr>
+								<Modal title={`موضوع : ${ticket.title}`} open={previewTicket === ticket.id ? true : false} onClose={() => setPreviewTicket(null)} >
+									<PreviewTicket ticket={ticket} onClose={() => setPreviewTicket(null)} />
+								</Modal>
+							</React.Fragment>
 						))}
 					</tbody>
 				</table>
@@ -140,5 +162,23 @@ function CreateTicketForm({ onClose }) {
 				</button>
 			</div>
 		</form>
+	)
+}
+
+function PreviewTicket({ ticket, onClose }) {
+
+	return (
+		<div>
+			<p className='text-sm text-slate-800'>
+				{ticket?.description}
+			</p>
+			<div className='text-sm text-slate-800 pt-4 flex items-center gap-2'>
+				<FaDotCircle className={`w-7 ${ticket.status === "0" ? "text-red-600" : "text-green-900"}`} />
+				وضعیت : {ticket.status === "0" ? "در انتظار پاسخ" : "بسته شد"}
+			</div>
+			<button onClick={onClose} className='btn btn--outline !w-full mt-4'>
+				بستن
+			</button>
+		</div>
 	)
 }

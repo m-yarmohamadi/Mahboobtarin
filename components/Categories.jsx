@@ -17,19 +17,26 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
     }, [isLoading]);
 
     useEffect(() => {
+        const getScrollWidth = window.innerWidth - document.body.clientWidth;
+
         if (isOpen) {
             document.body.classList.add("lg:!overflow-hidden");
+            if(document.body.clientWidth >= 1024){
+                document.body.style.paddingRight = `${getScrollWidth}px`;
+            }
 
             categoryListRef.current?.classList.add("!flex");
             setTimeout(() => {
                 categoryListRef.current?.classList.add("!opacity-100");
             }, 100);
         } else {
-            document.body.classList.remove("lg:!overflow-hidden");
-
             categoryListRef.current?.classList.remove("!opacity-100");
+            
             setTimeout(() => {
                 categoryListRef.current?.classList.remove("!flex");
+                document.body.classList.remove("lg:!overflow-hidden");
+                document.body.style.paddingRight = `0px`;
+
             }, 300);
         }
     }, [isOpen]);
@@ -43,7 +50,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
             <div
                 ref={categoryListRef}
                 onMouseLeave={() => setIsOpen(false)}
-                className="category__list opacity-0 duration-300 ease-in-out items-start"
+                className="category__list opacity-0 duration-500 ease-in-out items-start"
             >
                 <div className="category__list-items w-full h-full flex overflo-y-auto bg-primary-02/50">
                     <ul className="w-[218px] flex flex-col overflow-y-auto overflow-x-hidden">
