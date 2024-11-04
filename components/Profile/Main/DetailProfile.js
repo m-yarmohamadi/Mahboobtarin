@@ -245,10 +245,6 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
 					</div> */}
         </div>
 
-        <div className="lg:hidden pt-6">
-          <ExpertServicesList user={userData} />
-        </div>
-
         {/* بیوگرافی */}
         <About description={userData?.description} />
         <div className="flex flex-col xs:flex-row justify-between gap-2 pt-6">
@@ -363,8 +359,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       {/* لینکدونی */}
       <Linkdoni link_dooni={userData?.link_dooni || []} user={userData}/>
 
-      <div className="lg:hidden">
-        <OtherExpert />
+      <div className="lg:hidden pt-6">
+          <ExpertServicesList user={userData} />
       </div>
 
       {/* غرفه */}
@@ -433,6 +429,10 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
 							);
 						})}
 					</div> */}
+      </div>
+
+      <div className="lg:hidden">
+        <OtherExpert />
       </div>
 
       {/* نظرات کاربران */}

@@ -71,6 +71,11 @@ function FilterModal({ open, onClose }) {
           setShow={setOpenFilter}
           name="languageFilter"
         />
+        <WorkAddressFilter
+          show={openFilter}
+          setShow={setOpenFilter}
+          name="workAddressFilter"
+        />
       </div>
       <div className="flex items-center gap-4 mt-3">
         <button className="w-1/2 btn btn--primary" onClick={onClose}>
@@ -272,6 +277,44 @@ function LanguageFilter({ show, setShow, name }) {
               <CheckBoxInput label={item.label} name={item.value} />
             </li>
           ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function WorkAddressFilter({ show, setShow, name }) {
+  return (
+    <div
+      className={`w-full overflow-hidden ${
+        show === name ? "my-3 rounded-t-lg" : "my-2 rounded-lg"
+      }`}
+    >
+      <button
+        onClick={() => setShow(show === name ? "" : name)}
+        className="w-full flex items-center justify-between p-3 bg-slate-200 text-slate-800 font-semibold"
+      >
+        محل کار
+        <FaAngleDown
+          className={`w-4 h-4 duration-200 ${show === name && "rotate-180"}`}
+        />
+      </button>
+      <div
+        className={`w-full bg-slate-100 rounded-b-lg px-4 ${
+          show === name ? "max-h-screen" : "max-h-0"
+        } duration-300 ease-in-out`}
+      >
+        <ul>
+          {Array(4)
+            .fill({ title: "تست" })
+            .map((item, index) => (
+              <li
+                key={index}
+                className="w-full py-3 border-b border-b-slate-200 last:border-b-0"
+              >
+                <CheckBoxInput label={item.title} name={`city-${index}`} />
+              </li>
+            ))}
         </ul>
       </div>
     </div>
