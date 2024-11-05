@@ -15,6 +15,7 @@ import Store from "@/components/Store";
 import Resume from "@/components/Resume";
 import useMainPage from "@/hooks/useMainPage";
 import LoadingPage from "@/components/LoadingPage";
+import LatestRegistrations from "@/components/LatestRegistrations";
 
 const Index = () => {
   const { isLoading } = useMainPage();
@@ -40,9 +41,8 @@ const Index = () => {
 
       {/* محتوای اصلی */}
       <div
-        className={`transition-opacity duration-1000 ${
-          isContentVisible ? "opacity-100" : "opacity-0"
-        }`}
+        className={`transition-opacity duration-1000 ${isContentVisible ? "opacity-100" : "opacity-0"
+          }`}
       >
         <Header />
         <Slider />
@@ -55,7 +55,8 @@ const Index = () => {
         <Recommended />
         <News />
         <Baner04 />
-        <Store />
+        <LatestRegistrations />
+        {/* <Store /> */}
         <Resume />
         <Footer />
       </div>

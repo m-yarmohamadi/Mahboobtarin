@@ -47,7 +47,7 @@ const Footer = () => {
           <div className="lg:col-span-5 flex flex-col justify-center items-center gap-y-8 w-full ">
             <div className="w-full flex flex-col justify-center items-center">
               <div className="w-full flex justify-center items-center  p-2 font-bold">
-                دریافت اتاقک
+                دریافت محبوب‌ترین
               </div>
               <div className=" w-full grid grid-cols-1 xs:grid-cols-2  gap-y-2 gap-x-4 text-sm font-bold  justify-between items-center">
                 <div className="w-full bg-white p-2 rounded-md flex justify-between items-center shadow-sm  hover:text-primary-01 hover:cursor-pointer hover:shadow-md dark:shadow-darkMd">

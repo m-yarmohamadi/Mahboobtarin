@@ -175,7 +175,7 @@ const Baner = () => {
                             dangerouslySetInnerHTML={{ __html: item.icon }}
                           ></div>
                         ) : (
-                          <img src={item.pic} alt="" className="w-[30px]" />
+                          <img src={item.pic} alt="" className="w-[30px] hover:fill-primary-01" />
                         )}
                       </div>
                     </span>
@@ -185,7 +185,7 @@ const Baner = () => {
               })}
           <div
             onClick={() => setShowComplete(!showComplete)}
-            className="flex flex-col text-xs justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer"
+            className="flex flex-col text-xs justify-center items-center w-full hover:text-primary-01  hover:cursor-pointer"
           >
             <span className="text-3xl p-2">
               <CiCircleMore />
