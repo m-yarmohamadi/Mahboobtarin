@@ -21,7 +21,7 @@ import useMainPage from "@/hooks/useMainPage";
 import { useRouter } from "next/navigation";
 
 const LatestRegistrations = () => {
-    const { expertises, isLoading } = useMainPage();
+    const { new_register, isLoading } = useMainPage();
     const router = useRouter();
 
     const handleLinks = (link) => {
@@ -48,7 +48,7 @@ const LatestRegistrations = () => {
                 navigation={false}
                 scrollbar={false}
             >
-                {expertises.map((item) => {
+                {new_register.map((item) => {
                     return (
                         <SwiperSlide key={item.id} className="!w-auto !inline-block">
                             <button
@@ -59,13 +59,13 @@ const LatestRegistrations = () => {
                                     <div className="my-1 flex items-center justify-center rounded-3xl w-20 h-20 overflow-hidden ring-2 ring-primary-01 ring-offset-2">
                                         <img
                                             className={
-                                                !item?.avatar?.length
+                                                !item?.photos?.length
                                                     ? "w-11 h-11 md:w-12 md:h-12"
                                                     : "w-full h-full object-cover object-center  hover:grayscale"
                                             }
                                             src={
-                                                item?.avatar?.length
-                                                    ? item?.avatar[0]?.path
+                                                item?.photos?.length
+                                                    ? item?.photos[0]?.path
                                                     : "/images/defaultUser.png"
                                             }
                                             alt={`${item?.name} ${item?.lastname} `}
@@ -76,7 +76,7 @@ const LatestRegistrations = () => {
                                     {item.name} {item.lastname}
                                 </span>
                                 <span className="pb-2 flex justify-center items-center text-slate-400 dark:text-slate-600 text-xs">
-                                    {item?.expertises[0]?.subject}
+                                    {/* {item?.expertises[0]?.subject} */}
                                 </span>
                             </button>
                         </SwiperSlide>

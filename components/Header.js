@@ -117,7 +117,7 @@ export default function Header() {
               <span className="sr-only">محبوب‌ترین</span>
 
               <img
-                className="w-40 "
+                className="w-40 dark:brightness-200"
                 src={data ? data.logo : "/images/logo.png"}
                 alt=""
               />
@@ -188,7 +188,7 @@ export default function Header() {
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img
-                  className="h-8 w-auto"
+                  className="h-8 w-auto dark:brightness-200"
                   src={data ? data.logo : "/images/logo.png"}
                   alt=""
                 />

@@ -139,15 +139,11 @@ export function addCommentExpertise(data) {
 }
 
 export function getCommentExpertise(motekhases_id) {
-  return http.get(
-    "/api/v1/dashboard/comments",
-    { motekhases_id },
-    {
-      headers: {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      },
-    }
-  );
+  return http.get(`/api/v1/dashboard/comments?motekhases_id=${motekhases_id}`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
 }
 
 // * -------------- expert requersts (calling page) --------------
@@ -188,6 +184,23 @@ export function getTicket(ticketId) {
 
 export function getPlans() {
   return http.get(`/api/v1/dashboard/plans`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+// * -------------- expert requests service --------------
+export function addRequestService(data) {
+  return http.post(`/api/v1/dashboard/request-services`, data,{
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function getRequestService() {
+  return http.get(`/api/v1/dashboard/request-services/list`, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },

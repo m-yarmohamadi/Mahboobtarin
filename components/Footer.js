@@ -19,7 +19,7 @@ const Footer = () => {
         <div className="grid lg:grid-cols-12 lg:gap-14 grid-cols-1">
           <div className=" w-full lg:col-span-7 ">
             <div className="py-8 flex justify-start items-center justify-items-start w-full">
-              <img className=" w-56" src={data?.footerlogo} alt="" />
+              <img className=" w-56 dark:brightness-200" src={data?.footerlogo} alt="" />
             </div>
             <div>
               <div

@@ -12,7 +12,7 @@ export default function Categories({ isOpen, setIsOpen, categories, isLoading })
         if (!isLoading) {
             const firstCategory = categories.filter((c) => c.parent_id === 0)[0];
             setChildrenRecursive(firstCategory || {});
-            setLastHover(firstCategory.id)
+            setLastHover(firstCategory?.id || 0)
         }
     }, [isLoading]);
 
