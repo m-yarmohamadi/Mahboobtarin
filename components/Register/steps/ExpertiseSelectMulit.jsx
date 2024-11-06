@@ -49,6 +49,7 @@ export default function ExpertiseSelectMulit({ name, label, smallDesc, required,
                                     selectedValue={selected}
                                     optionsChildren={option?.children_recursive}
                                     value={option.value}
+                                    onClose={() => setOpenBody(false)}
                                 />
                             ))}
                         </ul>
@@ -66,11 +67,12 @@ export default function ExpertiseSelectMulit({ name, label, smallDesc, required,
     )
 }
 
-function OptionItem({ label, value, optionsChildren, onChange, selectedValue }) {
+function OptionItem({ label, value, optionsChildren, onChange, selectedValue, onClose }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleChange = () => {
         onChange(value);
+        onClose();
     }
 
     return (
@@ -94,6 +96,7 @@ function OptionItem({ label, value, optionsChildren, onChange, selectedValue }) 
                                 onChange={onChange}
                                 selectedValue={selectedValue}
                                 optionsChildren={optionChild?.children_recursive}
+                                onClose={onClose}
                             />
                         </div>
                     ))}

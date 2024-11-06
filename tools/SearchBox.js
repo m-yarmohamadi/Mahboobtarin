@@ -71,11 +71,6 @@ function FilterModal({ open, onClose }) {
           setShow={setOpenFilter}
           name="languageFilter"
         />
-        <WorkAddressFilter
-          show={openFilter}
-          setShow={setOpenFilter}
-          name="workAddressFilter"
-        />
       </div>
       <div className="flex items-center gap-4 mt-3">
         <button className="w-1/2 btn btn--primary" onClick={onClose}>

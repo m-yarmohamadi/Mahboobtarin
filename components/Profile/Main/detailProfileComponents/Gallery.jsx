@@ -25,7 +25,7 @@ export default function Gallery({ gallery }) {
                             </div> */}
                             {pictures.map((item) => {
                                 return (
-                                    <div className="relative">
+                                    <div key={item.id} className="relative">
                                         <div className="aspect-w-16 aspect-h-10">
                                             <img
                                                 src={item.path}
@@ -45,7 +45,7 @@ export default function Gallery({ gallery }) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 ">
                             {video.map((item) => {
                                 return (
-                                    <div className="relative">
+                                    <div key={item.id} className="relative">
                                         <div className="aspect-w-16 aspect-h-10">
                                             <video
                                                 controls
@@ -66,7 +66,7 @@ export default function Gallery({ gallery }) {
                         <div className="grid grid-cols-1 w-full gap-4 ">
                             {voice.map((item) => {
                                 return (
-                                    <div className="relative">
+                                    <div key={item.id} className="relative">
                                         <span className="flex w-full text-xs font-semibold p-1 bg-slate-800 text-white bg-opacity-80 rounded-b-md">
                                             {item.title}
                                         </span>

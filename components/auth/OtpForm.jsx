@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import OTPInput from "react-otp-input";
 import { enToFaNumber } from "@/utils/enToFa";
+import toEnglishNumber from "@/utils/toEnglishNumber";
 
 
 const RESEND_TIME = 120;
@@ -20,7 +21,7 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
 
     const checkOtpHandler = async (e) => {
         e.preventDefault();
-
+        
         if (otp.length === 5) {
             try {
                 const { data } = await mutateAsync({
@@ -93,7 +94,7 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                 </p>
                 <OTPInput
                     value={otp}
-                    onChange={setOtp}
+                    onChange={(e)=>setOtp(toEnglishNumber(e))}
                     numInputs={5}
                     shouldAutoFocus
                     containerStyle="flex flex-row-reverse items-center justify-center gap-3"

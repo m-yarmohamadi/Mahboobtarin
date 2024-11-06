@@ -165,6 +165,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     likeDislikeHandler(userData.id);
     router.replace(pathname, { scroll: false });
   };
+  
 
   return (
     <div className="w-full">
@@ -219,19 +220,23 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         </div>
         <div className="mt-6 flex items-center justify-between">
           <div className="flex flex-col">
-            <span className=" font-bold text-xl md:text-2xl text-textDefault">
+            <div className=" font-bold text-xl md:text-2xl text-textDefault pb-1">
               {" "}
               {userData?.name}
               {` `}
               {userData?.lastname}
+            </div>
+            <span className=" text-xs text-slate-700">
+              {userData?.unique_url_id}@
             </span>
-            <span className=" text-xs text-slate-700">{userData?.email}</span>
             <div className="flex justify-center items-center gap-1 py-2">
               {userData?.expertises?.map((expertise, index) => (
-                <div key={index}>
-                  <span className="bg-primary-01 rounded-sm px-1 text-xs md:text-sm text-slate-100">
-                    {expertise.subject}
-                  </span>
+                <div
+                  key={index}
+                  className="group text-xs md:text-sm text-primary-01"
+                >
+                  <span className="">{expertise.subject}</span>
+                  <span className="group-last:hidden">،</span>
                 </div>
               ))}
             </div>
@@ -245,8 +250,13 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
 					</div> */}
         </div>
 
+        <div className="lg:hidden pt-6">
+          <ExpertServicesList user={userData} />
+        </div>
+
         {/* بیوگرافی */}
         <About description={userData?.description} />
+
         <div className="flex flex-col xs:flex-row justify-between gap-2 pt-6">
           <div className="space-y-2">
             <span className="flex items-center w-full gap-4 text-sm md:text-base">
@@ -347,24 +357,20 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       {/* آثار و افتخارات */}
       <HonorsDescription honors_description={userData?.honors_description} />
 
-      <PopularsList popularList={popularList || []}/>
+      <PopularsList popularList={popularList || []} />
 
-      <ExpertGrade grade={userData?.usergrade || []}/>
+      <ExpertGrade grade={userData?.usergrade || []} />
 
-      <ExpertLanguage languages={userData?.userlanguage || []}/>
+      <ExpertLanguage languages={userData?.userlanguage || []} />
 
       {/* گالری */}
       <Gallery gallery={userData?.gallery || []} />
 
       {/* لینکدونی */}
-      <Linkdoni link_dooni={userData?.link_dooni || []} user={userData}/>
-
-      <div className="lg:hidden pt-6">
-          <ExpertServicesList user={userData} />
-      </div>
+      <Linkdoni link_dooni={userData?.link_dooni || []} user={userData} />
 
       {/* غرفه */}
-      <div id="booth" className="w-full pt-16">
+      {/* <div id="booth" className="w-full pt-16">
         <div className="flex justify-between items-end py-2">
           <TitleItems title={"غرفه"} />
           <LeftAndRightArrows />
@@ -423,17 +429,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
             })}
           </Swiper>
         </div>
-        {/* <div className='w-full grid xs:grid-cols-2 md:grid-cols-3  gap-4'>
-						{product.map((item) => {
-							return (
-							);
-						})}
-					</div> */}
-      </div>
-
-      <div className="lg:hidden">
-        <OtherExpert />
-      </div>
+      </div> */}
 
       {/* نظرات کاربران */}
       <div id="comments" className="pt-16">
@@ -441,6 +437,10 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         <div className="w-full ">
           <Comments motekhases_id={userData?.id} />
         </div>
+      </div>
+
+      <div className="lg:hidden">
+        <OtherExpert />
       </div>
     </div>
   );

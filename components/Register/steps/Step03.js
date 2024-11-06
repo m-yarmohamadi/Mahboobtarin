@@ -35,23 +35,13 @@ const Step03 = ({ formik, children, error }) => {
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
                 <div className="font-bold text-textDefault">تخصص</div>
                 <div>
-                  {formik.values.expertise.length > 2 ? (
-                    <button
-                      disabled
-                      className="bg-primary-02 shadow-md dark:shadow-darkMd p-2 rounded-md text-primary-04 text-xs"
-                      type=""
-                    >
-                      {enToFaNumber("امکان درج بیش از 3 گزینه وجود ندارد")}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setOpenExpertiseModal(!openExpertiseModal)}
-                      className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
-                      type=""
-                    >
-                      افزودن
-                    </button>
-                  )}
+                  <button
+                    onClick={() => setOpenExpertiseModal(!openExpertiseModal)}
+                    className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
+                    type=""
+                  >
+                    افزودن
+                  </button>
                 </div>
                 <ExpertiseModal
                   openExpertiseModal={openExpertiseModal}
@@ -108,23 +98,13 @@ const Step03 = ({ formik, children, error }) => {
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
                 <div className="font-bold text-textDefault">مقطع تحصیلی</div>
                 <div>
-                  {formik.values.grade.length > 2 ? (
-                    <button
-                      disabled
-                      className="bg-primary-02 shadow-md dark:shadow-darkMd p-2 rounded-md text-primary-04 text-xs"
-                      type=""
-                    >
-                      {enToFaNumber("امکان درج بیش از 3 گزینه وجود ندارد")}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setOpenGradeModal(!openGradeModal)}
-                      className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
-                      type=""
-                    >
-                      افزودن
-                    </button>
-                  )}
+                  <button
+                    onClick={() => setOpenGradeModal(!openGradeModal)}
+                    className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
+                    type=""
+                  >
+                    افزودن
+                  </button>
                 </div>
 
                 <GradeModal
@@ -174,23 +154,13 @@ const Step03 = ({ formik, children, error }) => {
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
                 <div className="font-bold text-textDefault">زبان و گویش</div>
                 <div>
-                  {formik.values.language.length > 2 ? (
-                    <button
-                      disabled
-                      className="bg-primary-02 shadow-md dark:shadow-darkMd p-2 rounded-md text-primary-04 text-xs"
-                      type=""
-                    >
-                      {enToFaNumber("امکان درج بیش از 3 گزینه وجود ندارد")}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setOpenLanguageModal(!openLanguageModal)}
-                      className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
-                      type=""
-                    >
-                      افزودن
-                    </button>
-                  )}
+                  <button
+                    onClick={() => setOpenLanguageModal(!openLanguageModal)}
+                    className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
+                    type=""
+                  >
+                    افزودن
+                  </button>
                 </div>
                 <LanguageModal
                   openLanguageModal={openLanguageModal}

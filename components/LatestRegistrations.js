@@ -33,7 +33,7 @@ const LatestRegistrations = () => {
     return (
         <div className="w-full container mx-auto pt-12 ">
             <div className="w-full text-textDefault px-2 py-4 flex  justify-center items-center justify-items-center font-extrabold text-2xl">
-                آخرین ثبت‌نام شده‌ها
+                جدیدترین ها
             </div>
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar, Autoplay]}

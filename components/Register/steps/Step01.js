@@ -78,6 +78,7 @@ const Step01 = ({ formik, children }) => {
 						label={'نام کاربری'}
 						formik={formik}
 						type={'text'}
+						smallDesc={'حداقل طول مجاز نام کاربری 6 کاراکتر حرف و عدد لاتین و خط فاصله است'}
 					/>
 
 					<Input

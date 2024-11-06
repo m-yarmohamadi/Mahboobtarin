@@ -68,6 +68,7 @@ const validationSchemaStep1 = Yup.object({
     .email("لطفاً یک ایمیل معتبر وارد کنید"),
   unique_url_id: Yup.string()
     .required("وارد کردن نام کاربری اجباری است")
+    .min(6, "حداقل 6 کارکتر وارد کنید")
     .matches(
       /^[a-zA-Z][a-zA-Z0-9_]*$/,
       "نام کاربری فقط می‌تواند شامل حروف انگلیسی، اعداد و _ باشد"

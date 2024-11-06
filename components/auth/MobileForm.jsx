@@ -15,8 +15,8 @@ export default function MobileForm({ mobile, setMobile, onSubmit, isLoading, set
 				</div>
 			)}
 
-			<div className='w-full h-screen flex flex-col'>
-				<div className='flex-1 flex items-center justify-center'>
+			<div className='w-full flex flex-col pt-12'>
+				<div className='flex items-center justify-center'>
 					<div className='w-full h-auto p-7 bg-white rounded-lg shadow-s max-w-lg gap-7 mx-auto flex items-center justify-center flex-col'>
 						<div className='w-full'>
 							<Link href='/'>

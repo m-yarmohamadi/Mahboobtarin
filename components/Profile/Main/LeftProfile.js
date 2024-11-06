@@ -115,7 +115,7 @@ const LeftProfile = ({ user }) => {
             placeholder="جستجو در محبوب‌ترین"
             type="search"
             name=""
-            value=""
+            defaultValue={''}
           />
         </div>
         <div className="w-full h- px-2 my-2 bg-slate-200 rounded-md shadow-md dark:shadow-darkMd">
