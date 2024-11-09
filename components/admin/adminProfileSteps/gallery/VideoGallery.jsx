@@ -44,7 +44,7 @@ export default function VideoGallery({ user }) {
             <Modal
                 open={open}
                 onClose={() => setOpen(false)}
-                title='تصویر جدید'
+                title='ویدیو جدید'
             >
                 <CreateVideoForm
                     onClose={() => setOpen(false)}
@@ -61,9 +61,15 @@ function CreateVideoForm({ onClose }) {
 
     const onSubmit = async (values, { resetForm }) => {
         const formData = new FormData();
+        
+        if (values.src) {
+            formData.append("file", values.src);
+        } else {
+            formData.append("script", values.script);
+        }
+
         formData.append("title", values.title);
-        formData.append("file", values.src);
-        formData.append("type", values.src.type.split("/")[0]);
+        formData.append("type", "video");
 
         try {
             const { data } = await mutateAddGallery(formData);
@@ -101,24 +107,42 @@ function CreateVideoForm({ onClose }) {
     }
 
     const formik = useFormik({
-        initialValues: { title: '', src: '' },
+        initialValues: { title: '', src: '', script: '' },
         onSubmit,
         validationSchema: Yup.object({
             title: Yup.string().required('عنوان را وارد کنید'),
-            src: Yup.string().required('فیلم را انتخاب کنید'),
+            src: Yup.string().test(
+                'src-or-script',
+                'فیلم را وارد کنید',
+                function (value) {
+                    return value || this.parent.script;
+                }
+            ),
+            script: Yup.string().test(
+                'src-or-script',
+                'لینک را وارد کنید',
+                function (value) {
+                    return value || this.parent.src;
+                }
+            ),
         }),
     });
-
 
     return (
         <form
             className='w-full space-y-4'
             onSubmit={formik.handleSubmit}
         >
-            <TabGroup tabs={[
-                { label: "انتخاب فیلم" },
-                { label: "وارد کردن لینک" },
-            ]}>
+            <TabGroup
+                tabs={[
+                    { label: "انتخاب فیلم" },
+                    { label: "وارد کردن لینک" },
+                ]}
+                handler={() => {
+                    formik.setFieldValue("src", "");
+                    formik.setFieldValue("script", "");
+                }}
+            >
                 <TabGroup.Item>
                     <UploadVideo formik={formik} importFileHandler={importFileHandler} />
                 </TabGroup.Item>
@@ -198,6 +222,8 @@ function AddLinkVideo({ formik }) {
         <Input
             label='لینک ویدیو'
             type='text'
+            name="script"
+            formik={formik}
         />
     )
 }

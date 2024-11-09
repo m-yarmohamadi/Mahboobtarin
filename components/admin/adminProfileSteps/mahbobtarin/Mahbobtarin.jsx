@@ -7,6 +7,9 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
 import { useGetFavorites } from "@/hooks/useDashboard";
 import Loading from "@/tools/Loading";
+import { deleteFavorite } from "@/services/expertDashboardService";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const initialList = [
     { id: 1, value: "", label: "رنگ", default: true },
@@ -52,7 +55,7 @@ export default function Mahbobtarin() {
                 </p>
             </div>
 
-            <div className="py-7">
+            <div className="py-7 flex items-center gap-4">
                 <button onClick={() => setNewInterest(true)} className="btn btn--primary">
                     ایجاد علاقه جدید
                 </button>
@@ -77,6 +80,22 @@ export default function Mahbobtarin() {
 function MahbobtarinItem({ item, onDelete, onEdit }) {
     const [edit, setEdit] = useState(false);
     const [text, setText] = useState(item.value || "");
+
+    const { mutateAsync: mutateDeleteFavorite, isPending } = useMutation({ mutationFn: deleteFavorite });
+    const queryClient = useQueryClient();
+
+    const deleteFavoriteHandler = async () => {
+        try {
+            const { data } = await mutateDeleteFavorite(item);
+            if (data) {
+                toast.success("حذف شد");                
+                queryClient.invalidateQueries({ queryKey: ['get-user-favorites'] });
+            }
+
+        } catch (error) {
+            toast.error("خطایی رخ داده است")
+        }
+    }
 
     return (
         <div className="flex flex-col gap-2">
@@ -128,6 +147,10 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
                         <HiOutlineTrash className="w-5 h-5 text-red-600" />
                     </button>
                 } */}
+
+                <button type="button" onClick={deleteFavoriteHandler} className="btn !p-2 border-r !rounded-s-none border-primary-01 border-opacity-25">
+                    <HiOutlineTrash className="w-5 h-5 text-red-600" />
+                </button>
             </div>
         </div>
     )

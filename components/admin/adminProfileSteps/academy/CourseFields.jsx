@@ -27,6 +27,12 @@ const statusItems = [
     { value: 1, label: "فعال" },
 ]
 
+const placeItems = [
+    { value: "", label: "نوع برگزاری دوره را انتخاب کنید" },
+    { value: "حضوری", label: "حضوری" },
+    { value: "آنلاین", label: "آنلاین" },
+]
+
 export default function CourseFields({ formik, loading }) {
     const { categories, isGetCategory } = useGetAcademyCategory();
 
@@ -76,6 +82,13 @@ export default function CourseFields({ formik, loading }) {
                     name={'anbar'}
                     required={true}
                     type={'number'}
+                />
+                <Select
+                    label={'نوع برگزاری'}
+                    options={placeItems}
+                    formik={formik}
+                    name={'place_online'}
+                    required={true}
                 />
                 <Input
                     label={'تخفیف (درصد)'}
@@ -219,46 +232,54 @@ function Lessons({ formik }) {
     const [addLesson, setAddLesson] = useState(false);
 
     return (
-        <div className=" bg-white p-4 rounded-xl">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
-                <div className="font-bold text-slate-800">
-                    لیست جلسات
+        <>
+            <div className=" bg-white p-4 rounded-xl">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
+                    <div className="font-bold text-slate-800">
+                        لیست جلسات
+                    </div>
+                    <button type="button" onClick={() => setAddLesson(true)} className="btn btn--outline gap-2 !py-2">
+                        افزودن فیلم آموزشی <IoAddCircleOutline className="w-6 h-6" />
+                    </button>
+                    <Modal open={addLesson} onClose={() => setAddLesson(false)} title={'افزودن فیلم آموزشی'}>
+                        <CreateCourse formik={formik} onClose={() => setAddLesson(false)} />
+                    </Modal>
                 </div>
-                <button type="button" onClick={() => setAddLesson(true)} className="btn btn--outline gap-2 !py-2">
-                    افزودن فیلم آموزشی <IoAddCircleOutline className="w-6 h-6" />
-                </button>
-                <Modal open={addLesson} onClose={() => setAddLesson(false)} title={'افزودن فیلم آموزشی'}>
-                    <CreateCourse formik={formik} onClose={() => setAddLesson(false)} />
-                </Modal>
-            </div>
-            <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-                {formik.values.videos.map((item, index) => (
-                    <li key={index} className="">
-                        <div className='flex flex-col relative bg-slate-100 rounded-xl'>
+                <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+                    {formik.values.videos.map((item, index) => (
+                        <li key={index} className="">
+                            <div className='flex flex-col relative bg-slate-100 rounded-xl'>
 
-                            <div className="p-3">
-                                <div className='aspect-w-16 aspect-h-9 overflow-hidden'>
-                                    <video
-                                        controls
-                                        className='w-full h-full object-cover object-center rounded-xl'>
-                                        <source
-                                            src={URL.createObjectURL(item.file)}
-                                            type='video/mp4'
-                                        />
-                                    </video>
+                                <div className="p-3">
+                                    <div className='aspect-w-16 aspect-h-9 overflow-hidden'>
+                                        <video
+                                            controls
+                                            className='w-full h-full object-cover object-center rounded-xl'>
+                                            <source
+                                                src={URL.createObjectURL(item.file)}
+                                                type='video/mp4'
+                                            />
+                                        </video>
+                                    </div>
                                 </div>
-                            </div>
-                            <h3 className='w-full text-sm text-slate-800 font-bold px-4 pb-4'>
-                                {item.title}
-                            </h3>
-                            {/* <button className='btn btn--danger absolute top-5 left-5 !p-2'>
+                                <h3 className='w-full text-sm text-slate-800 font-bold px-4 pb-4'>
+                                    {item.title}
+                                </h3>
+                                {/* <button className='btn btn--danger absolute top-5 left-5 !p-2'>
                                 <HiOutlineTrash className='w-5 h-5' />
                             </button> */}
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div className='w-full flex justify-start items-start'>
+                {formik?.errors.video_id && formik?.touched.video_id &&
+                    <p className='error_Message'>
+                        {formik?.errors.video_id}
+                    </p>}
+            </div>
+        </>
     )
 }
 
@@ -324,7 +345,7 @@ function CreateCourse({ formik, onClose }) {
             file: Yup.string("").required("ویدیو را انتخاب کنید")
         })
     });
-    
+
 
     return (
         <div className="w-full flex flex-col gap-4">

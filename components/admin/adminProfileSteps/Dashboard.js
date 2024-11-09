@@ -7,6 +7,7 @@ import State from "./dashboard/State";
 import VisitChart from "./dashboard/VisitChart";
 import ServicesChart from "./dashboard/ServicesChart";
 import IncomeChart from "./dashboard/IncomeChart";
+import Link from "next/link";
 
 export default function Dashboard() {
   return (
@@ -35,37 +36,14 @@ export default function Dashboard() {
             <p className="text-slate-700 text-sm lg:text-base">
               جهت ارتقای سطح حساب کاربری اطلاعات خود را تکمیل کنید
             </p>
-            <button className="btn btn--danger rounded-full">
+            <Link href={'/admin/personalInfo'} className="btn btn--danger rounded-full">
               تکمیل حساب کاربری
-            </button>
+            </Link>
           </div>
         </div>
       </Alert>
-
       <Alert>
-        <div className="space-y-4">
-          <div className="w-full flex flex-col gap-4 items-center sm:flex-row sm:items-start">
-            <span className="w-20 h-20 rounded-full bg-red-600/30 text-red-600 flex items-center justify-center">
-              <IoWarningOutline className="w-10 h-10" />
-            </span>
-            <div className="space-y-4 flex-1">
-              <h4 className=" font-bold text-slate-700">
-                شماره تماس اضطراری خود را ثبت کنید
-              </h4>
-              <p className="text-slate-700 text-sm lg:text-base">
-                در مواردی که شماره تماس اصلی در دسترسی نباشد، پشتیبانی با شماره
-                تماس اضطراری تماس خواهد گرفت.
-              </p>
-            </div>
-          </div>
-          <button className="btn btn--danger w-full">
-            ثبت شماره تماس اضطراری
-          </button>
-        </div>
-      </Alert>
-
-      <Alert>
-        <div className="w-full flex flex-col gap-4 items-center sm:flex-row sm:items-start">
+        <Link href={'/admin/settings'} className="w-full flex flex-col gap-4 items-center sm:flex-row sm:items-start">
           <span className="w-20 h-20 rounded-full bg-red-600/30 text-red-600 flex items-center justify-center">
             <IoNotificationsOutline className="w-10 h-10" />
           </span>
@@ -76,7 +54,7 @@ export default function Dashboard() {
               و گزینه اجازه دادن (Allow) را انتخاب کنید
             </p>
           </div>
-        </div>
+        </Link>
       </Alert>
 
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">

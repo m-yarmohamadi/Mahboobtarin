@@ -4,10 +4,7 @@ import Link from "next/link"
 export default function Turns() {
     return (
         <div className='w-full grid grid-cols-1 gap-4 lg:grid-cols-2'>
-            <TurnsItem />
-            <TurnsItem />
-            <TurnsItem />
-            <TurnsItem />
+            
         </div>
     )
 }

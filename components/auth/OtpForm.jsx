@@ -21,7 +21,7 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
 
     const checkOtpHandler = async (e) => {
         e.preventDefault();
-        
+
         if (otp.length === 5) {
             try {
                 const { data } = await mutateAsync({
@@ -40,28 +40,25 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                     }
                 }
             } catch (error) {
-                // if (error?.response?.status === 422 && error?.response?.data?.message[0] === "The registration process has not been completed.") {
-                //     setStep(error?.response?.data?.user?.type === "motekhases" ? "expert" : "user");
-                //     setNationalCodeInitial(error?.response?.data?.user?.national_code);
-                //     if (error?.response?.data?.user?.step === "4") {
-                //         setRegisterStep(4);
-                //     } else {
-                //         setRegisterStep(Number(error?.response?.data?.user?.step) + 1);
-                //     }
-                //     setUserData(error?.response?.data?.user);
-                // }
+                const { status, data } = error?.response;
 
-                // if (error?.response?.status === 500) {
-                //     toast.error("کد تایید وارد شده نادرست است");
-                // }
+                if (status === 500) {
+                    toast.error("کد تایید وارد شده نادرست است");
+                }
 
-                if (error?.response?.status === 301) {
-                    setStep("register");
-                    setOtp
+                if (status === 301) {
+                    if (data?.user_data) {
+                        setStep(data?.user_data?.type === "motekhases" ? "expert" : "user");
+                        setNationalCodeInitial(data?.user_data?.national_code);
+                        setRegisterStep(Number(data?.user_data?.step) + 1);
+                        setUserData(data?.user_data);
+                    } else {
+                        setStep("register");
+                    }
                     return
                 }
 
-                if (error?.response?.status === 401) {
+                if (status === 401) {
                     toast.error("کد تایید نادرست است")
                 }
             }
@@ -94,7 +91,7 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                 </p>
                 <OTPInput
                     value={otp}
-                    onChange={(e)=>setOtp(toEnglishNumber(e))}
+                    onChange={(e) => setOtp(toEnglishNumber(e))}
                     numInputs={5}
                     shouldAutoFocus
                     containerStyle="flex flex-row-reverse items-center justify-center gap-3"

@@ -35,7 +35,7 @@ const RecommendedDoctors = ({ data }) => {
       <div className="w-full pt-4">
         <Swiper slidesPerView={'auto'}>
           {data.metekhases.map((item) => (
-            <SwiperSlide className="!w-auto inline-block ml-8 py-1">
+            <SwiperSlide key={item.id} className="!w-auto inline-block ml-8 py-1">
               <Link
                 key={item.id}
                 href={item.unique_url_id}

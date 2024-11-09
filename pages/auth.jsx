@@ -20,7 +20,7 @@ export default function AuthPage() {
     const [isRegister, setIsRegisert] = useState();
     const [otp, setOtp] = useState("");
     const phoneNumber = mobile.toString().charAt(0) === "0" ? mobile.slice(1) : mobile.toString();
-
+    
     const isExistsHandler = (e) => {
         e.preventDefault();
         mutateAuthUser({

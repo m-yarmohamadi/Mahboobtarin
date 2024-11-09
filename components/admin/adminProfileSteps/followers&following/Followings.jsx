@@ -42,8 +42,8 @@ function Following({ user }) {
             <Link href={`/profile/${user?.follower?.id}`} className="mb-3 block">
                 <div className="w-20 h-20 rounded-full overflow-hidden">
                     <img
-                        className={user?.follower?.avatar[0]?.path && "object-cover w-full h-full"}
-                        src={user?.follower?.avatar[0]?.path || "/images/defaultUser.png"}
+                        className={"object-cover w-full h-full object-center"}
+                        src={user?.follower?.avatar[0]?.path || "/images/user.png"}
                         alt=''
                     />
                 </div>

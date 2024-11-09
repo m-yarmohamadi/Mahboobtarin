@@ -12,7 +12,7 @@ export default function Expertise({ formik }) {
     const { transformCategories, isLoading: isGetCategories } = useMainPage();
 
     const addExpertise = () => {
-        if (selected.title !== 0 && selected.subject !== 0) {
+        if (selected.title !== 0 && selected.subject !== "") {
             formik.setFieldValue("expertise", [...formik.values.expertise, { title: selected.title, subject: selected.subject }]);
             setSelected({ title: 0, subject: "" });
             // formik.setFieldValue("expertise", list);
@@ -25,15 +25,8 @@ export default function Expertise({ formik }) {
 
     return (
         <div className="lg:col-span-2">
-            <div className="flex items-end gap-4">
-                <div className="flex-1 flex flex-col lg:flex-row gap-4">
-                    {/* <Select
-                        label="حوزه تخصصی"
-                        smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
-                        options={!isGetCategories ? [{ id: -1, value: "", label: "موضوع تخصص را انتخاب کنید" }, ...transformCategories] : [{ id: -1, value: "", label: "موضوع تخصص را انتخاب کنید" }]}
-                        value={selected.title}
-                        onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
-                    /> */}
+            <div className="flex flex-col lg:flex-row gap-4">
+                <div className="flex-1">
                     <ExpertiseSelectMulit
                         name={"title"}
                         label={"حوزه تخصصی"}
@@ -42,15 +35,18 @@ export default function Expertise({ formik }) {
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e }))}
                         smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
                     />
+                </div>
+                <div className="flex-1 flex items-end gap-4">
                     <Input
                         label="عنوان تخصص"
                         value={selected.subject}
                         onChange={(e) => setSelected((perv) => ({ ...perv, subject: e.target.value }))}
                     />
+
+                    <button onClick={addExpertise} type="button" className="btn btn--outline !p-2 !rounded-full mb-3">
+                        <IoMdAdd className="w-6 h-6" />
+                    </button>
                 </div>
-                <button onClick={addExpertise} type="button" className="btn btn--outline !p-2 !rounded-full mb-1">
-                    <IoMdAdd className="w-6 h-6" />
-                </button>
             </div>
             {formik.values.expertise.length !== 0 && formik.values.expertise &&
                 <div className="w-full border border-slate-400 rounded-md mt-3">

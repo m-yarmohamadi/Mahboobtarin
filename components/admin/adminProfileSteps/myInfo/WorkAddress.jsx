@@ -33,9 +33,9 @@ export default function WorkAddress({ formik }) {
     }
 
     return (
-        <div className="lg:col-span-2">
-            <div className="flex items-end gap-4">
-                <div className="flex-1 flex flex-col items-end sm:flex-row gap-4">
+        <div>
+            <div className="flex flex-col lg:flex-row gap-4">
+                <div className="flex-1">
                     <Input
                         label="آدرس محل کار"
                         name="address"
@@ -43,18 +43,20 @@ export default function WorkAddress({ formik }) {
                         value={addressText}
                         onChange={(e) => setAddressText(e.target.value)}
                     />
-                    <div className="w-full flex-1 pb-3">
+                </div>
+                <div className="flex items-end gap-4">
+                    <div className="w-full pb-3">
                         <button type='button' onClick={() => setOpenMap(true)} className='btn btn--primary w-full !text-xs !h-[42px] !py-2 !whitespace-nowrap !gap-1'>
                             <FaLocationDot className='w-4 h-4' />
                             {coord ? "ویرایش" : "انتخاب لوکیشن"}
                         </button>
                         <Map setCoord={setCoord} title='انتخاب لوکیشن' open={openMap} onClose={() => setOpenMap(false)} />
                     </div>
-                </div>
 
-                <button onClick={addAddressHandler} type="button" className="btn btn--outline !p-2 !rounded-full mb-1">
-                    <IoMdAdd className="w-6 h-6" />
-                </button>
+                    <button onClick={addAddressHandler} type="button" className="btn btn--outline !p-2 !rounded-full mb-3">
+                        <IoMdAdd className="w-6 h-6" />
+                    </button>
+                </div>
             </div>
             {workAddress.length !== 0 &&
                 <div className="w-full border border-slate-400 rounded-md mt-3">

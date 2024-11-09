@@ -71,7 +71,7 @@ export default function MyLinkdin() {
 			<div className='w-full'>
 				<div className='flex flex-col justify-center items-center gap-3 py-4'>
 					<h1 className='text-lg text-slate-800 font-bold'>لینکدونی</h1>
-					<p className='text-sm text-slate-600'>لطفا اخباری را که می توانید در بخش لینکدونی پروفایل خود ارائه دهید ثبت کنید.</p>
+					{/* <p className='text-sm text-slate-600'>لطفا اخباری را که می توانید در بخش لینکدونی پروفایل خود ارائه دهید ثبت کنید.</p> */}
 				</div>
 
 				<form

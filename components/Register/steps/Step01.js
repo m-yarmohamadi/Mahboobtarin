@@ -82,6 +82,13 @@ const Step01 = ({ formik, children }) => {
 					/>
 
 					<Input
+						name={'user_title'}
+						label={'عنوان نمایشی'}
+						formik={formik}
+						type={'text'}
+					/>
+
+					<Input
 						name={'email'}
 						label={'ایمیل'}
 						formik={formik}

@@ -87,6 +87,14 @@ export function addNewFavorite(data) {
   });
 }
 
+export function deleteFavorite(data) {
+  return http.post("/api/v1/dashboard/popular/destroy", data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
 // * -------------- expert follow --------------
 export function followOrUnfollowApi(follower_id) {
   return http.post(

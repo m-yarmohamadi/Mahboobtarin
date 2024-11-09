@@ -81,12 +81,12 @@ export default function AddRequestServiceForm() {
                     name={'service'}
                     formik={formik}
                 />
-                <Select
+                {/* <Select
                     label='سبک'
                     options={[{ label: 'یک گزینه را انتخاب کنید', value: '' }, ...types]}
                     name={'theme'}
                     formik={formik}
-                />
+                /> */}
                 <Select
                     label='هدف'
                     options={[{ label: 'یک گزینه را انتخاب کنید', value: '' }, ...targets]}

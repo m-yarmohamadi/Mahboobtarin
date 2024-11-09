@@ -21,7 +21,7 @@ const ProfileSearchBox = ({ user }) => {
               {!isGetCateParent && categoryParents && <UrlItem data={categoryParents} />}
             </div>
             <div className="flex justify-center items-center ">
-              <Platform color={`text-primary-03`} colorHover={`text-white`} />
+              <Platform data={user?.socialmedia} color={`text-primary-03`} colorHover={`text-white`} />
             </div>
           </div>
           <div className="xs:w-2/3 lg:w-1/3 mx-auto">

@@ -30,9 +30,9 @@ const yearsArray = Array.from({ length: currentYearMiladi - startYearMiladi + 1 
 });
 
 export default function DateOfBirth({ formik, birthday }) {
-    const [birthDay, setBirthDay] = useState(birthday.split("-")[2]);
-    const [birthMonth, setBirthMonth] = useState(birthday.split("-")[1]);
-    const [birthYear, setBirthYear] = useState(birthday.split("-")[0]);
+    const [birthDay, setBirthDay] = useState(birthday?.split("-")[2]);
+    const [birthMonth, setBirthMonth] = useState(birthday?.split("-")[1]);
+    const [birthYear, setBirthYear] = useState(birthday?.split("-")[0]);
 
     return (
         <div className={`w-full py-1 flex flex-col justify-start justify-items-start items-start`}>

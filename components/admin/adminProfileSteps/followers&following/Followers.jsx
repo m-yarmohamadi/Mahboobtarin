@@ -41,8 +41,8 @@ function Follower({ user }) {
             <div className="mb-3">
                 <div className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center border border-slate-400">
                     <img
-                        className={user?.follower?.avatar[0]?.path && "object-cover w-full h-full"}
-                        src={user?.follower?.avatar[0]?.path || "/images/defaultUser.png"}
+                        className={"object-cover w-full h-full object-center"}
+                        src={user?.follower?.avatar[0]?.path || "/images/user.png"}
                         alt=''
                     />
                 </div>

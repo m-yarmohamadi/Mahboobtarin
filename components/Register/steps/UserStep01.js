@@ -99,7 +99,7 @@ const validationSchema = Yup.object({
 	confirmPassword: Yup.string()
 		.required('وارد کردن تکرار کلمه عبور اجباری است')
 		.oneOf([Yup.ref('password'), null], 'کلمه عبور و تکرار آن باید یکسان باشند '),
-	unique_url_id: Yup.string().required('وارد کردن نام کاربری اجباری است').matches(/^[a-zA-Z][a-zA-Z0-9_]*$/, 'نام کاربری فقط می‌تواند شامل حروف انگلیسی، اعداد و _ باشد'),
+	unique_url_id: Yup.string().required('وارد کردن نام کاربری اجباری است').min(6, "حداقل 6 کارکتر وارد کنید").matches(/^[a-zA-Z][a-zA-Z0-9_]*$/, 'نام کاربری فقط می‌تواند شامل حروف انگلیسی، اعداد و _ باشد'),
 });
 
 

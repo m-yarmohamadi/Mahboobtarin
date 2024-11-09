@@ -155,7 +155,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
   const DiscountCalculation = (i, d) => {
     return i - (i * d) / 100;
   };
-
+  
   const expertFollowHandler = () => {
     followHandler(userData.id, `${userData?.name} ${userData?.lastname}`);
     router.replace(pathname, { scroll: false });
@@ -166,7 +166,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     router.replace(pathname, { scroll: false });
   };
   
-
+  const permissions = userData?.permissions ? JSON.parse(userData?.permissions) : {};
+  
   return (
     <div className="w-full">
       <div id="personalinfo" className="w-full">
@@ -221,10 +222,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         <div className="mt-6 flex items-center justify-between">
           <div className="flex flex-col">
             <div className=" font-bold text-xl md:text-2xl text-textDefault pb-1">
-              {" "}
-              {userData?.name}
-              {` `}
-              {userData?.lastname}
+              {userData?.user_title || `${userData?.name} ${userData?.lastname}`}
             </div>
             <span className=" text-xs text-slate-700">
               {userData?.unique_url_id}@
@@ -297,13 +295,13 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         <TitleItems title={"نشانی"} />
         <div className="w-full grid grid-cols-1 gap-2">
           <div className="w-full flex flex-col gap-4">
-            {userData?.phone && (
+            {userData?.phone && permissions?.phone &&(
               <div className="w-full text-slate-800 text-sm flex justify-start items-center gap-2">
                 <span className="font-bold">تلفن:</span>
                 <span>{userData?.phone} </span>
               </div>
             )}
-            {userData?.addresses.length ? (
+            {userData?.addresses.length && permissions?.workAddress ? (
               <div className="w-full text-sm text-slate-800 flex flex-col gap-1">
                 <span className="w-full font-bold">آدرس : </span>
                 <span className="break-words">
@@ -313,6 +311,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
             ) : null}
           </div>
           {userData?.addresses.length &&
+          permissions?.workAddress &&
           userData?.addresses[0].lat &&
           userData?.addresses[0].lng ? (
             <>

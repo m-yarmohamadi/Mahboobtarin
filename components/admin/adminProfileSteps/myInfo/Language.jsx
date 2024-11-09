@@ -6,12 +6,12 @@ import { IoMdAdd } from "react-icons/io";
 
 const proficiency = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-    { id: 1, label: 'خیلی ضعیف', value: 'VeryWeak' },
-    { id: 2, label: 'ضعیف', value: 'weak' },
-    { id: 3, label: 'متوسط', value: 'medium' },
-    { id: 4, label: 'خوب', value: 'good' },
-    { id: 5, label: 'خیلی خوب', value: 'veryGood' },
-    { id: 6, label: 'عالی', value: 'Excellent' },
+    { id: 1, label: 'خیلی ضعیف', value: 'خیلی ضعیف' },
+    { id: 2, label: 'ضعیف', value: 'ضعیف' },
+    { id: 3, label: 'متوسط', value: 'متوسط' },
+    { id: 4, label: 'خوب', value: 'خوب' },
+    { id: 5, label: 'خیلی خوب', value: 'خیلی خوب' },
+    { id: 6, label: 'عالی', value: 'عالی' },
 ];
 
 export default function Language({ formik }) {
@@ -21,7 +21,7 @@ export default function Language({ formik }) {
     const addLanguage = () => {
         if (selected.title !== 0 && selected.subject !== 0) {
             formik.setFieldValue("language", [...language, { title: selected.title, subject: selected.subject }]);
-            setSelected({ title: 0, subject: 0 });
+            setSelected({ title: "انگلیسی", subject: 0 });
         }
     }
 
@@ -31,8 +31,8 @@ export default function Language({ formik }) {
 
     return (
         <div className="lg:col-span-2">
-            <div className="flex items-end gap-4">
-                <div className="flex-1 flex flex-col lg:flex-row gap-4">
+            <div className="flex flex-col lg:flex-row gap-4">
+                <div className="flex-1">
                     <Select
                         label="زبان و گویش"
                         options={LanguagesData}
@@ -40,16 +40,19 @@ export default function Language({ formik }) {
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
                     />
+                </div>
+                <div className="flex-1 flex items-end gap-4">
                     <Select
                         label="میزان تسلط"
                         options={proficiency}
                         value={selected.subject}
                         onChange={(e) => setSelected((perv) => ({ ...perv, subject: e.target.value }))}
                     />
+
+                    <button onClick={addLanguage} type="button" className="btn btn--outline !p-2 !rounded-full mb-1">
+                        <IoMdAdd className="w-6 h-6" />
+                    </button>
                 </div>
-                <button onClick={addLanguage} type="button" className="btn btn--outline !p-2 !rounded-full mb-1">
-                    <IoMdAdd className="w-6 h-6" />
-                </button>
             </div>
             {language.length !== 0 &&
                 <div className="w-full border border-slate-400 rounded-md mt-3">

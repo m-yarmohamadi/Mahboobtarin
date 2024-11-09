@@ -61,10 +61,7 @@ const GradeModal = ({ openGradeModal, setOpenGradeModal, formikGrade }) => {
             transition
             className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
           >
-            <form
-              onSubmit={formik.handleSubmit}
-              className="w-full bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
-            >
+            <div className="w-full bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <Select
                 name={"title"}
                 label={"مقطع تحصیلی"}
@@ -79,7 +76,8 @@ const GradeModal = ({ openGradeModal, setOpenGradeModal, formikGrade }) => {
               />
               <div className="bg-slate-50 dark:bg-slate-100 ps-4 py-3 sm:flex sm:flex-row-reverse ">
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={formik.handleSubmit}
                   className="mt-3 inline-flex w-full justify-center rounded-md bg-primary-01 px-3 py-2 text-sm font-semibold text-[#fff] shadow-sm dark:shadow-darkSm ring-1 ring-inset ring-gray-300 hover:bg-opacity-85 sm:mt-0 sm:w-auto"
                 >
                   ثبت
@@ -92,7 +90,7 @@ const GradeModal = ({ openGradeModal, setOpenGradeModal, formikGrade }) => {
                   انصراف
                 </button>
               </div>
-            </form>
+            </div>
           </DialogPanel>
         </div>
       </div>

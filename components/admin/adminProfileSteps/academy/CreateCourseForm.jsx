@@ -26,7 +26,8 @@ const initialValues = {
     video_id: [],
     categories: [],
     files: [],
-    videos: []
+    videos: [],
+    place_online: "",
 };
 const validationSchema = Yup.object({
     title: Yup.string().required("عنوان را وارد کنید"),
@@ -45,7 +46,8 @@ const validationSchema = Yup.object({
     meta_keywords: Yup.string().required("تگ های متا را وارد کنید"),
     categories: Yup.array().min(1, "دسته بندی را انتخاب کنید"),
     files: Yup.array().required("تصویر را انتخاب کنید").min(1, "تصویر را انتخاب کنید"),
-    video_id: Yup.array().required("فیلم اموزشی را اپلود کنید").min(1, "فیلم اموزشی را اپلود کنید")
+    video_id: Yup.array().required("فیلم اموزشی را اپلود کنید").min(1, "فیلم اموزشی را اپلود کنید"),
+    place_online: Yup.string().required("نوع برگزاری دوره را انتخاب کنید"),
 })
 
 export default function CreateCourseForm() {
@@ -76,6 +78,7 @@ export default function CreateCourseForm() {
             photo_id: transformPhotoId,
             video_id: transformVideoId,
             categories: transformCategories,
+            place_online: values.place_online
         }
 
         const formData = new FormData();

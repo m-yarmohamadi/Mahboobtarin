@@ -44,7 +44,7 @@ export default function VoiceGallery({ user }) {
             <Modal
                 open={open}
                 onClose={() => setOpen(false)}
-                title='تصویر جدید'
+                title='فایل صوتی جدید'
             >
                 <CreateVoiceForm
                     onClose={() => setOpen(false)}
@@ -61,9 +61,16 @@ function CreateVoiceForm({ onClose }) {
 
     const onSubmit = async (values, { resetForm }) => {
         const formData = new FormData();
+
         formData.append("title", values.title);
-        formData.append("file", values.src);
-        formData.append("type", values.src.type.split("/")[0]);
+
+        if (values.src) {
+            formData.append("file", values.src);
+        } else {
+            formData.append("script", values.script);
+        }
+
+        formData.append("type", "audio");
 
         try {
             const { data } = await mutateAddGallery(formData);
@@ -105,7 +112,20 @@ function CreateVoiceForm({ onClose }) {
         onSubmit,
         validationSchema: Yup.object({
             title: Yup.string().required('عنوان را وارد کنید'),
-            src: Yup.string().required('فایل صوتی را انتخاب کنید'),
+            src: Yup.string().test(
+                'src-or-script',
+                'فایل صوتی را انتخاب کنید',
+                function (value) {
+                    return value || this.parent.script;
+                }
+            ),
+            script: Yup.string().test(
+                'src-or-script',
+                'لینک فایل صوتی را انتخاب کنید',
+                function (value) {
+                    return value || this.parent.src;
+                }
+            ),
         }),
     });
 
@@ -114,10 +134,16 @@ function CreateVoiceForm({ onClose }) {
             className='w-full space-y-4'
             onSubmit={formik.handleSubmit}
         >
-            <TabGroup tabs={[
-                { label: "انتخاب فایل صوتی" },
-                { label: "وارد کردن لینک" },
-            ]} >
+            <TabGroup
+                tabs={[
+                    { label: "انتخاب فایل صوتی" },
+                    { label: "وارد کردن لینک" },
+                ]}
+                handler={() => {
+                    formik.setFieldValue("src", "");
+                    formik.setFieldValue("script", "");
+                }}
+            >
                 <TabGroup.Item>
                     <UploadVoice formik={formik} importFileHandler={importFileHandler} />
                 </TabGroup.Item>
@@ -191,7 +217,8 @@ function AddLinkVoice({ formik }) {
         <Input
             label='لینک فایل'
             type='text'
-
+            name={'script'}
+            formik={formik}
         />
     )
 }

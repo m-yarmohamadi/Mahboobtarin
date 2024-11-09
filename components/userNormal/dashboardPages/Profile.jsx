@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { ThreeDots } from "react-loader-spinner";
+import PictureEditor from "@/components/PictureEditor";
 
 
 const gender = [
@@ -26,6 +27,7 @@ export default function Profile() {
     const { user, isLoading } = useProfile();
     const [passwordModal, setPasswordModal] = useState(false);
     const getNationality = Countries.filter((c) => c.value === user?.nationality)[0]?.label;
+    const [profileImg, setProfileImg] = useState(null);
 
     const initialValues = {
         name: user?.name || "",
@@ -37,6 +39,7 @@ export default function Profile() {
         birthday: user?.birthday || "",
         email: user?.email || "",
         unique_url_id: user?.unique_url_id || "",
+        picture: "",
     };
 
     const { mutate: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
@@ -51,6 +54,7 @@ export default function Profile() {
             nationality: values.nationality,
             birthday: values.birthday,
             unique_url_id: values.unique_url_id,
+            avatar: values.picture,
         }
 
         const data = new FormData();
@@ -70,7 +74,7 @@ export default function Profile() {
                 }
             },
             onError: (error) => {
-                toast.error("خطا در ویرایش پروفایل!")
+                toast.error("خطا در ویرایش پروفایل!");
             }
         })
     };
@@ -159,6 +163,51 @@ export default function Profile() {
             </div>
 
             <form className='space-y-4' onSubmit={formik.handleSubmit}>
+                <div className='mt-6 flex flex-col gap-2 lg:gap-10 lg:flex-row'>
+                    <div className='flex flex-col items-center gap-4'>
+                        <div className='w-20 h-20 relative flex items-center justify-center rounded-full overflow-hidden bg-primary-03'>
+                            <input
+                                type="file"
+                                id="userProfilePic"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    const maxFileSize = 2 * 1024 * 1024; // 2MB
+
+                                    if (file && file.size > maxFileSize) {
+                                        toast.error("حجم تصویر باید حداکثر 2 مگابایت باشد")
+                                        e.target.value = null;
+                                    } else {
+                                        setProfileImg(file);
+                                    }
+                                }}
+                                hidden
+                            />
+                            <img
+                                src={
+                                    formik.values.picture ?
+                                        URL.createObjectURL(formik.values.picture)
+                                        :
+                                        user?.avatar.length ?
+                                            user?.avatar[0].path
+                                            :
+                                            "/images/defaultUser.png"
+                                }
+                                alt=''
+                                className={formik.values.picture || user?.avatar.length && "object-cover w-full h-full"}
+                            />
+                        </div>
+                        <label htmlFor='userProfilePic' className='btn btn--secondary !px-8 cursor-pointer'>
+                            ویرایش عکس
+                        </label>
+                        <PictureEditor
+                            open={profileImg ? true : false}
+                            onClose={() => setProfileImg(null)}
+                            image={profileImg}
+                            onCrop={(e) => formik.setFieldValue("picture", e)}
+                        />
+                    </div>
+                </div>
                 <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-4'>
                     {fields.map((field) => (
                         <Input

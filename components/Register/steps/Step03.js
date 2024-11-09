@@ -38,7 +38,7 @@ const Step03 = ({ formik, children, error }) => {
                   <button
                     onClick={() => setOpenExpertiseModal(!openExpertiseModal)}
                     className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
-                    type=""
+                    type="button"
                   >
                     افزودن
                   </button>
@@ -101,7 +101,7 @@ const Step03 = ({ formik, children, error }) => {
                   <button
                     onClick={() => setOpenGradeModal(!openGradeModal)}
                     className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
-                    type=""
+                    type="button"
                   >
                     افزودن
                   </button>
@@ -157,7 +157,7 @@ const Step03 = ({ formik, children, error }) => {
                   <button
                     onClick={() => setOpenLanguageModal(!openLanguageModal)}
                     className="bg-primary-01 p-2 rounded-md text-[#fff] text-xs font-bold"
-                    type=""
+                    type="button"
                   >
                     افزودن
                   </button>

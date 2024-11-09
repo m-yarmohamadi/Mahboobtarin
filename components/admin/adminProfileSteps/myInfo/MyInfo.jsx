@@ -22,6 +22,7 @@ import { ThreeDots } from 'react-loader-spinner';
 import DateOfBirth from './DateOfBirth';
 import { Countries } from "@/data/countries";
 import PictureEditor from '@/components/PictureEditor';
+import CheckBoxInput from '@/components/CheckBoxInput';
 
 const gender = [
     { id: 1, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -65,10 +66,14 @@ export default function MyInfo() {
         workAddress: address || [],
         language: language || [],
         grade: grade || [],
+        socialmedia: user?.socialmedia ? JSON.parse(user?.socialmedia) : [],
         honors_description: user?.honors_description || "",
         description: user?.description || "",
         amount_experience_year: user?.amount_experience_year || "",
         unique_url_id: user?.unique_url_id || "",
+        user_title: user?.user_title || "",
+        identificationcode: user?.identificationcode,
+        permissions: user?.permissions ? JSON.parse(user?.permissions) : { phone: false, workAddress: false }
     };
     const { mutate: mutateUpdateProfile, isPending: isUpdating } = useMutation({ mutationFn: updateProfile });
     const queryClient = useQueryClient();
@@ -79,6 +84,7 @@ export default function MyInfo() {
             lastname: values.lastname,
             email: values.email,
             unique_url_id: values.unique_url_id,
+            user_title: values.user_title,
             gender: values.gender,
             phone: values.phone,
             nationality: values.nationality,
@@ -93,7 +99,10 @@ export default function MyInfo() {
             honors_description: values.honors_description,
             description: values.description,
             avatar: values.picture,
-            amount_experience_year: values.amount_experience_year
+            amount_experience_year: values.amount_experience_year,
+            socialmedia: values.socialmedia,
+            specialized_system_code: values.specialized_system_code,
+            identificationcode: values.identificationcode
         }
 
         const data = new FormData();
@@ -105,6 +114,9 @@ export default function MyInfo() {
                 data.append(key, profileData[key]);
             }
         }
+
+        data.append("permissions", JSON.stringify(values.permissions));
+
         mutateUpdateProfile(data, {
             onSuccess: ({ data }) => {
                 if (data.status === 200) {
@@ -113,7 +125,7 @@ export default function MyInfo() {
                 }
             },
             onError: (error) => {
-                if(error?.response?.status === 401){
+                if (error?.response?.status === 401) {
                     toast.error("وارد حساب کاربری خود شوید")
                     window.location.reload();
                     return;
@@ -149,8 +161,6 @@ export default function MyInfo() {
             .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
         emergency_phone: Yup.string()
             .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
-        amount_experience_year: Yup.number()
-            .required("میزان تجربه خود را وارد کنید")
     });
 
     const { forgetPasswordMutate, isForgetPassLoadingt } = useForgetPassword();
@@ -171,6 +181,7 @@ export default function MyInfo() {
         enableReinitialize: true,
     });
 
+
     const fields = [
         {
             name: "name",
@@ -185,7 +196,10 @@ export default function MyInfo() {
         {
             name: "unique_url_id",
             label: "نام کاربری",
-            disabled: true
+        },
+        {
+            name: "user_title",
+            label: "عنوان نمایشی",
         },
         {
             name: (getNationality === "ایران" ? "national_code" : "passport_number"),
@@ -196,14 +210,6 @@ export default function MyInfo() {
             name: "mobile",
             label: "شماره موبایل",
             disabled: true
-        },
-        {
-            name: "phone",
-            label: "تلفن ثابت"
-        },
-        {
-            name: "emergency_phone",
-            label: "تلفن اضطراری"
         },
     ];
 
@@ -225,9 +231,6 @@ export default function MyInfo() {
             <form className='space-y-4' onSubmit={formik.handleSubmit}>
                 <div className='mt-6 flex flex-col gap-2 lg:gap-10 lg:flex-row'>
                     <div className='flex flex-col items-center gap-4'>
-                        <h5 className='text-slate-600 font-bold self-start'>
-                            عکس پروفایل
-                        </h5>
                         <div className='w-20 h-20 relative flex items-center justify-center rounded-full overflow-hidden bg-primary-03'>
                             <input
                                 type="file"
@@ -261,7 +264,7 @@ export default function MyInfo() {
                             />
                         </div>
                         <label htmlFor='userProfilePic' className='btn btn--secondary !px-8 cursor-pointer'>
-                            تغییر تصویر
+                            ویرایش عکس
                         </label>
                         <PictureEditor
                             open={profileImg ? true : false}
@@ -291,6 +294,26 @@ export default function MyInfo() {
                             disabled={field?.disabled}
                         />
                     ))}
+
+                    <div className='w-full flex flex-col gap-2'>
+                        <Input
+                            label={"تلفن ثابت"}
+                            name={"phone"}
+                            formik={formik}
+                        />
+                        <CheckBoxInput
+                            label={"نمایش تلفن ثابت برای همه"}
+                            name={'show_phone'}
+                            checked={formik.values.permissions.phone}
+                            onChecked={(e) => formik.setFieldValue("permissions", { ...formik.values.permissions, phone: e.target.checked })}
+                        />
+                    </div>
+
+                    <Input
+                        label={"تلفن اضطراری"}
+                        name={"emergency_phone"}
+                        formik={formik}
+                    />
 
                     <Select
                         label="جنسیت"
@@ -332,7 +355,15 @@ export default function MyInfo() {
 
                     <Address formik={formik} isLoading={isLoading} />
 
-                    <WorkAddress formik={formik} />
+                    <div className='lg:col-span-2 flex flex-col gap-2'>
+                        <WorkAddress formik={formik} />
+                        <CheckBoxInput
+                            label={"نمایش آدرس و لوکیشن برای همه"}
+                            name={'show_workAddress'}
+                            checked={formik.values.permissions.workAddress}
+                            onChecked={(e) => formik.setFieldValue("permissions", { ...formik.values.permissions, workAddress: e.target.checked })}
+                        />
+                    </div>
 
                     <Language formik={formik} />
 
@@ -342,7 +373,7 @@ export default function MyInfo() {
 
                     {/* <ProfessionalLicense /> */}
 
-                    <SocialMedia />
+                    <SocialMedia formik={formik} />
 
                     <div className='lg:col-span-2 flex flex-col lg:flex-row gap-4'>
                         <div className='lg:w-[47%]'>
@@ -358,12 +389,16 @@ export default function MyInfo() {
                         <div className='lg:w-[53%]'>
                             <Input
                                 label="کد معرف"
+                                name={'identificationcode'}
+                                formik={formik}
                             />
                         </div>
                     </div>
                     <div className='lg:col-span-2'>
                         <Input
                             label="کد نظام تخصصی"
+                            name={'specialized_system_code'}
+                            formik={formik}
                         />
                     </div>
                 </div>

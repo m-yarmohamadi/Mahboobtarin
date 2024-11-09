@@ -86,7 +86,7 @@ const validationSchemaStep2 = Yup.object({
     .required("وارد کردن آدرس محل سکونت اجباری است")
     .min(3, "حداقل 3 حرف وارد کنید")
     .max(200, "حداکثر 200 حرف وارد کنید"),
-  address_work: Yup.array().min(1, "وارد کردن آدرس محل کار اجباری است"),
+  // address_work: Yup.array().min(1, "وارد کردن آدرس محل کار اجباری است"),
 });
 
 const validationSchemaStep3 = Yup.object({
@@ -146,7 +146,8 @@ const RegisterExpert = ({
   const [errorStep3, setErrorStep3] = useState([]);
   const [errorStep4, setErrorStep4] = useState([]);
   const [errorStep5, setErrorStep5] = useState([]);
-
+  console.log(userData);
+  
   //  ** step 1 form handlers and formik **
   const initialValuesStep1 = {
     name: userData?.name || "",
@@ -158,6 +159,7 @@ const RegisterExpert = ({
     birthday: userData?.birthday || "",
     email: userData?.email || "",
     unique_url_id: userData?.unique_url_id || "",
+    user_title: userData?.user_title || "",
   };
 
   const submitHandlerStep1 = (values) => {

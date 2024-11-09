@@ -2,11 +2,15 @@ import useLogout from "@/hooks/useLogout";
 import useProfile from "@/hooks/useProfile";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BiSupport } from "react-icons/bi";
 import { FaPortrait } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa6";
 import { GiWallet } from "react-icons/gi";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
-import { MdOutlineListAlt } from "react-icons/md";
+import { LiaUserFriendsSolid } from "react-icons/lia";
+import { LuUsers2 } from "react-icons/lu";
+import { MdOutlineListAlt, MdOutlineNotificationsNone, MdOutlineSettings } from "react-icons/md";
+import { RiVipCrownLine } from "react-icons/ri";
 import { TbLogout } from "react-icons/tb";
 
 
@@ -27,10 +31,52 @@ const dataMenu = [
     },
     {
         id: 4,
-        title: 'سفارش های من',
+        title: 'درخواست ها',
         value: 'orders',
         quanity: '',
         icon: MdOutlineListAlt,
+    },
+    {
+        id: 11,
+        title: 'دنبال شونده',
+        value: 'following',
+        quanity: '',
+        icon: LuUsers2,
+    },
+    {
+        id: 12,
+        title: 'اعلان ها',
+        value: 'notification',
+        quanity: '3',
+        icon: MdOutlineNotificationsNone,
+    },
+    {
+        id: 14,
+        title: 'دعوت از دوستان',
+        value: 'invate',
+        quanity: '',
+        icon: LiaUserFriendsSolid,
+    },
+    {
+        id: 15,
+        title: 'خرید اشتراک',
+        value: 'buy_vip',
+        quanity: '',
+        icon: RiVipCrownLine,
+    },
+    {
+        id: 16,
+        title: 'پشتیبانی',
+        value: 'support',
+        quanity: '',
+        icon: BiSupport,
+    },
+    {
+        id: 17,
+        title: 'تنظیمات',
+        value: 'settings',
+        quanity: '',
+        icon: MdOutlineSettings,
     },
 ];
 
@@ -88,11 +134,12 @@ export default function Sidebar({ open, onClose }) {
                             </span>
                         </div>
                         <div className='w-full col-span-3'>
-                            <button
+                            <Link
                                 className='btn btn--primary !p-2 !w-full'
-                                type=''>
+                                href={'/user/wallet'}
+                            >
                                 مشاهده
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

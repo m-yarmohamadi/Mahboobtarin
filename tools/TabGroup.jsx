@@ -1,7 +1,13 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
-export default function TabGroup({ tabs = [], children }) {
+export default function TabGroup({ tabs = [], children, handler }) {
     const [activeTab, setActiveTab] = useState(0);
+
+    useEffect(() => {
+        if(handler){
+            handler();
+        }
+    }, [activeTab])
 
     return (
         <div className="w-full flex flex-col gap-6">

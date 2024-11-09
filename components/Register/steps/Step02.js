@@ -83,7 +83,7 @@ const Step02 = ({formik, children, error}) => {
 							formik={formik}
 							type={'text'}
 						/>
-						<WorkAddress formik={formik} name={'address_work'}/>
+						{/* <WorkAddress formik={formik} name={'address_work'}/> */}
 					</div>
 				{children}
 			</form>

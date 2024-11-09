@@ -6,12 +6,12 @@ import { IoMdAdd } from "react-icons/io";
 
 const gradeOptions = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-    { id: 1, label: 'زیر دیپلم', value: 'underDiploma' },
-    { id: 2, label: 'دیپلم', value: 'diploma' },
-    { id: 3, label: 'کاردانی', value: 'AssociateDegree' },
-    { id: 4, label: 'کارشناسی', value: 'BS' },
-    { id: 5, label: 'کارشناسی ارشد', value: 'MSc' },
-    { id: 6, label: 'دکتری', value: 'P.H.D' },
+    { id: 1, label: 'زیر دیپلم', value: 'زیر دیپلم' },
+    { id: 2, label: 'دیپلم', value: 'دیپلم' },
+    { id: 3, label: 'کاردانی', value: 'کاردانی' },
+    { id: 4, label: 'کارشناسی', value: 'کارشناسی' },
+    { id: 5, label: 'کارشناسی ارشد', value: 'کارشناسی ارشد' },
+    { id: 6, label: 'دکتری', value: 'دکتری' },
 ];
 
 export default function Grade({ formik }) {
@@ -19,7 +19,7 @@ export default function Grade({ formik }) {
     const { grade } = formik.values;
 
     const addGrade = () => {
-        if (selected.title !== 0 && selected.subject !== 0) {
+        if (selected.title !== 0 && selected.subject !== "") {
             formik.setFieldValue("grade", [...grade, { title: selected.title, subject: selected.subject }]);
             setSelected({ title: 0, subject: "" });
         }
@@ -31,8 +31,8 @@ export default function Grade({ formik }) {
 
     return (
         <div className="lg:col-span-2">
-            <div className="flex items-end gap-4">
-                <div className="flex-1 flex flex-col lg:flex-row gap-4">
+            <div className="flex flex-col lg:flex-row gap-4">
+                <div className="flex-1">
                     <Select
                         label="مقطع تحصیلی"
                         smallDesc="بعد از وارد کردن اطلاعات بر روی گزینه بعلاوه کلیک کنید"
@@ -40,15 +40,18 @@ export default function Grade({ formik }) {
                         value={selected.title}
                         onChange={(e) => setSelected((perv) => ({ ...perv, title: e.target.value }))}
                     />
+                </div>
+                <div className="flex-1 flex items-end gap-4">
                     <Input
                         label="نام محل تحصیل"
                         value={selected.subject}
                         onChange={(e) => setSelected((perv) => ({ ...perv, subject: e.target.value }))}
                     />
+
+                    <button onClick={addGrade} type="button" className="btn btn--outline !p-2 !rounded-full mb-3">
+                        <IoMdAdd className="w-6 h-6" />
+                    </button>
                 </div>
-                <button onClick={addGrade} type="button" className="btn btn--outline !p-2 !rounded-full mb-1">
-                    <IoMdAdd className="w-6 h-6" />
-                </button>
             </div>
             {grade.length !== 0 &&
                 <div className="w-full border border-slate-400 rounded-md mt-3">

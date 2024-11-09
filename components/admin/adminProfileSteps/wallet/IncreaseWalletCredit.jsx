@@ -14,9 +14,17 @@ export default function IncreaseWalletCredit() {
                     0 تومان
                 </div>
             </div>
-            <button className="btn btn--primary">
-                شارژ حساب
-            </button>
+            <div className="flex items-center gap-3">
+                <button className="btn btn--primary">
+                    شارژ حساب
+                </button>
+                <button className="btn btn--primary">
+                    افزودن حساب بانکی
+                </button>
+                <button className="btn btn--primary">
+                    برداشت
+                </button>
+            </div>
         </div>
     )
 }

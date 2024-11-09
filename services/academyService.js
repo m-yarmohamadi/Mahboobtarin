@@ -25,6 +25,18 @@ export function updloadAcademyVideos(data) {
   });
 }
 
+export function deleteAcademy(academyId) {
+  return http.post(
+    "/api/v1/dashboard/academy/destroy",
+    { id: academyId },
+    {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    }
+  );
+}
+
 export function getAcademyCategoryApi() {
   return http.get("/api/v1/dashboard/academy/categories", {
     headers: {
