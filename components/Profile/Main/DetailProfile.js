@@ -155,7 +155,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
   const DiscountCalculation = (i, d) => {
     return i - (i * d) / 100;
   };
-  
+    console.log(userData);
+    
   const expertFollowHandler = () => {
     followHandler(userData.id, `${userData?.name} ${userData?.lastname}`);
     router.replace(pathname, { scroll: false });

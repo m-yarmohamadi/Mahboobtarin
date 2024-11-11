@@ -1,5 +1,6 @@
 import useAllSettings from "@/hooks/useAllSettings";
 import Platform from "@/tools/Platform";
+import Link from "next/link";
 import React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import {
@@ -12,14 +13,18 @@ import {
 
 const Footer = () => {
   const data = useAllSettings();
-
+  
   return (
     <div className=" text-textDefault">
       <div className=" md:container px-8 md:px-0">
         <div className="grid lg:grid-cols-12 lg:gap-14 grid-cols-1">
           <div className=" w-full lg:col-span-7 ">
             <div className="py-8 flex justify-start items-center justify-items-start w-full">
-              <img className=" w-56 dark:brightness-200" src={data?.footerlogo} alt="" />
+              <img
+                className=" w-56 dark:brightness-200"
+                src={data?.footerlogo}
+                alt=""
+              />
             </div>
             <div>
               <div
@@ -77,7 +82,30 @@ const Footer = () => {
               </div>
             </div>
 
-            <Platform data={data} />
+            <div className=" flex justify-start items-center text-3xl gap-4 text-slate-500">
+              <Link
+                href={data?.instagram || "#"}
+                target="_blank"
+                className={`hover:cursor-pointer`}
+              >
+                <FaInstagram className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+              </Link>
+              <Link
+                href={data?.telegram || "#"}
+                target="_blank"
+                className={`hover:cursor-pointer`}
+              >
+                <FaTelegram className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+              </Link>
+              <Link
+                href={data?.twitter || "#"}
+                target="_blank"
+                className={`hover:cursor-pointer`}
+              >
+                <FaTwitter className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+              </Link>
+            </div>
+            
             <div className="grid grid-cols-2 xs:grid-cols-5 justify-items-center items-center w-full gap-x-2">
               <div className="w-16 p-3 ">
                 <img

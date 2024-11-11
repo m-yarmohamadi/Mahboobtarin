@@ -48,9 +48,13 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
 
                 if (status === 301) {
                     if (data?.user_data) {
-                        setStep(data?.user_data?.type === "motekhases" ? "expert" : "user");
+                        if (data?.user_data?.type) {
+                            setStep(data?.user_data?.type === "motekhases" ? "expert" : "user");
+                        } else {
+                            setStep("register");
+                        }
                         setNationalCodeInitial(data?.user_data?.national_code);
-                        setRegisterStep(Number(data?.user_data?.step) + 1);
+                        setRegisterStep(Number(data?.user_data?.step));
                         setUserData(data?.user_data);
                     } else {
                         setStep("register");
