@@ -12,6 +12,7 @@ import { useGetServiceItems } from "@/hooks/useDashboard";
 import sortedTimes from "@/utils/sortedTimes";
 import DateComponent from "./DateComponent";
 import numberWithCommas from "@/utils/numberWithCommas";
+import TextArea from "@/tools/TextArea";
 
 const serviceList = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -100,6 +101,9 @@ export default function ServiceFields({ formik, isPending }) {
                         </p>
                     )}
                 </div>
+                <TextArea
+                    label={"شرح"}
+                />
 
             </div>
             {
