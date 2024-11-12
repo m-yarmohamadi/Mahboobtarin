@@ -1,6 +1,7 @@
 import { getUserFavorites } from "@/services/authService";
 import {
   followOrUnfollowApi,
+  getAllCommentsDashboard,
   getAllServices,
   getCommentExpertise,
   getFollowers,
@@ -241,7 +242,7 @@ export function useGetRequests() {
 export function useGetTicket(ticketId) {
   const { data: ticketData, isLoading } = useQuery({
     queryKey: ["get-tickets", ticketId],
-    queryFn: ()=>getTicket(ticketId),
+    queryFn: () => getTicket(ticketId),
     retry: false,
     refetchOnWindowFocus: true,
   });
@@ -255,7 +256,7 @@ export function useGetTicket(ticketId) {
 export function useGetPlans() {
   const { data: plansData, isLoading } = useQuery({
     queryKey: ["get-tickets"],
-    queryFn: ()=>getPlans(),
+    queryFn: () => getPlans(),
     retry: false,
     refetchOnWindowFocus: true,
   });
@@ -263,4 +264,18 @@ export function useGetPlans() {
   const { data: plans } = plansData || {};
 
   return { plans, isLoading };
+}
+
+// * expert comments --------------
+export function useGetAllComments() {
+  const { data: commentsData, isLoading } = useQuery({
+    queryKey: ["get-comments-dashboard"],
+    queryFn: getAllCommentsDashboard,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: comments } = commentsData || {};
+
+  return { comments, isLoading };
 }

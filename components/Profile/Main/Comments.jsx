@@ -41,7 +41,7 @@ export default function Comments({ motekhases_id }) {
                             </span>
                             <div className="w-full flex justify-between mb-4 items-center gap-4 text-slate-500 text-sm">
                                 <span className="flex justify-start items-center gap-1 text-primary-01">
-                                    {Array(item.star).fill({}).map((item, index) => (
+                                    {Array(Number(item.star)).fill({}).map((item, index) => (
                                         <FaStar key={index} />
                                     ))}
                                 </span>
@@ -111,7 +111,7 @@ function CreateCommentForm({ motekhases_id }) {
                     <label htmlFor="Opinion"></label>
                     <textarea
                         rows="8"
-                        className=" w-full bg-slate-200 text-sm  outline-none focus:ring-0 border border-slate-300 rounded-md p-2"
+                        className=" w-full bg-slate-200 text-sm text-textDefault outline-none focus:ring-0 border border-slate-300 rounded-md p-2"
                         placeholder="لطفا نظر خود را درج فرمایید..."
                         required
                         name="text"

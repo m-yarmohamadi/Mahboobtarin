@@ -115,7 +115,11 @@ export default function MyInfo() {
             }
         }
 
-        data.append("permissions", JSON.stringify(values.permissions));
+        const valuesPermissions = {
+            phone: values.phone ? values.permissions.phone : false,
+            workAddress: values.workAddress.length ? values.permissions.workAddress : false,
+        }
+        data.append("permissions", JSON.stringify(valuesPermissions));
 
         mutateUpdateProfile(data, {
             onSuccess: ({ data }) => {
@@ -301,12 +305,14 @@ export default function MyInfo() {
                             name={"phone"}
                             formik={formik}
                         />
-                        <CheckBoxInput
-                            label={"نمایش تلفن ثابت برای همه"}
-                            name={'show_phone'}
-                            checked={formik.values.permissions.phone}
-                            onChecked={(e) => formik.setFieldValue("permissions", { ...formik.values.permissions, phone: e.target.checked })}
-                        />
+                        {formik.values.phone &&
+                            <CheckBoxInput
+                                label={"نمایش تلفن ثابت برای همه"}
+                                name={'show_phone'}
+                                checked={formik.values.permissions.phone}
+                                onChecked={(e) => formik.setFieldValue("permissions", { ...formik.values.permissions, phone: e.target.checked })}
+                            />
+                        }
                     </div>
 
                     <Input
@@ -357,12 +363,14 @@ export default function MyInfo() {
 
                     <div className='lg:col-span-2 flex flex-col gap-2'>
                         <WorkAddress formik={formik} />
-                        <CheckBoxInput
-                            label={"نمایش آدرس و لوکیشن برای همه"}
-                            name={'show_workAddress'}
-                            checked={formik.values.permissions.workAddress}
-                            onChecked={(e) => formik.setFieldValue("permissions", { ...formik.values.permissions, workAddress: e.target.checked })}
-                        />
+                        {formik.values.workAddress.length ?
+                            <CheckBoxInput
+                                label={"نمایش آدرس و لوکیشن برای همه"}
+                                name={'show_workAddress'}
+                                checked={formik.values.permissions.workAddress}
+                                onChecked={(e) => formik.setFieldValue("permissions", { ...formik.values.permissions, workAddress: e.target.checked })}
+                            /> : null
+                        }
                     </div>
 
                     <Language formik={formik} />

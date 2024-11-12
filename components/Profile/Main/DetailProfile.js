@@ -155,8 +155,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
   const DiscountCalculation = (i, d) => {
     return i - (i * d) / 100;
   };
-    console.log(userData);
-    
+  console.log(userData);
+
   const expertFollowHandler = () => {
     followHandler(userData.id, `${userData?.name} ${userData?.lastname}`);
     router.replace(pathname, { scroll: false });
@@ -166,9 +166,11 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     likeDislikeHandler(userData.id);
     router.replace(pathname, { scroll: false });
   };
-  
-  const permissions = userData?.permissions ? JSON.parse(userData?.permissions) : {};
-  
+
+  const permissions = userData?.permissions
+    ? JSON.parse(userData?.permissions)
+    : {};
+
   return (
     <div className="w-full">
       <div id="personalinfo" className="w-full">
@@ -223,7 +225,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
         <div className="mt-6 flex items-center justify-between">
           <div className="flex flex-col">
             <div className=" font-bold text-xl md:text-2xl text-textDefault pb-1">
-              {userData?.user_title || `${userData?.name} ${userData?.lastname}`}
+              {userData?.user_title ||
+                `${userData?.name} ${userData?.lastname}`}
             </div>
             <span className=" text-xs text-slate-700">
               {userData?.unique_url_id}@
@@ -292,64 +295,66 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       </div>
 
       {/* نشانی */}
-      <div id="address" className="pt-16">
-        <TitleItems title={"نشانی"} />
-        <div className="w-full grid grid-cols-1 gap-2">
-          <div className="w-full flex flex-col gap-4">
-            {userData?.phone && permissions?.phone &&(
-              <div className="w-full text-slate-800 text-sm flex justify-start items-center gap-2">
-                <span className="font-bold">تلفن:</span>
-                <span>{userData?.phone} </span>
-              </div>
-            )}
-            {userData?.addresses.length && permissions?.workAddress ? (
-              <div className="w-full text-sm text-slate-800 flex flex-col gap-1">
-                <span className="w-full font-bold">آدرس : </span>
-                <span className="break-words">
-                  {userData?.addresses[0].address}
-                </span>
-              </div>
-            ) : null}
-          </div>
-          {userData?.addresses.length &&
-          permissions?.workAddress &&
-          userData?.addresses[0].lat &&
-          userData?.addresses[0].lng ? (
-            <>
-              <div className="py-2">
-                <div className="w-full h-[200px] relative border border-primary-01 rounded-md overflow-hidden">
-                  <MapView
-                    coord={[
-                      userData?.addresses[0].lat,
-                      userData?.addresses[0].lng,
-                    ]}
-                  />
-                  <div className="absolute bottom-4 right-4  ">
-                    {getOS() === "android" ? (
-                      <Link
-                        href={`geo:${userData?.addresses[0].lat},${userData?.addresses[0].lng}`}
-                        className="btn btn--secondary !text-xs !w-auto !gap-2"
-                      >
-                        <FaMapLocationDot className="w-4 h-4" />
-                        مشاهده روی مسیریاب
-                      </Link>
-                    ) : (
-                      <Link
-                        href={`https://www.google.com/maps?q=${userData?.addresses[0].lat},${userData?.addresses[0].lng}`}
-                        className="btn btn--secondary !text-xs !w-auto !gap-2"
-                        target="_blank"
-                      >
-                        <FaMapLocationDot className="w-4 h-4" />
-                        مشاهده روی مسیریاب
-                      </Link>
-                    )}
+      {permissions?.phone || permissions?.workAddress ? (
+        <div id="address" className="pt-16">
+          <TitleItems title={"نشانی"} />
+          <div className="w-full grid grid-cols-1 gap-2">
+            <div className="w-full flex flex-col gap-4">
+              {userData?.phone && permissions?.phone && (
+                <div className="w-full text-slate-800 text-sm flex justify-start items-center gap-2">
+                  <span className="font-bold">تلفن:</span>
+                  <span>{userData?.phone} </span>
+                </div>
+              )}
+              {userData?.addresses.length && permissions?.workAddress ? (
+                <div className="w-full text-sm text-slate-800 flex flex-col gap-1">
+                  <span className="w-full font-bold">آدرس : </span>
+                  <span className="break-words">
+                    {userData?.addresses[0].address}
+                  </span>
+                </div>
+              ) : null}
+            </div>
+            {userData?.addresses.length &&
+            permissions?.workAddress &&
+            userData?.addresses[0].lat &&
+            userData?.addresses[0].lng ? (
+              <>
+                <div className="py-2">
+                  <div className="w-full h-[200px] relative border border-primary-01 rounded-md overflow-hidden">
+                    <MapView
+                      coord={[
+                        userData?.addresses[0].lat,
+                        userData?.addresses[0].lng,
+                      ]}
+                    />
+                    <div className="absolute bottom-4 right-4  ">
+                      {getOS() === "android" ? (
+                        <Link
+                          href={`geo:${userData?.addresses[0].lat},${userData?.addresses[0].lng}`}
+                          className="btn btn--secondary !text-xs !w-auto !gap-2"
+                        >
+                          <FaMapLocationDot className="w-4 h-4" />
+                          مشاهده روی مسیریاب
+                        </Link>
+                      ) : (
+                        <Link
+                          href={`https://www.google.com/maps?q=${userData?.addresses[0].lat},${userData?.addresses[0].lng}`}
+                          className="btn btn--secondary !text-xs !w-auto !gap-2"
+                          target="_blank"
+                        >
+                          <FaMapLocationDot className="w-4 h-4" />
+                          مشاهده روی مسیریاب
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </>
-          ) : null}
+              </>
+            ) : null}
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {/* تخصص و مهارت */}
       <ExpertDescription expert_description={userData?.expert_description} />

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FaInstagram, FaTelegram, FaTiktok, FaTwitter } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa6";
 import { SiAparat } from "react-icons/si";
 import { TbWorld } from "react-icons/tb";
 
@@ -30,6 +31,10 @@ const Platform = ({ color, colorHover, data }) => {
 
       case "aparat":
         return <SiAparat className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"/>;
+        break;
+
+      case "youtube":
+        return <FaYoutube className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"/>;
         break;
 
       case "eitaa":

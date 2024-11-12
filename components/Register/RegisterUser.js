@@ -49,7 +49,6 @@ const RegisterUser = ({ mobile, otp }) => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

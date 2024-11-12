@@ -88,11 +88,15 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
         try {
             const { data } = await mutateDeleteFavorite(item);
             if (data) {
-                toast.success("حذف شد");                
+                toast.success("حذف شد");
                 queryClient.invalidateQueries({ queryKey: ['get-user-favorites'] });
             }
 
         } catch (error) {
+            if (error?.response?.data?.message[0] === "not found") {
+                toast.error("پیدا نشد");
+                return;
+            }
             toast.error("خطایی رخ داده است")
         }
     }
@@ -100,7 +104,7 @@ function MahbobtarinItem({ item, onDelete, onEdit }) {
     return (
         <div className="flex flex-col gap-2">
             <label className='text-sm font-bold px-2 inline-block text-slate-800'>
-                {item?.popularname?.name}
+                {item?.popularname?.name || item.popular_title}
             </label>
             <div className="w-full flex items-center bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 rounded-md">
                 {

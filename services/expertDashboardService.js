@@ -154,6 +154,22 @@ export function getCommentExpertise(motekhases_id) {
   });
 }
 
+export function getAllCommentsDashboard() {
+  return http.get(`/api/v1/dashboard/comments/allstatus`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function changeStatusComment(data) {
+  return http.post(`/api/v1/dashboard/comments/changestatus`, data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
 // * -------------- expert requersts (calling page) --------------
 export function addNewRequest(data) {
   return http.post("/api/v1/dashboard/requests", data, {
@@ -200,7 +216,7 @@ export function getPlans() {
 
 // * -------------- expert requests service --------------
 export function addRequestService(data) {
-  return http.post(`/api/v1/dashboard/request-services`, data,{
+  return http.post(`/api/v1/dashboard/request-services`, data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },

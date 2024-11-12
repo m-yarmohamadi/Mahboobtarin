@@ -3,6 +3,10 @@ import React from "react";
 import { FaAngleLeft } from "react-icons/fa6";
 
 const RightMenu = ({ userData, popularList }) => {
+  const permissions = userData?.permissions
+    ? JSON.parse(userData?.permissions)
+    : {};
+
   return (
     <div className="w-full py-6 hidden md:flex flex-col sticky top-12 text-sm font-medium text-slate-800">
       <Link
@@ -23,7 +27,7 @@ const RightMenu = ({ userData, popularList }) => {
         </Link>
       )}
 
-      {userData?.addresses.length || userData?.phone ? (
+      {permissions?.phone || permissions?.workAddress ? (
         <Link
           href="#address"
           className="duration-150 w-full flex justify-start items-center gap-1 hover:bg-primary-01 hover:text-white rounded-se-xl py-4 px-6 cursor-pointer bg-opacity-30"

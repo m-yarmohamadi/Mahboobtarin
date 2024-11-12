@@ -1,3 +1,4 @@
+import CommentsList from "@/components/admin/adminProfileSteps/comments/CommentsList";
 import ExpertDashboard from "@/components/admin/ExpertDashboard";
 
 export default function comments() {
@@ -8,6 +9,7 @@ export default function comments() {
                     نظرات
                 </h1>
             </div>
+            <CommentsList />
         </ExpertDashboard>
     )
 }
