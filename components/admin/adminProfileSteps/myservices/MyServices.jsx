@@ -2,18 +2,20 @@ import { useGetServices, useGetServicesProfile } from "@/hooks/useDashboard";
 import useProfile from "@/hooks/useProfile";
 import { deleteService, getServiceProfile } from "@/services/expertDashboardService";
 import Loading from "@/tools/Loading";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import getPriceService from "./getPriceService";
+import numberWithCommas from "@/utils/numberWithCommas";
 
 export default function MyServices() {
 	const { user, isLoading } = useProfile();
 	const [servicesData, setServicesData] = useState([]);
 	const { isPending, mutateAsync: mutateDeleteService } = useMutation({ mutationFn: deleteService });
-	const queryClient = useQueryClient();
+	const [refetch, setRefetch] = useState(false);
 
 	const deleteServiceHandler = async (id) => {
 		try {
@@ -21,7 +23,7 @@ export default function MyServices() {
 
 			if (data) {
 				toast.success("خدمت مورد نظر حذف شد");
-				queryClient.invalidateQueries({ queryKey: ['get-services'] });
+				setRefetch(true);
 			}
 
 		} catch (error) {
@@ -40,16 +42,17 @@ export default function MyServices() {
 				const { data } = await getServiceProfile(user?.id);
 				if (data) {
 					setServicesData(data);
+					setRefetch(false);
 				}
 			} catch (error) {
-
+				setRefetch(false);
 			}
 		}
 
 		if (!isLoading) {
 			fetchServicesHandler();
 		}
-	}, [isLoading])
+	}, [isLoading, refetch])
 
 	if (isLoading) return (
 		<div className='w-full h-full flex items-center justify-center'>
@@ -86,13 +89,13 @@ export default function MyServices() {
 												item.price_type === "custom" ?
 													<>
 														<span className='text-primary-01 font-bold inline-block ml-1'>
-															{item.price}
+															{numberWithCommas(item.price)}
 														</span>
 														<span className="text-textDefault">تومان</span>
 													</>
 													:
 													<span className='text-primary-01 font-bold'>
-														{item.price_type === "free" ? "رایگان" : "خیریه"}
+														{getPriceService(item.price_type)}
 													</span>
 											}
 

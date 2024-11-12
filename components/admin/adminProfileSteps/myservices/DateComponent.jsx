@@ -16,7 +16,6 @@ export default function DateComponent({ formik }) {
             time: Yup.string().required("ساعت را انتخاب کنید")
         })
     })
-    console.log(formik.values);
 
     return (
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">

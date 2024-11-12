@@ -12,9 +12,10 @@ const validationSchema = Yup.object({
     type: Yup.string().required("نوع خدمت را انتخاب کنید"),
     // dedicated_time: Yup.string().required("بازه زمانی خدمت را انتخاب کنید"),
     price_type: Yup.string().required("نوع هزینه را انتخاب کنید"),
-    price: Yup.number().when("price_type", {
+    activity_time: Yup.array().required("زمان فعالیت را انتخاب کنید").min(1, "زمان فعالیت را انتخاب کنید"),
+    price: Yup.string().when("price_type", {
         is: (value) => value === 'custom',
-        then: (schema) => schema.required('قیمت دلخواه را وارد کنید'),
+        then: (schema) => schema.required('قیمت دلخواه را وارد کنید').matches(/^[\d,]+$/, "قیمت باید فقط شامل اعداد باشد"),
         otherwise: (schema) => schema,
     }),
 });
@@ -24,21 +25,17 @@ export default function CreateService() {
     const router = useRouter();
 
     const createServiceHandler = async (values) => {
-        console.log(values);
 
         const activityTimeJson1 = values.activity_time.map(item => {
             const { day, ...rest } = item;
             return JSON.stringify({ week: day, ...rest });
         }).join(', ').replace(/"([^"]+)":/g, '$1:');
 
-        console.log(activityTimeJson1);
 
         const activityTimeJson2 = values.activity_time.map(item => {
             const { day, ...rest } = item;
             return { week: day, ...rest };
         });
-        console.log(JSON.stringify(activityTimeJson2));
-
 
         try {
             const { data } = await mutateAsync({
@@ -67,7 +64,7 @@ export default function CreateService() {
             type: "",
             dedicated_time: "",
             price_type: "",
-            price: 0,
+            price: "0",
             activity_time: [],
         },
         onSubmit: createServiceHandler,

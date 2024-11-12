@@ -1,3 +1,4 @@
+import getPriceService from '@/components/admin/adminProfileSteps/myservices/getPriceService'
 import numberWithCommas from '@/utils/numberWithCommas'
 
 export default function Summary({ serviceData, setSuccess }) {
@@ -18,7 +19,7 @@ export default function Summary({ serviceData, setSuccess }) {
                                 {numberWithCommas(serviceData.price)} تومان
                             </span>
                             :
-                            "رایگان"
+                            getPriceService(serviceData.price_type)
                     }
 
                 </div>

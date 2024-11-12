@@ -11,6 +11,7 @@ import CheckBoxInput from "@/components/CheckBoxInput";
 import { useGetServiceItems } from "@/hooks/useDashboard";
 import sortedTimes from "@/utils/sortedTimes";
 import DateComponent from "./DateComponent";
+import numberWithCommas from "@/utils/numberWithCommas";
 
 const serviceList = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -36,10 +37,11 @@ const timeFrame = [
 ]
 
 const priceTypes = [
-    { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
-    { id: 1, label: 'رایگان', value: 'free' },
-    { id: 2, label: 'خیریه', value: 'charity' },
-    { id: 3, label: 'قیمت دلخواه', value: 'custom' },
+    { label: 'یک گزینه را انتخاب کنید', value: '' },
+    { label: 'تعرفه دلخواه', value: 'custom' },
+    { label: 'تعرفه پیشنهادی', value: 'suggestion' },
+    { label: 'رایگان', value: 'free' },
+    { label: 'در حد وسع', value: 'charity' },
 ]
 
 export default function ServiceFields({ formik, isPending }) {
@@ -52,6 +54,10 @@ export default function ServiceFields({ formik, isPending }) {
             formik.setFieldValue("activity_time", []);
         }
     }, [formik.values.type])
+
+    useEffect(() => {
+        formik.setFieldValue("price", "0");
+    }, [formik.values.price_type])
 
     return (
         <form onSubmit={formik.handleSubmit} className="w-full flex flex-col">
@@ -74,13 +80,27 @@ export default function ServiceFields({ formik, isPending }) {
                     name="price_type"
                     formik={formik}
                 />
-                <Input
-                    label='قیمت دلخواه'
-                    name="price"
-                    formik={formik}
-                    type="number"
-                    disabled={formik.values.price_type !== "custom"}
-                />
+                <div className="flex flex-col">
+                    <Input
+                        label='قیمت دلخواه'
+                        name="price"
+                        // formik={formik}
+                        value={formik.values.price}
+                        onChange={(e) => {
+                            const rawValue = e.target.value.replace(/,/g, "");
+                            const formattedValue = numberWithCommas(rawValue);
+                            formik.setFieldValue("price", formattedValue);
+                        }}
+
+                        disabled={formik.values.price_type !== "custom"}
+                    />
+                    {formik?.errors.price && (
+                        <p className="error_Message">
+                            {formik?.errors.price}
+                        </p>
+                    )}
+                </div>
+
             </div>
             {
                 serviceType === "time" &&
@@ -91,6 +111,13 @@ export default function ServiceFields({ formik, isPending }) {
                 serviceType === "none" &&
                 <DateComponent formik={formik} />
             }
+            {!formik.errors.type && formik?.errors.activity_time && formik?.touched.activity_time && (
+                <div className="w-full flex justify-start items-start mt-2">
+                    <p className="error_Message">
+                        {formik?.errors.activity_time}
+                    </p>
+                </div>
+            )}
             <div className="w-full flex items-center gap-2 mt-10 pt-3 border-t border-slate-300">
                 <button type="submit" className="!w-full lg:!w-1/2 !text-base !font-bold btn btn--primary">
                     {isPending ? <Loading /> : "ثبت"}
@@ -115,36 +142,6 @@ function TimeComponent({ formik }) {
         { value: "thursday", label: "پنجشنبه" },
         { value: "friday", label: "جمعه" },
     ];
-
-    // const times = [
-    //     { value: "morning", label: "صبح" },
-    //     { value: "evening", label: "ظهر" },
-    //     { value: "night", label: "شب" },
-    // ];
-
-    // const isSelectedTime = (time) => {
-    //     return formik.values.activity_time.some(
-    //         (i) => i.day === activeTab && i.time === time
-    //     );
-    // };
-
-    // const addOrRemoveTimeHandler = (time) => {
-    //     const exists = isSelectedTime(time);
-
-    //     if (exists) {
-    //         formik.setFieldValue(
-    //             "activity_time",
-    //             formik.values.activity_time.filter(
-    //                 (i) => !(i.day === activeTab && i.time === time)
-    //             )
-    //         );
-    //     } else {
-    //         formik.setFieldValue("activity_time", [
-    //             ...formik.values.activity_time,
-    //             { day: activeTab, time },
-    //         ]);
-    //     }
-    // };
 
     const removeTimeHandler = (time) => {
         formik.setFieldValue(
@@ -215,7 +212,7 @@ function TimeComponent({ formik }) {
                     ))}
                 </div>
                 <button type="button" onClick={() => setIsOpenTRange(true)} className="btn btn--secondary w-full">
-                    افزودن بازه زمانی
+                    تعیین ساعت و مدت
                 </button>
                 <Modal title={'انتخاب بازه زمانی'} open={isOpenTRange} onClose={() => setIsOpenTRange(false)}>
                     <AddTimeRange
@@ -242,6 +239,13 @@ function AddTimeRange({ setTimes, onClose, times, addActivitiesHandler, day, wee
         { id: 3, label: '20 دقیقه', value: 20 },
         { id: 4, label: '30 دقیقه', value: 30 },
         { id: 5, label: '1 ساعت', value: 60 },
+        { id: 6, label: '2 ساعت', value: 120 },
+        { id: 7, label: '3 ساعت', value: 180 },
+        { id: 8, label: '4 ساعت', value: 240 },
+        { id: 9, label: '5 ساعت', value: 300 },
+        { id: 10, label: '6 ساعت', value: 360 },
+        { id: 11, label: '7 ساعت', value: 420 },
+        { id: 12, label: '8 ساعت', value: 480 },
     ]
 
     const hours = Array.from({ length: 23 }, (_, i) => {
@@ -303,23 +307,30 @@ function AddTimeRange({ setTimes, onClose, times, addActivitiesHandler, day, wee
         initialValues: { start: 12, end: 13, range: "" },
         onSubmit,
         validationSchema: Yup.object({
-            range: Yup.string().required("بازه زمانی را انتخاب کنید"),
+            range: Yup.number().required("بازه زمانی را انتخاب کنید").test(
+                'range-time-check',
+                'مدت خدمت انتخاب شده از فاصله شروع تا پایان بیشتر است',
+                function (rangeValue) {
+                    const { start, end } = this.parent;
+                    return start !== undefined && end !== undefined && rangeValue <= (end - start) * 60;
+                }
+            ),
             end: Yup.number()
                 .test('validation', 'ساعت پایان باید بزرگ‌تر از ساعت شروع باشد و نمی‌تواند یکسان باشد', function (value) {
                     const { start } = this.parent;
                     return start !== undefined && value !== undefined && value > start;
                 })
-                .test('time-overlap', 'بازه انتخابی قبلا انتخاب شده', function (endValue) {
+                .test('time-overlap', 'این بازه زمانی قابل انتخاب نیست', function (endValue) {
                     const { start } = this.parent;
 
                     for (let time of times) {
-
                         if (
                             time.day === day &&
                             (
                                 !(Number(endValue) <= Number(time.values.start) || Number(start) >= Number(time.values.end)) ||
                                 Number(time.values.start) === Number(endValue) ||
-                                Number(time.values.end) === Number(start)
+                                Number(time.values.end) === Number(start) ||
+                                Number(start) > Number(time.values.end)
                             )
                         ) {
                             return false;
@@ -352,7 +363,7 @@ function AddTimeRange({ setTimes, onClose, times, addActivitiesHandler, day, wee
                     {formik.errors.end}
                 </div>
                 <Select
-                    label={'بازه زمانی'}
+                    label={'مدت خدمت'}
                     formik={formik}
                     name={'range'}
                     options={timeRange}

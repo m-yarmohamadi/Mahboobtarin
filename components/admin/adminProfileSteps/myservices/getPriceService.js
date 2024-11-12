@@ -1,10 +1,10 @@
-
 const priceTypes = [
-    { id: 1, label: 'رایگان', value: 'free' },
-    { id: 2, label: 'خیریه', value: 'charity' },
-    { id: 3, label: 'قیمت دلخواه', value: 'custom' },
-]
+  { label: "تعرفه دلخواه", value: "custom" },
+  { label: "تعرفه پیشنهادی", value: "suggestion" },
+  { label: "رایگان", value: "free" },
+  { label: "در حد وسع", value: "charity" },
+];
 
 export default function getPriceService(price_type) {
-    return priceTypes.filter((p) => p.value === price_type)[0].label;
+  return priceTypes.filter((p) => p.value === price_type)[0].label;
 }

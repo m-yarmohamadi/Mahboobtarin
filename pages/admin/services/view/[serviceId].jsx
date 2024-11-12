@@ -1,3 +1,4 @@
+import getPriceService from "@/components/admin/adminProfileSteps/myservices/getPriceService";
 import ExpertDashboard from "@/components/admin/ExpertDashboard";
 import { useGetServiceById, useGetServicesProfile } from "@/hooks/useDashboard";
 import useProfile from "@/hooks/useProfile";
@@ -97,7 +98,7 @@ export default function viewService() {
                                         servicesData.price_type === "custom" ?
                                             `${servicesData.price} تومان`
                                             :
-                                            servicesData.price_type === "free" ? "رایگان" : "خیریه"
+                                            getPriceService(servicesData.price_type)
                                     }
                                 </div>
                             </div>
