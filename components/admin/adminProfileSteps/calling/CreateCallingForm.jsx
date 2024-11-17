@@ -21,9 +21,11 @@ export default function CreateCallingForm() {
 
     const addRequestHandler = async (values) => {
         try {
+            const categoryLabel = transformCategories.filter((i) => i.value === formik.values.category)[0].label;
+            const callingData = { ...values, category: categoryLabel }
             const formData = new FormData();
-            for (let i in values) {
-                formData.append(i, values[i]);
+            for (let i in callingData) {
+                formData.append(i, callingData[i]);
             }
 
             const { data } = await mutateAddRequest(formData);

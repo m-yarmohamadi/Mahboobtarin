@@ -105,6 +105,10 @@ export default function viewService() {
 
                         </div>
 
+                        <p className="text-sm text-slate-800 py-4">
+                            شرح : {servicesData?.description}
+                        </p>
+
                         <div className="relative rounded-lg mt-6">
 
                             {

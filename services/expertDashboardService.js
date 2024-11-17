@@ -187,6 +187,14 @@ export function getRequestsList() {
   });
 }
 
+export function deleteRequest(id) {
+  return http.post("/api/v1/dashboard/requests/destroy", {id}, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
 // * -------------- expert support --------------
 export function addTicket(data) {
   return http.post("/api/v1/dashboard/support/store", data, {

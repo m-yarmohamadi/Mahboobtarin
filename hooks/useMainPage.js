@@ -21,7 +21,8 @@ export default function useMainPage() {
     offer_categories,
     top_search,
     popular_week,
-    new_register
+    new_register,
+    what_service
   } = data?.data || {};
 
   const transformCategories =
@@ -43,7 +44,8 @@ export default function useMainPage() {
     offer_categories,
     top_search,
     popular_week,
-    new_register
+    new_register,
+    what_service
   };
 }
 

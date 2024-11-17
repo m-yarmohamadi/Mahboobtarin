@@ -44,6 +44,7 @@ export default function CreateService() {
                 price_type: values.price_type,
                 price: values.price,
                 activity_time: JSON.stringify(activityTimeJson2),
+                description: values.description
             })
             if (data) {
                 toast.success("خدمت جدید اضافه شد");
@@ -66,6 +67,7 @@ export default function CreateService() {
             price_type: "",
             price: "0",
             activity_time: [],
+            description: ""
         },
         onSubmit: createServiceHandler,
         validationSchema

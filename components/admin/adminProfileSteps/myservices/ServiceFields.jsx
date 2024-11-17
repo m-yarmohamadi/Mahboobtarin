@@ -101,9 +101,13 @@ export default function ServiceFields({ formik, isPending }) {
                         </p>
                     )}
                 </div>
-                <TextArea
-                    label={"شرح"}
-                />
+                <div className="lg:col-span-2">
+                    <TextArea
+                        label={"شرح"}
+                        formik={formik}
+                        name={'description'}
+                    />
+                </div>
 
             </div>
             {

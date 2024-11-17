@@ -69,7 +69,7 @@ const Baner02 = () => {
                     <div className="w-full flex justify-center items-center ">
                       <div className="w-full ">
                         <div className=" hidden md:flex justify-center items-center gap-2 text-primary-02 md:text-slate-800">
-                          <div className=" w-full md:w-1/2 flex flex-col justify-center items-start">
+                          <div className=" w-full md:w-1/2 flex flex-col justify-center items-start text-black">
                             <span className="text-2xl font-bold">
                               به هوای بهار
                             </span>

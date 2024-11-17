@@ -16,25 +16,13 @@ import "swiper/css/scrollbar";
 import "swiper/swiper-bundle.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Slider from "react-slick";
+import useMainPage from "@/hooks/useMainPage";
 
 const Services = () => {
-  var settings = {
-    rtl: true,
-    arrows: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    rows: 1,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 720, // تعیین اندازه SM
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
+  const { what_service, isLoading } = useMainPage();
+
+  console.log(what_service);
+  
   const data = [
     {
       id: 1,
@@ -85,7 +73,6 @@ const Services = () => {
           //   nextEl: ".custom-button-next",
           //   prevEl: ".custom-button-prev",
           // }}
-          loop
           className={"px-4"}
           slidesPerView={1}
           spaceBetween={3}
@@ -119,7 +106,7 @@ const Services = () => {
           pagination={false}
           scrollbar={false}
         >
-          {data.map((item) => {
+          {!isLoading && what_service.map((item) => {
             return (
               <SwiperSlide
                 key={item.id}
@@ -131,7 +118,7 @@ const Services = () => {
                       <div className="h-40 w-40 flex items-center justify-center hover:cursor-pointer border-4 border-dashed overflow-hidden border-primary-01 border-opacity-35   rounded-full  z-10">
                         <img
                           className="w-28 h-28 m-auto inset-0 object-contain object-center hover:contrast-50"
-                          src={item.url}
+                          src={item.photo.path || ""}
                           alt=""
                         />
                       </div>
