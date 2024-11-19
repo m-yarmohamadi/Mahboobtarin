@@ -1,9 +1,9 @@
 import { useCategoryParents } from "@/hooks/useMainPage";
 import Platform from "@/tools/Platform";
-import SearchBox from "@/tools/SearchBox";
 import Link from "next/link";
 import React from "react";
 import { FaAngleLeft } from "react-icons/fa";
+import SearchBox from "../search&filter/SearchBox";
 
 const ProfileSearchBox = ({ user }) => {
   const { categoryParents, isGetCateParent } = useCategoryParents(user?.expertises[0]?.title || 0);  

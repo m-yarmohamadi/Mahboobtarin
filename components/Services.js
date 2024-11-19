@@ -20,8 +20,6 @@ import useMainPage from "@/hooks/useMainPage";
 
 const Services = () => {
   const { what_service, isLoading } = useMainPage();
-
-  console.log(what_service);
   
   const data = [
     {
