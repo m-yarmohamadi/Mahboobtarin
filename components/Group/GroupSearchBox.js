@@ -1,8 +1,8 @@
 import Platform from '@/tools/Platform';
-import SearchBox from '@/tools/SearchBox';
 import React from 'react';
 import { FaAngleLeft } from 'react-icons/fa';
 import { FaLeftRight } from 'react-icons/fa6';
+import SearchBox from '../search&filter/SearchBox';
 
 const GroupSearchBox = () => {
 	return (

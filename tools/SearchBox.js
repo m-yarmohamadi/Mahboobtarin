@@ -4,22 +4,56 @@ import { LanguagesData } from "@/data/LanguagesData";
 import { useGetExpertisesList } from "@/hooks/useExpertiseUser";
 import React, { useState } from "react";
 import { BiSearch, BiSlider } from "react-icons/bi";
+import { FaArrowLeft } from "react-icons/fa";
 import { FaAngleDown } from "react-icons/fa6";
+import { IoSearch } from "react-icons/io5";
 
 const SearchBox = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-full flex justify-center items-center bg-white rounded-full">
-      <div className="w-full px-3  rounded-s-full flex justify-center items-center ">
-        <input
-          className=" text-slate-300 dark:text-slate-500 h-8 w-full border-none focus:border-none ring-0 focus:ring-0 bg-transparent outline-none"
-          type="text"
-          name=""
-          defaultValue="جستجو..."
-        />
+    <div className="w-full flex justify-center items-center bg-white rounded-full cursor-pointer">
+      <div className="w-full text-slate-400 dark:text-slate-500 p-3 flex justify-between items-center ">
+        <div className=" text-sm w-full border-none focus:border-none ring-0 focus:ring-0 bg-transparent outline-none">
+          جستجو در{" "}
+          <span className="text-primary-01 font-bold text-base">
+            محبوب‌ترین‌
+          </span>
+        </div>
+
+        <IoSearch className="w-6 h-6" />
       </div>
-      <div className="w-full rounded-e-full flex justify-end items-center gap-2  p-1 text-slate-400 dark:text-slate-600">
+
+      <div className="w-full h-full fixed top-0 right-0 bg-black/40 z-50"></div>
+      <div className="w-full px-6 fixed z-[999] top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2">
+        <div className="w-full mx-auto p-4 max-w-screen-md bg-white rounded-xl">
+          <div className="w-full  h-12 gap-4 flex items-center justify-between">
+            {/* filter button */}
+            <button
+              onClick={() => setOpen(true)}
+              className="text-primary-01 px-4 h-full bg-slate-200 rounded-lg flex justify-center items-center text-sm font-bold gap-1"
+            >
+              <span className="rotate-90">
+                <BiSlider className="w-5 h-5"/>
+              </span>
+              <span>فیلترها</span>
+            </button>
+
+            {/* search box */}
+            <div className="w-full h-full px-4 flex items-center justify-between bg-slate-200 rounded-lg">
+              <input
+                placeholder="جستجو"
+                className="w-full h-full bg-transparent border-0 outline-0 appearance-none text-sm text-slate-900"
+              />
+              <div>
+                <FaArrowLeft className="w-5 h-5 text-slate-800" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <FilterModal open={open} onClose={() => setOpen(false)} />
+      {/* <div className="w-full rounded-e-full flex justify-end items-center gap-2  p-1 text-slate-400 dark:text-slate-600">
         <button
           onClick={() => setOpen(true)}
           className="flex justify-center items-center text-xl font-bold gap-1"
@@ -33,7 +67,7 @@ const SearchBox = () => {
         <div className=" hover:bg-opacity-80 bg-primary-01 rounded-full p-2 text-white font-bold text-2xl ">
           <BiSearch />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -44,7 +78,7 @@ function FilterModal({ open, onClose }) {
   const [openFilter, setOpenFilter] = useState();
 
   return (
-    <Modal title="فیلتر ها" open={open} onClose={onClose}>
+    <Modal title="فیلتر ها" open={open} onClose={onClose} className="!z-[9999]">
       <div className="max-h-[300px] overflow-y-auto pl-3">
         <ExpertiseFilter
           show={openFilter}
@@ -242,7 +276,6 @@ function GenderFilter({ show, setShow, name }) {
 }
 
 function LanguageFilter({ show, setShow, name }) {
-
   return (
     <div
       className={`w-full overflow-hidden ${

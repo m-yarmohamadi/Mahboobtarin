@@ -1,6 +1,6 @@
-import SearchBox from '@/tools/SearchBox';
 import React from 'react';
 import { BiFilter, BiSearch, BiSlider, BiSolidDiscount } from 'react-icons/bi';
+import SearchBox from './search&filter/SearchBox';
 
 const Slider = () => {
 	return (

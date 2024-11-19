@@ -15,3 +15,7 @@ export function getCategoryParents(categoryId) {
     .get(`/api/v1/categories-parents/${categoryId}`)
     .then(({ data }) => data);
 }
+
+export function searchApi(data) {
+  return http.post(`/api/v1/searchword`, data).then(({ data }) => data);
+}

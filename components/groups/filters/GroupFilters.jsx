@@ -36,7 +36,7 @@ export default function GroupFilters({ expertiseId, categories }) {
                 </Modal>
             </div>
             <div className="w-full lg:w-auto flex items-center gap-3">
-                <Filter />
+                {/* <Filter /> */}
                 <Sort />
             </div>
         </div>

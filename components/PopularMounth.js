@@ -76,7 +76,7 @@ const PopularMounth = () => {
                   {item.name} {item.lastname}
                 </span>
                 <span className="pb-2 flex justify-center items-center text-slate-400 dark:text-slate-600 text-sm">
-                  {item?.expertises[0]?.subject}
+                  {item?.expertises[0]?.category?.name}
                 </span>
               </button>
             </SwiperSlide>
