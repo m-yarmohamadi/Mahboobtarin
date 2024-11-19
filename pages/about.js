@@ -17,8 +17,8 @@ const about = () => {
 					<span>درباره ما</span>
 				</div>
 				<div className=' container w-full flex flex-col justify-center items-start gap-4 py-8 text-justify'>
-					<p className='w-full font-bold flex justify-center items-center'
-						dangerouslySetInnerHTML={{ __html: data?.about }}
+					<p className='w-full  flex  flex-col justify-center items-start gap-4 text-justify'
+						dangerouslySetInnerHTML={{ __html: data?.long_about }}
 					></p>
 
 				</div>

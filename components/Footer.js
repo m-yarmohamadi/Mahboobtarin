@@ -41,8 +41,8 @@ const Footer = () => {
                 <Link href={"/auth"}><span>ثبت‌نام متخصصان</span></Link>
               </div>
               <div className="flex flex-col justify-start items-start w-full gap-2">
-                <Link href={"/"}><span>سوالات متداول</span></Link>
-                <Link href={"/"}><span>دسته بندی محبوب‌ترین</span></Link>
+                <Link href={"/faq"}><span>سوالات متداول</span></Link>
+                <Link href={"/group/366"}><span>دسته بندی محبوب‌ترین</span></Link>
                 <Link href={"/"}><span>قوانین و مقررات</span></Link>
                 <Link href={"/"}><span>راهنمای عضویت</span></Link>
                 <Link href={"/"}><span>خط و مشی محبوب‌ترین</span></Link>

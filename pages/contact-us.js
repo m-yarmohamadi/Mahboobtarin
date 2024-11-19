@@ -17,8 +17,12 @@ const contactUs = () => {
 					<span>تماس با ما</span>
 				</div>
 				<div className=' container w-full flex flex-col justify-center items-start gap-4 py-8'>
-					<p className='w-full font-bold flex justify-center items-center'>
+					<p className='w-full font-black text-3xl flex justify-center items-center'>
 						{data?.title}
+					</p>
+
+					<p className='w-full flex justify-center items-center font-bold text-xl py-8'>
+						کاربر گرامی! شما می توانید همه روزه از ساعت 8 الی 22 از طریق شماره تماس 02182800011 با پشتیبانی محبوب‌ترین تماس حاصل نمایید.
 					</p>
 					<p>
 						{data?.address}
