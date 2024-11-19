@@ -13,7 +13,7 @@ import {
 
 const Footer = () => {
   const data = useAllSettings();
-  
+
   return (
     <div className=" text-textDefault">
       <div className=" md:container px-8 md:px-0">
@@ -34,18 +34,18 @@ const Footer = () => {
             </div>
             <div className="grid grid-cols-2 justify-start w-full text-xs xs:text-sm font-medium py-8">
               <div className="flex flex-col justify-start items-start w-full gap-2">
-                <span>ارتباط با ما</span>
-                <span>درباره ما</span>
-                <span>مجله محبوب‌ترین</span>
-                <span>ثبت‌نام کاربران</span>
-                <span>ثبت‌نام متخصصان</span>
+                <Link href={"/contact-us"}><span>ارتباط با ما</span></Link>
+                <Link href={"/about"}><span>درباره ما</span></Link>
+                <Link href={"/"}><span>مجله محبوب‌ترین</span></Link>
+                <Link href={"/auth"}><span>ثبت‌نام کاربران</span></Link>
+                <Link href={"/auth"}><span>ثبت‌نام متخصصان</span></Link>
               </div>
               <div className="flex flex-col justify-start items-start w-full gap-2">
-                <span>سوالات متداول</span>
-                <span>دسته بندی محبوب‌ترین</span>
-                <span>قوانین و مقررات</span>
-                <span>راهنمای عضویت</span>
-                <span>خط و مشی محبوب‌ترین</span>
+                <Link href={"/"}><span>سوالات متداول</span></Link>
+                <Link href={"/"}><span>دسته بندی محبوب‌ترین</span></Link>
+                <Link href={"/"}><span>قوانین و مقررات</span></Link>
+                <Link href={"/"}><span>راهنمای عضویت</span></Link>
+                <Link href={"/"}><span>خط و مشی محبوب‌ترین</span></Link>
               </div>
             </div>
           </div>
@@ -105,7 +105,7 @@ const Footer = () => {
                 <FaTwitter className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
               </Link>
             </div>
-            
+
             <div className="grid grid-cols-2 xs:grid-cols-5 justify-items-center items-center w-full gap-x-2">
               <div className="w-16 p-3 ">
                 <img

@@ -1,0 +1,44 @@
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { MdContactPhone } from 'react-icons/md';
+import useAllSettings from '@/hooks/useAllSettings';
+
+const contactUs = () => {
+	const data = useAllSettings();
+
+	return (
+		<div>
+			<Header />
+			<div>
+				<div className='w-full bg-primary-01 p-4 my-4  font-black text-white text-xl drop-shadow-xl flex justify-center items-center gap-1'>
+					<span className='text-2xl text-primary-02'>
+						<MdContactPhone />
+					</span>
+					<span>تماس با ما</span>
+				</div>
+				<div className=' container w-full flex flex-col justify-center items-start gap-4 py-8'>
+					<p className='w-full font-bold flex justify-center items-center'>
+						{data?.title}
+					</p>
+					<p>
+						{data?.address}
+					</p>
+					<p className='font-bold'>
+						<span className='font-normal'>{`شماره تماس:`} </span>
+
+						{data?.phones}
+					</p>
+					<p className='font-bold'>
+						<span className='font-normal '>{`شماره موبایل:`} </span>
+
+						{data?.mobile}
+					</p>
+
+				</div>
+			</div>
+			<Footer />
+		</div>
+	);
+};
+
+export default contactUs;
