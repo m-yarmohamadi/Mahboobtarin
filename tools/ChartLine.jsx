@@ -16,7 +16,7 @@ export default function ChartLine({ titleTooltip, categories, data }) {
             zoom: {
                 enabled: false
             },
-            fontFamily: !isLoading ? settings.font : "IRANSans"
+            fontFamily: !isLoading ? settings?.font : "IRANSans"
         },
         dataLabels: {
             enabled: false
@@ -35,7 +35,7 @@ export default function ChartLine({ titleTooltip, categories, data }) {
             colors: "#15aa7f"
         },
         grid: {
-            borderColor: !isLoading && settings.theme === "dark" ? "#374151" : "#eff0f2",
+            borderColor: !isLoading && settings?.theme === "dark" ? "#374151" : "#eff0f2",
             xaxis: {
                 lines: {
                     show: true
@@ -51,7 +51,7 @@ export default function ChartLine({ titleTooltip, categories, data }) {
         xaxis: {
             categories,
             axisBorder: {
-                color: !isLoading && settings.theme === "dark" ? "#374151" : "#eff0f2"
+                color: !isLoading && settings?.theme === "dark" ? "#374151" : "#eff0f2"
             },
             labels: {
                 style: {
