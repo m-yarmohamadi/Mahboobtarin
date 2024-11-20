@@ -1,11 +1,14 @@
 import CallingItem from "@/components/admin/adminProfileSteps/calling/CallingItem";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import useMainPage from "@/hooks/useMainPage";
+import useMainPage, { useGetAllRequests } from "@/hooks/useMainPage";
+import Loading from "@/tools/Loading";
 import Select from "@/tools/Select";
 
 export default function RequestsPage() {
     const { transformCategories, isLoading } = useMainPage();
+    const { requests, isLoading: isGetRequests } = useGetAllRequests();
+    
     return (
         <>
             <Header />
@@ -22,7 +25,7 @@ export default function RequestsPage() {
                 </div>
 
                 <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6 pt-8">
-                    {Array(8).fill({ picture: "/images/gardasil.jpg", title: "فراخوان تست", category: "دیجیتال" }).map((item, index) => (
+                    {!isGetRequests && requests?.map((item, index) => (
                         <CallingItem key={index} data={item} />
                     ))}
                 </div>
