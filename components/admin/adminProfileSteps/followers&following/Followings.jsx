@@ -39,7 +39,7 @@ function Following({ user }) {
     const { followHandler } = useFollow();
     return (
         <div className="w-full flex flex-col items-center bg-white rounded-xl p-5">
-            <Link href={`/profile/${user?.follower?.id}`} className="mb-3 block">
+            <Link href={`/${user?.follower?.unique_url_id}`} className="mb-3 block">
                 <div className="w-20 h-20 rounded-full overflow-hidden">
                     <img
                         className={"object-cover w-full h-full object-center"}
@@ -48,7 +48,7 @@ function Following({ user }) {
                     />
                 </div>
             </Link>
-            <Link href={`/profile/${user?.follower?.id}`} className="flex flex-col items-center gap-1 mb-6">
+            <Link href={`/${user?.follower?.unique_url_id}`} className="flex flex-col items-center gap-1 mb-6">
                 <h3 className="text-sm font-bold text-slate-800 text-center">
                     {user?.follower?.name} {user?.follower?.lastname}
                 </h3>
