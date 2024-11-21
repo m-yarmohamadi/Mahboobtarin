@@ -23,3 +23,7 @@ export function searchApi(data) {
 export function getAllRequests() {
   return http.get(`/api/v1/requests/list`).then(({ data }) => data);
 }
+
+export function getTopSearchs() {
+  return http.get(`/api/v1/top-search`).then(({ data }) => data);
+}
