@@ -1,32 +1,10 @@
 import React, { useEffect, useState } from "react";
-import TitleItems from "./TitleItems";
-import {
-  FaClock,
-  FaComment,
-  FaDochub,
-  FaSearch,
-  FaTextWidth,
-  FaTimes,
-} from "react-icons/fa";
-import { BsChatText } from "react-icons/bs";
-
-import { FaClockRotateLeft } from "react-icons/fa6";
-import { AiOutlineCheckCircle } from "react-icons/ai";
-import { IoPerson } from "react-icons/io5";
-import Input from "@/tools/Input";
-import Modal from "@/components/Modal";
-import BookingForm from "./BookingForm";
-import { useGetServices, useGetServicesProfile } from "@/hooks/useDashboard";
-import numberWithCommas from "@/utils/numberWithCommas";
-import getPriceService from "@/components/admin/adminProfileSteps/myservices/getPriceService";
+import { FaSearch } from "react-icons/fa";
 import ExpertServicesList from "./detailProfileComponents/ExpertServicesList";
 import OtherExpert from "./detailProfileComponents/OtherExpert";
 import { getTopSearchs } from "@/services/mainPageService";
 
 const LeftProfile = ({ user }) => {
-  const [showIdeasDetail, setShowIdeasDetail] = useState(1);
-  const { isLoadingServices, servicesData } = useGetServicesProfile(user?.id);
-  const [modal, setModal] = useState(0);
   const [topSearch, setTopSearch] = useState([]);
 
   useEffect(() => {
