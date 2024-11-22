@@ -1,30 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import TitleItems from './TitleItems';
-import { FaClock, FaComment, FaDochub, FaSearch, FaTextWidth, FaTimes } from 'react-icons/fa';
-import { BsChatText } from 'react-icons/bs';
-
-import { FaClockRotateLeft } from "react-icons/fa6";
-import { AiOutlineCheckCircle } from "react-icons/ai";
-import { IoPerson } from "react-icons/io5";
-import Input from "@/tools/Input";
-import Modal from "@/components/Modal";
-import BookingForm from "./BookingForm";
-import { useGetServices, useGetServicesProfile } from "@/hooks/useDashboard";
-import numberWithCommas from "@/utils/numberWithCommas";
-import getPriceService from "@/components/admin/adminProfileSteps/myservices/getPriceService";
+import React, { useEffect, useState } from "react";
+import { FaSearch } from "react-icons/fa";
 import ExpertServicesList from "./detailProfileComponents/ExpertServicesList";
 import OtherExpert from "./detailProfileComponents/OtherExpert";
-
+import { getTopSearchs } from "@/services/mainPageService";
 
 const LeftProfile = ({ user }) => {
-	const [showIdeasDetail, setShowIdeasDetail] = useState(1);
-	const { isLoadingServices, servicesData } = useGetServicesProfile(user?.id);
-	const [modal, setModal] = useState(0);
+  const [topSearch, setTopSearch] = useState([]);
+
+  useEffect(() => {
+    async function fetchTopSearch() {
+      try {
+        const res = await getTopSearchs();
+        setTopSearch(res);
+      } catch (error) {
+        setTopSearch([]);
+      }
+    }
+
+    fetchTopSearch();
+  }, []);
 
   return (
     <div className="w-full  ">
       <div className="hidden lg:block">
-        <ExpertServicesList user={user}/>
+        <ExpertServicesList user={user} />
       </div>
       {/* {!isLoadingServices && servicesData && servicesData.length ? (
         <div className="p-2 ">
@@ -115,7 +114,7 @@ const LeftProfile = ({ user }) => {
             placeholder="جستجو در محبوب‌ترین"
             type="search"
             name=""
-            defaultValue={''}
+            defaultValue={""}
           />
         </div>
         <div className="w-full h- px-2 my-2 bg-slate-200 rounded-md shadow-md dark:shadow-darkMd">
@@ -125,48 +124,17 @@ const LeftProfile = ({ user }) => {
             </span>
           </div>
           <div className=" flex flex-wrap items-center gap-2 text-xs font-medium">
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              متخصص زنان
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              غدد و متابولیسم
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              دیابت
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              پوست
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              زیبایی
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              بازیگری
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              برنامه نویس
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              فیلمنامه
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              هنرور
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              مغز و اعصاب
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              آموزش فوتبال
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              گوش و حلق و بینی
-            </span>
-            <span className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl">
-              نقاشی
-            </span>
+            {topSearch?.map((item, index) => (
+              <span
+                key={index}
+                className="px-3 py-1.5 text-slate-800 bg-slate-100 shadow-sm dark:shadow-darkSm rounded-3xl"
+              >
+                {item}
+              </span>
+            ))}
           </div>
           <div className="pt-40 pb-2">
-            <span className="text-primary-01 font-bold p-2">بیشتر</span>
+            {/* <span className="text-primary-01 font-bold p-2">بیشتر</span> */}
           </div>
         </div>
       </div>

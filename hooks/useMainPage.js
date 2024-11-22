@@ -1,5 +1,6 @@
 import { getMainPage } from "@/services/authService";
 import {
+  getAllRequests,
   getCategoryChild,
   getCategoryParents,
 } from "@/services/mainPageService";
@@ -22,7 +23,7 @@ export default function useMainPage() {
     top_search,
     popular_week,
     new_register,
-    what_service
+    what_service,
   } = data?.data || {};
 
   const transformCategories =
@@ -45,7 +46,7 @@ export default function useMainPage() {
     top_search,
     popular_week,
     new_register,
-    what_service
+    what_service,
   };
 }
 
@@ -74,4 +75,17 @@ export function useCategoryParents(categoryId) {
   const { data: categoryParents } = categoryData || {};
 
   return { isGetCateParent, categoryParents };
+}
+
+export function useGetAllRequests() {
+  const { data: reqeustsData, isLoading } = useQuery({
+    queryKey: ["get-all-requests"],
+    queryFn: getAllRequests,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { requests } = reqeustsData || {};
+
+  return { requests, isLoading };
 }

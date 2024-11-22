@@ -19,3 +19,11 @@ export function getCategoryParents(categoryId) {
 export function searchApi(data) {
   return http.post(`/api/v1/searchword`, data).then(({ data }) => data);
 }
+
+export function getAllRequests() {
+  return http.get(`/api/v1/requests/list`).then(({ data }) => data);
+}
+
+export function getTopSearchs() {
+  return http.get(`/api/v1/top-search`).then(({ data }) => data);
+}
