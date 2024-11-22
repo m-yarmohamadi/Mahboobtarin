@@ -73,7 +73,7 @@ const products = [
 ];
 const menu = [
   { id: 1, title: "آموزشگاه", link: "/academy" },
-  { id: 2, title: "محبوب مال" },
+  { id: 2, title: "محبوب مال", link: "/shop"  },
   { id: 3, title: "فراخوان", link: "/requests" },
   { id: 4, title: "لینکدونی" },
   { id: 5, title: "مجله محبوب‌ترین" },

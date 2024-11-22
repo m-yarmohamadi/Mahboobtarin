@@ -21,6 +21,7 @@ export const theme = {
 			secondary: {
 				'01': 'var(--secondary-01)',
 				'02': 'var(--secondary-02)',
+				'03': 'var(--secondary-03)',
 			},
 			primary: {
 				'01': 'var(--primary-01)',
