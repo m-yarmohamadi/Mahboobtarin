@@ -20,6 +20,7 @@
     "@tanstack/react-query": "^5.51.1",
     "apexcharts": "^3.51.0",
     "axios": "^1.7.2",
+    "classnames": "^2.5.1",
     "express": "^4.21.0",
     "flowbite-react": "^0.9.0",
     "form-data": "^4.0.0",
