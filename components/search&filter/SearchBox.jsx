@@ -68,7 +68,7 @@ export default function SearchBox() {
     }, [searchValues]);
 
     return (
-        <div className="w-full flex justify-center items-center bg-white rounded-full cursor-pointer">
+        <div className="w-full flex justify-center items-center bg-white rounded-xl  cursor-pointer">
             <div onClick={() => setOpen(true)} className="w-full text-slate-400 dark:text-slate-500 p-3 flex justify-between items-center ">
                 <div className=" text-sm w-full border-none focus:border-none ring-0 focus:ring-0 bg-transparent outline-none">
                     جستجو در{" "}

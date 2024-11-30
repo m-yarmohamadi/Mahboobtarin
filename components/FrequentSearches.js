@@ -298,16 +298,16 @@ const FrequentSearches = () => {
   return (
     <div className=" md:container px-0 pb-16">
       <div className="w-full lg:h-[45rem] flex flex-col lg:flex-row gap-8 lg:gap-5">
-        <div className="lg:w-[65%] flex flex-col overflow-auto">
+        <div className="lg:w-[65%] flex flex-col overflow-hidden">
           <h4 className="text-slate-800 font-bold text-lg md:text-xl lg:text-2xl text-center mb-3">
             جستجو های پر تکرار
           </h4>
-          <div className="w-full bg-white md:rounded-lg overflow-auto scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin flex-1">
+          <div className="w-full bg-white md:rounded-lg overflow-hidden scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin flex-1">
             <div className="w-full flex items-center gap-20 md:grid lg:grid-cols-1 xl:grid-cols-2 xl:gap-x-5 overflow-x-auto lg:overflow-hidden scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin p-8">
               {top_search.map((item, index) => (
                 <div
                   key={index}
-                  className="flex-1 flex gap-4 md:border-b border-b-primary-02 md:pb-5"
+                  className="flex-1 flex gap-4 md:border-b border-b-primary-02 md:pb-3"
                 >
                   <div>
                     <div className="w-28 h-32 xl:w-24 xl:h-28 flex items-center justify-center border border-primary-02 rounded-lg">
