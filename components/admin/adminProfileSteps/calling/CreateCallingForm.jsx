@@ -13,19 +13,41 @@ const initialValues = {
     category: "",
     picture: [],
     description: "",
-    hamkari:"",
-    workingHours:"",
-    salary:"",
-    payType:"",
-    gender:"",
-    workHistory:"",
-    militaryStatus:"",
-    country:"Iran",
-    province:"",
-    city:"",
-    address:"",
-    map:[]
+    collaboration: "",
+    time_work: "",
+    salary_amount: "",
+    payment_method: "",
+    gender: "",
+    age: "",
+    insurance: "",
+    work_history: "",
+    military_status: "",
+    country: "Iran",
+    province: "",
+    city: "",
+    address: "",
+    map: [],
+    files: []
 }
+
+const validationSchema = Yup.object({
+    title: Yup.string().required('عنوان را وارد کنید'),
+    category: Yup.string().required('دسته بندی را وارد کنید'),
+    description: Yup.string().required('توضیحات را وارد کنید'),
+    collaboration: Yup.string().required('نوع همکاری را انتخاب کنید'),
+    time_work: Yup.string().required("ساعت کاری را انتخاب کنید"),
+    age: Yup.string().required("سن را وارد کنید"),
+    insurance: Yup.string().required("بیمه را انتخاب کنید"),
+    salary_amount: Yup.string().required("دستمزد را انتخاب کنید"),
+    payment_method: Yup.string().required("نحوه پرداخت را انتخاب کنید"),
+    gender: Yup.string().required("جنسیت را انتخاب کنید"),
+    work_history: Yup.string().required("سابقه کاری را انتخاب کنید"),
+    military_status: Yup.string().required("وضعیت سربازی را انتخاب کنید"),
+    country: Yup.string().required("کشور را انتخاب کنید"),
+    province: Yup.string().required("استان را انتخاب کنید"),
+    city: Yup.string().required('شهر را انتخاب کنید'),
+    picture: Yup.array().required('حداقل یک تصویر را انتخاب کنید').min(1, "حداقل یک را انتخاب کنید"),
+})
 
 export default function CreateCallingForm() {
     const { mutateAsync: mutateAddRequest, isPending } = useMutation({ mutationFn: addNewRequest });
@@ -34,9 +56,20 @@ export default function CreateCallingForm() {
 
     const addRequestHandler = async (values) => {
         try {
-            const categoryLabel = transformCategories.filter((i) => i.value === formik.values.category)[0].label;
-            const callingData = { ...values, category: categoryLabel }
+            const transformPhotoId = formik.values.picture.join(",");
+
             const formData = new FormData();
+
+            const callingData = {
+                title: values.title,
+                subject: values.category,
+                lat: values.map[0] || "",
+                lng: values.map[1] || "",
+                picture: transformPhotoId,
+                file:"",
+                ...values
+            }
+
             for (let i in callingData) {
                 formData.append(i, callingData[i]);
             }
@@ -49,6 +82,8 @@ export default function CreateCallingForm() {
             }
 
         } catch (error) {
+            console.log(error);
+
             if (error?.response?.status === 401) {
                 toast.error("لطفا وارد حساب کاربری خود شوید");
                 window.location.reload();
@@ -61,12 +96,7 @@ export default function CreateCallingForm() {
     const formik = useFormik({
         initialValues,
         onSubmit: addRequestHandler,
-        validationSchema: Yup.object({
-            title: Yup.string().required('عنوان را وارد کنید'),
-            category: Yup.string().required('دسته بندی را وارد کنید'),
-            description: Yup.string().required('توضیحات را وارد کنید'),
-            picture: Yup.string().required('تصویر را انتخاب کنید'),
-        })
+        validationSchema
     });
 
     return (

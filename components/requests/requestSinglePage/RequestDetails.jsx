@@ -1,14 +1,20 @@
-export default function RequestDetails() {
+import useMainPage from "@/hooks/useMainPage"
+
+export default function RequestDetails({ request }) {
+    const { category, collaboration, work_history, gender, salary_amount, payment_method, time_work, insurance, age } = request
+    const { categories, isLoading } = useMainPage();
+    const categoryLabel = !isLoading && categories.filter((c) => Number(c.id) === Number(category))[0]?.name;
+
     const details = [
-        { value: "بازیگر", label: "دسته بندی" },
-        { value: "تمام وقت", label: "نوع همکاری" },
-        { value: "حداقل 1 سال", label: "تجربه کاری" },
-        { value: "از 10 سال", label: "سن" },
-        { value: "فرقی ندارد", label: "جنسیت" },
-        { value: "از 20 میلیون", label: "دستمزد" },
-        { value: "ماهانه", label: "شیوه پرداخت" },
-        { value: "از 11 تا 19", label: "ساعت کاری" },
-        { value: "دارد", label: "بیمه" },
+        { value: categoryLabel || "", label: "دسته بندی" },
+        { value: collaboration || "", label: "نوع همکاری" },
+        { value: work_history || "", label: "تجربه کاری" },
+        { value: age || "", label: "سن" },
+        { value: gender || "", label: "جنسیت" },
+        { value: salary_amount || "", label: "دستمزد" },
+        { value: payment_method || "", label: "شیوه پرداخت" },
+        { value: time_work || "", label: "ساعت کاری" },
+        { value: insurance || "", label: "بیمه" },
     ]
 
     return (

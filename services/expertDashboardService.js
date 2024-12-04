@@ -179,6 +179,14 @@ export function addNewRequest(data) {
   });
 }
 
+export function uploadPhotosRequest(data) {
+  return http.post("/api/v1/dashboard/requests/photos/upload", data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
 export function getRequestsList() {
   return http.get("/api/v1/dashboard/requests/list", {
     headers: {
@@ -188,11 +196,15 @@ export function getRequestsList() {
 }
 
 export function deleteRequest(id) {
-  return http.post("/api/v1/dashboard/requests/destroy", {id}, {
-    headers: {
-      Authorization: `Bearer ${Cookies.get("accessToken")}`,
-    },
-  });
+  return http.post(
+    "/api/v1/dashboard/requests/destroy",
+    { id },
+    {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    }
+  );
 }
 
 // * -------------- expert support --------------
