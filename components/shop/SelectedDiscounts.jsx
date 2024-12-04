@@ -4,7 +4,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import discountCalculator from "@/utils/discountCalculator";
 
-export default function SelectedDiscounts() {
+export default function SelectedDiscounts({ products }) {
+    const pairedData =
+        products.reduce((result, value, index, array) => {
+            if (index % 2 === 0) {
+                result.push([value, array[index + 1] || null]);
+            }
+            return result;
+        }, []);
+
     return (
         <div className="md:mx-auto md:container p-6 mt-14">
             <h3 className="text-xl text-slate-900 font-medium flex items-center justify-center gap-2">
@@ -17,12 +25,16 @@ export default function SelectedDiscounts() {
                     slidesPerView={'auto'}
                     className="selected-discounts-swiper"
                 >
-                    {Array(6).fill({ img: "/images/Book003.png", title: "کتاب و لوازم التحریر", price: 230000, discount: 42 }).map((item, index) => {
+                    {pairedData.map((item, index) => {
                         return (
                             <SwiperSlide key={index} className="!w-[200px] border-l border-slate-300 last:border-l-0">
                                 <div className='w-full flex flex-col'>
-                                    <Product product={item} />
-                                    <Product product={item} />
+                                    {item[0] &&
+                                        <Product product={item[0]} />
+                                    }
+                                    {item[1] &&
+                                        <Product product={item[1]} />
+                                    }
                                 </div>
                             </SwiperSlide>
                         );
@@ -36,10 +48,10 @@ export default function SelectedDiscounts() {
 function Product({ product }) {
     return (
         <div className="w-full p-6 border-b border-b-slate-300 last:border-b-0">
-            <div className="w-full flex items-center justify-center  mb-6">
-                <div className='w-[100px]'>
+            <div className="w-full mb-6">
+                <div className='aspect-w-10 aspect-h-10'>
                     <img
-                        src={'/images/Book003.png'}
+                        src={product.photos[0]?.path || ""}
                         alt={''}
                         className='w-full h-full object-center object-cover'
                     />
@@ -47,14 +59,14 @@ function Product({ product }) {
             </div>
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    {product.discount !== 0 &&
+                    {product.discount_price !== 0 &&
                         <span className="text-xs text-white bg-error px-1.5 py-px rounded-full">
-                            {product.discount} %
+                            {product.discount_price} %
                         </span>
                     }
                 </div>
                 <div className="text-slate-800 font-semibold flex items-center gap-1">
-                    {numberWithCommas(discountCalculator(product.price, product.discount || 0))}
+                    {numberWithCommas(discountCalculator(product.price, product.discount_price || 0))}
                     <span className="text-xs font-normal">
                         تومان
                     </span>

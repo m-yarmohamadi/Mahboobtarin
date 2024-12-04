@@ -7,10 +7,7 @@ import { FaChevronLeft } from 'react-icons/fa';
 import ProductCard from './ProductCard';
 import { useGetProductsBestPrice } from '@/hooks/useProducts';
 
-export default function SpecialSell() {
-	const { productsList, isLoading } = useGetProductsBestPrice();
-
-	if (isLoading) return null;
+export default function SpecialSell({ products }) {
 
 	return (
 		<div className='md:mx-auto md:container p-6 mt-6'>
@@ -33,45 +30,38 @@ export default function SpecialSell() {
 				</div>
 			</div>
 
-			<div className='mt-6'>
-				<Swiper
-					modules={[Navigation]}
-					slidesPerView={'auto'}
-					navigation={{
-						nextEl: '#special-sell-btn-next',
-						prevEl: '#special-sell-btn-prev',
-					}}
-					className='special-sell-slider'>
-					<SwiperSlide className='!w-[250px] ml-4'>
-						<div className='w-full h-full flex rounded-xl flex-col  hover:shadow-md dark:shadow-darkMd'>
-							<div className='p-2 flex-1 flex justify-center items-center gap-2 font-bold relative'>
-								<img
-									className=' absolute top-0 right-0 w-full h-full'
-									src='/images/shop/shopParty.png'
-									alt=''
-								/>
-								<button button className='z-50 absolute bottom-2 flex justify-center items-center gap-1 text-secondary-03'>
-									<span>مشاهده همه</span>
-									<span>
-										<FaChevronLeft />
-									</span>
-								</button>
-							</div>
-						</div>
-					</SwiperSlide>
-					{productsList?.map((item, index) => {
-						return (
-							<SwiperSlide
-								key={index}
-								className='!w-[250px] ml-4'>
-								<ProductCard product={item} />
-							</SwiperSlide>
-						);
-					})}
-				</Swiper>
-			</div>
-		</div>
-	);
+            <div className="mt-6">
+                <Swiper
+                    modules={[Navigation]}
+                    slidesPerView={'auto'}
+                    navigation={{
+                        nextEl: '#special-sell-btn-next',
+                        prevEl: '#special-sell-btn-prev'
+                    }}
+                    className="special-sell-slider"
+                >
+                    <SwiperSlide className="!w-[250px] ml-4">
+                        <div className='w-full h-full flex rounded-xl flex-col bg-yellow-400 hover:bg-yellow-500 hover:shadow-md dark:shadow-darkMd'>
+
+                            <div className='p-2 flex-1 flex justify-center items-center gap-2 font-bold'>
+                                <span>مشاهده همه</span>
+                                <span>
+                                    <FaChevronLeft />
+                                </span>
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                    {products?.map((item, index) => {
+                        return (
+                            <SwiperSlide key={index} className="!w-[250px] ml-4">
+                                <ProductCard product={item} />
+                            </SwiperSlide>
+                        );
+                    })}
+                </Swiper>
+            </div>
+        </div>
+    )
 }
 
 function Timer() {

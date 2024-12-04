@@ -4,6 +4,7 @@ import {
   getProductCategoryApi,
   getProductsBestPrice,
   getProductsBestSell,
+  getShopPage,
 } from "@/services/productService";
 import { useQuery } from "@tanstack/react-query";
 
@@ -42,6 +43,17 @@ export function useGetProductsBestSell() {
   const { data: productsList } = productsData || {};
 
   return { productsList, isLoading };
+}
+
+export function useShopPage() {
+  const { data: shopData, isLoading } = useQuery({
+    queryKey: ["get-shop-page"],
+    queryFn: getShopPage,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  return { shopData, isLoading };
 }
 
 // **********************************

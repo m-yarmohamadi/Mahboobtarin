@@ -21,6 +21,10 @@ export function getProductsBestSell() {
   });
 }
 
+export function getShopPage() {
+  return http.get(`/api/v1/shop`).then(({data}) => data);
+}
+
 // * expert dashboard *************
 export function addNewProduct(data) {
   return http.post("/api/v1/dashboard/product/store", data, {
