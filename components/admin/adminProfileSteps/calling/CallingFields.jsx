@@ -11,51 +11,61 @@ import Map from "@/components/mapComponent/Map";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
+import { useMutation } from "@tanstack/react-query";
+import { uploadPhotosRequest } from "@/services/expertDashboardService";
+import Loading from "@/tools/Loading";
 
 const genderOptions = [
     { value: "", label: "یک گزینه را انتخاب کنید" },
-    { value: "man", label: "مرد" },
-    { value: "woman", label: "زن" },
+    { value: "فرقی ندارد", label: "فرقی ندارد" },
+    { value: "مرد", label: "مرد" },
+    { value: "زن", label: "زن" },
 ]
 
 const hamkariOptions = [
     { value: "", label: "یک گزینه را انتخاب کنید" },
-    { value: "fullTime", label: "تمام وقت" },
-    { value: "partTime", label: "پاره وقت" },
+    { value: "تمام وقت", label: "تمام وقت" },
+    { value: "پاره وقت", label: "پاره وقت" },
 ]
 
 const salaryOptions = [
     { value: "", label: "یک گزینه را انتخاب کنید" },
-    { value: "from5to10", label: "از 5 تا 10 میلیون تومان" },
-    { value: "from10to15", label: "از 10 تا 15 میلیون تومان" },
-    { value: "from15to20", label: "از 15 تا 20 میلیون تومان" },
-    { value: "from20to25", label: "از 20 تا 25 میلیون تومان" },
-    { value: "from25to30", label: "از 25 تا 30 میلیون تومان" },
-    { value: "more", label: "بیشتر" },
+    { value: "از 5 تا 10 میلیون تومان", label: "از 5 تا 10 میلیون تومان" },
+    { value: "از 10 تا 15 میلیون تومان", label: "از 10 تا 15 میلیون تومان" },
+    { value: "از 15 تا 20 میلیون تومان", label: "از 15 تا 20 میلیون تومان" },
+    { value: "از 20 تا 25 میلیون تومان", label: "از 20 تا 25 میلیون تومان" },
+    { value: "از 25 تا 30 میلیون تومان", label: "از 25 تا 30 میلیون تومان" },
+    { value: "بیشتر", label: "بیشتر" },
 ]
 
 const payTypeOptions = [
     { value: "", label: "یک گزینه را انتخاب کنید" },
-    { value: "project", label: "پروژه ای" },
-    { value: "monthly", label: "ماهانه" },
-    { value: "weekly", label: "هفتگی" },
-    { value: "daily", label: "روزانه" },
+    { value: "پروژه ای", label: "پروژه ای" },
+    { value: "ماهانه", label: "ماهانه" },
+    { value: "هفتگی", label: "هفتگی" },
+    { value: "روزانه", label: "روزانه" },
 ]
 
 const workHistoryOptions = [
     { value: "", label: "یک گزینه را انتخاب کنید" },
-    { value: "not", label: "مهم نیست" },
-    { value: "min1", label: "حداقل یک سال" },
-    { value: "min3", label: "حداقل سه سال" },
-    { value: "min5", label: "حداقل پنج سال" },
+    { value: "مهم نیست", label: "مهم نیست" },
+    { value: "حداقل یک سال", label: "حداقل یک سال" },
+    { value: "حداقل سه سال", label: "حداقل سه سال" },
+    { value: "حداقل پنج سال", label: "حداقل پنج سال" },
 ]
 
 const militaryStatusOptions = [
     { value: "", label: "یک گزینه را انتخاب کنید" },
-    { value: "0", label: "معافیت تحصیلی" },
-    { value: "1", label: "مشمول" },
-    { value: "2", label: "انجام داده" },
-    { value: "3", label: "معافیت دائم" },
+    { value: "معافیت تحصیلی", label: "معافیت تحصیلی" },
+    { value: "مشمول", label: "مشمول" },
+    { value: "انجام داده", label: "انجام داده" },
+    { value: "معافیت دائم", label: "معافیت دائم" },
+]
+
+const insuranceOptions = [
+    { value: "", label: "یک گزینه را انتخاب کنید" },
+    { value: "دارد", label: "دارد" },
+    { value: "ندارد", label: "ندارد" },
 ]
 
 export default function CallingFields({ formik }) {
@@ -109,31 +119,58 @@ export default function CallingFields({ formik }) {
                     options={hamkariOptions}
                     label={'نوع همکاری'}
                     required={true}
+                    formik={formik}
+                    name="collaboration"
                 />
                 <Input
                     label={'ساعت کاری'}
+                    formik={formik}
+                    name="time_work"
                 />
                 <Select
                     label={'میزان حقوق'}
                     options={salaryOptions}
+                    formik={formik}
+                    name="salary_amount"
                 />
                 <Select
                     label={'شیوه پرداخت'}
                     required={true}
                     options={payTypeOptions}
+                    formik={formik}
+                    name="payment_method"
                 />
                 <Select
                     label={'جنسیت'}
                     options={genderOptions}
                     required={true}
+                    formik={formik}
+                    name="gender"
+                />
+                <Input
+                    label={'سن'}
+                    required={true}
+                    formik={formik}
+                    name="age"
+                />
+                <Select
+                    label={'بیمه'}
+                    options={insuranceOptions}
+                    required={true}
+                    formik={formik}
+                    name="insurance"
                 />
                 <Select
                     label={'سابقه کاری'}
                     options={workHistoryOptions}
+                    formik={formik}
+                    name="work_history"
                 />
                 <Select
                     label={'وضعیت سربازی'}
                     options={militaryStatusOptions}
+                    formik={formik}
+                    name="military_status"
                 />
                 <Select
                     options={[{ value: "", label: "یک گزینه را انتخاب کنید" }, ...CountriesSortedFa]}
@@ -206,40 +243,91 @@ export default function CallingFields({ formik }) {
                 required={true}
             />
 
-            <div className="pt-6">
-                <div className='text-sm font-bold px-2 mb-2 inline-block text-slate-800'>
-                    افزودن تصویر
-                </div>
-                <div className="w-full flex items-center flex-wrap gap-4">
-                    {formik.values.picture.map((item, index) => (
-                        <div key={index} className="w-[90px] sm:w-[150px] h-[90px] sm:h-[150px] relative">
-                            <img src={URL.createObjectURL(item.file)} alt="" className="w-full h-full object-cover object-center rounded-lg" />
-                            <button type="button" onClick={() => removePicHandler(item.id)} className='btn btn--danger absolute top-3 right-3 !p-1'>
-                                <IoClose className='w-5 h-5' />
-                            </button>
-                        </div>
-                    ))}
-
-                    {formik.values.picture.length < 3 &&
-                        <>
-                            <label htmlFor="select-calling-img" className="w-[90px] sm:w-[150px] h-[90px] sm:h-[150px] cursor-pointer rounded-lg border border-primary-01">
-                                <div className="w-full h-full flex items-center justify-center">
-                                    <IoMdAddCircleOutline className="w-10 h-10 text-primary-01" />
-                                </div>
-                            </label>
-                            <input
-                                type="file"
-                                name="select-calling-img"
-                                id="select-calling-img"
-                                hidden
-                                accept="image/*"
-                                onChange={addPicHandler}
-                            />
-                        </>
-                    }
-                </div>
-            </div>
+            <UploadPhoto formik={formik} />
         </>
     )
 }
 
+
+function UploadPhoto({ formik }) {
+    const { mutateAsync: mutateUploadPhotos, isPending: isUploading } = useMutation({ mutationFn: uploadPhotosRequest });
+
+    const updloadPhotoHandler = async (file) => {
+        const maxSizeInMB = 3;
+        const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+        if (file.size > maxSizeInBytes) {
+            toast.error(`حجم فایل نباید بیشتر از ${maxSizeInMB} مگابایت باشد`);
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const { data } = await mutateUploadPhotos(formData);
+            console.log(data);
+
+            if (data) {
+                formik.setFieldValue("files", [...formik.values.files, { id: Date.now(), file }])
+                formik.setFieldValue("picture", [...formik.values.picture, data.photo_id])
+            }
+
+        } catch (error) {
+            if (error?.response?.status === 401) {
+                window.location.reload();
+                return;
+            }
+            toast.error("خطا در بارگزاری تصویر");
+        }
+    }
+    return (
+        <div className="pt-6">
+            <div className='text-sm font-bold px-2 mb-2 inline-block text-slate-800'>
+                افزودن تصویر
+            </div>
+            <div className="w-full flex items-center flex-wrap gap-4">
+                {formik.values.files.map((item, index) => (
+                    <div key={index} className="w-[90px] sm:w-[150px] h-[90px] sm:h-[150px] relative">
+                        <img src={URL.createObjectURL(item.file)} alt="" className="w-full h-full object-cover object-center rounded-lg" />
+                        {/* <button type="button" onClick={() => removePicHandler(item.id)} className='btn btn--danger absolute top-3 right-3 !p-1'>
+                            <IoClose className='w-5 h-5' />
+                        </button> */}
+                    </div>
+                ))}
+
+                {formik.values.files.length < 3 &&
+                    <>
+                        {
+                            !isUploading ?
+                                <>
+                                    <label htmlFor="select-calling-img" className="w-[90px] sm:w-[150px] h-[90px] sm:h-[150px] cursor-pointer rounded-lg border border-primary-01">
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            <IoMdAddCircleOutline className="w-10 h-10 text-primary-01" />
+                                        </div>
+                                    </label>
+                                    <input
+                                        type="file"
+                                        name="select-calling-img"
+                                        id="select-calling-img"
+                                        hidden
+                                        accept="image/*"
+                                        onChange={(e) => updloadPhotoHandler(e.target.files[0])}
+                                    />
+                                </>
+                                :
+                                <Loading />
+                        }
+                        <div className='w-full flex justify-start items-start'>
+                            {formik?.errors.picture && formik?.touched.picture &&
+                                <p className='error_Message'>
+                                    {formik?.errors.picture}
+                                </p>
+                            }
+                        </div>
+                    </>
+                }
+            </div>
+        </div>
+    )
+}

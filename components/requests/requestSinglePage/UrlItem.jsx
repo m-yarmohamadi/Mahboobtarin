@@ -1,9 +1,13 @@
+import { useCategoryParents } from "@/hooks/useMainPage";
 import { FaAngleLeft } from "react-icons/fa";
 
-export default function UrlItem({ data }) {
+export default function UrlItem({ request }) {
+    const { categoryParents, isGetCateParent } = useCategoryParents(Number(request?.category) || 0);
+    
     return (
         <div className="w-auto flex items-center gap-1 text-xs md:text-sm text-slate-700">
-            <Url data={data} />
+            <Url data={{ name: "فراخوان" }} />
+            {!isGetCateParent && categoryParents && <Url data={categoryParents} />}
         </div>
     );
 }
