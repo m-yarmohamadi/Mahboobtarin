@@ -8,10 +8,7 @@ import ProductCard from "./ProductCard";
 import { useGetProductsBestPrice } from "@/hooks/useProducts";
 
 
-export default function SpecialSell() {
-    const { productsList, isLoading } = useGetProductsBestPrice();
-
-    if (isLoading) return null;
+export default function SpecialSell({ products }) {
 
     return (
         <div className="md:mx-auto md:container p-6 mt-6">
@@ -53,7 +50,7 @@ export default function SpecialSell() {
                             </div>
                         </div>
                     </SwiperSlide>
-                    {productsList?.map((item, index) => {
+                    {products?.map((item, index) => {
                         return (
                             <SwiperSlide key={index} className="!w-[250px] ml-4">
                                 <ProductCard product={item} />

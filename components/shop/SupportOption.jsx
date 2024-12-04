@@ -1,22 +1,24 @@
-export default function SupportOption() {
+export default function SupportOption({ supportOptions }) {
+
+    const renderImage = (index) => {
+        switch (index) {
+            case 0: return "/images/shop-waranty.png"
+            case 1: return "/images/shop-support.png"
+            case 2: return "/images/shop-delivery.png"
+        }
+    }
+
     return (
         <div className="md:mx-auto md:container p-6 mt-10">
             <div className="w-full p-8 bg-white rounded-lg grid grid-cols-1 gap-8 lg:md:grid-cols-2 lg:grid-cols-3">
-                <Option
-                    title="بازگشت کالا تا 7 روز"
-                    description="در صورت وجود مشکل در سفارش، می توانید تا 7 روز آن را مرجوع کنید"
-                    image="/images/shop-waranty.png"
-                />
-                <Option
-                    title="پشتیبانی در 7 روز هفته"
-                    description="کارشناسان ما 7 روز هفته آماده پاسخگویی به سوالات شما هستند"
-                    image="/images/shop-support.png"
-                />
-                <Option
-                    title="ارسال در کوتاه ترین زمان"
-                    description="با امکاری ارسال اکسپرس، سفارش خود را درکمتر از 3 ساعت تحویل بگیرید"
-                    image="/images/shop-delivery.png"
-                />
+                {supportOptions.map((item, index) => (
+                    <Option
+                        key={index}
+                        title={item.title}
+                        description={item.description}
+                        image={renderImage(index)}
+                    />
+                ))}
             </div>
         </div>
     )

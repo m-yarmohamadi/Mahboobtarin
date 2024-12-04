@@ -5,10 +5,7 @@ import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
 import ProductCard from './ProductCard';
 import { useGetProductsBestSell } from '@/hooks/useProducts';
 
-export default function BestSellers() {
-    const { productsList, isLoading } = useGetProductsBestSell();
-
-    if (isLoading) return null;
+export default function BestSellers({ products }) {
 
     return (
         <div className="md:mx-auto md:container p-6 mt-6">
@@ -41,7 +38,7 @@ export default function BestSellers() {
                     }}
                     className="best-sellers-slider"
                 >
-                    {productsList?.map((item, index) => {
+                    {products?.map((item, index) => {
                         return (
                             <SwiperSlide key={index} className="!w-[250px] ml-4">
                                 <ProductCard product={item} />

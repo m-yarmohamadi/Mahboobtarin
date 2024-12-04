@@ -28,7 +28,7 @@ export default function Slider({ sliders }) {
                     return (
                         <SwiperSlide key={index}>
                             <div className='w-full h-80'>
-                                <img src={item.image} alt="" className='w-full h-full object-cover object-center' />
+                                <img src={item.photo.path} alt="" className='w-full h-full object-cover object-center' />
                             </div>
                         </SwiperSlide>
                     );

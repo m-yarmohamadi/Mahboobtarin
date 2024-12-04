@@ -1,7 +1,15 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
-export default function Categoreis() {
+export default function Categoreis({ categories }) {
+    const pairedData =
+        categories.reduce((result, value, index, array) => {
+            if (index % 2 === 0) {
+                result.push([value, array[index + 1] || null]);
+            }
+            return result;
+        }, []);
+
     return (
         <div className="md:mx-auto md:container p-6 mt-14">
             <h3 className="text-2xl text-slate-900 font-medium text-center">
@@ -12,12 +20,16 @@ export default function Categoreis() {
                 <Swiper
                     slidesPerView={'auto'}
                 >
-                    {Array(8).fill({ img: "/images/Book003.png", title: "کتاب و لوازم التحریر" }).map((item, index) => {
+                    {pairedData.map((item, index) => {
                         return (
                             <SwiperSlide key={index} className="!w-auto ml-8">
                                 <div className='flex flex-col gap-8'>
-                                    <CategoryCard category={item} />
-                                    <CategoryCard category={item} />
+                                    {item[0] &&
+                                        <CategoryCard category={item[0]} />
+                                    }
+                                    {item[1] &&
+                                        <CategoryCard category={item[1]} />
+                                    }
                                 </div>
                             </SwiperSlide>
                         );
@@ -31,11 +43,11 @@ export default function Categoreis() {
 function CategoryCard({ category }) {
     return (
         <div className=' flex flex-col gap-3 h-[160px] px-4'>
-            <div className='w-[90px] h-[90px] flex items-center justify-center rounded-full bg-slate-300'>
-                <img src={category.img} alt={category.title} className='w-full h-full object-contain' />
+            <div className='w-[90px] h-[90px] flex items-center justify-center rounded-full bg-slate-300 overflow-hidden'>
+                <img src={category.pic || ""} alt={category.name} className='w-full h-full object-cover object-center' />
             </div>
-            <div className='text-xs text-slate-800'>
-                {category.title}
+            <div className='text-xs text-slate-800 text-center'>
+                {category.name}
             </div>
         </div>
     )

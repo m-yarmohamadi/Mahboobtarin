@@ -3,11 +3,11 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 
-export default function PopularBrands() {
+export default function PopularBrands({ brands }) {
     return (
         <div className="md:mx-auto md:container p-6 mt-6">
             <h3 className="text-xl text-slate-900 font-semibold text-center">
-            محبوب‌ترین برند ها
+                محبوب‌ترین برند ها
             </h3>
             <div className='w-full mx-auto mt-10'>
                 <Swiper
@@ -23,14 +23,14 @@ export default function PopularBrands() {
                     }}
                     className='popular-brands-swiper'
                 >
-                    {Array(16).fill({ img: "/images/hopaLogo.png", title: "نشر هوپا" }).map((item, index) => {
+                    {brands.map((item, index) => {
                         return (
                             <SwiperSlide key={index} className="!w-auto !h-auto ml-8">
-                                <div className='flex items-center flex-col justify-center gap-4'>
-                                    <div className='w-32 h-32 rounded-full flex items-center justify-center p-6 bg-white'>
-                                        <img src={item.img} alt="" className='w-full' />
+                                <div className='w-32 flex items-center flex-col justify-center gap-4'>
+                                    <div className='w-32 h-32 rounded-full flex items-center justify-center bg-white overflow-hidden'>
+                                        <img src={item?.photo?.path || ""} alt="" className='w-full h-full object-cover object-center' />
                                     </div>
-                                    <div className='text-sm font-medium text-slate-900'>
+                                    <div className='text-sm font-medium text-slate-900 line-clamp-1 text-center'>
                                         {item.title}
                                     </div>
                                 </div>
