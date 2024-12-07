@@ -4,6 +4,7 @@ import {
   getAllCommentsDashboard,
   getAllServices,
   getCommentExpertise,
+  getDashboardInfo,
   getFollowers,
   getFollowings,
   getPlans,
@@ -18,6 +19,20 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import useProfile from "./useProfile";
+
+// * expert dashboard info --------------
+export function useDashboardInfo() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get-dashboard-info"],
+    queryFn: getDashboardInfo,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  const { data: infoData } = data || {};
+
+  return { infoData, isLoading };
+}
 
 // * expert services --------------
 export function useGetServices() {

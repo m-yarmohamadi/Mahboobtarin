@@ -3,8 +3,7 @@ import Groups from '@/components/groups/Groups';
 import Header from '@/components/Header';
 import http from '@/services/httpService';
 
-export default function Group({ users, expertiseId }) {
-
+export default function Group({ users, expertiseId }) {    
     return (
         <div>
             <Header />

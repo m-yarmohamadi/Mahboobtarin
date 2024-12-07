@@ -1,6 +1,15 @@
 import Cookies from "js-cookie";
 import http from "./httpService";
 
+// * -------------- expert dashboard info --------------
+export function getDashboardInfo(data) {
+  return http.get("/api/v1/dashboard/info", {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
 // * -------------- expert gallery --------------
 export function addGallery(data) {
   return http.post("/api/v1/dashboard/gallery", data, {

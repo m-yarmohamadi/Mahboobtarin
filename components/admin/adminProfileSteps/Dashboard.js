@@ -8,8 +8,15 @@ import VisitChart from "./dashboard/VisitChart";
 import ServicesChart from "./dashboard/ServicesChart";
 import IncomeChart from "./dashboard/IncomeChart";
 import Link from "next/link";
+import { useDashboardInfo } from "@/hooks/useDashboard";
+import LoadingAdmin from "../LoadingAdmin";
 
 export default function Dashboard() {
+  const { infoData, isLoading } = useDashboardInfo();
+  const { chart, summary } = infoData || {};
+
+  if (isLoading) return <LoadingAdmin />;
+
   return (
     <div className="space-y-6">
       <div className="flex items-start p-6 gap-2 bg-orange-300/40 rounded-lg">
@@ -36,14 +43,20 @@ export default function Dashboard() {
             <p className="text-slate-700 text-sm lg:text-base">
               جهت ارتقای سطح حساب کاربری اطلاعات خود را تکمیل کنید
             </p>
-            <Link href={'/admin/personalInfo'} className="btn btn--danger rounded-full">
+            <Link
+              href={"/admin/personalInfo"}
+              className="btn btn--danger rounded-full"
+            >
               تکمیل حساب کاربری
             </Link>
           </div>
         </div>
       </Alert>
       <Alert>
-        <Link href={'/admin/settings'} className="w-full flex flex-col gap-4 items-center sm:flex-row sm:items-start">
+        <Link
+          href={"/admin/settings"}
+          className="w-full flex flex-col gap-4 items-center sm:flex-row sm:items-start"
+        >
           <span className="w-20 h-20 rounded-full bg-red-600/30 text-red-600 flex items-center justify-center">
             <IoNotificationsOutline className="w-10 h-10" />
           </span>
@@ -58,10 +71,16 @@ export default function Dashboard() {
       </Alert>
 
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-        <VisitChart />
-        <State />
-        <ServicesChart />
-        <IncomeChart />
+        <VisitChart
+          visits={chart.number_views_pages}
+          state={summary.total_views}
+        />
+        <State summaryData={summary} />
+        <ServicesChart
+          services={chart.number_successful_services}
+          state={summary.successful_services}
+        />
+        <IncomeChart incomes={chart.income} state={summary.total_income} />
       </div>
     </div>
   );

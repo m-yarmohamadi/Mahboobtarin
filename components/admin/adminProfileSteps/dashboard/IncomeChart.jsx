@@ -1,4 +1,5 @@
 import ChartLine from "@/tools/ChartLine";
+import numberWithCommas from "@/utils/numberWithCommas";
 import { useState } from "react"
 
 
@@ -13,11 +14,11 @@ const showType = [
     },
     {
         value: "daily",
-        label: "روزانه"
+        label: "هفتگی"
     },
 ]
 
-export default function IncomeChart() {
+export default function IncomeChart({ incomes, state }) {
     const [showState, setShowState] = useState("month");
 
     const generateRandomNumbers = (min, max, count) => {
@@ -32,14 +33,21 @@ export default function IncomeChart() {
     let categories = [];
     let data = [];
 
-    if (showState === "month") {
-        categories = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
-        data = generateRandomNumbers(1, 120, 12);
-    }
+    if (incomes) {
+        if (showState === "year") {
+            categories = incomes.year.labels;
+            data = incomes.year.data
+        }
 
-    if (showState === "daily") {
-        categories = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
-        data = generateRandomNumbers(1, 120, 7);
+        if (showState === "month") {
+            categories = incomes.month.labels.map((item) => (new Date(item).toLocaleDateString("fa", { month: "long" })));
+            data = incomes.month.data;
+        }
+
+        if (showState === "daily") {
+            categories = incomes.week.labels;
+            data = incomes.week.data
+        }
     }
 
     return (
@@ -52,7 +60,7 @@ export default function IncomeChart() {
                     <div className="text-sm text-textDefault">
                         <span className="font-semibold"> درآمد کل:</span>
                         &nbsp;
-                        <span>47</span>
+                        <span>{numberWithCommas(state)}</span>
                     </div>
                 </div>
 

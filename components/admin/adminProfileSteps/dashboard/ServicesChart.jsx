@@ -13,11 +13,11 @@ const showType = [
     },
     {
         value: "daily",
-        label: "روزانه"
+        label: "هفتگی"
     },
 ]
 
-export default function ServicesChart() {
+export default function ServicesChart({ services, state }) {
     const [showState, setShowState] = useState("month");
 
     const generateRandomNumbers = (min, max, count) => {
@@ -32,14 +32,21 @@ export default function ServicesChart() {
     let categories = [];
     let data = [];
 
-    if (showState === "month") {
-        categories = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
-        data = generateRandomNumbers(1, 120, 12);
-    }
+    if (services) {
+        if (showState === "year") {
+            categories = services.year.labels;
+            data = services.year.data
+        }
 
-    if (showState === "daily") {
-        categories = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
-        data = generateRandomNumbers(1, 120, 7);
+        if (showState === "month") {
+            categories = services.month.labels.map((item) => (new Date(item).toLocaleDateString("fa", { month: "long" })));
+            data = services.month.data;
+        }
+
+        if (showState === "daily") {
+            categories = services.week.labels;
+            data = services.week.data
+        }
     }
 
     return (
@@ -52,7 +59,7 @@ export default function ServicesChart() {
                     <div className="text-sm text-textDefault">
                         <span className="font-semibold"> تعداد کل:</span>
                         &nbsp;
-                        <span>47</span>
+                        <span>{state}</span>
                     </div>
                 </div>
 

@@ -1,5 +1,5 @@
 import ChartLine from "@/tools/ChartLine";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const showType = [
     {
@@ -12,11 +12,11 @@ const showType = [
     },
     {
         value: "daily",
-        label: "روزانه"
+        label: "هفتگی"
     },
 ]
 
-export default function VisitChart() {
+export default function VisitChart({ visits, state }) {
     const [showState, setShowState] = useState("month");
 
     const generateRandomNumbers = (min, max, count) => {
@@ -31,14 +31,24 @@ export default function VisitChart() {
     let categories = [];
     let data = [];
 
-    if (showState === "month") {
-        categories = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
-        data = generateRandomNumbers(1, 120, 12);
-    }
+    if (visits) {
+        if (showState === "year") {
+            // categories = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
+            categories = visits.year.labels
+            data = visits.year.data;
+        }
 
-    if (showState === "daily") {
-        categories = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
-        data = generateRandomNumbers(1, 120, 7);
+        if (showState === "month") {
+            // categories = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
+            categories = visits.month.labels.map((item) => (new Date(item).toLocaleDateString("fa", { month: "long" })));
+            data = visits.month.data;
+        }
+
+        if (showState === "daily") {
+            // categories = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
+            categories = visits.week.labels;
+            data = visits.week.data;
+        }
     }
 
     return (
@@ -51,7 +61,7 @@ export default function VisitChart() {
                     <div className="text-sm text-textDefault">
                         <span className="font-semibold">بازدید کل:</span>
                         &nbsp;
-                        <span>4</span>
+                        <span>{state}</span>
                     </div>
                 </div>
 
