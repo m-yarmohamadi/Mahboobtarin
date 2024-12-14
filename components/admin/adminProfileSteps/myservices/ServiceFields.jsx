@@ -51,7 +51,7 @@ export default function ServiceFields({ formik, isPending }) {
 
     useEffect(() => {
         if (!isLoadServiceItems) {
-            setServiceType(serviceItems.filter((s) => s.value === formik.values.type)[0]?.type);
+            setServiceType(formik.values.type);
             formik.setFieldValue("activity_time", []);
         }
     }, [formik.values.type])
@@ -101,23 +101,14 @@ export default function ServiceFields({ formik, isPending }) {
                         </p>
                     )}
                 </div>
-                <div className="lg:col-span-2">
-                    <TextArea
-                        label={"شرح"}
-                        formik={formik}
-                        name={'description'}
-                    />
-                </div>
-
             </div>
             {
-                serviceType === "time" &&
-                <TimeComponent formik={formik} />
-            }
-
-            {
-                serviceType === "none" &&
-                <DateComponent formik={formik} />
+                serviceType ?
+                    serviceType.includes('مشاوره') ?
+                        <TimeComponent formik={formik} />
+                        :
+                        <DateComponent formik={formik} />
+                    : null
             }
             {!formik.errors.type && formik?.errors.activity_time && formik?.touched.activity_time && (
                 <div className="w-full flex justify-start items-start mt-2">
@@ -126,6 +117,13 @@ export default function ServiceFields({ formik, isPending }) {
                     </p>
                 </div>
             )}
+            <div className="mt-4">
+                <TextArea
+                    label={"شرح"}
+                    formik={formik}
+                    name={'description'}
+                />
+            </div>
             <div className="w-full flex items-center gap-2 mt-10 pt-3 border-t border-slate-300">
                 <button type="submit" className="!w-full lg:!w-1/2 !text-base !font-bold btn btn--primary">
                     {isPending ? <Loading /> : "ثبت"}

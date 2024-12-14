@@ -4,10 +4,14 @@ import Comment from "@/components/magazine/singlePage/Comment";
 import News from "@/components/magazine/singlePage/News";
 import Share from "@/components/magazine/singlePage/Share";
 import Url from "@/components/magazine/singlePage/Url";
+import http from "@/services/httpService";
+import { toPersianDateLong } from "@/utils/toPersianDate";
+import toPersianTimeShort from "@/utils/toPersianTime";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoWarning } from "react-icons/io5";
 
-export default function MagazineSingle() {
+export default function MagazineSingle({ post }) {
+
     return (
         <>
             <Header />
@@ -29,45 +33,44 @@ export default function MagazineSingle() {
                 <div className="order-1 lg:order-2 lg:col-span-7">
                     <div className="w-full flex flex-col lg:flex-row-reverse gap-5 lg:gap-14 border-b border-b-slate-400 pb-5 mb-5">
                         <div className="space-y-4 w-full lg:pt-6">
-                            <Url data={{ name: "مجله محبوب ترین", parent_recursive: { name: "ورزشی" } }} />
+                            <Url data={{ name: "مجله محبوب ترین", parent_recursive: { name: post.post_category.title } }} />
                             <div>
-                                <img src="/images/omicron.png" alt="" className="rounded-lg" />
+                                <img src={post.photo.path} alt={post.title} className="rounded-lg" />
                             </div>
                         </div>
                         <div className="w-full flex flex-col gap-8">
-                            <Author />
+                            <Author author={post.user} />
                             <div className="flex items-center justify-around text-xs text-slate-800">
                                 <div>
-                                    کد خبر:15135
+                                    کد خبر:{post.id}
                                 </div>
                                 <div>
-                                    زمان انتشار 12:50
+                                    زمان انتشار {toPersianTimeShort(post.created_at)}
                                 </div>
                                 <div>
-                                    27 شهریور 1400
+                                    {toPersianDateLong(post.created_at)}
                                 </div>
                             </div>
                             <div>
                                 <h1 className="text-lg font-bold text-slate-900 pb-3">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                                    {post.title}
                                 </h1>
                                 <p className="text-sm text-slate-700 font-medium leading-6">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفایاز
+                                    {post.short_desc}
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <div className="space-y-6">
-                        <p className="text-sm text-slate-700 font-medium leading-6">
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                        </p>
-                        <div>
-                            <img src="/images/omicron.png" alt="" className="rounded-lg" />
+                        <div dangerouslySetInnerHTML={{__html:post.descriptin}} className="!max-w-none text-sm text-slate-700 font-medium leading-6">
                         </div>
-                        <p className="text-sm text-slate-700 font-medium leading-6">
+                        <div>
+                            <img src={post.photo.path} alt={post.title} className="rounded-lg" />
+                        </div>
+                        {/* <p className="text-sm text-slate-700 font-medium leading-6">
                             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد
-                        </p>
+                        </p> */}
                     </div>
 
                     <div className="w-full flex items-center justify-end gap-2 pt-10">
@@ -91,4 +94,21 @@ export default function MagazineSingle() {
             </div>
         </>
     )
+}
+
+export async function getServerSideProps(ctx) {
+    const { params: { magazineSlug } } = ctx;
+    const { data } = await http.get(`/api/v1/mag/${magazineSlug}`);
+
+    if (Object.keys(data.post).length === 0) {
+        return {
+            notFound: true
+        }
+    }
+
+    return {
+        props: {
+            post: data.post
+        }
+    }
 }

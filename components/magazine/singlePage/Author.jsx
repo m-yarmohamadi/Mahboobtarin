@@ -1,4 +1,4 @@
-export default function Author() {
+export default function Author({ author }) {
     return (
         <div className="flex items-center justify-between">
             <div className="flex items-center sm:col-span-4 gap-2">
@@ -11,10 +11,10 @@ export default function Author() {
                 </div>
                 <div className="flex flex-col gap-1">
                     <span className="text-xs lg:text-sm font-bold text-slate-800">
-                        نام و نام خانوادگی
+                        {author.name} {author.lastname}
                     </span>
                     <span className="text-xs text-slate-600">
-                        @username
+                        @{author.unique_url_id}
                     </span>
                 </div>
             </div>

@@ -59,13 +59,13 @@ const LatestRegistrations = () => {
                                     <div className="my-1 flex items-center justify-center rounded-3xl w-20 h-20 overflow-hidden ring-2 ring-primary-01 ring-offset-2">
                                         <img
                                             className={
-                                                !item?.photos?.length
+                                                !item?.avatar?.length
                                                     ? "w-11 h-11 md:w-12 md:h-12"
                                                     : "w-full h-full object-cover object-center  hover:grayscale"
                                             }
                                             src={
-                                                item?.photos?.length
-                                                    ? item?.photos[0]?.path
+                                                item?.avatar?.length
+                                                    ? item?.avatar[0]?.path
                                                     : "/images/defaultUser.png"
                                             }
                                             alt={`${item?.name} ${item?.lastname} `}

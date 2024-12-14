@@ -141,6 +141,14 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
                         </div>
                 }
 
+                <div className="w-full text-sm">
+                    <div className="font-bold  text-slate-800 py-2">
+                        توضیحات:
+                    </div>
+                    <div className="text-slate-700">
+                        {serviceData.description || "بدون توضیحات"}
+                    </div>
+                </div>
 
                 <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
                     {
@@ -182,6 +190,14 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
                     <div className="text-sm text-blue-600 flex items-center gap-1">
                         <IoTimeOutline className="w-6 h-6 text-slate-700" />
                         ساعت : {getTimesOfWeekday.result.time}
+                    </div>
+                </div>
+                <div className="w-full text-sm">
+                    <div className="font-bold  text-slate-800 py-2">
+                        توضیحات:
+                    </div>
+                    <div className="text-slate-700">
+                        {serviceData.description || "بدون توضیحات"}
                     </div>
                 </div>
                 <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
