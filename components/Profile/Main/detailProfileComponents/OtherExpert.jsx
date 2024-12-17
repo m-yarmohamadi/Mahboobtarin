@@ -50,8 +50,8 @@ const Followers = [
   
 export default function OtherExpert() {
     return (
-        <div className="w-full pt-6 lg:p-2">
-            <div className="w-full p-4 bg-slate-200 shadow-md dark:shadow-darkMd  rounded-md">
+        <div className="w-full pt-6">
+            <div className="w-full p-6 bg-slate-200 dark:bg-slate-300 rounded-xl">
                 <div className="w-full flex justify-between flex-col sm:flex-row items-center gap-2 text-md font-bold">
                     <span className="truncate text-textDefault">
                         افرادی برای دنبال کردن

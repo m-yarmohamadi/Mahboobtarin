@@ -103,7 +103,7 @@ const LeftProfile = ({ user }) => {
       <div className="hidden lg:block">
         <OtherExpert />
       </div>
-      <div className="p-3">
+      <div className="pt-6">
         {/* <div className="bg-slate-200 px-3 h-12 gap-1 flex justify-start items-center border border-slate-400 rounded-full">
           <span className="text-slate-500">
             <FaSearch className="w-5 h-5" />
@@ -117,9 +117,9 @@ const LeftProfile = ({ user }) => {
             defaultValue={""}
           />
         </div> */}
-        <div className="w-full h- px-2 my-2 bg-slate-200 rounded-md shadow-md dark:shadow-darkMd">
-          <div className="p-4">
-            <span className="text-lg font-bold text-textDefault">
+        <div className="w-full px-4 py-6 my-2 bg-slate-200 dark:bg-slate-300 rounded-xl">
+          <div className="pb-4">
+            <span className=" font-bold text-textDefault">
               جستجو های پرتکرار
             </span>
           </div>
@@ -132,9 +132,6 @@ const LeftProfile = ({ user }) => {
                 {item}
               </span>
             ))}
-          </div>
-          <div className="pt-40 pb-2">
-            {/* <span className="text-primary-01 font-bold p-2">بیشتر</span> */}
           </div>
         </div>
       </div>

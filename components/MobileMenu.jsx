@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation";
+import { FaListAlt, FaRegListAlt } from "react-icons/fa";
 import { FaHeart, FaRegHeart, FaRegUser, FaUser } from "react-icons/fa6";
 import { HiOutlineSpeakerphone, HiSpeakerphone } from "react-icons/hi";
 import { IoChatboxEllipses, IoChatboxEllipsesOutline, IoHome, IoHomeOutline } from "react-icons/io5"
@@ -21,10 +22,10 @@ export default function MobileMenu({ user, isLoading }) {
             activeIcon: FaHeart
         },
         {
-            label: "درخواست‌ها",
-            link: "/requests",
-            icon: HiOutlineSpeakerphone,
-            activeIcon: HiSpeakerphone
+            label: "سفارشات",
+            link: "#",
+            icon: FaRegListAlt,
+            activeIcon: FaListAlt
         },
         {
             label: "گفتگو",

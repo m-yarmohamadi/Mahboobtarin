@@ -16,6 +16,7 @@ import Resume from "@/components/Resume";
 import useMainPage from "@/hooks/useMainPage";
 import LoadingPage from "@/components/LoadingPage";
 import LatestRegistrations from "@/components/LatestRegistrations";
+import FrequentSearchesList from "@/components/frequentSearches/FrequentSearchesList";
 
 const Index = () => {
   const { isLoading } = useMainPage();
@@ -50,7 +51,8 @@ const Index = () => {
         <PopularMounth />
         <Services />
         <Baner02 />
-        <FrequentSearches />
+        {/* <FrequentSearches /> */}
+        <FrequentSearchesList />
         <Baner03 />
         <Recommended />
         <News />

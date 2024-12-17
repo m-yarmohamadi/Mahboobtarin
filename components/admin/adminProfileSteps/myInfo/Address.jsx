@@ -21,7 +21,13 @@ export default function Address({ formik, isLoading }) {
 
     return (
         <>
-            <div className="w-full grid grid-cols-1 gap-4 lg:grid-cols-3 lg:col-span-2">
+            <div className="w-full grid grid-cols-1 gap-4 lg:grid-cols-4 lg:col-span-2">
+                <Input
+                    label="ملیت"
+                    formik={formik}
+                    name="nationality"
+                    disabled={true}
+                />
 
 
                 <Select
@@ -37,7 +43,7 @@ export default function Address({ formik, isLoading }) {
 
                         <>
                             <Select
-                                label="استان محل سکونت"
+                                label="استان/ایالت محل سکونت"
                                 name="province_id"
                                 formik={formik}
                                 options={[{ id: -1, value: "", label: "استان محل سکونت را انتخاب کنید" }, ...transformProvinces || []]}
@@ -54,7 +60,7 @@ export default function Address({ formik, isLoading }) {
                         :
                         <>
                             <Input
-                                label="استان محل سکونت"
+                                label="استان/ایالت محل سکونت"
                                 name="province_id"
                                 formik={formik}
                             />

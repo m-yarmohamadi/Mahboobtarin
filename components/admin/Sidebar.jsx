@@ -3,7 +3,7 @@ import useProfile from "@/hooks/useProfile";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaPortrait, FaRegCommentDots } from "react-icons/fa";
-import { FaBlog, FaChartColumn, FaRegUser } from "react-icons/fa6";
+import { FaBlog, FaChartColumn, FaRegBookmark, FaRegHandshake, FaRegUser } from "react-icons/fa6";
 import { GiWallet } from "react-icons/gi";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { LiaUserFriendsSolid } from "react-icons/lia";
@@ -13,6 +13,7 @@ import { TbDashboard, TbLogout } from "react-icons/tb";
 import { RiGalleryLine, RiVipCrownLine } from "react-icons/ri";
 import { BiSupport } from "react-icons/bi";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
+import { BsChatSquareDots } from "react-icons/bs";
 
 const dataMenu = [
     {
@@ -30,18 +31,25 @@ const dataMenu = [
         icon: FaRegUser,
     },
     {
-        id: 18,
-        title: 'محصولات',
-        value: 'products',
+        id: 50,
+        title: 'گفتگو',
+        value: 'chat',
         quanity: '',
-        icon: LuBox,
+        icon: BsChatSquareDots,
     },
     {
         id: 3,
-        title: 'سفارش جدید',
+        title: 'سفارشات',
         value: 'orders',
         quanity: '12',
         icon: MdOutlineListAlt,
+    },
+    {
+        id: 9,
+        title: 'درخواست جدید',
+        value: '#',
+        quanity: '',
+        icon: FaRegHandshake,
     },
     {
         id: 4,
@@ -56,6 +64,13 @@ const dataMenu = [
         value: 'services',
         quanity: '',
         icon: MdOutlineMedicalServices,
+    },
+    {
+        id: 18,
+        title: 'محصولات',
+        value: 'products',
+        quanity: '',
+        icon: LuBox,
     },
     {
         id: 22,
@@ -80,7 +95,7 @@ const dataMenu = [
     },
     {
         id: 20,
-        title: 'محبوب‌ترین',
+        title: 'محبوب ترین های من',
         value: 'mahbobtarin',
         quanity: '',
         icon: MdOutlineFavoriteBorder,
@@ -93,11 +108,18 @@ const dataMenu = [
         icon: FaRegCommentDots,
     },
     {
-        id: 9,
-        title: 'درخواست خدمات',
+        id: 91,
+        title: 'درخواست از محبوب ترین',
         value: 'request_services',
         quanity: '',
         icon: FaBlog,
+    },
+    {
+        id: 92,
+        title: 'نشان شده',
+        value: '#',
+        quanity: '',
+        icon: FaRegBookmark,
     },
     {
         id: 10,

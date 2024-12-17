@@ -151,6 +151,7 @@ export function useFollow() {
         if (data.message[0] === "Unfollow succesfully!") {
           toast.success(`${userName} از دنبال شوندگان حذف شد`);
           queryClient.invalidateQueries({ queryKey: ["get-followings"] });
+          queryClient.invalidateQueries({ queryKey: ["get-followers"] });
           queryClient.invalidateQueries({
             queryKey: ["get-expertise-user-by-id"],
           });
@@ -159,6 +160,7 @@ export function useFollow() {
         if (data.message[0] === "Follow Succesfully!") {
           toast.success(`${userName} دنبال شد`);
           queryClient.invalidateQueries({ queryKey: ["get-followings"] });
+          queryClient.invalidateQueries({ queryKey: ["get-followers"] });
           queryClient.invalidateQueries({
             queryKey: ["get-expertise-user-by-id"],
           });

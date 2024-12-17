@@ -16,8 +16,8 @@ export default function ExpertServicesList({ user }) {
 
     if (!isLoadingServices && servicesData && servicesData.length) {
         return (
-            <div className="p-2 ">
-                <div className="border border-slate-400 rounded-md p-4  w-full">
+            <div id="services">
+                <div className="w-full">
                     <TitleItems title={"پلن های خدمات"} />
                     <div className="w-full flex flex-col justify-center items-center gap-2">
                         {!isLoadingServices &&
@@ -26,15 +26,15 @@ export default function ExpertServicesList({ user }) {
                                     <div
                                         key={item.id}
                                         onClick={() => setShowIdeasDetail(index + 1)}
-                                        className="  cursor-pointer w-full flex flex-col justify-center items-start gap-2 p-1 pb-3  border border-slate-400 rounded-md"
+                                        className={`cursor-pointer w-full flex flex-col justify-center items-start gap-2 p-4 border border-slate-300 dark:border-slate-400 rounded-xl`}
                                     >
                                         <div
                                             onClick={() => setModal(item.id)}
                                             className="w-full flex-col sm:flex-row sm:items-center flex justify-between gap-4"
                                         >
-                                            <div className=" flex items-center gap-1 truncate">
+                                            <div className=" flex items-center gap-2 truncate">
                                                 <div>
-                                                    <span className="rounded-md flex justify-center items-center text-lg text-primary-01 bg-primary-01 bg-opacity-20 w-8 h-8">
+                                                    <span className="rounded-lg flex justify-center items-center text-lg text-primary-01 bg-slate-300 bg-opacity-20 w-8 h-8">
                                                         <BsChatText />
                                                     </span>
                                                 </div>

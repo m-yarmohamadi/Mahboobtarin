@@ -1,0 +1,72 @@
+import { useRouter } from "next/navigation";
+
+export default function FrequentSearches({ topSearch }) {
+
+    return (
+        <div>
+            <h4 className="font-bold text-slate-800 pb-5 lg:text-xl lg:text-center">
+                جستجو های پر تکرار
+            </h4>
+            <div className="w-full flex items-center gap-5 overflow-x-auto no-scrollbar lg:hidden">
+                {topSearch.map((item, index) => (
+                    <FrequentSearchesItem key={index} item={item} />
+                ))}
+            </div>
+            <div className="w-full hidden lg:grid grid-cols-1 xl:grid-cols-2 xl:gap-x-10 lg:bg-white lg:rounded-2xl lg:p-6">
+                {topSearch.map((item, index) => (
+                    <FrequentSearchesItem key={index} item={item} />
+                ))}
+            </div>
+        </div>
+    )
+}
+
+
+function FrequentSearchesItem({ item }) {
+    const router = useRouter();
+
+    const handleLinks = (link) => {
+        router.push(`/${link}`);
+    };
+
+    return (
+        <div className="p-4 pl-10 lg:py-10 lg:px-0 rounded-2xl bg-white flex items-start gap-4 lg:gap-6 lg:border-b lg:border-b-primary-02 lg:rounded-none">
+            <div>
+                <div className="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px]">
+                    <img
+                        src={item.picture || ""}
+                        alt={item.title}
+                        className="w-full h-full object-cover object-center rounded-2xl"
+                    />
+                </div>
+            </div>
+            <div>
+                <div className="text-sm lg:text-base font-bold text-slate-800 whitespace-nowrap">
+                    {item.title}
+                </div>
+                <div dangerouslySetInnerHTML={{ __html: item.description }} className="mt-2 text-xs lg:text-sm text-slate-600 font-medium whitespace-nowrap">
+                </div>
+                <div className="flex items-center mt-5">
+                    {item.metekhases.slice(0, 3).map((pic, index) => (
+                        <button
+                            onClick={() => handleLinks(pic.unique_url_id)}
+                            key={index}
+                            className="w-8 h-8 lg:w-10 lg:h-10 -ms-2"
+                        >
+                            <img
+                                src={pic.avatar || "/images/user.png"}
+                                alt=""
+                                className="w-full h-full object-cover object-center rounded-full border-2 shadow-xl dark:shadow-darkLg border-white"
+                            />
+                        </button>
+                    ))}
+                    {item.metekhases.length - 3 > 0 &&
+                        <div className="w-8 h-8 lg:w-10 lg:h-10 -ms-2 bg-white text-primary-01 shadow-lg dark:shadow-darkLg text-xs font-semibold rounded-full flex items-center justify-center">
+                            {item.metekhases.length - 3} +
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    )
+}

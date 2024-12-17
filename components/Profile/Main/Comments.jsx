@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { MdAccessTime } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
-export default function Comments({ motekhases_id }) {
+export default function Comments({ motekhases_id, userData }) {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export default function Comments({ motekhases_id }) {
 
     return (
         <div className="pb-4 border border-slate-400 rounded-lg w-full ">
-            <CreateCommentForm motekhases_id={motekhases_id} />
+            <CreateCommentForm motekhases_id={motekhases_id} userData={userData} />
             <div className="p-4 w-full">
                 {comments.map((item) => {
                     return (
@@ -62,7 +62,7 @@ export default function Comments({ motekhases_id }) {
     )
 }
 
-function CreateCommentForm({ motekhases_id }) {
+function CreateCommentForm({ motekhases_id, userData }) {
     const { mutateAsync, isPending } = useMutation({ mutationFn: addCommentExpertise });
     const router = useRouter();
 
@@ -96,7 +96,7 @@ function CreateCommentForm({ motekhases_id }) {
         <form className="w-full" onSubmit={formik.handleSubmit}>
             <div className=" flex flex-col items-center gap-4 w-full  p-4">
                 <span className="text-sm font-semibold text-slate-800">
-                    به این صاحب این صفحه چه امتیازی می دهید؟
+                    به {userData.name} {userData.lastname} چه امتیازی می دهید؟
                 </span>
                 <div className="flex items-center gap-3">
                     {Array(5).fill({}).map((item, index) => (

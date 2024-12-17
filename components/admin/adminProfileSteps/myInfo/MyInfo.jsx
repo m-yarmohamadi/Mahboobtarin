@@ -352,12 +352,6 @@ export default function MyInfo() {
                         formik={formik}
                     />
 
-                    <Input
-                        label="ملیت"
-                        formik={formik}
-                        name="nationality"
-                        disabled={true}
-                    />
 
                     <Address formik={formik} isLoading={isLoading} />
 

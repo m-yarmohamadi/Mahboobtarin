@@ -3,8 +3,9 @@ import useProfile from "@/hooks/useProfile";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BiSupport } from "react-icons/bi";
+import { BsChatSquareDots } from "react-icons/bs";
 import { FaPortrait } from "react-icons/fa";
-import { FaRegUser } from "react-icons/fa6";
+import { FaRegBookmark, FaRegUser } from "react-icons/fa6";
 import { GiWallet } from "react-icons/gi";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
 import { LiaUserFriendsSolid } from "react-icons/lia";
@@ -23,25 +24,39 @@ const dataMenu = [
         icon: FaRegUser,
     },
     {
+        id: 50,
+        title: 'گفتگو',
+        value: '#',
+        quanity: '',
+        icon: BsChatSquareDots,
+    },
+    {
+        id: 30,
+        title: 'سفارشات',
+        value: 'orders',
+        quanity: '12',
+        icon: MdOutlineListAlt,
+    },
+    {
         id: 3,
-        title: 'فراخوان',
+        title: 'فراخوان جدید',
         value: 'calling',
         quanity: '',
         icon: HiOutlineSpeakerphone,
     },
     {
         id: 4,
-        title: 'درخواست ها',
-        value: 'orders',
+        title: 'درخواست از محبوب ترین',
+        value: '#',
         quanity: '',
         icon: MdOutlineListAlt,
     },
     {
-        id: 11,
-        title: 'دنبال شونده',
-        value: 'following',
+        id: 92,
+        title: 'نشان شده',
+        value: '#',
         quanity: '',
-        icon: LuUsers2,
+        icon: FaRegBookmark,
     },
     {
         id: 12,

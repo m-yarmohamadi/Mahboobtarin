@@ -5,6 +5,7 @@ import PN from "persian-number";
 import {
   FaHeart,
   FaMapLocationDot,
+  FaRegBookmark,
   FaRegCalendar,
   FaRegCircleCheck,
 } from "react-icons/fa6";
@@ -21,7 +22,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/swiper-bundle.css";
 import numberWithCommas from "@/utils/numberWithCommas";
-import { useFollow, useLikeOrDislike } from "@/hooks/useDashboard";
+import {
+  useFollow,
+  useGetFollowers,
+  useGetFollowings,
+  useLikeOrDislike,
+} from "@/hooks/useDashboard";
 import Comments from "./Comments";
 import { usePathname, useRouter } from "next/navigation";
 import Linkdoni from "./detailProfileComponents/Linkdoni";
@@ -37,6 +43,12 @@ import ExpertServicesList from "./detailProfileComponents/ExpertServicesList";
 import OtherExpert from "./detailProfileComponents/OtherExpert";
 import ExpertGrade from "./detailProfileComponents/ExpertGrade";
 import ExpertLanguage from "./detailProfileComponents/ExpertLanguage";
+import FollowDetails from "./detailProfileComponents/FollowDetails";
+import { BsFillPatchCheckFill } from "react-icons/bs";
+import UserData from "./detailProfileComponents/UserData";
+import { toPersianDateLong } from "@/utils/toPersianDate";
+import MenuDetails from "./detailProfileComponents/MenuDetails";
+import FollowsList from "./detailProfileComponents/FollowsList";
 
 const mostPopular = [
   {
@@ -139,9 +151,9 @@ const product = [
 const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const [score, setScore] = useState(0);
   const { followHandler } = useFollow();
   const { likeDislikeHandler } = useLikeOrDislike();
+  const [stepFollow, setStepFollow] = useState(0);
 
   const getCountryLabel = [...Countries].filter(
     (c) => c.value === userData?.nationality
@@ -152,9 +164,6 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     provinces.filter((p) => Number(p.id) === Number(userData?.province_id))[0]
       ?.name;
 
-  const DiscountCalculation = (i, d) => {
-    return i - (i * d) / 100;
-  };
   console.log(userData);
 
   const expertFollowHandler = () => {
@@ -171,32 +180,39 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     ? JSON.parse(userData?.permissions)
     : {};
 
+  if (stepFollow !== 0) {
+    return (
+      <FollowsList stepFollow={stepFollow} onChangeStep={setStepFollow} userData={userData}>
+        <UserData userData={userData} />
+      </FollowsList>
+    );
+  }
+
   return (
     <div className="w-full">
       <div id="personalinfo" className="w-full">
-        <div className="flex justify-between gap-3 -mt-24 md:-mt-16">
-          <div className="flex flex-col justify-end items-center gap-2">
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary-02 overflow-hidden flex items-center justify-center">
+        <div className="w-full flex justify-between lg:justify-normal gap-3 lg:gap-6 -mt-20 md:-mt-16">
+          <div>
+            <div className="w-20 h-20 md:w-24 md:h-24 relative bg-primary-02 rounded-full flex items-center justify-center">
               <img
-                className={
-                  !userData?.avatar[0]?.path
-                    ? "w-11 h-11 md:w-12 md:h-12"
-                    : "w-full h-full object-cover"
-                }
-                src={userData?.avatar[0]?.path || "/images/defaultUser.png"}
+                className={"w-full h-full object-cover  rounded-full"}
+                src={userData?.avatar[0]?.path || "/images/user.png"}
                 alt={`${userData?.name} ${userData?.lastname} `}
               />
+              <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 bottom-1.5 left-1.5 lg:bottom-2 lg:left-2"></div>
             </div>
-            <span className="bg-green-300 dark:bg-green-700 text-xs font-semibold text-slate-700 rounded-full py-1 px-4">
-              فعال
-            </span>
           </div>
-          <div className="flex justify-end gap-3 text-sm font-medium text-slate-800 pt-20">
-            <span className="flex justify-end items-center gap-1">
-              <FaRegCircleCheck className="w-6 h-6 text-blue-500" />
-            </span>
 
-            <div>
+          <div className="lg:w-full flex items-center lg:items-start lg:justify-between gap-4 pt-12 md:pt-16">
+            <div className="lg:hidden">
+              <FollowDetails onChangeStep={setStepFollow} userData={userData} />
+            </div>
+
+            <div className="hidden lg:block">
+              <UserData userData={userData} />
+            </div>
+
+            <div className="space-y-4">
               <button
                 onClick={expertFollowHandler}
                 className={`btn ${
@@ -205,51 +221,76 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
               >
                 {isFollow ? "لغو دنبال کردن" : "دنبال کردن"}
               </button>
-            </div>
 
-            {/* <button
-              onClick={expertLikeHandler}
-              className="flex justify-end items-center gap-1"
-            >
-              {isLike ? (
-                <FaHeart className="w-6 h-6 text-red-600" />
-              ) : (
-                <FaRegHeart className="w-6 h-6 text-red-600" />
-              )}
-            </button> */}
-            <span className="flex justify-end items-center gap-1">
-              <IoShareSocialOutline className="w-6 h-6 text-green-500" />
-            </span>
+              <div className="flex items-center justify-around text-slate-900 lg:hidden">
+                <span className="">
+                  <FaRegBookmark className="w-5 h-5" />
+                </span>
+                <span className="">
+                  <IoShareSocialOutline className="w-5 h-5" />
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="mt-6 flex items-center justify-between">
-          <div className="flex flex-col">
-            <div className=" font-bold text-xl md:text-2xl text-textDefault pb-1">
-              {userData?.user_title ||
-                `${userData?.name} ${userData?.lastname}`}
-            </div>
-            <span className=" text-xs text-slate-700">
-              {userData?.unique_url_id}@
+
+        <div className="mt-6 lg:hidden">
+          <UserData userData={userData} />
+        </div>
+
+        <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-4 pt-6">
+          <span className="flex items-center w-full gap-4 text-sm md:text-base">
+            <span className="flex justify-center items-center text-slate-800 font-semibold">
+              <HiOutlineLocationMarker className="w-5 h-5" />
+              <span>{getCountryLabel}،</span>
+              <span>{getProvinceLabel}</span>
             </span>
-            <div className="flex justify-center items-center gap-1 py-2">
-              {userData?.expertises?.map((expertise, index) => (
-                <div
-                  key={index}
-                  className="group text-xs md:text-sm text-primary-01"
-                >
-                  <span className="">{expertise.subject}</span>
-                  <span className="group-last:hidden">،</span>
-                </div>
-              ))}
+          </span>
+          <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
+            <FaRegCalendar className="w-4 h-4 text-slate-800" />
+            <span className="text-slate-600 font-normal">تاریخ پیوستن :</span>
+            {toPersianDateLong(userData?.created_at)}
+          </span>
+          <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
+            <FaRegCalendar className="w-4 h-4 text-slate-800" />
+            <span className="text-slate-600 font-normal">متولد :</span>
+            {toPersianDateLong(userData?.birthday)}
+          </span>
+
+          <span className="flex items-center gap-1 text-xs md:text-sm text-slate-800">
+            <FaRegStar className="w-5 h-5 text-yellow-400" />
+            <span>{enToFaNumber("4.90 (از 24 نظر)")}</span>
+          </span>
+
+          <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
+            <div className="flex items-center gap-1 text-xs text-slate-800">
+              <FaRegBookmark className="w-5 h-5" />
+              <span>ذخیره</span>
+            </div>
+            <div className="flex items-center gap-1 text-xs text-slate-800">
+              <IoShareSocialOutline className="w-5 h-5" />
+              <span>اشتراک گذاری</span>
             </div>
           </div>
-          {/* <div>
-						<button
-							onClick={expertFollowHandler}
-							className={`btn ${isFollow ? 'btn--secondary' : 'btn--primary'}`}>
-							{isFollow ? 'لغو دنبال کردن' : 'دنبال کردن'}
-						</button>
-					</div> */}
+          {userData?.amount_experience_year ? (
+            <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
+              <BiMedal className="w-6 h-6 text-green-600" />
+              <span className="text-slate-600 font-normal">تجربه :</span>
+              {userData?.amount_experience_year} سال
+            </div>
+          ) : null}
+        </div>
+
+        <div className="hidden lg:block pt-6">
+          <FollowDetails onChangeStep={setStepFollow} userData={userData} />
+        </div>
+
+        <div className="md:hidden pt-6">
+          <MenuDetails
+            userData={userData}
+            popularList={popularList}
+            permissions={permissions}
+          />
         </div>
 
         <div className="lg:hidden pt-6">
@@ -258,40 +299,6 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
 
         {/* بیوگرافی */}
         <About description={userData?.description} />
-
-        <div className="flex flex-col xs:flex-row justify-between gap-2 pt-6">
-          <div className="space-y-2">
-            <span className="flex items-center w-full gap-4 text-sm md:text-base">
-              <span className="flex justify-center items-center text-slate-800 font-semibold">
-                <HiOutlineLocationMarker className="w-6 h-6 ml-1" />
-                <span>{getCountryLabel}،</span>
-                <span>{getProvinceLabel}</span>
-              </span>
-            </span>
-            <span className="text-xs md:text-sm mr-[2px] flex items-center gap-1 whitespace-nowrap text-slate-800 font-semibold">
-              <FaRegCalendar className="w-5 h-5 text-slate-800" />
-              <span className="text-slate-600 font-normal">تاریخ پیوستن :</span>
-              {new Date(userData?.created_at).toLocaleDateString("fa-IR", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
-          </div>
-          <div className="space-y-2">
-            {userData?.amount_experience_year ? (
-              <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
-                <BiMedal className="w-7 h-7 text-green-600 ml-1" />
-                <span className="text-slate-600 font-normal">تجربه :</span>
-                {userData?.amount_experience_year} سال
-              </div>
-            ) : null}
-            <span className="flex items-center gap-1 text-xs md:text-sm text-slate-800">
-              <FaRegStar className="w-6 h-6 text-yellow-400 mr-[2px]" />
-              <span>{enToFaNumber("4.90 (از 24 نظر)")}</span>
-            </span>
-          </div>
-        </div>
       </div>
 
       {/* نشانی */}
@@ -440,7 +447,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       <div id="comments" className="pt-16">
         <TitleItems title={"نظرات کاربران"} />
         <div className="w-full ">
-          <Comments motekhases_id={userData?.id} />
+          <Comments motekhases_id={userData?.id} userData={userData} />
         </div>
       </div>
 
