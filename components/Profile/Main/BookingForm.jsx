@@ -52,6 +52,7 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
     const [isLoading, setIsLoading] = useState(true);
     const { isDarkMode } = useDarkMode();
     const getTimesOfWeekday = !isLoading && processActivityTimes(serviceData?.activity_time, currentWeekday);
+    const dedicatedTime = !isLoading && JSON.parse(serviceData.dedicated_time);
 
     const selectDate = (date) => {
         setDate(date);
@@ -87,8 +88,9 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
                         onChange={(e) => selectDate(e)}
                         locale={persian_fa}
                         calendar={persian}
-                        minDate={new Date()}
-                        render={<CustomeButtonDatePicker setDate={selectDate} />}
+                        minDate={dedicatedTime ? dedicatedTime[0] : new Date()}
+                        maxDate={dedicatedTime && dedicatedTime[1]}
+                        render={<CustomeButtonDatePicker setDate={selectDate} maxDate={dedicatedTime && dedicatedTime[1]} />}
                         calendarPosition="bottom-center"
                         containerClassName="w-full"
                         className={isDarkMode && "bg-dark"}
@@ -226,15 +228,24 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
 }
 
 
-function CustomeButtonDatePicker({ openCalendar, value, setDate }) {
+function CustomeButtonDatePicker({ openCalendar, value, setDate, maxDate }) {
     const convertTOEnDate = moment(toEnglishNumber(value), "jYYYY/jMM/jDD").format("YYYY/MM/DD")
     const convertToLongDateFa = new Date(convertTOEnDate).toLocaleDateString("fa-IR", { day: "numeric", month: "long", weekday: "long" });
 
     // is today or not
     const isToday = () => {
-        const today = new Date().toLocaleDateString("fa-IR");
-        const currentDate = new Date(convertTOEnDate).toLocaleDateString("fa-IR");
+        const today = new Date();
+        const currentDate = new Date(convertTOEnDate);
         return currentDate <= today;
+    }
+
+    // is max date
+    const isMaxDate = () => {
+        const convertMaxDate = new Date(maxDate);
+        const currentDate = new Date(convertTOEnDate);
+        convertMaxDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+        return currentDate.getTime() === convertMaxDate.getTime() || currentDate > convertMaxDate;
     }
 
     // minus day
@@ -261,7 +272,7 @@ function CustomeButtonDatePicker({ openCalendar, value, setDate }) {
                 {isToday() && "امروز، "}
                 {convertToLongDateFa}
             </button>
-            <button onClick={incDateHandler} className="w-16 h-full rounded-l-md whitespace-nowrap p-3 text-xs text-slate-500 dark:text-slate-700 border border-slate-200">
+            <button disabled={maxDate && isMaxDate()} onClick={incDateHandler} className="w-16 disabled:!opacity-45 h-full rounded-l-md whitespace-nowrap p-3 text-xs text-slate-500 dark:text-slate-700 border border-slate-200">
                 روز بعد
             </button>
         </div>

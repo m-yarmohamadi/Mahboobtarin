@@ -35,12 +35,12 @@ export default function CreateService() {
         const activityTimeJson2 = values.activity_time.map(item => {
             const { day, ...rest } = item;
             return { week: day, ...rest };
-        });
+        });        
 
         try {
             const { data } = await mutateAsync({
                 type: values.type,
-                dedicated_time: "null",
+                dedicated_time: JSON.stringify(values.dedicated_time),
                 price_type: values.price_type,
                 price: values.price,
                 activity_time: JSON.stringify(activityTimeJson2),
@@ -63,7 +63,7 @@ export default function CreateService() {
     const formik = useFormik({
         initialValues: {
             type: "",
-            dedicated_time: "",
+            dedicated_time: [],
             price_type: "",
             price: "0",
             activity_time: [],

@@ -5,7 +5,7 @@ import useProfile from "@/hooks/useProfile";
 import { getServiceProfile } from "@/services/expertDashboardService";
 import Loading from "@/tools/Loading";
 import toEnglishNumber from "@/utils/toEnglishNumber";
-import { toPersianDateShort } from "@/utils/toPersianDate";
+import { toPersianDateLong, toPersianDateShort } from "@/utils/toPersianDate";
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react";
 import { FaArrowRightLong, FaCircleCheck } from "react-icons/fa6";
@@ -49,6 +49,7 @@ export default function viewService() {
     const [servicesData, setServicesData] = useState({});
     const getTimesOfWeekday = !isLoading && !serviceLoading && servicesData && processActivityTimes(servicesData?.activity_time);
     const [activeTab, setActiveTab] = useState(null);
+    const dedicatedTime = !serviceLoading && JSON.parse(servicesData.dedicated_time);
 
     useEffect(() => {
         async function fetchServicesHandler() {
@@ -108,6 +109,12 @@ export default function viewService() {
                         <p className="text-sm text-slate-800 py-4">
                             شرح : {servicesData?.description}
                         </p>
+
+                        {dedicatedTime &&
+                            <div className="text-sm text-slate-800 py-4">
+                                {`بازه زمانی : از ${toPersianDateLong(dedicatedTime[0])} ${dedicatedTime[1] ? `تا ${toPersianDateLong(dedicatedTime[1])}` : ""}`}
+                            </div>
+                        }
 
                         <div className="relative rounded-lg mt-6">
 

@@ -13,6 +13,12 @@ import sortedTimes from "@/utils/sortedTimes";
 import DateComponent from "./DateComponent";
 import numberWithCommas from "@/utils/numberWithCommas";
 import TextArea from "@/tools/TextArea";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import { toPersianDateLong, toPersianDateShort } from "@/utils/toPersianDate";
+import toEnglishNumber from "@/utils/toEnglishNumber";
 
 const serviceList = [
     { id: 0, label: 'یک گزینه را انتخاب کنید', value: '' },
@@ -101,13 +107,38 @@ export default function ServiceFields({ formik, isPending }) {
                         </p>
                     )}
                 </div>
+                {
+                    serviceType ?
+                        !serviceType.includes('سمینار') &&
+                        <div className={`w-full py-1 flex flex-col justify-start justify-items-start items-start`}>
+                            <label className='text-sm font-bold px-2 mb-2 inline-block text-slate-800'>
+                                بازه زمانی
+                            </label>
+                            <DatePicker
+                                value={formik.values.dedicated_time}
+                                onChange={(e) => formik.setFieldValue("dedicated_time", e)}
+                                locale={persian_fa}
+                                calendar={persian}
+                                minDate={new Date()}
+                                range
+                                format={'D MMMM YYYY'}
+                                calendarPosition="bottom-right"
+                                containerClassName="w-full"
+                                inputClass="w-full appearance-none outline-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md py-2 px-4    focus:bg-white focus:shadow-lg dark:shadow-darkLg focus:shadow-red-300 transition-all duration-300 ease-in-out"
+                            />
+                            {/* <div className='w-full flex justify-start items-start mt-2 text-xs text-error'>
+                                {dateTimeFormik.errors.date}
+                            </div> */}
+                        </div>
+                        : null
+                }
             </div>
             {
                 serviceType ?
-                    serviceType.includes('مشاوره') ?
-                        <TimeComponent formik={formik} />
-                        :
+                    serviceType.includes('سمینار') ?
                         <DateComponent formik={formik} />
+                        :
+                        <TimeComponent formik={formik} />
                     : null
             }
             {!formik.errors.type && formik?.errors.activity_time && formik?.touched.activity_time && (
