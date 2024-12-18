@@ -23,12 +23,11 @@ export default function Dashboard() {
         <span>
           <BiInfoCircle className="w-6 h-6 text-textDefault" />
         </span>
-        <div className="text-sm lg:text-base text-orange-500 leading-6">
-          <span className="font-bold">توجه:</span>
-          کاربر گرامی! شما با تکمیل دقیق اطالعات عمومی حساب کاربری تان به
-          تحقق اولی ن دانشنامه ی خود ناظر مفاخر، مشاهیر و محبوبترین ها یاری می
-          رسانید. همچنین شما می توانید با فعالیت هرچه بیشتر در این سامانه، سطح
-          کاربری خود را ارتقا داده و از امکانات و خدمات آن بهره مند شوید
+        <div className="text-sm lg:text-base text-justify text-orange-500 leading-6">
+          <span className="font-bold ">توجه: </span>
+          کاربر گرامی! شما با تکمیل دقیق اطلاعات عمومی حساب کاربری‌تان به
+          تحقق اولین دانشنامه‌ی خود ناظر مفاخر، مشاهیر و محبوب‌ترین‌ها یاری می‌رسانید. همچنین شما می‌توانید با فعالیت هرچه بیشتر در این سامانه، سطح
+          کاربری خود را ارتقا داده و از امکانات و خدمات آن بهره‌مند شوید
         </div>
       </div>
 

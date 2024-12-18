@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import useMainPage from "@/hooks/useMainPage";
+import Link from "next/link";
 
 const News = () => {
   const { posts, isLoading } = useMainPage();
@@ -51,9 +52,11 @@ const News = () => {
                         dangerouslySetInnerHTML={{ __html: item.descriptin }}
                         className="!min-w-none text-textDefault line-clamp-6"
                       ></div>
+                      <Link key={item.id} href={`/magazine/${item.slug}`} className="w-full xs:min-w-full group">
                       <span className=" text-primary-01 cursor-pointer">
                         ادامه مطلب...
                       </span>
+                      </Link>
                     </div>
                   </div>
                 </div>

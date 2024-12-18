@@ -72,7 +72,7 @@ export default function VisitDetails({ serviceData, type }) {
                 type === "turn" ?
                     <div className="flex flex-col border-t border-slate-200 dark:border-slate-400 pt-4">
                         <div className="text-primary-01 font-medium mb-2">
-                            علت مراجعه
+                            توضیحات
                         </div>
                         <ul className="w-full flex items-center gap-10 mb-6">
                             <div>

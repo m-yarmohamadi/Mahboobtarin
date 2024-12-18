@@ -12,10 +12,13 @@ export default function MagazineCard({ post }) {
                 <div className="pb-8 hidden lg:block">
                     <div className=" text-justify text-sm md:text-base leading-7 md:leading-8">
                         <div
+                            dangerouslySetInnerHTML={{ __html: post.descriptin }}
                             className="!min-w-none text-textDefault line-clamp-6"
-                        >
-                            {post.short_desc}
-                        </div>
+                        ></div>
+                        <Link href={`/magazine/${post.slug}`} className="md:container lg:!px-0 grid sm:grid-cols-1 lg:grid-cols-2 md:gap-x-20 pt-4">
+
+                            <span className="text-primary-01">ادامه مطلب....</span>
+                        </Link>
                     </div>
                 </div>
             </div>

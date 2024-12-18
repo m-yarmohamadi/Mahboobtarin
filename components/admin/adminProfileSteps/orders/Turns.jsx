@@ -24,7 +24,7 @@ function TurnsItem() {
             <div className="pt-4 grid grid-cols-2 gap-4">
                 <div>
                     <div className="text-sm font-medium text-slate-700 pb-2">
-                        علت مراجعه
+                        توضیحات
                     </div>
                     <ul className="text-xs text-slate-600">
                         تست - تست - تست
