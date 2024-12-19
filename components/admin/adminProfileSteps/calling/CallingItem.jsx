@@ -1,37 +1,11 @@
 import useMainPage from "@/hooks/useMainPage";
-import { deleteRequest } from "@/services/expertDashboardService";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import toast from "react-hot-toast";
 import { HiOutlineTrash } from "react-icons/hi";
 
 export default function CallingItem({ data, isDelete = false }) {
     const { categories, isLoading } = useMainPage();
     const categoryLabel = !isLoading && categories.filter((c) => Number(c.id) === Number(data.category))[0]?.name;
 
-    const { mutateAsync } = useMutation({ mutationFn: deleteRequest });
-    const queryClient = useQueryClient();
-
-    const deleteRequestHandler = async (id) => {
-        try {
-            const data = await mutateAsync(id.toString());
-
-            if (data) {
-                toast.success("فراخوان مورد نظر حذف شد");
-                queryClient.invalidateQueries({ queryKey: ['get-requests'] });
-            }
-
-        } catch (error) {
-            console.log(error);
-
-            if (error?.response?.status === 401) {
-                toast.error("لطفا وارد حساب کاربری خود شوید");
-                window.location.reload();
-            } else {
-                toast.error("پیدا نشد!");
-            }
-        }
-    }
 
     return (
         <div className="flex flex-col p-4 bg-slate-200 border border-slate-300 rounded-xl relative">

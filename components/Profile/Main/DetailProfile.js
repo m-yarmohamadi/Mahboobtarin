@@ -179,7 +179,8 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
   const permissions = userData?.permissions
     ? JSON.parse(userData?.permissions)
     : {};
-
+  console.log(popularList);
+  
   if (stepFollow !== 0) {
     return (
       <FollowsList stepFollow={stepFollow} onChangeStep={setStepFollow} userData={userData}>
