@@ -370,7 +370,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       {/* آثار و افتخارات */}
       <HonorsDescription honors_description={userData?.honors_description} />
 
-      <PopularsList popularList={popularList || []} />
+      <PopularsList popularList={popularList || []} userData={userData}/>
 
       <ExpertGrade grade={userData?.usergrade || []} />
 

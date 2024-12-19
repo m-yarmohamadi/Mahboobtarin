@@ -16,10 +16,11 @@ export default function PopularsList({ userData, popularList }) {
                         return (
                             <div
                                 key={item.id}
-                                className=" flex justify-start items-center text-xs sm:text-sm text-slate-800 gap-1"
+                                className=" flex justify-start items-center text-xs sm:text-sm gap-1"
                             >
-                                <span className="font-bold"> {item?.popularname?.name} : </span>
-                                <span> {item?.value}</span>
+                                <span className="w-3 h-3 rounded-full bg-slate-600"></span>
+                                <span className="text-slate-600"> {item?.popularname?.name} : </span>
+                                <span className="font-bold text-slate-800"> {item?.value}</span>
                             </div>
                         );
                     })}

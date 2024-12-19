@@ -102,7 +102,11 @@ export default function MyInfo() {
             amount_experience_year: values.amount_experience_year,
             socialmedia: values.socialmedia,
             specialized_system_code: values.specialized_system_code,
-            identificationcode: values.identificationcode
+            identificationcode: values.identificationcode,
+            country: values.country,
+            province_id: values.province_id,
+            city_id: values.city_id,
+            user_address: values.address
         }
 
         const data = new FormData();
