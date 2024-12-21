@@ -73,10 +73,10 @@ const products = [
 ];
 const menu = [
   { id: 1, title: "آموزشگاه", link: "/academy" },
-  { id: 2, title: "محبوب مال", link: "/shop"  },
+  { id: 2, title: "محبوب مال", link: "/shop" },
   { id: 3, title: "فراخوان", link: "/requests" },
   { id: 4, title: "لینکدونی" },
-  { id: 5, title: "مجله محبوب‌ترین", link:'/magazine' },
+  { id: 5, title: "مجله محبوب‌ترین", link: "/magazine" },
 ];
 
 const callsToAction = [
@@ -88,7 +88,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Header() {
+export default function Header({ isShowMobileMenu = true }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
   const [token, setToken] = useState("");
@@ -225,9 +225,11 @@ export default function Header() {
                         </DisclosureButton>
                         <DisclosurePanel className="mt-2 space-y-2">
                           {!isLoading &&
-                            categories.filter((c) => c.parent_id === 0).map((item) => (
-                              <CateMobileItem key={item.id} category={item} />
-                            ))}
+                            categories
+                              .filter((c) => c.parent_id === 0)
+                              .map((item) => (
+                                <CateMobileItem key={item.id} category={item} />
+                              ))}
                           <div className="w-full  bg-primary-01 h-1"></div>
                         </DisclosurePanel>
                       </>
@@ -259,7 +261,7 @@ export default function Header() {
           </DialogPanel>
         </Dialog>
       </header>
-      <MobileMenu user={user} isLoading={isLoadingUser} />
+      {isShowMobileMenu && <MobileMenu user={user} isLoading={isLoadingUser} />}
       <RegisterModal
         openRegisterModal={openRegisterModal}
         setOpenRegisterModal={setOpenRegisterModal}
@@ -276,7 +278,12 @@ function CateMobileItem({ category }) {
       {({ open }) => (
         <>
           <DisclosureButton className="flex w-full items-center justify-between rounded-lg p-2 font-semibold leading-7 text-slate-900 hover:bg-slate-50 text-sm">
-            <Link href={`/group/${category.id}`} className="flex items-center gap-2">{category.name}</Link>
+            <Link
+              href={`/group/${category.id}`}
+              className="flex items-center gap-2"
+            >
+              {category.name}
+            </Link>
             <ChevronDownIcon
               className={classNames(
                 open ? "rotate-180" : "",
@@ -293,7 +300,7 @@ function CateMobileItem({ category }) {
                 // >
                 //   {item.name}
                 // </div>
-                <CateMobileItem category={item}/>
+                <CateMobileItem category={item} />
               ))}
             <div className="w-full  bg-primary-01 h-1"></div>
           </DisclosurePanel>
