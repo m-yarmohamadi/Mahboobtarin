@@ -49,6 +49,7 @@ import UserData from "./detailProfileComponents/UserData";
 import { toPersianDateLong } from "@/utils/toPersianDate";
 import MenuDetails from "./detailProfileComponents/MenuDetails";
 import FollowsList from "./detailProfileComponents/FollowsList";
+import BookmarkUser from "./detailProfileComponents/BookmarkUser";
 
 const mostPopular = [
   {
@@ -148,7 +149,13 @@ const product = [
   },
 ];
 
-const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
+const DetailProfile = ({
+  userData,
+  isFollow,
+  isLike,
+  isMarked,
+  popularList,
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const { followHandler } = useFollow();
@@ -180,10 +187,14 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
     ? JSON.parse(userData?.permissions)
     : {};
   console.log(popularList);
-  
+
   if (stepFollow !== 0) {
     return (
-      <FollowsList stepFollow={stepFollow} onChangeStep={setStepFollow} userData={userData}>
+      <FollowsList
+        stepFollow={stepFollow}
+        onChangeStep={setStepFollow}
+        userData={userData}
+      >
         <UserData userData={userData} />
       </FollowsList>
     );
@@ -224,9 +235,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
               </button>
 
               <div className="flex items-center justify-around text-slate-900 lg:hidden">
-                <span className="">
-                  <FaRegBookmark className="w-5 h-5" />
-                </span>
+                <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
                 <span className="">
                   <IoShareSocialOutline className="w-5 h-5" />
                 </span>
@@ -264,10 +273,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
           </span>
 
           <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
-            <div className="flex items-center gap-1 text-xs text-slate-800">
-              <FaRegBookmark className="w-5 h-5" />
-              <span>ذخیره</span>
-            </div>
+            <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
             <div className="flex items-center gap-1 text-xs text-slate-800">
               <IoShareSocialOutline className="w-5 h-5" />
               <span>اشتراک گذاری</span>
@@ -370,7 +376,7 @@ const DetailProfile = ({ userData, isFollow, isLike, popularList }) => {
       {/* آثار و افتخارات */}
       <HonorsDescription honors_description={userData?.honors_description} />
 
-      <PopularsList popularList={popularList || []} userData={userData}/>
+      <PopularsList popularList={popularList || []} userData={userData} />
 
       <ExpertGrade grade={userData?.usergrade || []} />
 

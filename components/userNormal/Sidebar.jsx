@@ -54,7 +54,7 @@ const dataMenu = [
     {
         id: 92,
         title: 'نشان شده',
-        value: '#',
+        value: 'bookmarks',
         quanity: '',
         icon: FaRegBookmark,
     },

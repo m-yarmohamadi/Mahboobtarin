@@ -27,12 +27,13 @@ export default function ProfilePage({ user }) {
                 <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} | پروفایل ${user?.user?.name} ${user?.user?.lastname}`}</title>
             </Head>
             <Header />
-            <ProfileSearchBox user={user?.user}/>
+            <ProfileSearchBox user={user?.user} />
             <div className="md:!pr-8 !p-0 container">
                 <MainProfile
                     userData={user?.user}
                     isFollow={user?.is_follow}
                     isLike={user?.is_favorit}
+                    isMarked={user?.is_maked}
                     popularList={user?.popular_list}
                 />
             </div>

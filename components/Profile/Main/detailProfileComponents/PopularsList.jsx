@@ -19,7 +19,7 @@ export default function PopularsList({ userData, popularList }) {
                                 className=" flex justify-start items-center text-xs sm:text-sm gap-1"
                             >
                                 <span className="w-3 h-3 rounded-full bg-slate-600"></span>
-                                <span className="text-slate-600"> {item?.popularname?.name} : </span>
+                                <span className="text-slate-600"> {item?.popularname?.name || item?.popular_title} : </span>
                                 <span className="font-bold text-slate-800"> {item?.value}</span>
                             </div>
                         );

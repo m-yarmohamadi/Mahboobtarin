@@ -41,7 +41,7 @@ function AllGallery({ gallery, onOpenPopup }) {
     return (
         <TabGroup.Item>
             <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 ">
-                {gallery.map((item) => {
+                {gallery.filter((c) => c.type !== "gallery-audio").map((item) => {
                     return (
                         <div key={item.id} className="relative" onClick={() => onOpenPopup(item)}>
                             <div className="aspect-w-16 aspect-h-10">
@@ -146,7 +146,7 @@ function Voices({ gallery, onOpenPopup }) {
                 {voice.map((item) => {
                     return (
                         <div key={item.id} className="relative" onClick={() => onOpenPopup(item)}>
-                            <span className="flex w-full text-xs font-semibold p-1 bg-slate-800 text-white bg-opacity-80 rounded-b-md">
+                            <span className="flex px-2 pb-4 w-full text-sm font-semibold p-1 text-slate-800">
                                 {item.title}
                             </span>
                             <div className="w-full">
@@ -190,7 +190,7 @@ function PopupGallery({ onClose, open, gallery }) {
                             prevEl: '#gallery-btn-prev'
                         }}
                     >
-                        {gallery.map((item, index) => (
+                        {gallery.filter((c) => c.type !== "gallery-audio").map((item, index) => (
                             <SwiperSlide key={index}>
                                 <div key={item.id} className="relative">
                                     <div className="aspect-w-16 aspect-h-10">

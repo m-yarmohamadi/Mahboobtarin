@@ -17,7 +17,7 @@ export default function Comments({ motekhases_id, userData }) {
         async function getComments() {
             try {
                 const { data } = await getCommentExpertise(motekhases_id);
-                setComments(data);
+                setComments(data);                
             } catch (error) {
                 setComments([]);
             }
