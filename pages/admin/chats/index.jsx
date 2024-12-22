@@ -13,6 +13,10 @@ export default function Chats() {
                     <ChatsList />
                 </div>
             </div>
+
+            <div className="w-full h-full relative hidden lg:block">
+                <div className="w-full h-full absolute top-0 right-0 bg-[url('/images/chat-bg.png')] bg-cover bg-center opacity-10"></div>
+            </div>
         </LayoutChats>
     )
 }

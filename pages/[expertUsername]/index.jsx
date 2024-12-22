@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function ProfilePage({ user }) {
     const [isLoading, setIsLoading] = useState(true);
-
+    
     useEffect(() => {
         setIsLoading(false);
     }, []);
@@ -33,7 +33,7 @@ export default function ProfilePage({ user }) {
                     userData={user?.user}
                     isFollow={user?.is_follow}
                     isLike={user?.is_favorit}
-                    isMarked={user?.is_maked}
+                    isMarked={user?.is_mark}
                     popularList={user?.popular_list}
                 />
             </div>

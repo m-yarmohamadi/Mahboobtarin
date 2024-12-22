@@ -33,7 +33,7 @@ const dataMenu = [
     {
         id: 50,
         title: 'گفتگو',
-        value: 'chat',
+        value: 'chats',
         quanity: '',
         icon: BsChatSquareDots,
     },

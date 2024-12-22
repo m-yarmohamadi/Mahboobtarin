@@ -1,6 +1,8 @@
 import TabGroup from "@/tools/TabGroup";
+import { FiSearch } from "react-icons/fi";
+import { HiDotsVertical } from "react-icons/hi";
 
-export default function ChatsGroup() {
+export default function ChatsGroup({ userChat }) {
     const tabs = [
         { label: "همه موارد" },
         { label: "تایید نهایی" },
@@ -10,8 +12,12 @@ export default function ChatsGroup() {
     ]
 
     return (
-        <TabGroup tabs={tabs} onIndex={(e) => console.log(e)} className={"!gap-0"}>
+        <div className="w-full flex items-center justify-between">
+            <TabGroup tabs={tabs} onIndex={(e) => console.log(e)} className={"!gap-0"}>
 
-        </TabGroup>
+            </TabGroup>
+
+            
+        </div>
     )
 }
