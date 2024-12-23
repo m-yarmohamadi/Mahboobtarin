@@ -4,18 +4,29 @@ import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import Modal from "@/components/Modal";
 import ChangeStatusForm from "./ChangeStatusForm";
+import TabGroup from "@/tools/TabGroup";
 
 export default function CommentsList() {
     const { comments, isLoading } = useGetAllComments();
 
+    const tabs = [
+        { label: "همه نظرات" },
+        { label: "نظرات تایید شده" },
+        { label: "نظرات رد شده" },
+    ]
+
     if (isLoading) return <LoadingAdmin />
 
     return (
-        <div className="flex flex-col w-full gap-4">
-            {comments.map((item) => (
-                <CommentItem key={item.id} item={item} />
-            ))}
-        </div>
+        <TabGroup tabs={tabs}>
+            <TabGroup.Item>
+                <div className="flex flex-col w-full gap-4">
+                    {comments.map((item) => (
+                        <CommentItem key={item.id} item={item} />
+                    ))}
+                </div>
+            </TabGroup.Item>
+        </TabGroup>
     )
 }
 
@@ -61,7 +72,7 @@ function CommentItem({ item }) {
                     وضعیت:
                     {renderStatus(item.status)}
                 </div>
-                <button onClick={()=>setChangeStatus(true)} className="btn btn--primary">
+                <button onClick={() => setChangeStatus(true)} className="btn btn--primary">
                     تغییر وضعیت
                 </button>
             </div>
