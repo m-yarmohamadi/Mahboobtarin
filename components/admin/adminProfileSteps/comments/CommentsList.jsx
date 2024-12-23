@@ -14,6 +14,7 @@ export default function CommentsList() {
         { label: "نظرات تایید شده" },
         { label: "نظرات رد شده" },
     ]
+    
 
     if (isLoading) return <LoadingAdmin />
 
@@ -22,6 +23,20 @@ export default function CommentsList() {
             <TabGroup.Item>
                 <div className="flex flex-col w-full gap-4">
                     {comments.map((item) => (
+                        <CommentItem key={item.id} item={item} />
+                    ))}
+                </div>
+            </TabGroup.Item>
+            <TabGroup.Item>
+                <div className="flex flex-col w-full gap-4">
+                    {comments.filter((s) => s.status === "1").map((item) => (
+                        <CommentItem key={item.id} item={item} />
+                    ))}
+                </div>
+            </TabGroup.Item>
+            <TabGroup.Item>
+                <div className="flex flex-col w-full gap-4">
+                    {comments.filter((s) => s.status === "2").map((item) => (
                         <CommentItem key={item.id} item={item} />
                     ))}
                 </div>
@@ -72,14 +87,14 @@ function CommentItem({ item }) {
                     وضعیت:
                     {renderStatus(item.status)}
                 </div>
-                <button onClick={() => setChangeStatus(true)} className="btn btn--primary">
+                {/* <button onClick={() => setChangeStatus(true)} className="btn btn--primary">
                     تغییر وضعیت
-                </button>
+                </button> */}
             </div>
 
-            <Modal title={'تغییر وضعیت'} open={changeStatus} onClose={() => setChangeStatus(false)}>
+            {/* <Modal title={'تغییر وضعیت'} open={changeStatus} onClose={() => setChangeStatus(false)}>
                 <ChangeStatusForm onClose={() => setChangeStatus(false)} comment={item} />
-            </Modal>
+            </Modal> */}
         </div>
 
     )
