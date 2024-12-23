@@ -47,7 +47,7 @@ const dataMenu = [
     {
         id: 9,
         title: 'درخواست جدید',
-        value: '#',
+        value: 'requests_users',
         quanity: '',
         icon: FaRegHandshake,
     },
