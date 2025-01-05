@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Linkdins from './Linkdins';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addLinkdins } from '@/services/expertDashboardService';
+import { addLinkdins } from '@/services/expertApi/linkdinsService';
 import toast from 'react-hot-toast';
 import Loading from '@/tools/Loading';
 import useProfile from '@/hooks/useProfile';

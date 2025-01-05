@@ -1,4 +1,4 @@
-import { useFollow, useGetFollowings } from "@/hooks/useDashboard"
+import { useFollow, useGetFollowings } from "@/hooks/expertHooks/useFollow"
 import useProfile from "@/hooks/useProfile";
 import Loading from "@/tools/Loading";
 import Link from "next/link";

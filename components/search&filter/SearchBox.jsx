@@ -23,11 +23,6 @@ export default function SearchBox() {
         gender: [],
         language: []
     });
-    console.log(result);
-    // search_expertis
-
-    // search_users
-
 
     const searchHandler = async () => {
         try {

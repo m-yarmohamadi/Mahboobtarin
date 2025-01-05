@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { HiOutlineTrash } from "react-icons/hi2";
 import CheckBoxInput from "@/components/CheckBoxInput";
-import { useGetServiceItems } from "@/hooks/useDashboard";
+import { useGetServiceItems } from "@/hooks/expertHooks/useServices";
 import sortedTimes from "@/utils/sortedTimes";
 import DateComponent from "./DateComponent";
 import numberWithCommas from "@/utils/numberWithCommas";

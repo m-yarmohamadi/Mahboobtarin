@@ -1,4 +1,4 @@
-import { useFollow, useGetFollowers, useGetFollowings } from "@/hooks/useDashboard";
+import { useFollow, useGetFollowers, useGetFollowings } from "@/hooks/expertHooks/useFollow";
 import { usePathname, useRouter } from "next/navigation";
 import { FaArrowRight } from "react-icons/fa6";
 

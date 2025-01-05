@@ -42,8 +42,6 @@ const Baner04 = () => {
                 autoplay
                 pagination={{ clickable: true }}
                 scrollbar={false}
-                onSwiper={(swiper) => console.log(swiper)}
-                onSlideChange={() => console.log('slide change')}
             >
                 {sliderImg.map((item, index) => {
                     return (

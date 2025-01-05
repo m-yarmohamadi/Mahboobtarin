@@ -1,4 +1,4 @@
-import { useGetAllComments } from "@/hooks/useDashboard"
+import { useGetAllComments } from "@/hooks/expertHooks/useComment"
 import LoadingAdmin from "../../LoadingAdmin";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";

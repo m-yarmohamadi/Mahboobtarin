@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import ServiceFields from "./ServiceFields";
 import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addNewService } from "@/services/expertDashboardService";
+import { addNewService } from "@/services/expertApi/specialistServices";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -35,7 +35,7 @@ export default function CreateService() {
         const activityTimeJson2 = values.activity_time.map(item => {
             const { day, ...rest } = item;
             return { week: day, ...rest };
-        });        
+        });
 
         try {
             const { data } = await mutateAsync({

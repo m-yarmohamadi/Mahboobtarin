@@ -1,6 +1,6 @@
 import Modal from '@/components/Modal';
-import { useGetTicket } from '@/hooks/useDashboard';
-import { addTicket } from '@/services/expertDashboardService';
+import { useGetTicket } from '@/hooks/expertHooks/useSupport';
+import { addTicket } from '@/services/expertApi/supportService';
 import Loading from '@/tools/Loading';
 import { toPersianDateShort } from '@/utils/toPersianDate';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

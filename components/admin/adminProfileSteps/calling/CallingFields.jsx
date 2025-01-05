@@ -12,7 +12,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
-import { uploadPhotosRequest } from "@/services/expertDashboardService";
+import { uploadPhotosRequest } from "@/services/expertApi/callingService";
 import Loading from "@/tools/Loading";
 
 const genderOptions = [

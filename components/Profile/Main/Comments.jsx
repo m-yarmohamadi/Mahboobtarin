@@ -1,4 +1,4 @@
-import { addCommentExpertise, getCommentExpertise } from "@/services/expertDashboardService";
+import { addCommentExpertise, getCommentExpertise } from "@/services/expertApi/commentService";
 import Loading from "@/tools/Loading";
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";

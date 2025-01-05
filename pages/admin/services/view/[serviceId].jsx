@@ -1,8 +1,8 @@
 import getPriceService from "@/components/admin/adminProfileSteps/myservices/getPriceService";
 import ExpertDashboard from "@/components/admin/ExpertDashboard";
-import { useGetServiceById, useGetServicesProfile } from "@/hooks/useDashboard";
+import { useGetServiceById, useGetServicesProfile } from "@/hooks/expertHooks/useServices";
 import useProfile from "@/hooks/useProfile";
-import { getServiceProfile } from "@/services/expertDashboardService";
+import { getServiceProfile } from "@/services/expertApi/specialistServices";
 import Loading from "@/tools/Loading";
 import toEnglishNumber from "@/utils/toEnglishNumber";
 import { toPersianDateLong, toPersianDateShort } from "@/utils/toPersianDate";

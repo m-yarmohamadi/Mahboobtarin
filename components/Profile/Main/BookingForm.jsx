@@ -10,10 +10,14 @@ import { IoTimeOutline } from "react-icons/io5";
 import { toPersianDateShort } from "@/utils/toPersianDate";
 import { IoIosCalendar } from "react-icons/io";
 import { MdOutlineTimerOff } from "react-icons/md";
-import { getServiceProfile } from "@/services/expertDashboardService";
+import { addOrderService, getServiceProfile } from "@/services/expertApi/specialistServices";
 import Loading from "@/tools/Loading";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 import { useDarkMode } from "@/context/DarkModeContext";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { encryptData } from "@/utils/crypto";
 
 const processActivityTimes = (activityTimes, currentWeekday) => {
     const daysMappingEN = {
@@ -53,6 +57,19 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
     const { isDarkMode } = useDarkMode();
     const getTimesOfWeekday = !isLoading && processActivityTimes(serviceData?.activity_time, currentWeekday);
     const dedicatedTime = !isLoading && JSON.parse(serviceData.dedicated_time);
+    const router = useRouter();
+
+    const onGoSetAppointment = () => {
+        const encodedDetails = encryptData({
+            ...selected,
+            serviceData,
+            expert,
+            descriptionUser: "",
+            price: serviceData.price,
+            type: "turn",
+        })
+        router.push(`/set-appointment/${encodedDetails}`);
+    }
 
     const selectDate = (date) => {
         setDate(date);
@@ -155,12 +172,9 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
                 <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
                     {
                         selected ?
-                            <Link
-                                href={`/set-appointment?type=turn&serviceId=${serviceID}&expert=${JSON.stringify({ name: expert.name, lastname: expert.lastname, id: expert.id, img: expert.avatar, expertise: expert?.expertises[0]?.subject, address: expert?.addresses[0]?.address })}&date=${selected.date}&time=${selected.time}`}
-                                className="btn btn--primary !w-full"
-                            >
+                            <button onClick={onGoSetAppointment} className="btn btn--primary !w-full">
                                 تایید
-                            </Link>
+                            </button>
                             :
                             <button disabled className="btn btn--primary !w-full disabled:opacity-30">
                                 تایید

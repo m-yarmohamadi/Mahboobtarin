@@ -4,7 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
-import { addRequestService } from "@/services/expertDashboardService";
+import { addRequestService } from "@/services/expertApi/requestExpertService";
 import toast from "react-hot-toast";
 import Loading from "@/tools/Loading";
 import { useRouter } from "next/navigation";

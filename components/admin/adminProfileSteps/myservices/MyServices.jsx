@@ -1,6 +1,6 @@
-import { useGetServices, useGetServicesProfile } from "@/hooks/useDashboard";
+import { useGetServices, useGetServicesProfile } from "@/hooks/expertHooks/useServices";
 import useProfile from "@/hooks/useProfile";
-import { deleteService, getServiceProfile } from "@/services/expertDashboardService";
+import { deleteService, getServiceProfile } from "@/services/expertApi/specialistServices";
 import Loading from "@/tools/Loading";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";

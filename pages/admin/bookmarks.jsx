@@ -1,6 +1,6 @@
 import ExpertDashboard from "@/components/admin/ExpertDashboard";
 import LoadingAdmin from "@/components/admin/LoadingAdmin";
-import { useGetBookmarks } from "@/hooks/useDashboard";
+import { useGetBookmarks } from "@/hooks/expertHooks/useBookmark";
 
 export default function Bookmarks() {
     const { bookmarks, isGetBookmarks } = useGetBookmarks();

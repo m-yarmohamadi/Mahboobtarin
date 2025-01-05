@@ -1,7 +1,7 @@
 import CheckBoxInput from "@/components/CheckBoxInput";
 import Modal from "@/components/Modal";
-import { usePopularFavorites } from "@/hooks/useDashboard";
-import { addNewFavorite } from "@/services/expertDashboardService";
+import { usePopularFavorites } from "@/hooks/expertHooks/useFavorites";
+import { addNewFavorite } from "@/services/expertApi/favoritesService";
 import Input from "@/tools/Input";
 import Loading from "@/tools/Loading";
 import Select from "@/tools/Select";

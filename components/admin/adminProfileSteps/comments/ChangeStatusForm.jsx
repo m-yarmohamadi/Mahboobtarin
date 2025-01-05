@@ -1,4 +1,4 @@
-import { changeStatusComment } from "@/services/expertDashboardService";
+import { changeStatusComment } from "@/services/expertApi/commentService";
 import Loading from "@/tools/Loading";
 import Select from "@/tools/Select";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

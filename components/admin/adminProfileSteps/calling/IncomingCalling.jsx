@@ -1,4 +1,4 @@
-import { useGetRequests } from "@/hooks/useDashboard";
+import { useGetRequests } from "@/hooks/expertHooks/useCalling";
 import CallingItem from "./CallingItem";
 import Loading from "@/tools/Loading";
 import Link from "next/link";

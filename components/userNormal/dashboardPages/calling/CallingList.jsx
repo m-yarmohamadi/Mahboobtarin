@@ -1,6 +1,6 @@
 import Link from "next/link";
 import CallingItem from "./CallingItem";
-import { useGetRequests } from "@/hooks/useDashboard";
+import { useGetRequests } from "@/hooks/expertHooks/useCalling";
 import Loading from "@/tools/Loading";
 
 export default function CallingList() {

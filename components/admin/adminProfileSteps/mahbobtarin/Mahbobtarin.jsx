@@ -5,9 +5,9 @@ import CreateInterestForm from "./CreateInterestForm";
 import { FaCheck } from "react-icons/fa6";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
-import { useGetFavorites } from "@/hooks/useDashboard";
+import { useGetFavorites } from "@/hooks/expertHooks/useFavorites";
 import Loading from "@/tools/Loading";
-import { deleteFavorite } from "@/services/expertDashboardService";
+import { deleteFavorite } from "@/services/expertApi/favoritesService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 

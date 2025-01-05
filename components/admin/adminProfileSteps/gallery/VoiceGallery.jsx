@@ -4,7 +4,7 @@ import { FaImages } from "react-icons/fa";
 import GalleryItem from "./GalleryItem";
 import Modal from "@/components/Modal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addGallery } from "@/services/expertDashboardService";
+import { addGallery } from "@/services/expertApi/galleryService";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import TabGroup from "@/tools/TabGroup";

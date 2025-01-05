@@ -1,4 +1,4 @@
-import { getRequestService } from "@/services/expertDashboardService";
+import { getRequestService } from "@/services/expertApi/requestExpertService";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 

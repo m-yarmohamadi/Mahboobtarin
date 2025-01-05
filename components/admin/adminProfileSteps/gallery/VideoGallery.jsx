@@ -1,7 +1,7 @@
 import { FaImages } from "react-icons/fa6";
 import GalleryItem from "./GalleryItem";
 import Modal from "@/components/Modal";
-import { addGallery } from "@/services/expertDashboardService";
+import { addGallery } from "@/services/expertApi/galleryService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import TabGroup from "@/tools/TabGroup";

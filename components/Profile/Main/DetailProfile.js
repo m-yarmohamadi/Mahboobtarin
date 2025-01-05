@@ -23,9 +23,6 @@ import "swiper/css/navigation";
 import "swiper/swiper-bundle.css";
 import numberWithCommas from "@/utils/numberWithCommas";
 import {
-  useFollow,
-  useGetFollowers,
-  useGetFollowings,
   useLikeOrDislike,
 } from "@/hooks/useDashboard";
 import Comments from "./Comments";
@@ -50,6 +47,7 @@ import { toPersianDateLong } from "@/utils/toPersianDate";
 import MenuDetails from "./detailProfileComponents/MenuDetails";
 import FollowsList from "./detailProfileComponents/FollowsList";
 import BookmarkUser from "./detailProfileComponents/BookmarkUser";
+import { useFollow } from "@/hooks/expertHooks/useFollow";
 
 const mostPopular = [
   {
@@ -215,7 +213,7 @@ const DetailProfile = ({
             </div>
           </div>
 
-          <div className="lg:w-full flex items-center lg:items-start lg:justify-between gap-4 pt-12 md:pt-16">
+          <div className="lg:w-full flex items-center lg:items-start lg:justify-between gap-2 sm:gap-4 pt-12 md:pt-16">
             <div className="lg:hidden">
               <FollowDetails onChangeStep={setStepFollow} userData={userData} />
             </div>
@@ -227,7 +225,7 @@ const DetailProfile = ({
             <div className="space-y-4">
               <button
                 onClick={expertFollowHandler}
-                className={`btn ${
+                className={`btn whitespace-nowrap !px-2 !text-xs sm:!text-sm sm:!px-4 ${
                   isFollow ? "btn--secondary" : "btn--primary"
                 }`}
               >

@@ -1,5 +1,5 @@
 import { useGetProvinces } from "@/hooks/useCity";
-import { useGetServicesProfile } from "@/hooks/useDashboard";
+import { useGetServicesProfile } from "@/hooks/expertHooks/useServices";
 import copyToClipboard from "@/utils/copyToClipboard";
 import Link from "next/link";
 import { FaCalendar, FaRegBookmark, FaSave, FaShareAlt } from "react-icons/fa"

@@ -10,7 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { addGallery } from "@/services/expertDashboardService";
+import { addGallery } from "@/services/expertApi/galleryService";
 import useGetExpertiseUser from "@/hooks/useExpertiseUser";
 
 export default function PictureGallery({ user }) {

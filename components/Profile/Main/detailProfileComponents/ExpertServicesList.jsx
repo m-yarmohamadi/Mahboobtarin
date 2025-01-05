@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TitleItems from "../TitleItems";
-import { useGetServicesProfile } from "@/hooks/useDashboard";
+import { useGetServicesProfile } from "@/hooks/expertHooks/useServices";
 import { BsChatText } from "react-icons/bs";
 import getPriceService from "@/components/admin/adminProfileSteps/myservices/getPriceService";
 import Modal from "@/components/Modal";
@@ -13,7 +13,7 @@ export default function ExpertServicesList({ user }) {
     const [showIdeasDetail, setShowIdeasDetail] = useState(1);
     const { isLoadingServices, servicesData } = useGetServicesProfile(user?.id);
     const [modal, setModal] = useState(0);
-
+    
     if (!isLoadingServices && servicesData && servicesData.length) {
         return (
             <div id="services">

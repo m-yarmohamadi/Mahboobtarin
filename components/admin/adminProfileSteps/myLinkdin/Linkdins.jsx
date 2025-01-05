@@ -1,6 +1,6 @@
 import useGetExpertiseUser from '@/hooks/useExpertiseUser';
 import useProfile from '@/hooks/useProfile';
-import { deleteLinkdins } from '@/services/expertDashboardService';
+import { deleteLinkdins } from '@/services/expertApi/linkdinsService';
 import Input from '@/tools/Input';
 import Loading from '@/tools/Loading';
 import Select from '@/tools/Select';

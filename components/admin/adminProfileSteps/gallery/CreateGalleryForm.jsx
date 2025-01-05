@@ -1,4 +1,4 @@
-import { addGallery } from '@/services/expertDashboardService';
+import { addGallery } from '@/services/expertApi/galleryService';
 import Input from '@/tools/Input';
 import Loading from '@/tools/Loading';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

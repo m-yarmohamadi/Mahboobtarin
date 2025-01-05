@@ -1,4 +1,4 @@
-import { useBookmark } from "@/hooks/useDashboard"
+import { useBookmark } from "@/hooks/expertHooks/useBookmark"
 import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
 
 export default function BookmarkUser({ expertiseId, isMark }) {

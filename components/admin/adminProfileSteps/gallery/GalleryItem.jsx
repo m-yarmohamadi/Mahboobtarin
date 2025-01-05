@@ -1,4 +1,4 @@
-import { deleteGallery } from "@/services/expertDashboardService";
+import { deleteGallery } from "@/services/expertApi/galleryService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { HiOutlineTrash } from "react-icons/hi2";

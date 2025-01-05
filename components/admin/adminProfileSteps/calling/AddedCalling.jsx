@@ -1,4 +1,4 @@
-import { useGetRequests } from "@/hooks/useDashboard";
+import { useGetRequests } from "@/hooks/expertHooks/useCalling";
 import CallingItem from "./CallingItem";
 import Loading from "@/tools/Loading";
 import { MdEdit } from "react-icons/md";
@@ -6,7 +6,7 @@ import Link from "next/link";
 import { HiOutlineTrash } from "react-icons/hi";
 import useMainPage from "@/hooks/useMainPage";
 import { toPersianDateLong } from "@/utils/toPersianDate";
-import { deleteRequest } from "@/services/expertDashboardService";
+import { deleteRequest } from "@/services/expertApi/callingService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
