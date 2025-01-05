@@ -1,4 +1,4 @@
-export default function TextArea({ name, label, type, required, formik, display = 'block', placeholder, dir = 'rtl', autoComplete = 'off', row = 5 }) {
+export default function TextArea({ name, value, onChange, label, type, required, formik, display = 'block', placeholder, dir = 'rtl', autoComplete = 'off', row = 5 }) {
 	return (
 		<div className={`w-full py-1 flex flex-col justify-start justify-items-start items-start ${display}`}>
 			<label
@@ -16,6 +16,8 @@ export default function TextArea({ name, label, type, required, formik, display 
 				dir={dir}
 				autoComplete={autoComplete}
 				rows={row}
+				onChange={onChange}
+				value={value}
 			/>
 			<div className='w-full flex justify-start items-start'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{formik?.errors[name]}</p>}</div>
 		</div>

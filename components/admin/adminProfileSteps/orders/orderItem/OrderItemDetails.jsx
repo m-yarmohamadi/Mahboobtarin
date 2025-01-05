@@ -1,6 +1,8 @@
 import { CiCalendar, CiClock2 } from "react-icons/ci";
 
-export default function OrderItemDetails() {
+export default function OrderItemDetails({ turnData, service }) {
+    const turn = turnData && JSON.parse(turnData);
+
     return (
         <div className="flex flex-col items-start md:justify-center gap-2 truncate">
             <div className="text-sm flex items-center gap-1">
@@ -8,20 +10,20 @@ export default function OrderItemDetails() {
                     موضوع سفارش:
                 </span>
                 <span className="text-primary-01 font-semibold">
-                    مشاوره اینترنتی
+                    {service?.type}
                 </span>
             </div>
             <div className="w-auto flex items-center justify-between gap-5">
                 <div className="flex items-center gap-1 text-xs text-slate-400">
                     <CiCalendar className="w-4 h-4" />
                     <span>
-                        زمان رزرو : 1403/07/10
+                        زمان رزرو : {turn?.date}
                     </span>
                 </div>
                 <div className="flex items-center gap-1 text-xs text-slate-400">
                     <CiClock2 className="w-4 h-4" />
                     <span>
-                        23:00 - 23:30
+                        {turn?.time}
                     </span>
                 </div>
             </div>

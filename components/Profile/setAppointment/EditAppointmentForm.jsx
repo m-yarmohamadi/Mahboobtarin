@@ -10,7 +10,7 @@ import timeSlots from "@/utils/timeSlots";
 import { IoTimeOutline } from "react-icons/io5";
 import { toPersianDateShort } from "@/utils/toPersianDate";
 import { IoIosCalendar } from "react-icons/io";
-import { getServiceProfile } from "@/services/expertDashboardService";
+import { getServiceProfile } from "@/services/expertApi/specialistServices";
 import Loading from "@/tools/Loading";
 import { useDarkMode } from "@/context/DarkModeContext";
 import { MdOutlineTimerOff } from "react-icons/md";
@@ -47,19 +47,21 @@ const processActivityTimes = (activityTimes, currentWeekday) => {
 };
 
 
+const convertTOEnDateFunc = (date) => {
+    return moment(toEnglishNumber(date), "jYYYY/jMM/jDD").format("YYYY/MM/DD");
+}
+
 export default function EditAppointmentForm({ onClose, lastSelected, onLastSelected, serviceData }) {
     const [selected, setSelected] = useState(lastSelected);
-    const [date, setDate] = useState(lastSelected?.date);
-    const convertTOEnDate = moment(toEnglishNumber(date), "jYYYY/jMM/jDD").format("YYYY/MM/DD")
+    const [date, setDate] = useState(new Date(convertTOEnDateFunc(lastSelected?.date)));
+    const convertTOEnDate = convertTOEnDateFunc(date)
     const currentWeekday = new Date(convertTOEnDate).toLocaleDateString("fa-IR", { weekday: "long" });
     const { isDarkMode } = useDarkMode();
     const getTimesOfWeekday = processActivityTimes(serviceData?.activity_time, currentWeekday);
-        
+
     const selectDate = (date) => {
         setDate(date);
-        if (selected?.time) {
-            setSelected({ ...selected, date: toPersianDateShort(new Date(date)) });
-        }
+        setSelected();
     }
 
     const editSelectDateHandler = () => {

@@ -7,7 +7,7 @@ export default function ExpertDetails({ expert }) {
             <div className="flex items-center gap-3 mb-8">
                 <div className="w-20 h-20">
                     <img
-                        src={expert?.img?.length ? expert?.img[0]?.path : "/images/user.png"}
+                        src={expert?.avatar?.length > 0 ? expert?.avatar[0]?.path : "/images/user.png"}
                         alt=""
                         className="w-full h-full object-cover object-center rounded-full"
                     />
@@ -17,14 +17,14 @@ export default function ExpertDetails({ expert }) {
                         {expert?.name} {expert?.lastname}
                     </h4>
                     <span className="text-slate-800 text-sm">
-                        {expert?.expertise}
+                        {expert?.expertises.length > 0 && expert?.expertises[0]?.subject}
                     </span>
                 </div>
             </div>
             <div className="flex items-center gap-2">
                 <CiLocationOn className="w-5 h-5 text-slate-600" />
                 <span className="text-sm text-slate-600">
-                    {expert?.address}
+                    {expert.addresses.length > 0 && expert?.addresses[0]?.address}
                 </span>
             </div>
         </div>

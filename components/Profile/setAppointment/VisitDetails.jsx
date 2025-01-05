@@ -6,16 +6,11 @@ import { CiCalendar, CiEdit } from "react-icons/ci";
 import { HiOutlineClock } from "react-icons/hi2";
 import EditAppointmentForm from "./EditAppointmentForm";
 import { useSearchParams } from "next/navigation";
-import { getServiceProfile } from "@/services/expertDashboardService";
+import { getServiceProfile } from "@/services/expertApi/specialistServices";
 
-export default function VisitDetails({ serviceData, type }) {
-    const searchParams = useSearchParams();
-    const date = searchParams.get("date");
-    const time = searchParams.get("time");
-    const [selected, setSelected] = useState({ date, time });
+export default function VisitDetails({ date, time, serviceData, type, setDateTime, setDescUser, descUser }) {
     const [modal, setModal] = useState(false);
 
-    
     return (
         <div className="w-full bg-white border border-slate-200 dark:border-slate-500 rounded-lg p-6">
             <div className="flex flex-col gap-4 pb-4">
@@ -27,11 +22,11 @@ export default function VisitDetails({ serviceData, type }) {
                         <div className="grid grid-cols-2">
                             <div className="flex items-center gap-1 text-slate-600 text-sm">
                                 <CiCalendar className="w-5 h-5 text-slate-500" />
-                                نوبت: {selected?.date}
+                                نوبت: {date}
                             </div>
                             <div className="flex items-center gap-1 text-slate-600 text-sm">
                                 <HiOutlineClock className="w-5 h-5 text-slate-500" />
-                                ساعت: {selected?.time}
+                                ساعت: {time}
                             </div>
                         </div>
                         :
@@ -56,8 +51,8 @@ export default function VisitDetails({ serviceData, type }) {
                             <Modal title="ویرایش تاریخ و ساعت نوبت" open={modal} onClose={() => setModal(false)}>
                                 <EditAppointmentForm
                                     onClose={() => setModal(false)}
-                                    lastSelected={selected}
-                                    onLastSelected={setSelected}
+                                    lastSelected={{ date, time }}
+                                    onLastSelected={setDateTime}
                                     serviceData={serviceData}
                                 />
                             </Modal>
@@ -74,16 +69,10 @@ export default function VisitDetails({ serviceData, type }) {
                         <div className="text-primary-01 font-medium mb-2">
                             توضیحات
                         </div>
-                        <ul className="w-full flex items-center gap-10 mb-6">
-                            <div>
-                                <CheckBoxInput label="شرح 1" name="1" />
-                            </div>
-                            <div>
-                                <CheckBoxInput label="شرح 2" name="2" />
-                            </div>
-                        </ul>
                         <TextArea
                             label="شرح مراجعه"
+                            value={descUser}
+                            onChange={(e) => setDescUser(e.target.value)}
                         />
                     </div> : null
             }
