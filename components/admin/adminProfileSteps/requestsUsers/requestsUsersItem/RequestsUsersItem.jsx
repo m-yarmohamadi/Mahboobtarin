@@ -3,26 +3,32 @@ import { MdOutlineChat } from "react-icons/md";
 import OrderItemDetails from "../../orders/orderItem/OrderItemDetails";
 import OrderItemStatus from "../../orders/orderItem/OrderItemStatus";
 import calculateAge from "@/utils/calculateAge";
-import { useGetProvinces } from "@/hooks/useCity";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { changeStatusRequestsClientApi } from "@/services/expertApi/requestsClientService";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import Modal from "@/components/Modal";
+import ChangeStatusForm from "./ChangeStatusForm";
 
 
 export default function RequestsUsersItem({ status, data, provinces }) {
+    const [open, setOpen] = useState(false);
     const getProvinceLabel = provinces.filter((p) => p.value === Number(data.user?.province_id))[0]?.label;
     const { mutateAsync: mutateChangeStatus, isPending } = useMutation({ mutationFn: changeStatusRequestsClientApi });
-
+    const queryClient = useQueryClient();
 
     const changeStatusHandler = async (statusNum) => {
         try {
-            const { data: statusData } = await mutateChangeStatus({ orderid: data.order_id, status: statusNum.toString() });
-            console.log(statusData);
+            const res = await mutateChangeStatus({ orderid: data.order_id, status: statusNum.toString() });
+            if (res) {
+                queryClient.invalidateQueries({ queryKey: ["requests-client"] });
 
+                if (open) {
+                    setOpen(false);
+                }
+            }
 
         } catch (error) {
-            console.log(error);
-
             if (error?.response?.status === 401) {
                 toast.error("ابتدا وارد حساب کاربری خود شوید");
                 window.location.href = "/auth";
@@ -33,6 +39,7 @@ export default function RequestsUsersItem({ status, data, provinces }) {
 
     return (
         <div className="w-full bg-white rounded-xl p-4">
+
             {/* user and order details */}
             <div className="w-full flex flex-col gap-6 sm:grid sm:grid-cols-2 md:grid-cols-3 mb-4">
                 <div className="flex items-center gap-2">
@@ -61,7 +68,7 @@ export default function RequestsUsersItem({ status, data, provinces }) {
                         <MdOutlineChat className="w-5 h-5" />
                         ارسال پیام
                     </button>
-                    <button className="flex items-center gap-1 text-sm font-medium text-error">
+                    <button onClick={() => changeStatusHandler(2)} className="flex items-center gap-1 text-sm font-medium text-error">
                         <FaRegTrashAlt className="w-4 h-4" />
                         لغو سفارش
                     </button>
@@ -70,6 +77,14 @@ export default function RequestsUsersItem({ status, data, provinces }) {
 
             {/* status */}
             <OrderItemStatus status={status} isExpert={true} />
+            <Modal open={open} onClose={() => setOpen(false)} title="تغییر وضعیت درخواست">
+                <ChangeStatusForm
+                    onClose={() => setOpen(false)}
+                    onSubmit={(e) => changeStatusHandler(e)}
+                    lastSelected={status}
+                    isLoading={isPending}
+                />
+            </Modal>
 
             {/* options */}
             <div className="w-full grid grid-cols-1 gap-2 sm:grid-cols-2 mt-4">
@@ -82,12 +97,12 @@ export default function RequestsUsersItem({ status, data, provinces }) {
                     </button>
                 }
                 {status === "3" &&
-                    <button className="btn btn--primary !opacity-80">
+                    <div className="btn btn--primary !opacity-80">
                         در انتظار تایید توسط کاربر متقاضی
-                    </button>
+                    </div>
                 }
                 {status !== "0" && status !== "3" &&
-                    <button className="btn btn--outline !text-primary-01 !border-primary-01">
+                    <button onClick={() => setOpen(true)} className="btn btn--outline !text-primary-01 !border-primary-01">
                         ثبت عملیات توسط شما
                     </button>
                 }

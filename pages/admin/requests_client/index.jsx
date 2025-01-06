@@ -22,8 +22,6 @@ export default function RequestsClient() {
         { label: "مشارکت" },
     ];
 
-    if (isLoading || isGetProvinces) return <LoadingAdmin />
-
     return (
         <ExpertDashboard>
             <div className='flex flex-col justify-between items-center w-full h-full'>
@@ -34,31 +32,36 @@ export default function RequestsClient() {
 
                     <OrdersFilter />
 
-                    <TabGroup tabs={tabs}>
-                        {tabs.map((tab, index) => (
-                            <TabGroup.Item key={index}>
-                                <div className="space-y-5">
-                                    {requestsClient?.map((item) => (
-                                        tab.label === "همه موارد" ?
-                                            <RequestsUsersItem
-                                                key={item.id}
-                                                data={item}
-                                                status={item.status || 0}
-                                                provinces={transformProvinces}
-                                            />
-                                            :
-                                            item.service.length > 0 && item.service[0]?.type.includes(tab.label) &&
-                                            <RequestsUsersItem
-                                                key={item.id}
-                                                data={item}
-                                                status={item.status || 0}
-                                                provinces={transformProvinces}
-                                            />
-                                    ))}
-                                </div>
-                            </TabGroup.Item>
-                        ))}
-                    </TabGroup>
+                    {
+                        !isLoading && !isGetProvinces ?
+                            <TabGroup tabs={tabs}>
+                                {tabs.map((tab, index) => (
+                                    <TabGroup.Item key={index}>
+                                        <div className="space-y-5">
+                                            {requestsClient?.map((item) => (
+                                                tab.label === "همه موارد" ?
+                                                    <RequestsUsersItem
+                                                        key={item.id}
+                                                        data={item}
+                                                        status={item.status || 0}
+                                                        provinces={transformProvinces}
+                                                    />
+                                                    :
+                                                    item.service.length > 0 && item.service[0]?.type.includes(tab.label) &&
+                                                    <RequestsUsersItem
+                                                        key={item.id}
+                                                        data={item}
+                                                        status={item.status || 0}
+                                                        provinces={transformProvinces}
+                                                    />
+                                            ))}
+                                        </div>
+                                    </TabGroup.Item>
+                                ))}
+                            </TabGroup>
+                            :
+                            <LoadingAdmin />
+                    }
                 </div>
             </div>
         </ExpertDashboard>
