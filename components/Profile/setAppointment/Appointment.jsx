@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import toEnglishNumber from "@/utils/toEnglishNumber";
 import { encryptData } from "@/utils/crypto";
 import ResultAppointment from "./ResultAppointment";
+import getPriceService from "@/components/admin/adminProfileSteps/myservices/getPriceService";
 
 
 // "pay" status = Go to payment
@@ -36,7 +37,7 @@ export default function Appointment({ data }) {
                 return { status: "pay", message: "" };
 
             case resPrice === "0" && data.serviceData.price_type === "suggestion":
-                return { status: "payAfter", message: "سفارش شما با موفقیت ثبت شد و پس از تایید مبلغ پیشنهادی از سوی متخصص قابل پرداخت است" };
+                return { status: "payAfter", message: "سفارش شما با موفقیت ثبت شد و پس از تایید تعرفه پیشنهادی از سوی متخصص قابل پرداخت است" };
 
             case resPrice === "0" && data.serviceData.price_type === "free":
                 return { status: "success", message: "سفارش شما با موفقیت ثبت شد" };
@@ -46,7 +47,6 @@ export default function Appointment({ data }) {
         }
     };
 
-
     const submitOrderHandler = async () => {
         const details = JSON.stringify({
             date: toEnglishNumber(dateTime.date),
@@ -54,10 +54,20 @@ export default function Appointment({ data }) {
             description: descUser
         });
 
+        let user_price = ""
+        let type = ""
+
+        if (data.serviceData.price_type === "suggestion" || data.serviceData.price_type === "charity") {
+            user_price = price;
+            type = getPriceService(data.serviceData.price_type);
+        }
+
         try {
             const { data: resData } = await mutateAddOrder({
                 json_data: details,
-                serice_id: data.serviceData.id.toString()
+                serice_id: data.serviceData.id.toString(),
+                user_price,
+                type
             });
 
             router.replace(`/set-appointment/${encryptData({ order: 2, ...renderStatus(resData.price), orderId: resData.order_id })}`);
@@ -124,8 +134,6 @@ export default function Appointment({ data }) {
                     </div>
                 </div>
             }
-
-
         </div>
     )
 }
