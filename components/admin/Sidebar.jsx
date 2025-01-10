@@ -41,7 +41,7 @@ const dataMenu = [
         id: 3,
         title: 'سفارشات',
         value: 'orders',
-        quanity: '12',
+        quanity: '',
         icon: MdOutlineListAlt,
     },
     {
@@ -55,7 +55,7 @@ const dataMenu = [
         id: 4,
         title: 'فراخوان جدید',
         value: 'calling',
-        quanity: '7',
+        quanity: '',
         icon: HiOutlineSpeakerphone,
     },
     {

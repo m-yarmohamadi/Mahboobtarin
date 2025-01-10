@@ -20,3 +20,13 @@ export function changeStatusRequestsClientApi(data) {
     })
     .then(({ data }) => data);
 }
+
+export function getRequestsOrdersApi() {
+  return http
+    .get("/api/v1/dashboard/order/service/list/users", {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    })
+    .then(({ data }) => data);
+}

@@ -3,17 +3,23 @@ import Turns from "./Turns";
 import Products from "./Products";
 import OrdersFilter from "./OrdersFilter";
 import OrderItem from "./orderItem/OrderItem";
+import { useGetRequestsOrders } from "@/hooks/expertHooks/useRequestsClient";
+import LoadingAdmin from "../../LoadingAdmin";
 
 export default function OrdersList() {
+    const { ordersData, isLoading } = useGetRequestsOrders();
+    
     const tabs = [
-        { label: "همه موارد" },
-        { label: "تایید نهایی" },
-        { label: "در انتظار تایید" },
-        { label: "تایید اولیه" },
-        { label: "انجام شده" },
-        { label: "رد شده" },
-        { label: "لغو شده" },
+        { label: "همه موارد", status: "all" },
+        { label: "تایید نهایی", status: "4" },
+        { label: "در انتظار تایید", status: "0" },
+        { label: "تایید اولیه", status: "3" },
+        { label: "انجام شده", status: "5" },
+        { label: "رد شده", status: "2" },
+        { label: "لغو شده", status: "1" },
     ];
+
+    if (isLoading) return <LoadingAdmin />
 
     return (
         <div className='flex flex-col justify-between items-center w-full h-full'>
@@ -25,16 +31,19 @@ export default function OrdersList() {
                 <OrdersFilter />
 
                 <TabGroup tabs={tabs}>
-                    <TabGroup.Item>
-                        <div className="space-y-5">
-                            <OrderItem status={0} />
-                            <OrderItem status={1} />
-                            <OrderItem status={2} />
-                            <OrderItem status={3} />
-                            <OrderItem status={4} />
-                            <OrderItem status={5} />
-                        </div>
-                    </TabGroup.Item>
+                    {tabs.map((tab, index) => (
+                        <TabGroup.Item key={index}>
+                            <div className="space-y-5">
+                                {ordersData.map((order) => (
+                                    tab.status === "all" ?
+                                        <OrderItem key={order.id} status={order.status || 0} data={order} />
+                                        :
+                                        Number(order.status) === Number(tab.status) &&
+                                        <OrderItem key={order.id} status={order.status || 0} data={order} />
+                                ))}
+                            </div>
+                        </TabGroup.Item>
+                    ))}
                 </TabGroup>
             </div>
         </div>

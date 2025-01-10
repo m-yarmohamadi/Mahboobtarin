@@ -38,10 +38,12 @@ export default function Gallery({ gallery }) {
 
 
 function AllGallery({ gallery, onOpenPopup }) {
+    const sortedGallery = gallery.sort((a, b) => Number(a.ord) - Number(b.ord));
+
     return (
         <TabGroup.Item>
             <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 ">
-                {gallery.filter((c) => c.type !== "gallery-audio").map((item) => {
+                {sortedGallery.filter((c) => c.type !== "gallery-audio").map((item) => {
                     return (
                         <div key={item.id} className="relative" onClick={() => onOpenPopup(item)}>
                             <div className="aspect-w-16 aspect-h-10">

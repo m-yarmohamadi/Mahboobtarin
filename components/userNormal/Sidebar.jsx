@@ -34,7 +34,7 @@ const dataMenu = [
         id: 30,
         title: 'سفارشات',
         value: 'orders',
-        quanity: '12',
+        quanity: '',
         icon: MdOutlineListAlt,
     },
     {

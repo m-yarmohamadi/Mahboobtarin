@@ -31,7 +31,7 @@ export default function GalleryItem({ data }) {
 
     return (
         <div className='flex flex-col gap-2 relative bg-primary-01 bg-opacity-05 rounded-lg p-1'>
-            {data.type === 'gallery-image' ? (
+            {data.type === 'gallery-image' && (
                 <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
                     <img
                         src={data.path}
@@ -39,7 +39,8 @@ export default function GalleryItem({ data }) {
                         className='w-full h-full object-cover'
                     />
                 </div>
-            ) : (
+            )}
+            {data.type === 'gallery-video' && (
                 <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
                     <video
                         controls
@@ -49,6 +50,14 @@ export default function GalleryItem({ data }) {
                             type='video/mp4'
                         />
                     </video>
+                </div>
+            )}
+            {data.type === 'gallery-audio' && (
+                <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
+                    <audio controls className="w-full">
+                        <source src={data.path} type="audio/mpeg" />
+                        مرورگر شما پخش صوت را پشتیبانی نمی‌کند.
+                    </audio>
                 </div>
             )}
             <h3 className='w-full text-md text-slate-800 font-bold px-2'>{data.title}</h3>

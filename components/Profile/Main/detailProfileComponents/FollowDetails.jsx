@@ -8,11 +8,9 @@ export default function FollowDetails({ onChangeStep, userData }) {
 
     if (isGetFollowers || isGetFollowings) return null
 
-    if (!user) return null
-
     return (
         <div className="flex  items-center gap-2 sm:gap-6 whitespace-nowrap">
-            <div onClick={() => onChangeStep(2)} className="cursor-pointer flex flex-col justify-center items-center lg:flex-row relative md:p-6">
+            <div onClick={() => user && onChangeStep(2)} className="cursor-pointer flex flex-col justify-center items-center lg:flex-row relative md:p-6">
                 {followings && <span className=" absolute -top-2 -right-2 md:top-3 z-5  md:right-4 text-primary-02 font-bold text-md bg-primary-01 w-5 md:w-6 h-5 md:h-6 flex justify-center items-center rounded-full hover:border border-slate-50">
                     {followings?.length}
                 </span>}
@@ -21,7 +19,7 @@ export default function FollowDetails({ onChangeStep, userData }) {
                     دنبال شده
                 </span>
             </div>
-            <div onClick={() => onChangeStep(1)} className="cursor-pointer flex flex-col justify-center items-center lg:flex-row relative md:p-6">
+            <div onClick={() => user && onChangeStep(1)} className="cursor-pointer flex flex-col justify-center items-center lg:flex-row relative md:p-6">
 
                 {followers && <span className=" absolute -top-2 -right-2 md:top-3 z-5  md:right-4 text-primary-02 font-bold text-md bg-primary-01 w-5 md:w-6 h-5 md:h-6 flex justify-center items-center rounded-full hover:border border-slate-50">
                     {followers?.length}
