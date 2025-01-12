@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import http from "./httpService";
 
-export function addToCart(data) {
+export function addOrderShop(data) {
   return http.post("/api/v1/add-order-new", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,

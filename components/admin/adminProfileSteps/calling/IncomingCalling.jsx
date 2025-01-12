@@ -3,7 +3,6 @@ import CallingItem from "./CallingItem";
 import Loading from "@/tools/Loading";
 import Link from "next/link";
 import { FaLocationDot, FaMoneyBillWave, FaRegClock } from "react-icons/fa6";
-import { IoLocationOutline } from "react-icons/io5";
 import { useGetCity, useGetProvinces } from "@/hooks/useCity";
 import { FaHandsHelping } from "react-icons/fa";
 
@@ -17,7 +16,7 @@ export default function IncomingCalling() {
     )
     return (
         <div className="w-full grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {requests?.registered?.map((item) => (
+            {requests?.others?.map((item) => (
                 <IncomingCallingItem key={item.id} data={item} />
             ))}
         </div>

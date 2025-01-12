@@ -3,15 +3,62 @@ import { HiShoppingCart } from "react-icons/hi";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import AddressList from "./AddressList";
 import { FaArrowRight } from "react-icons/fa6";
-import { useAddToCart, useGetCart, useGetSendMethods } from "@/hooks/useCart";
+import { useGetSendMethods } from "@/hooks/useCart";
 import { useState } from "react";
 import SendMethods from "./SendMethods";
 import { useCartShop } from "@/context/CartContext";
+import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import { addOrderShop } from "@/services/cartService";
+import Loading from "@/tools/Loading";
 
 export default function Address({ setStep }) {
     const [sendMethod, setSendMethod] = useState("adi");
     const [address, setAddress] = useState();
     const [provinceLabel, setProvinceLabel] = useState();
+    const { cartList, resetCart } = useCartShop();
+    const { mutateAsync: mutateAddOrder, isPending } = useMutation({ mutationFn: addOrderShop });
+
+    const submitOrderHandler = async () => {
+
+        if (!address) {
+            toast.error("آدرس را انتخاب کنید");
+            return
+        }
+
+        let products = [];
+        cartList.forEach((item) => {
+            products.push({
+                id: item.product.id,
+                qty: item.qty,
+            });
+        });
+
+        try {
+            const { data } = await mutateAddOrder({
+                products,
+                paymentmethod: "online",
+                coupondiscount: "",
+                addressid: address,
+                send_method: sendMethod,
+            });
+
+            if (data) {
+                toast.success("سفارش شما با موفقیت ثبت شد");
+                setStep(3);
+                resetCart();
+            }
+
+        } catch (error) {
+            if (error?.response?.status === 401) {
+                toast.error("ابتدا وارد حساب کاربری خود شوید");
+                window.location.href = "/auth";
+                return
+            }
+
+            toast.error("خطایی در ثبت سفارش رخ داده است");
+        }
+    }
 
     return (
         <div className="w-full  max-w-screen-xl mx-auto p-6 lg:p-10">
@@ -28,20 +75,30 @@ export default function Address({ setStep }) {
             </div>
             <div className="w-full grid items-start grid-cols-1 gap-6 lg:grid-cols-12 mt-6">
                 <div className="w-full lg:col-span-8 space-y-6">
-                    <AddressList setProvinceLabel={setProvinceLabel} address={address} setAddress={setAddress} />
-                    <SendMethods provinceLabel={provinceLabel} sendMethod={sendMethod} setSendMethod={setSendMethod} />
-                    <ProductsList />
+                    <AddressList
+                        setProvinceLabel={setProvinceLabel}
+                        address={address}
+                        setAddress={setAddress}
+                    />
+                    <SendMethods
+                        provinceLabel={provinceLabel}
+                        sendMethod={sendMethod}
+                        setSendMethod={setSendMethod}
+                    />
+                    <ProductsList cartList={cartList} />
                 </div>
-                <AddressSammary setStep={setStep} sendMethod={sendMethod} />
+                <AddressSammary
+                    sendMethod={sendMethod}
+                    submitOrderHandler={submitOrderHandler}
+                    isPending={isPending}
+                />
             </div>
         </div>
     )
 }
 
 
-function AddressSammary({ setStep, sendMethod, address }) {
-    const { cart } = useGetCart();
-    const { clearCart } = useAddToCart();
+function AddressSammary({ sendMethod, submitOrderHandler, isPending }) {
     const { getPrice } = useGetSendMethods();
     const { cartList, getCartTotal, getTotalAmountDue, getCartDiscountTotal } = useCartShop();
 
@@ -82,21 +139,17 @@ function AddressSammary({ setStep, sendMethod, address }) {
             </div>
 
             <button
-                onClick={() => {
-                    setStep(3);
-                    clearCart();
-                }}
+                onClick={submitOrderHandler}
                 className="btn btn--primary w-full !mt-6"
             >
-                پرداخت
+                {isPending ? <Loading width={'40'} /> : "پرداخت"}
             </button>
         </div>
     )
 }
 
 
-function ProductsList() {
-    const { cartList } = useCartShop();
+function ProductsList({ cartList }) {
 
     return (
         <div className="w-full border border-slate-300 dark:border-slate-400 rounded-xl p-6">

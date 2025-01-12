@@ -10,7 +10,6 @@ import Link from "next/link";
 import { FaAnglesLeft } from "react-icons/fa6";
 import useProfile from "@/hooks/useProfile";
 import { IoCartOutline } from "react-icons/io5";
-import { useGetCart } from "@/hooks/useCart";
 import { IoPerson } from "react-icons/io5";
 import { useDarkMode } from "@/context/DarkModeContext";
 import {
@@ -31,7 +30,6 @@ const LoginRegister = ({
 }) => {
   const [openMenuOptions, setOpenMenuOptions] = useState(false);
   const menuOptionsRef = useRef(null);
-  const { cart, isGetCart } = useGetCart();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { cartList } = useCartShop();
 
