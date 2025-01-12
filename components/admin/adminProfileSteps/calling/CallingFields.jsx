@@ -68,7 +68,13 @@ const insuranceOptions = [
     { value: "ندارد", label: "ندارد" },
 ]
 
-export default function CallingFields({ formik }) {
+const statusOptions = [
+    { value: "", label: "یک گزینه را انتخاب کنید" },
+    { value: "1", label: "فعال" },
+    { value: "0", label: "غیر فعال" },
+]
+
+export default function CallingFields({ formik, editPhotos }) {
     const { transformCategories, isLoading } = useMainPage();
     const { transformProvinces } = useGetProvinces();
     const { transformCity } = useGetCity(formik.values.province);
@@ -173,6 +179,12 @@ export default function CallingFields({ formik }) {
                     name="military_status"
                 />
                 <Select
+                    label={'وضعیت'}
+                    options={statusOptions}
+                    formik={formik}
+                    name="status"
+                />
+                <Select
                     options={[{ value: "", label: "یک گزینه را انتخاب کنید" }, ...CountriesSortedFa]}
                     label={'کشور محل فراخوان'}
                     name={'country'}
@@ -239,17 +251,18 @@ export default function CallingFields({ formik }) {
             <TextArea
                 label={'توضیحات'}
                 name={'description'}
-                formik={formik}
+                value={formik.values.description}
+                onChange={formik.handleChange}
                 required={true}
             />
 
-            <UploadPhoto formik={formik} />
+            <UploadPhoto formik={formik} editPhotos={editPhotos} />
         </>
     )
 }
 
 
-function UploadPhoto({ formik }) {
+function UploadPhoto({ formik, editPhotos = [] }) {
     const { mutateAsync: mutateUploadPhotos, isPending: isUploading } = useMutation({ mutationFn: uploadPhotosRequest });
 
     const updloadPhotoHandler = async (file) => {
@@ -287,6 +300,12 @@ function UploadPhoto({ formik }) {
                 افزودن تصویر
             </div>
             <div className="w-full flex items-center flex-wrap gap-4">
+                {editPhotos.map((item, index) => (
+                    <div key={index} className="w-[90px] sm:w-[150px] h-[90px] sm:h-[150px] relative">
+                        <img src={item.path} alt="" className="w-full h-full object-cover object-center rounded-lg" />
+                    </div>
+                ))}
+
                 {formik.values.files.map((item, index) => (
                     <div key={index} className="w-[90px] sm:w-[150px] h-[90px] sm:h-[150px] relative">
                         <img src={URL.createObjectURL(item.file)} alt="" className="w-full h-full object-cover object-center rounded-lg" />
@@ -296,7 +315,7 @@ function UploadPhoto({ formik }) {
                     </div>
                 ))}
 
-                {formik.values.files.length < 3 &&
+                {[...formik.values.files, ...editPhotos].length < 3 &&
                     <>
                         {
                             !isUploading ?

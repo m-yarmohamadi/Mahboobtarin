@@ -20,7 +20,7 @@ export default function AddedCalling() {
     )
 
     return (
-        <div className="w-full grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="w-full grid grid-cols-1 gap-3 md:grid-cols-2">
             {requests?.registered?.map((item) => (
                 <CallingRegisteredItem key={item.id} data={item} />
             ))}
@@ -66,9 +66,9 @@ function CallingRegisteredItem({ data }) {
                 <button onClick={() => deleteRequestHandler(data.id)} className='btn btn--danger !p-2'>
                     <HiOutlineTrash className='w-5 h-5' />
                 </button>
-                <button className='btn btn--danger !bg-secondary-01 !p-2'>
+                <Link href={`/admin/calling/edit/${data.id}`} className='btn btn--danger !bg-secondary-01 !p-2'>
                     <MdEdit className='w-5 h-5' />
-                </button>
+                </Link>
             </div>
 
             <div>
@@ -103,7 +103,7 @@ function CallingRegisteredItem({ data }) {
                                 تاریخ انتشار:
                             </span>
                             <span className="text-primary-01">
-                                {toPersianDateLong(data.created_at)}
+                                {toPersianDateLong(data.updated_at)}
                             </span>
                         </div>
                         <div className="flex items-center gap-1 text-xs text-slate-800">
@@ -121,7 +121,7 @@ function CallingRegisteredItem({ data }) {
                             لیست متقاضیان
                         </button>
                         <div className="btn btn--secondary !text-xs !p-1">
-                            وضعیت : فعال
+                            وضعیت : {data?.status === "1" ? "فعال" : "غیر فعال"}
                         </div>
                     </div>
                 </div>

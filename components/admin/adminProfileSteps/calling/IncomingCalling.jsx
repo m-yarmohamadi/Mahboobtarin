@@ -76,7 +76,7 @@ function IncomingCallingItem({ data }) {
                             مشاهده جزئیات
                         </button>
                         <div className="btn btn--secondary !text-xs !p-1">
-                            وضعیت : فعال
+                            وضعیت : {data?.status === "1" ? "فعال" : "غیرفعال"}
                         </div>
                         <button className="btn btn--primary !text-xs !p-1">
                             تایید فراخوان

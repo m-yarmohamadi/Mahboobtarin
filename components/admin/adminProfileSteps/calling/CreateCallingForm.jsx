@@ -8,28 +8,6 @@ import * as Yup from "yup";
 import CallingFields from "./CallingFields";
 
 
-const initialValues = {
-    title: "",
-    category: "",
-    picture: [],
-    description: "",
-    collaboration: "",
-    time_work: "",
-    salary_amount: "",
-    payment_method: "",
-    gender: "",
-    age: "",
-    insurance: "",
-    work_history: "",
-    military_status: "",
-    country: "Iran",
-    province: "",
-    city: "",
-    address: "",
-    map: [],
-    files: []
-}
-
 const validationSchema = Yup.object({
     title: Yup.string().required('عنوان را وارد کنید'),
     category: Yup.string().required('دسته بندی را وارد کنید'),
@@ -43,16 +21,42 @@ const validationSchema = Yup.object({
     gender: Yup.string().required("جنسیت را انتخاب کنید"),
     work_history: Yup.string().required("سابقه کاری را انتخاب کنید"),
     military_status: Yup.string().required("وضعیت سربازی را انتخاب کنید"),
+    status: Yup.string().required("وضعیت فراخوان را انتخاب کنید"),
     country: Yup.string().required("کشور را انتخاب کنید"),
     province: Yup.string().required("استان را انتخاب کنید"),
     city: Yup.string().required('شهر را انتخاب کنید'),
     picture: Yup.array().required('حداقل یک تصویر را انتخاب کنید').min(1, "حداقل یک را انتخاب کنید"),
 })
 
-export default function CreateCallingForm() {
+export default function CreateCallingForm({ editData }) {
     const { mutateAsync: mutateAddRequest, isPending } = useMutation({ mutationFn: addNewRequest });
     const queryClient = useQueryClient();
     const router = useRouter();
+    const photos = editData ? editData.photos : [];
+    const picturesId = photos.map((item) => (item.id));
+
+    const initialValues = {
+        title: editData?.title || "",
+        category: Number(editData?.category) || "",
+        picture: picturesId.length > 0 ? picturesId : [],
+        description: editData?.description || "",
+        collaboration: editData?.collaboration || "",
+        time_work: editData?.time_work || "",
+        salary_amount: editData?.salary_amount || "",
+        payment_method: editData?.payment_method || "",
+        gender: editData?.gender || "",
+        age: editData?.age || "",
+        insurance: editData?.insurance || "",
+        work_history: editData?.work_history || "",
+        military_status: editData?.military_status || "",
+        country: editData?.country || "Iran",
+        province: editData?.province || "",
+        city: editData?.city || "",
+        address: editData?.address || "",
+        status: editData?.status || "",
+        map: editData?.lat ? [editData?.lat, editData?.lng] : [],
+        files: []
+    }
 
     const addRequestHandler = async (values) => {
         try {
@@ -66,7 +70,7 @@ export default function CreateCallingForm() {
                 lat: values.map[0] || "",
                 lng: values.map[1] || "",
                 picture: transformPhotoId,
-                file: "",
+                files: null,
                 ...values
             }
 
@@ -74,16 +78,18 @@ export default function CreateCallingForm() {
                 formData.append(i, callingData[i]);
             }
 
+            if (editData) {
+                formData.append("id", editData.id);
+            }
+
             const { data } = await mutateAddRequest(formData);
             if (data) {
-                toast.success("فراخوان جدید اضافه شد");
+                toast.success(editData ? "فراخوان ویرایش شد" : "فراخوان جدید اضافه شد");
                 router.replace("/admin/calling");
                 queryClient.invalidateQueries({ queryKey: ['get-requests'] });
             }
 
         } catch (error) {
-            console.log(error);
-
             if (error?.response?.status === 401) {
                 toast.error("لطفا وارد حساب کاربری خود شوید");
                 window.location.reload();
@@ -101,10 +107,10 @@ export default function CreateCallingForm() {
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <CallingFields formik={formik} />
+            <CallingFields formik={formik} editPhotos={editData?.photos || []} />
             <div className="w-full grid grid-cols-2 gap-4 pt-8 sm:max-w-[50%]">
                 <button type="submit" className="btn btn--primary">
-                    {isPending ? <Loading /> : "ثبت"}
+                    {isPending ? <Loading /> : editData ? "ویرایش" : "ثبت"}
                 </button>
                 <button type="button" onClick={() => window.history.back()} className="btn btn--outline">
                     لغو

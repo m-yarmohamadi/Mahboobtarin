@@ -25,6 +25,14 @@ export function getRequestsList() {
   });
 }
 
+export function getRequestById(id) {
+  return http.get(`/api/v1/requests/list/${id}`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
 export function deleteRequest(id) {
   return http.post(
     "/api/v1/dashboard/requests/destroy",
