@@ -49,103 +49,6 @@ import FollowsList from "./detailProfileComponents/FollowsList";
 import BookmarkUser from "./detailProfileComponents/BookmarkUser";
 import { useFollow } from "@/hooks/expertHooks/useFollow";
 
-const mostPopular = [
-  {
-    id: 1,
-    title: "رنگ",
-    value: "زرد",
-  },
-  {
-    id: 2,
-    title: "رشته ورزشی",
-    value: "فوتبال",
-  },
-  {
-    id: 3,
-    title: "تیم ورزشی",
-    value: "استقلال",
-  },
-  {
-    id: 4,
-    title: "مرکز خرید",
-    value: "تیراژه",
-  },
-  {
-    id: 5,
-    title: "شاعر",
-    value: "حافظ",
-  },
-  {
-    id: 6,
-    title: "پاتوق",
-    value: "کافه ملانا",
-  },
-  {
-    id: 7,
-    title: "تیم ورزشی",
-    value: "استقلال",
-  },
-  {
-    id: 8,
-    title: "مرکز خرید",
-    value: "اطلس مال",
-  },
-  {
-    id: 9,
-    title: "شاعر",
-    value: "سعدی",
-  },
-  {
-    id: 10,
-    title: "رشته ورزشی",
-    value: "فوتبال",
-  },
-  {
-    id: 11,
-    title: "تیم ورزشی",
-    value: "استقلال",
-  },
-  {
-    id: 12,
-    title: "مرکز خرید",
-    value: "ایران مال",
-  },
-];
-const product = [
-  {
-    id: 1,
-    url: "/images/Book001.png",
-    name: "پاستیل بنفش",
-    ouner: "کاترین اپل گیت",
-    Publications: "...",
-    Price: 128000,
-    Discount: 83,
-    Supplier: "امیر عزیزی",
-    SupplierUrl: "/images/KavehBehbahani.jpg",
-  },
-  {
-    id: 2,
-    url: "/images/Book002.png",
-    name: "12 قانون برای زندگی",
-    ouner: "جردن پیترسون",
-    Publications: "...",
-    Price: 398000,
-    Discount: 77,
-    Supplier: "علی محمودی",
-    SupplierUrl: "/images/KavehBehbahani.jpg",
-  },
-  {
-    id: 3,
-    url: "/images/Book003.png",
-    name: "انسان در جستجوی معنا",
-    ouner: "ویکتور فرانگل",
-    Publications: "...",
-    Price: 138000,
-    Discount: 73,
-    Supplier: "سحر عمادی",
-    SupplierUrl: "/images/KavehBehbahani.jpg",
-  },
-];
 
 const DetailProfile = ({
   userData,
@@ -169,7 +72,6 @@ const DetailProfile = ({
     provinces.filter((p) => Number(p.id) === Number(userData?.province_id))[0]
       ?.name;
 
-  console.log(userData);
 
   const expertFollowHandler = () => {
     followHandler(userData.id, `${userData?.name} ${userData?.lastname}`);
@@ -184,7 +86,6 @@ const DetailProfile = ({
   const permissions = userData?.permissions
     ? JSON.parse(userData?.permissions)
     : {};
-  console.log(popularList);
 
   if (stepFollow !== 0) {
     return (

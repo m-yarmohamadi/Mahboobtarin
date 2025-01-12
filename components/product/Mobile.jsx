@@ -17,7 +17,7 @@ export default function Mobile({ product, relatedProducts }) {
                             {product?.anbar} عدد موجود در انبار
                         </div>
                     }
-                    <AddToCart productId={product.id} inventory={product.anbar} />
+                    <AddToCart product={product} productId={product.id} inventory={product.anbar} />
                 </div>
                 <div className="flex-1 flex flex-col items-end gap-1">
                     <div className="py-1 px-2 text-[#fff] bg-error text-xs font-bold rounded-lg">

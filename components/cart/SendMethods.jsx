@@ -1,11 +1,9 @@
-import { useAddToCart, useGetCart, useGetSendMethods } from "@/hooks/useCart";
+import { useGetSendMethods } from "@/hooks/useCart";
 import Loading from "@/tools/Loading";
 import numberWithCommas from "@/utils/numberWithCommas";
 
-export default function SendMethods() {
-    const { changeSendMethodOrder } = useAddToCart();
+export default function SendMethods({ sendMethod, setSendMethod, provinceLabel }) {
     const { sendMethods, isGetMethods } = useGetSendMethods();
-    const { cart } = useGetCart();
 
     return (
         <div className="w-full border border-slate-300 dark:border-slate-400 rounded-xl p-6">
@@ -20,20 +18,37 @@ export default function SendMethods() {
                     !isGetMethods ?
                         <div className="space-y-2 mt-5">
                             {sendMethods.map((item, index) => (
-                                <div onClick={() => changeSendMethodOrder(item.englishTitle)} key={index} className={`w-full p-4 rounded-xl border cursor-pointer border-slate-300 dark:border-slate-400 ${cart.sendmethod === item.englishTitle && "bg-slate-400"}`}>
-                                    <h3 className="text-sm font-semibold text-slate-800 mb-2">
-                                        {item.title}
-                                    </h3>
-                                    <div className="text-xs text-slate-700">
-                                        <span>
-                                            هزینه ارسال
-                                        </span>
-                                        &nbsp;
-                                        <span>
-                                            {numberWithCommas(item.price)} تومان
-                                        </span>
+                                provinceLabel === "تهران" ?
+                                    <div onClick={() => setSendMethod(item.englishTitle)} key={index} className={`w-full p-4 rounded-xl border cursor-pointer border-slate-300 dark:border-slate-400 ${sendMethod === item.englishTitle && "bg-slate-400"}`}>
+                                        <h3 className="text-sm font-semibold text-slate-800 mb-2">
+                                            {item.title}
+                                        </h3>
+                                        <div className="text-xs text-slate-700">
+                                            <span>
+                                                هزینه ارسال
+                                            </span>
+                                            &nbsp;
+                                            <span>
+                                                {numberWithCommas(item.price)} تومان
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
+                                    :
+                                    item.englishTitle !== "motor" &&
+                                    <div onClick={() => setSendMethod(item.englishTitle)} key={index} className={`w-full p-4 rounded-xl border cursor-pointer border-slate-300 dark:border-slate-400 ${sendMethod === item.englishTitle && "bg-slate-400"}`}>
+                                        <h3 className="text-sm font-semibold text-slate-800 mb-2">
+                                            {item.title}
+                                        </h3>
+                                        <div className="text-xs text-slate-700">
+                                            <span>
+                                                هزینه ارسال
+                                            </span>
+                                            &nbsp;
+                                            <span>
+                                                {numberWithCommas(item.price)} تومان
+                                            </span>
+                                        </div>
+                                    </div>
                             ))}
                         </div>
                         :

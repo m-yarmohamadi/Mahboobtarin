@@ -13,18 +13,30 @@ import { IoCartOutline } from "react-icons/io5";
 import { useGetCart } from "@/hooks/useCart";
 import { IoPerson } from "react-icons/io5";
 import { useDarkMode } from "@/context/DarkModeContext";
-import { MdDarkMode, MdLightMode, MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import {
+  MdDarkMode,
+  MdLightMode,
+  MdOutlineDarkMode,
+  MdOutlineLightMode,
+} from "react-icons/md";
+import { useCartShop } from "@/context/CartContext";
 
-const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size, user, isLoading }) => {
+const LoginRegister = ({
+  token,
+  setOpenRegisterModal,
+  handleLogOut,
+  size,
+  user,
+  isLoading,
+}) => {
   const [openMenuOptions, setOpenMenuOptions] = useState(false);
   const menuOptionsRef = useRef(null);
   const { cart, isGetCart } = useGetCart();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { cartList } = useCartShop();
 
   useEffect(() => {
     function closeMenuHandler(e) {
-      console.log();
-
       if (
         menuOptionsRef.current &&
         !menuOptionsRef.current.contains(e.target) &&
@@ -100,20 +112,21 @@ const LoginRegister = ({ token, setOpenRegisterModal, handleLogOut, size, user, 
         )}
       </div>
 
-      {/* <Link
-        href="/cart"
-        className={`btn btn--primary !p-0 w-10 h-10 relative ${
-          size !== "sm" ? "flex" : "hidden"
-        }`}
-      >
-        <IoCartOutline className="w-6 h-6" />
-        {!isGetCart && cart && cart?.totalqty !== "0" && (
+      {cartList.length > 0 && (
+        <Link
+          href="/cart"
+          className={`btn btn--primary !p-0 w-10 h-10 relative ${
+            size !== "sm" ? "flex" : "hidden"
+          }`}
+        >
+          <IoCartOutline className="w-6 h-6" />
           <div className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-error text-white text-xs flex items-center justify-center">
-            {cart?.totalqty}
+            {cartList?.length}
           </div>
-        )}
-      </Link>
+        </Link>
+      )}
 
+      {/* 
       <button
         onClick={toggleDarkMode}
         className={`btn btn--primary !p-0 w-10 h-10 relative ${

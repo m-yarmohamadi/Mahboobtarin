@@ -13,15 +13,12 @@ import { removeUserAddress, setUserAddress } from "@/services/authService";
 import toast from "react-hot-toast";
 import { MdAdd, MdOutlinePhoneIphone, MdOutlineSubtitles } from "react-icons/md";
 import { HiOutlineTrash } from "react-icons/hi2";
-import { useAddToCart, useGetCart } from "@/hooks/useCart";
 
-export default function AddressList() {
+export default function AddressList({ address, setAddress, setProvinceLabel }) {
     const { addressList, isLoading } = useGetAddress();
-    const { cart } = useGetCart();
-    const { changeAddressOrder } = useAddToCart();
     const [open, setOpen] = useState(false);
-    const defaultAddress = cart && Number(cart?.address_id);
     const { isPending, mutate: mutateRemoveAddress } = useMutation({ mutationFn: removeUserAddress });
+    const { transformProvinces } = useGetProvinces();
     const queryClient = useQueryClient();
 
     const deleteAddressHandler = (id) => {
@@ -40,6 +37,12 @@ export default function AddressList() {
         })
     }
 
+    const selectAddressHandler = (address) => {
+        const label = transformProvinces.filter((p) => p.id === Number(address.ostan))[0]?.label;
+        setAddress(address.id);
+        setProvinceLabel(label);
+    }
+
     if (isLoading) return (
         <div className="w-full flex items-center justify-center py-4">
             <Loading customeColor="#15aa7f" />
@@ -49,26 +52,26 @@ export default function AddressList() {
     return (
         <div className="w-full border border-slate-300 dark:border-slate-400 rounded-xl p-6">
             <Modal open={open} onClose={() => setOpen(false)} title="آدرس جدید">
-                <CreateAddressForm onClose={() => setOpen(false)} />
+                <CreateAddressForm onClose={() => setOpen(false)} transformProvinces={transformProvinces} />
             </Modal>
             <div>
                 <span className="text-xs text-slate-500 dark:text-slate-600">
                     آدرس تحویل سفارش
                 </span>
             </div>
-            <div className="mt-2 space-y-6 lg:max-h-[350px] lg:overflow-y-auto lg:pl-6">
+            <div className="mt-4 flex flex-col gap-6 lg:h-auto lg:max-h-[300px] lg:overflow-y-auto lg:pl-6">
                 {addressList.map((item, index) => (
                     <div
                         key={index}
                         className="flex cursor-pointer items-start gap-3 border-b border-slate-300 dark:border-slate-400 pb-6 last:pb-0 last:border-0"
                     >
-                        <div onClick={() => changeAddressOrder(item.id)} className={`w-5 h-5 p-[3px] mt-[2px] border rounded-full ${item.id === defaultAddress ? "border-slate-500 bg-transparent" : "border-primary-01"}`}>
-                            {item.id === defaultAddress &&
+                        <div onClick={() => selectAddressHandler(item)} className={`w-5 h-5 p-[3px] mt-[2px] border rounded-full ${item.id === address ? "border-slate-500 bg-transparent" : "border-primary-01"}`}>
+                            {item.id === address &&
                                 <div className="w-full h-full bg-primary-01 rounded-full"></div>
                             }
                         </div>
                         <div className="flex flex-col gap-5 flex-1">
-                            <div onClick={() => changeAddressOrder(item.id)} className="space-y-5">
+                            <div onClick={() => selectAddressHandler(item)} className="space-y-5">
                                 <p className="text-slate-800">
                                     {item.address}
                                 </p>
@@ -116,7 +119,7 @@ export default function AddressList() {
 }
 
 
-function CreateAddressForm({ onClose }) {
+function CreateAddressForm({ onClose, transformProvinces }) {
     const initialValues = {
         title: "",
         address: "",
@@ -182,7 +185,6 @@ function CreateAddressForm({ onClose }) {
         validationSchema
     });
 
-    const { transformProvinces } = useGetProvinces();
     const { transformCity, isLoading: isGetCity } = useGetCity(formik.values.ostan);
 
 

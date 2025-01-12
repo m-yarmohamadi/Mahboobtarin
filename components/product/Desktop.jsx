@@ -120,7 +120,7 @@ export default function Desktop({ product, relatedProducts }) {
                                 </div>
                             </div>
 
-                            <AddToCart productId={product.id} inventory={product.anbar}/>
+                            <AddToCart product={product} productId={product.id} inventory={product.anbar}/>
                         </div>
                     </div>
                 </div>

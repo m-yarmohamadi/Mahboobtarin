@@ -10,6 +10,7 @@ import DarkModeProvider from "@/context/DarkModeContext";
 import { useEffect } from "react";
 import { getDashboardSettings } from "@/services/authService";
 import { usePathname } from "next/navigation";
+import CartShopProvider from "@/context/CartContext";
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }) {
@@ -26,7 +27,6 @@ export default function App({ Component, pageProps }) {
         } else {
           document.documentElement.classList.remove("dark");
         }
-
       } catch (error) {}
     }
 
@@ -48,12 +48,14 @@ export default function App({ Component, pageProps }) {
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
       <QueryClientProvider client={queryClient}>
-        <DarkModeProvider>
-          <Toaster />
-          <div className="pb-20 lg:pb-0">
-            <Component {...pageProps} />
-          </div>
-        </DarkModeProvider>
+        <CartShopProvider>
+          <DarkModeProvider>
+            <Toaster />
+            <div className="pb-20 lg:pb-0">
+              <Component {...pageProps} />
+            </div>
+          </DarkModeProvider>
+        </CartShopProvider>
       </QueryClientProvider>
     </>
   );

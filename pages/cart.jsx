@@ -1,24 +1,21 @@
 import Address from "@/components/cart/Address";
 import Cart from "@/components/cart/Cart";
-import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { useAddToCart, useGetCart } from "@/hooks/useCart";
-import useProfile from "@/hooks/useProfile"
-import Loading from "@/tools/Loading";
+import { useCartShop } from "@/context/CartContext";
 import Link from "next/link";
 import { useState } from "react";
 import { BsBagCheck } from "react-icons/bs";
 import { IoCartOutline } from "react-icons/io5";
 
 export default function cart() {
-    const { user, isLoading } = useProfile();
     const [step, setStep] = useState(1);
-    const { cart, isGetCart } = useGetCart();
+    const { cartList } = useCartShop();
 
     const renderStep = () => {
         switch (step) {
             case 1: return (
                 <Cart
+                    cartItems={cartList}
                     setStep={setStep}
                 />
             )
@@ -53,14 +50,14 @@ export default function cart() {
         <>
             <Header />
             <div className="w-full">
-                {
+                {/* {
                     isLoading &&
                     <div className="w-full fixed top-1/2 -translate-y-1/2 right-0 h-screen flex items-center justify-center">
                         <Loading customeColor="#0693a4" />
                     </div>
-                }
+                } */}
 
-                {
+                {/* {
                     !isLoading && !user &&
                     <div className="w-full fixed top-1/2 -translate-y-1/2 right-0 h-screen flex items-center flex-col gap-2 justify-center">
                         <Link href="/auth" className="text-lg font-semibold text-primary-01">
@@ -70,10 +67,10 @@ export default function cart() {
                             لطفا وارد حساب کاربری خود شوید
                         </p>
                     </div>
-                }
+                } */}
 
                 {
-                    !isLoading && user && !cart && !isGetCart &&
+                    cartList.length === 0 &&
                     <div className="w-full fixed top-1/2 -translate-y-1/2 right-0 h-screen flex items-center flex-col gap-2 justify-center">
                         <IoCartOutline className="w-20 h-20 text-slate-400" />
                         <p className="text-lg font-medium text-slate-800">
@@ -83,7 +80,7 @@ export default function cart() {
                 }
 
                 {
-                    !isLoading && user && cart && !isGetCart && renderStep()
+                   cartList.length > 0 && renderStep()
                 }
             </div>
         </>
