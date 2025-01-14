@@ -65,7 +65,7 @@ const Support = () => {
 					<tbody>
 						{filteredData?.map((ticket) => (
 							<React.Fragment key={ticket.id}>
-								<tr onClick={() => setPreviewTicket(ticket.id)}>
+								<tr className='cursor-pointer' onClick={() => setPreviewTicket(ticket.id)}>
 									<td>
 										<FaDotCircle className={`w-7 ${ticket.status === "0" ? "text-red-600" : "text-green-900"}`} />
 									</td>

@@ -22,7 +22,7 @@ export default function CommentsList() {
         <TabGroup tabs={tabs}>
             <TabGroup.Item>
                 <div className="flex flex-col w-full gap-4">
-                    {comments.map((item) => (
+                    {comments?.map((item) => (
                         <CommentItem key={item.id} item={item} />
                     ))}
                 </div>

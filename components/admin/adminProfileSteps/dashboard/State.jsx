@@ -44,11 +44,10 @@ export default function State({ otherData = [], summaryData }) {
             case "total_views": return "بازدید کل"
         }
     }
-
     return (
         <div className="w-full bg-white shadow-lg dark:shadow-darkLg p-5 rounded-md">
             <ul className="w-full h-full flex flex-col gap-4 justify-between">
-                {Object.keys(summaryData)?.map((item, index) => (
+                {summaryData && Object.keys(summaryData).map((item, index) => (
                     <li key={index} className="flex items-center text-sm font-medium">
                         <span className="inline-block w-3 h-3 bg-secondary-01"></span>
                         <div className="mr-4 ml-1 text-slate-800">
@@ -62,4 +61,6 @@ export default function State({ otherData = [], summaryData }) {
             </ul>
         </div>
     )
+
+
 }

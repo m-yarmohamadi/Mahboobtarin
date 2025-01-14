@@ -34,7 +34,7 @@ export default function OrdersList() {
                     {tabs.map((tab, index) => (
                         <TabGroup.Item key={index}>
                             <div className="space-y-5">
-                                {ordersData.map((order) => (
+                                {ordersData?.map((order) => (
                                     tab.status === "all" ?
                                         <OrderItem key={order.id} status={order.status || 0} data={order} />
                                         :
