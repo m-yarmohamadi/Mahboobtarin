@@ -8,7 +8,7 @@ import LoadingAdmin from "../../LoadingAdmin";
 
 export default function OrdersList() {
     const { ordersData, isLoading } = useGetRequestsOrders();
-    
+
     const tabs = [
         { label: "همه موارد", status: "all" },
         { label: "تایید نهایی", status: "4" },
@@ -30,7 +30,10 @@ export default function OrdersList() {
 
                 <OrdersFilter />
 
-                <TabGroup tabs={tabs}>
+                <TabGroup tabs={[{ label: "محصولات" }, ...tabs]}>
+                    <TabGroup.Item>
+                        <Products />
+                    </TabGroup.Item>
                     {tabs.map((tab, index) => (
                         <TabGroup.Item key={index}>
                             <div className="space-y-5">

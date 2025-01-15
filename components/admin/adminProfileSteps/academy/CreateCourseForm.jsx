@@ -46,8 +46,12 @@ const validationSchema = Yup.object({
     meta_keywords: Yup.string().required("تگ های متا را وارد کنید"),
     categories: Yup.array().min(1, "دسته بندی را انتخاب کنید"),
     files: Yup.array().required("تصویر را انتخاب کنید").min(1, "تصویر را انتخاب کنید"),
-    video_id: Yup.array().required("فیلم اموزشی را اپلود کنید").min(1, "فیلم اموزشی را اپلود کنید"),
     place_online: Yup.string().required("نوع برگزاری دوره را انتخاب کنید"),
+    video_id: Yup.array().when("place_online", {
+        is: (value) => value === 'آنلاین',
+        then: (schema) => schema.required("فیلم اموزشی را اپلود کنید").min(1, "فیلم اموزشی را اپلود کنید"),
+        otherwise: (schema) => schema,
+    }),
 })
 
 export default function CreateCourseForm() {

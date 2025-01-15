@@ -2,6 +2,7 @@ import {
   changeStatusRequestsClientApi,
   getRequestsClientApi,
   getRequestsOrdersApi,
+  getShopOrdersApi,
 } from "@/services/expertApi/requestsClientService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -26,6 +27,17 @@ export function useGetRequestsOrders() {
   });
 
   return { ordersData, isLoading };
+}
+
+export function useGetShopOrders() {
+  const { data: shopOrders, isLoading } = useQuery({
+    queryKey: ["shop-orders"],
+    queryFn: getShopOrdersApi,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  return { shopOrders, isLoading };
 }
 
 export function useChangeRequestStatus() {
