@@ -17,7 +17,7 @@ export function getCart() {
   });
 }
 
-export function getProductsInCart(productsIDs) {
+export function getMultiProducts(productsIDs) {
   return http.post("/api/v1/products", productsIDs, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,

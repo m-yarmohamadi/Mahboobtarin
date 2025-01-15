@@ -11,13 +11,13 @@ export default function TextArea({ name, value, onChange, label, type, required,
 				className='w-full appearance-none outline-none bg-transparent text-slate-700 border  border-primary-01 border-opacity-25 focus:border-opacity-100 rounded-md p-4    focus:bg-white focus:shadow-lg focus:dark:shadow-darkLg focus:shadow-red-300 transition-all duration-300 ease-in-out '
 				type={type}
 				name={name}
-				{...formik?.getFieldProps(name)}
 				placeholder={placeholder}
 				dir={dir}
 				autoComplete={autoComplete}
 				rows={row}
 				onChange={onChange}
 				value={value}
+				{...formik?.getFieldProps(name)}
 			/>
 			<div className='w-full flex justify-start items-start'>{formik?.errors[name] && formik?.touched[name] && <p className='error_Message'>{formik?.errors[name]}</p>}</div>
 		</div>

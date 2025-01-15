@@ -55,12 +55,16 @@ function AllGallery({ gallery, onOpenPopup }) {
                                             alt=""
                                         />
                                         :
-                                        <video
-                                            controls
-                                            className="hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
-                                        >
-                                            <source src={item.path} type="video/mp4" />
-                                        </video>
+                                        item.script !== "null" ?
+                                            <div dangerouslySetInnerHTML={{ __html: item.script }} className="!w-full !h-full !object-cover"></div>
+                                            :
+                                            <video
+                                                controls
+                                                className="hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
+                                            >
+                                                <source src={item.path} type="video/mp4" />
+                                            </video>
+
                                 }
                             </div>
                             <div className="w-full absolute bottom-0 right-0 flex items-center justify-center py-2 px-4">
@@ -118,12 +122,16 @@ function Videos({ gallery, onOpenPopup }) {
                     return (
                         <div key={item.id} className="relative" onClick={() => onOpenPopup(item)}>
                             <div className="aspect-w-16 aspect-h-10">
-                                <video
-                                    controls
-                                    className="hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
-                                >
-                                    <source src={item.path} type="video/mp4" />
-                                </video>
+                                {item.script !== "null" ?
+                                    <div dangerouslySetInnerHTML={{ __html: item.script }} className="!w-full !h-full !object-cover"></div>
+                                    :
+                                    <video
+                                        controls
+                                        className="hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
+                                    >
+                                        <source src={item.path} type="video/mp4" />
+                                    </video>
+                                }
                             </div>
                             <div className="w-full absolute bottom-0 right-0 flex items-center justify-center py-2 px-4">
                                 <div className="w-full bg-black/70 text-[#fff] text-lg p-2 text-center">
@@ -152,10 +160,14 @@ function Voices({ gallery, onOpenPopup }) {
                                 {item.title}
                             </span>
                             <div className="w-full">
-                                <audio controls className="w-full">
-                                    <source src={item.path} type="audio/mpeg" />
-                                    مرورگر شما پخش صوت را پشتیبانی نمی‌کند.
-                                </audio>
+                                {item.script !== "null" ?
+                                    <div dangerouslySetInnerHTML={{ __html: item.script }} className="!w-full !h-full !object-cover"></div>
+                                    :
+                                    <audio controls className="w-full">
+                                        <source src={item.path} type="audio/mpeg" />
+                                        مرورگر شما پخش صوت را پشتیبانی نمی‌کند.
+                                    </audio>
+                                }
                             </div>
                         </div>
                     );

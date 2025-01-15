@@ -35,29 +35,37 @@ export default function GalleryItem({ data }) {
                 <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
                     <img
                         src={data.path}
-                        alt=''
+                        alt={data.title}
                         className='w-full h-full object-cover'
                     />
                 </div>
             )}
             {data.type === 'gallery-video' && (
                 <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
-                    <video
-                        controls
-                        className='w-full h-full object-cover'>
-                        <source
-                            src={data.path}
-                            type='video/mp4'
-                        />
-                    </video>
+                    {data.script !== "null" ?
+                        <div dangerouslySetInnerHTML={{ __html: data.script }} className="!w-full !h-full !object-cover"></div>
+                        :
+                        <video
+                            controls
+                            className='w-full h-full object-cover'>
+                            <source
+                                src={data.path}
+                                type='video/mp4'
+                            />
+                        </video>
+                    }
                 </div>
             )}
             {data.type === 'gallery-audio' && (
                 <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
-                    <audio controls className="w-full">
-                        <source src={data.path} type="audio/mpeg" />
-                        مرورگر شما پخش صوت را پشتیبانی نمی‌کند.
-                    </audio>
+                    {data.script !== "null" ?
+                        <div dangerouslySetInnerHTML={{ __html: data.script }} className="!w-full !h-full !object-cover"></div>
+                        :
+                        <audio controls className="w-full">
+                            <source src={data.path} type="audio/mpeg" />
+                            مرورگر شما پخش صوت را پشتیبانی نمی‌کند.
+                        </audio>
+                    }
                 </div>
             )}
             <h3 className='w-full text-md text-slate-800 font-bold px-2'>{data.title}</h3>

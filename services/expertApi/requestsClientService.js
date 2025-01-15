@@ -30,3 +30,13 @@ export function getRequestsOrdersApi() {
     })
     .then(({ data }) => data);
 }
+
+export function getShopOrdersApi() {
+  return http
+    .get("/api/v1/dashboard/product/order/list", {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    })
+    .then(({ data }) => data);
+}
