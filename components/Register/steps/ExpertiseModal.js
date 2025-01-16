@@ -3,24 +3,62 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Input from "@/tools/Input";
 import ExpertiseSelectMulit from "./ExpertiseSelectMulit";
+import { useEffect } from "react";
+import { getCategoryParents } from "@/services/mainPageService";
 
 const ExpertiseModal = ({
   openExpertiseModal,
   setOpenExpertiseModal,
   formikExpertise,
   transformCategories,
-  isGetCategories,
+  isGetCategories
 }) => {
   const initialValues = {
     title: "",
     subject: "",
   };
 
-  const onSubmit = (values, { resetForm }) => {
-    formikExpertise.setFieldValue("expertise", [
-      ...formikExpertise.values.expertise,
-      values,
-    ]);
+  const onSubmit = async (values, { resetForm }) => {
+    try {
+      const { data } = await getCategoryParents(values.title);
+      let expertiseList = [];
+
+      function recursiveAdd(parent) {
+        expertiseList.push({
+          title: parent.id,
+          subject: "",
+          childId: values.title,
+        });
+        if (parent.parent_recursive) {
+          recursiveAdd(parent.parent_recursive);
+        }
+      }
+
+      if (data) {
+        if (data.parent_recursive) {
+          recursiveAdd(data.parent_recursive);
+        }
+        const newExpertises = [
+          ...formikExpertise.values.expertise,
+          ...expertiseList,
+          { title: values.title, subject: values.subject },
+        ];
+        const uniqueItems = [];
+        const seen = new Set();
+
+        newExpertises.forEach((item) => {
+          if (!seen.has(item.title)) {
+            seen.add(item.title);
+            uniqueItems.push(item);
+          }
+        });
+        formikExpertise.setFieldValue("expertise", uniqueItems);
+        expertiseList = [];
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
     setOpenExpertiseModal(false);
     resetForm();
   };

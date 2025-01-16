@@ -1,5 +1,6 @@
 import ExpertiseSelectMulit from "@/components/Register/steps/ExpertiseSelectMulit";
 import useMainPage from "@/hooks/useMainPage";
+import { getCategoryParents } from "@/services/mainPageService";
 import Input from "@/tools/Input";
 import Select from "@/tools/Select";
 import { useState } from "react";
@@ -11,16 +12,49 @@ export default function Expertise({ formik }) {
     const [selected, setSelected] = useState({ title: 0, subject: "" });
     const { transformCategories, isLoading: isGetCategories } = useMainPage();
 
-    const addExpertise = () => {
+    const addExpertise = async () => {
         if (selected.title !== 0 && selected.subject !== "") {
-            formik.setFieldValue("expertise", [...formik.values.expertise, { title: selected.title, subject: selected.subject }]);
+            try {
+                const { data } = await getCategoryParents(selected.title);
+                let expertiseList = [];
+
+                function recursiveAdd(parent) {
+                    expertiseList.push({ title: parent.id, subject: "", childId: selected.title });
+                    if (parent.parent_recursive) {
+                        recursiveAdd(parent.parent_recursive);
+                    }
+                }
+
+                if (data) {
+                    if (data.parent_recursive) {
+                        recursiveAdd(data.parent_recursive);
+                    }
+                    const newExpertises = [...formik.values.expertise, ...expertiseList, { title: selected.title, subject: selected.subject }];
+                    const uniqueItems = [];
+                    const seen = new Set();
+
+                    newExpertises.forEach((item) => {
+                        if (!seen.has(item.title)) {
+                            seen.add(item.title);
+                            uniqueItems.push(item);
+                        }
+                    });
+                    formik.setFieldValue("expertise", uniqueItems);
+                    expertiseList = [];
+                }
+            } catch (error) { }
+
             setSelected({ title: 0, subject: "" });
-            // formik.setFieldValue("expertise", list);
         }
     }
 
-    const removeExpertise = (value) => {
-        formik.setFieldValue("expertise", formik.values.expertise.filter((i) => formik.values.expertise.indexOf(i) !== formik.values.expertise.indexOf(value)));
+    const removeExpertise = (id) => {
+        formik.setFieldValue(
+            "expertise",
+            formik.values.expertise.filter(
+                (i) => Number(i.title) !== Number(id) && Number(i?.childId) !== Number(id)
+            )
+        );
     }
 
     return (
@@ -51,6 +85,7 @@ export default function Expertise({ formik }) {
             {formik.values.expertise.length !== 0 && formik.values.expertise &&
                 <div className="w-full border border-slate-400 rounded-md mt-3">
                     {formik.values.expertise.map((item, index) => (
+                        item.subject &&
                         <div key={index} className="flex items-center justify-between gap-4 p-3 border-b border-slate-400 last:border-0">
                             <div className="flex-1 flex items-center gap-1 text-textDefault">
                                 <p className="text-sm font-medium">
@@ -61,7 +96,7 @@ export default function Expertise({ formik }) {
                                     {item.subject}
                                 </span>
                             </div>
-                            <button onClick={() => removeExpertise(item)} type="button" >
+                            <button onClick={() => removeExpertise(item.title)} type="button" >
                                 <HiOutlineTrash className="w-5 h-5 text-red-600" />
                             </button>
                         </div>

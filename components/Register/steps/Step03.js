@@ -4,13 +4,12 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import NextPrev from "../NextPrev";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ExpertiseModal from "./ExpertiseModal";
 import GradeModal from "./GradeModal";
 import LanguageModal from "./LanguageModal";
 import { enToFaNumber } from "@/utils/enToFa";
 import { AiTwotoneDelete } from "react-icons/ai";
-import FormData from "form-data";
 import InputFileform from "@/tools/InputFileForm";
 import toast from "react-hot-toast";
 import useMainPage from "@/hooks/useMainPage";
@@ -22,6 +21,7 @@ const Step03 = ({ formik, children, error }) => {
   const [openLanguageModal, setOpenLanguageModal] = useState(false);
   const { transformCategories, isLoading: isGetCategories } = useMainPage();
   const [profileImg, setProfileImg] = useState(null);
+  console.log(formik.values.expertise);
 
   return (
     <div className="w-full h-full flex flex-col justify-between">
@@ -59,38 +59,43 @@ const Step03 = ({ formik, children, error }) => {
                 )}
               </div>
               {formik.values.expertise.map((item, index) => {
-                const handleDeleteExpertise = (index) => {
+                const handleDeleteExpertise = (id) => {
                   formik.setFieldValue(
                     "expertise",
-                    formik.values.expertise.filter((item, i) => i !== index)
+                    formik.values.expertise.filter(
+                      (i) =>
+                        Number(i.title) !== Number(id) &&
+                        Number(i?.childId) !== Number(id)
+                    )
                   );
                 };
-
-                return (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center bg-primary-02 text-textDefault px-4"
-                  >
-                    <div>
-                      {
-                        transformCategories.filter(
-                          (i) => Number(i.value) === Number(item.title)
-                        )[0].label
-                      }
+                if (item.subject) {
+                  return (
+                    <div
+                      key={index}
+                      className="flex justify-between items-center bg-primary-02 text-textDefault px-4"
+                    >
+                      <div>
+                        {
+                          transformCategories.filter(
+                            (i) => Number(i.value) === Number(item.title)
+                          )[0].label
+                        }
+                      </div>
+                      <div className="flex justify-center items-center gap-2 ">
+                        <span className="flex justify-center items-center pt-2">
+                          {item.subject}
+                        </span>
+                        <span
+                          onClick={() => handleDeleteExpertise(item.title)}
+                          className="text-error flex justify-center items-center text-xl"
+                        >
+                          <AiTwotoneDelete />
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex justify-center items-center gap-2 ">
-                      <span className="flex justify-center items-center pt-2">
-                        {item.subject}
-                      </span>
-                      <span
-                        onClick={() => handleDeleteExpertise(index)}
-                        className="text-error flex justify-center items-center text-xl"
-                      >
-                        <AiTwotoneDelete />
-                      </span>
-                    </div>
-                  </div>
-                );
+                  );
+                }
               })}
             </div>
 

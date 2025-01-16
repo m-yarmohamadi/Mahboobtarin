@@ -146,8 +146,7 @@ const RegisterExpert = ({
   const [errorStep3, setErrorStep3] = useState([]);
   const [errorStep4, setErrorStep4] = useState([]);
   const [errorStep5, setErrorStep5] = useState([]);
-  console.log(userData);
-  
+
   //  ** step 1 form handlers and formik **
   const initialValuesStep1 = {
     name: userData?.name || "",

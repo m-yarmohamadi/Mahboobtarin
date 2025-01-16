@@ -15,6 +15,7 @@ export default function UserData({userData}) {
             </span>
             <div className="flex items-center gap-1 py-2">
                 {userData?.expertises?.map((expertise, index) => (
+                    expertise.subject &&
                     <div
                         key={index}
                         className="group text-xs md:text-sm text-primary-01"
