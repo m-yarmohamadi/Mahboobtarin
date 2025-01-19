@@ -30,27 +30,9 @@ export default function ProductFields({ formik, loading }) {
 
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
-                    label={'نام فارسی'}
+                    label={'نام'}
                     formik={formik}
                     name={'title'}
-                    required={true}
-                />
-                <Input
-                    label={'نام انگلیسی'}
-                    formik={formik}
-                    name={'entitle'}
-                    required={true}
-                />
-                <Input
-                    label={'کد محصول'}
-                    formik={formik}
-                    name={'sku'}
-                    required={true}
-                />
-                <Input
-                    label={'اسلاگ'}
-                    formik={formik}
-                    name={'slug'}
                     required={true}
                 />
                 <ExpiredateInput
@@ -76,30 +58,6 @@ export default function ProductFields({ formik, loading }) {
                     formik={formik}
                     name={'discount_price'}
                     type={'number'}
-                />
-                <Input
-                    label="توضیحات کوتاه"
-                    formik={formik}
-                    name={'shortdescription'}
-                    required={true}
-                />
-                <Input
-                    label="عنوان متا"
-                    formik={formik}
-                    name={'meta_title'}
-                    required={true}
-                />
-                <Input
-                    label="توضیحات متا"
-                    formik={formik}
-                    name={'meta_desc'}
-                    required={true}
-                />
-                <Input
-                    label="کلمات کلیدی"
-                    formik={formik}
-                    name={'meta_keywords'}
-                    required={true}
                 />
                 <Select
                     label={'وضعیت'}

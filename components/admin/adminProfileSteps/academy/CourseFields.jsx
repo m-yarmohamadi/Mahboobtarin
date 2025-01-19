@@ -47,24 +47,6 @@ export default function CourseFields({ formik, loading }) {
                     name={'title'}
                     required={true}
                 />
-                <Input
-                    label={'نام انگلیسی'}
-                    formik={formik}
-                    name={'entitle'}
-                    required={true}
-                />
-                <Input
-                    label={'کد دوره'}
-                    formik={formik}
-                    name={'sku'}
-                    required={true}
-                />
-                <Input
-                    label={'اسلاگ'}
-                    formik={formik}
-                    name={'slug'}
-                    required={true}
-                />
                 <ExpiredateInput
                     formik={formik}
                     name={'expiredate'}
@@ -95,30 +77,6 @@ export default function CourseFields({ formik, loading }) {
                     formik={formik}
                     name={'discount_price'}
                     type={'number'}
-                />
-                <Input
-                    label="توضیحات کوتاه"
-                    formik={formik}
-                    name={'shortdescription'}
-                    required={true}
-                />
-                <Input
-                    label="عنوان متا"
-                    formik={formik}
-                    name={'meta_title'}
-                    required={true}
-                />
-                <Input
-                    label="توضیحات متا"
-                    formik={formik}
-                    name={'meta_desc'}
-                    required={true}
-                />
-                <Input
-                    label="کلمات کلیدی"
-                    formik={formik}
-                    name={'meta_keywords'}
-                    required={true}
                 />
                 <Select
                     label={'وضعیت'}

@@ -14,7 +14,7 @@ export default function Products() {
     return (
         <div className="w-full flex flex-col gap-6">
             {shopOrders.map((item) => (
-                <OrderProductItem key={item.id} data={item} />
+                <OrderProductItem key={item.id} data={item} status={item.status} />
             ))}
         </div>
     )
@@ -24,11 +24,11 @@ function OrderProductItem({ data, status = "1" }) {
     const [products, setProducts] = useState([]);
 
     const statusType = {
-        1: { className: "bg-red-500/10 text-red-500", label: "لغو شده توسط کاربر" },
-        2: { className: "bg-red-500 text-[#fff]", label: "رد شده توسط عرضه کننده" },
-        3: { className: "bg-green-600/30 text-green-600", label: "تایید اولیه" },
-        4: { className: "bg-primary-01 text-[#fff]", label: "تایید نهایی" },
-        5: { className: "bg-gray-800 text-[#fff]", label: "انجام شده" },
+        // 1: { className: "bg-red-500/10 text-red-500", label: "در حال پردازش" },
+        0: { className: "bg-red-500 text-[#fff]", label: "در حال پردازش" },
+        1: { className: "bg-green-600/30 text-green-600", label: "بررسی شده" },
+        2: { className: "bg-primary-01 text-[#fff]", label: "ارسال به پست" },
+        3: { className: "bg-gray-800 text-[#fff]", label: "دریافت توسط مشتری" },
     }
 
     const toPersianLabelSendmethod = (key) => {
@@ -72,10 +72,10 @@ function OrderProductItem({ data, status = "1" }) {
                     <button className="flex items-center gap-1 text-sm font-medium text-primary-01">
                         جزئیات سفارش
                     </button>
-                    <button className="flex items-center gap-1 text-sm font-medium text-error">
+                    {/* <button className="flex items-center gap-1 text-sm font-medium text-error">
                         <FaRegTrashAlt className="w-4 h-4" />
                         لغو سفارش
-                    </button>
+                    </button> */}
                 </div>
             </div>
             <div className="py-4 flex flex-col sm:flex-row sm:items-center gap-3">
