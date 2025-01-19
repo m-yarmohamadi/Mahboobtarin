@@ -1,5 +1,6 @@
 import {
   changeStatusRequestsClientApi,
+  changeStatusShopOrdersApi,
   getRequestsClientApi,
   getRequestsOrdersApi,
   getShopOrdersApi,
@@ -54,4 +55,20 @@ export function useChangeRequestStatus() {
   });
 
   return { changeStatusRequest, isPending };
+}
+
+export function useChangeShopOrdersStatus() {
+  const { mutate: changeStatusShopOrder, isPending } = useMutation({
+    mutationFn: changeStatusShopOrdersApi,
+    onSuccess: () => {},
+    onError: (error) => {
+      if (error?.response?.status === 401) {
+        toast.error("ابتدا وارد حساب کاربری خود شوید");
+        window.location.href = "/auth";
+        return;
+      }
+    },
+  });
+
+  return { changeStatusShopOrder, isPending };
 }

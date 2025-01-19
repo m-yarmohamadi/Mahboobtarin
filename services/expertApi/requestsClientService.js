@@ -40,3 +40,13 @@ export function getShopOrdersApi() {
     })
     .then(({ data }) => data);
 }
+
+export function changeStatusShopOrdersApi(data) {
+  return http
+    .post("/api/v1/dashboard/product/order/change-satatus", data, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    })
+    .then(({ data }) => data);
+}

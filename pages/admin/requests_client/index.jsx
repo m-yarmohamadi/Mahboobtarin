@@ -1,4 +1,5 @@
 import OrdersFilter from '@/components/admin/adminProfileSteps/orders/OrdersFilter'
+import ProductsUser from '@/components/admin/adminProfileSteps/requestsUsers/ProductsUsers';
 import RequestsUsersItem from '@/components/admin/adminProfileSteps/requestsUsers/requestsUsersItem/RequestsUsersItem';
 import ExpertDashboard from '@/components/admin/ExpertDashboard'
 import LoadingAdmin from '@/components/admin/LoadingAdmin';
@@ -38,23 +39,32 @@ export default function RequestsClient() {
                                 {tabs.map((tab, index) => (
                                     <TabGroup.Item key={index}>
                                         <div className="space-y-5">
-                                            {requestsClient?.map((item) => (
-                                                tab.label === "همه موارد" ?
-                                                    <RequestsUsersItem
-                                                        key={item.id}
-                                                        data={item}
-                                                        status={item.status || 0}
-                                                        provinces={transformProvinces}
+
+                                            {
+                                                tab.label === "غرفه" ?
+                                                    <ProductsUser
+                                                        shopData={requestsClient?.product_orders}
                                                     />
                                                     :
-                                                    item.service.length > 0 && item.service[0]?.type.includes(tab.label) &&
-                                                    <RequestsUsersItem
-                                                        key={item.id}
-                                                        data={item}
-                                                        status={item.status || 0}
-                                                        provinces={transformProvinces}
-                                                    />
-                                            ))}
+                                                    requestsClient?.orders?.map((item) => (
+                                                        tab.label === "همه موارد" ?
+                                                            <RequestsUsersItem
+                                                                key={item.id}
+                                                                data={item}
+                                                                status={item.status || 0}
+                                                                provinces={transformProvinces}
+                                                            />
+                                                            :
+                                                            item.service.length > 0 && item.service[0]?.type.includes(tab.label) &&
+                                                            <RequestsUsersItem
+                                                                key={item.id}
+                                                                data={item}
+                                                                status={item.status || 0}
+                                                                provinces={transformProvinces}
+                                                            />
+                                                    ))
+
+                                            }
                                         </div>
                                     </TabGroup.Item>
                                 ))}
