@@ -9,6 +9,7 @@ import { useMutation } from '@tanstack/react-query';
 import { register } from '@/services/authService';
 import toast from 'react-hot-toast';
 import { enToFaMessages } from '@/utils/enToFaMessages';
+import { useSearchParams } from 'next/navigation';
 
 const time = 90;
 
@@ -50,20 +51,6 @@ const yearsArray = Array.from({ length: currentYearMiladi - startYearMiladi + 1 
     const year = (startYearMiladi + i).toString();
     return { id: year, label: year, value: year };
 });
-
-const initialValues = {
-	name: '',
-	lastname: '',
-	gender: '',
-	unique_url_id: '',
-	nationality: 'Iran',
-	national_code: '',
-	passport_number: '',
-	birthday: '',
-	email: '',
-	password: '',
-	confirmPassword: '',
-};
 
 const validationSchema = Yup.object({
 	name: Yup.string().required('وارد کردن نام اجباری است').min(3, 'حداقل 3 حرف وارد کنید').max(11, 'حداکثر 11 حرف وارد کنید'),
@@ -109,7 +96,24 @@ const UserStep01 = ({ setStepUser, setNationalCode, mobile, otp }) => {
     const [selectedYear, setSelectedYear] = useState();
 	const sortedCountries = [...Countries].sort((a, b) => a.label.localeCompare(b.label, 'fa'));
 	const { mutate:mutateRegister, isPending } = useMutation({mutationFn:register});
+	const searchParams = useSearchParams();
+	const inviteCode = searchParams.get("invate");
 
+	const initialValues = {
+		name: '',
+		lastname: '',
+		gender: '',
+		unique_url_id: '',
+		nationality: 'Iran',
+		national_code: '',
+		passport_number: '',
+		birthday: '',
+		email: '',
+		password: '',
+		invitecode: inviteCode || "",
+		confirmPassword: '',
+	};
+	
 	const onSubmit = (values) => {
 		mutateRegister({
 			...values,
@@ -261,6 +265,12 @@ const UserStep01 = ({ setStepUser, setNationalCode, mobile, otp }) => {
 							formik={formik}
 						/>
 					</div>
+					<Input
+						name={'invitecode'}
+						label={'کد معرف'}
+						formik={formik}
+						type={'text'}
+					/>
 				</div>
 				<button
 					className='mt-7'

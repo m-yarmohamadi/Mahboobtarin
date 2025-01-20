@@ -159,15 +159,18 @@ const Step01 = ({ formik, children }) => {
 							}
 						</div>
 					</div>
-					<div className='flex justify-between items-start gap-4'>
 					<Select
 						name={'gender'}
 						label={'جنسیت'}
 						options={gender}
 						formik={formik}
 					/>
-						
-					</div>
+					<Input
+						name={'invitecode'}
+						label={'کد معرف'}
+						formik={formik}
+						type={'text'}
+					/>
 				</div>
 				{children}
 			</form>

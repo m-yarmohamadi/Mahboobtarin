@@ -5,7 +5,7 @@ import Step01 from "@/components/Register/steps/Step01";
 import Step02 from "@/components/Register/steps/Step02";
 import Step03 from "@/components/Register/steps/Step03";
 import Step04 from "@/components/Register/steps/Step04";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Step05 from "@/components/Register/steps/Step05";
 import Head from "next/head";
 import { useFormik } from "formik";
@@ -121,6 +121,8 @@ const RegisterExpert = ({
     mutationFn: register,
   });
   const [completed, setCompleted] = useState(false);
+  const searchParams = useSearchParams();
+  const inviteCode = searchParams.get("invate");
 
   const nextStep = () => {
     if (step < 5) {
@@ -159,6 +161,7 @@ const RegisterExpert = ({
     email: userData?.email || "",
     unique_url_id: userData?.unique_url_id || "",
     user_title: userData?.user_title || "",
+    invitecode: userData?.invitecode || inviteCode || "",
   };
 
   const submitHandlerStep1 = (values) => {
