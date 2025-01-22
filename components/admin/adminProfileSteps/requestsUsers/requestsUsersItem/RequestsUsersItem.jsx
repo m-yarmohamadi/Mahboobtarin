@@ -8,10 +8,12 @@ import { useState } from "react";
 import Modal from "@/components/Modal";
 import ChangeStatusForm from "./ChangeStatusForm";
 import { useChangeRequestStatus } from "@/hooks/expertHooks/useRequestsClient";
+import RequestDetailsForm from "./RequestDetailsForm";
 
 
 export default function RequestsUsersItem({ status, data, provinces }) {
     const [open, setOpen] = useState(false);
+    const [openDetails, setOpenDetails] = useState(false);
     const getProvinceLabel = provinces.filter((p) => p.value === Number(data.user?.province_id))[0]?.label;
     const { changeStatusRequest, isPending } = useChangeRequestStatus();
     const queryClient = useQueryClient();
@@ -77,9 +79,15 @@ export default function RequestsUsersItem({ status, data, provinces }) {
 
             {/* options */}
             <div className="w-full flex flex-col sm:flex-row gap-2 mt-4">
-                <button className="!w-full btn btn--outline !text-primary-01 !border-primary-01">
+                <button onClick={() => setOpenDetails(true)} className="!w-full btn btn--outline !text-primary-01 !border-primary-01">
                     مشاهده جزئیات
                 </button>
+                <Modal open={openDetails} onClose={() => setOpenDetails(false)} title="جزئیات درخواست">
+                    <RequestDetailsForm data={data} onClose={() => setOpenDetails(false)}>
+                        <OrderItemDetails service={data.service[0]} turnData={data.json_data} />
+                    </RequestDetailsForm>
+                </Modal>
+
                 {status === "0" &&
                     <button onClick={() => changeStatusHandler(3)} className="!w-full btn btn--primary !bg-lime-600">
                         درصورت تایید کلیک کنید

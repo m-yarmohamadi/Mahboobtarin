@@ -65,9 +65,9 @@ function ProductUserItem({ data, status = "1" }) {
                     شماره سفارش: {data.order_id}
                 </h3>
                 <div className="flex items-center gap-5 ">
-                    <button className="flex items-center gap-1 text-sm font-medium text-primary-01">
+                    {/* <button className="flex items-center gap-1 text-sm font-medium text-primary-01">
                         جزئیات سفارش
-                    </button>
+                    </button> */}
                 </div>
             </div>
             <div className="py-4 flex flex-col sm:flex-row sm:items-center gap-3">
@@ -106,8 +106,13 @@ function ProductUserItem({ data, status = "1" }) {
 
             <div className="py-4 flex items-center flex-wrap gap-4">
                 {products.map((product) => (
-                    <div key={product.id} className="w-20 h-20 rounded-xl overflow-hidden border border-slate-300">
-                        <img src={product?.photos[0]?.path} alt={product.title} className="w-full h-full object-contain object-center" />
+                    <div key={product.id} className="w-24 h-auto rounded-xl overflow-hidden border border-slate-300">
+                        <div className="w-24 h-24 border-b border-slate-300 p-2">
+                            <img src={product?.photos[0]?.path} alt={product.title} className="w-full h-full object-contain object-center" />
+                        </div>
+                        <div className="py-2 text-sm text-slate-800 flex justify-center">
+                            تعداد:1 
+                        </div>
                     </div>
                 ))}
             </div>

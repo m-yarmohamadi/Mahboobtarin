@@ -69,9 +69,9 @@ function OrderProductItem({ data, status = "1" }) {
                     شماره سفارش: {data.order_id}
                 </h3>
                 <div className="flex items-center gap-5 ">
-                    <button className="flex items-center gap-1 text-sm font-medium text-primary-01">
+                    {/* <button className="flex items-center gap-1 text-sm font-medium text-primary-01">
                         جزئیات سفارش
-                    </button>
+                    </button> */}
                     {/* <button className="flex items-center gap-1 text-sm font-medium text-error">
                         <FaRegTrashAlt className="w-4 h-4" />
                         لغو سفارش

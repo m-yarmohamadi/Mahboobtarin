@@ -14,13 +14,13 @@ export default function OrderItemDetails({ turnData, service }) {
                 </span>
             </div>
             <div className="w-auto flex items-center justify-between gap-5">
-                <div className="flex items-center gap-1 text-xs text-slate-400">
+                <div className="flex items-center gap-1 text-xs text-slate-600">
                     <CiCalendar className="w-4 h-4" />
                     <span>
                         زمان رزرو : {turn?.date}
                     </span>
                 </div>
-                <div className="flex items-center gap-1 text-xs text-slate-400">
+                <div className="flex items-center gap-1 text-xs text-slate-600">
                     <CiClock2 className="w-4 h-4" />
                     <span>
                         {turn?.time}
