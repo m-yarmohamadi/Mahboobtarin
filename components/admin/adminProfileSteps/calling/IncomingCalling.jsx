@@ -23,7 +23,7 @@ export default function IncomingCalling() {
     )
 }
 
-function IncomingCallingItem({ data }) {
+export function IncomingCallingItem({ data }) {
     const { provinces, isLoading } = useGetProvinces();
     const { transformCity, isLoading: isGetCity } = useGetCity(data.province);
 
@@ -71,9 +71,9 @@ function IncomingCallingItem({ data }) {
                         </div>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <button className="btn btn--primary !text-xs !p-1">
+                        <Link href={`/requests/${data.id}`} className="btn btn--primary !text-xs !p-1">
                             مشاهده جزئیات
-                        </button>
+                        </Link>
                         <div className="btn btn--secondary !text-xs !p-1">
                             وضعیت : {data?.status === "1" ? "فعال" : "غیرفعال"}
                         </div>

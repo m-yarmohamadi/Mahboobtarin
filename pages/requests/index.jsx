@@ -1,4 +1,5 @@
 import CallingItem from "@/components/admin/adminProfileSteps/calling/CallingItem";
+import IncomingCalling, { IncomingCallingItem } from "@/components/admin/adminProfileSteps/calling/IncomingCalling";
 import Footer from "@/components/Footer";
 import GroupSearchBox from "@/components/Group/GroupSearchBox";
 import { Search } from "@/components/groups/filters/GroupFilters";
@@ -35,7 +36,7 @@ export default function RequestsPage() {
                             <RequestFilter categories={categories} />
                             <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 pt-6">
                                 {!isGetRequests && requests?.map((item, index) => (
-                                    <CallingItem key={index} data={item} />
+                                    <IncomingCallingItem key={index} data={item} />
                                 ))}
                             </div>
                         </div>
