@@ -44,3 +44,27 @@ export function deleteRequest(id) {
     }
   );
 }
+
+export function registerRequestApi(id) {
+  return http
+    .post(
+      "/api/v1/dashboard/requests/register",
+      { id },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      }
+    )
+    .then(({ data }) => data);
+}
+
+export function registerListRequestApi(id) {
+  return http
+    .get(`/api/v1/dashboard/requests/register/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    })
+    .then(({ data }) => data);
+}

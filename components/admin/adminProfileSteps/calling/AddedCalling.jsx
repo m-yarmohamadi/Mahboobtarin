@@ -117,9 +117,9 @@ function CallingRegisteredItem({ data }) {
                     </div>
 
                     <div className="self-end">
-                        <button className="btn btn--primary !text-xs !p-1 mb-2">
+                        <Link href={`/admin/calling/applicants/${data.id}`} className="btn btn--primary !text-xs !p-1 mb-2">
                             لیست متقاضیان
-                        </button>
+                        </Link>
                         <div className="btn btn--secondary !text-xs !p-1">
                             وضعیت : {data?.status === "1" ? "فعال" : "غیر فعال"}
                         </div>

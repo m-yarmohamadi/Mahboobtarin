@@ -1,4 +1,4 @@
-import { useGetRequests } from "@/hooks/expertHooks/useCalling";
+import { useGetRequests, useRegisterRequest } from "@/hooks/expertHooks/useCalling";
 import CallingItem from "./CallingItem";
 import Loading from "@/tools/Loading";
 import Link from "next/link";
@@ -23,13 +23,17 @@ export default function IncomingCalling() {
     )
 }
 
-export function IncomingCallingItem({ data }) {
+export function IncomingCallingItem({ data, isPublic = false }) {
     const { provinces, isLoading } = useGetProvinces();
     const { transformCity, isLoading: isGetCity } = useGetCity(data.province);
+    const { mutateRegisterReqeust, isPending } = useRegisterRequest();
 
     const provinceLabel = !isLoading && provinces.filter((c) => Number(c.id) === Number(data.province))[0]?.name;
     const cityLabel = !isGetCity && transformCity.filter((c) => Number(c.id) === Number(data.city))[0]?.label;
 
+    const registerRequestHandler = (id) => {
+        mutateRegisterReqeust(id);
+    }
 
     return (
         <div className="flex flex-col p-2 bg-slate-200 border border-slate-300 rounded-xl relative">
@@ -77,9 +81,11 @@ export function IncomingCallingItem({ data }) {
                         <div className="btn btn--secondary !text-xs !p-1">
                             وضعیت : {data?.status === "1" ? "فعال" : "غیرفعال"}
                         </div>
-                        <button className="btn btn--primary !text-xs !p-1">
-                            تایید فراخوان
-                        </button>
+                        {!isPublic &&
+                            <button onClick={() => registerRequestHandler(data.id)} className="btn btn--primary !text-xs !p-1">
+                                تایید فراخوان
+                            </button>
+                        }
                     </div>
                 </div>
             </div>

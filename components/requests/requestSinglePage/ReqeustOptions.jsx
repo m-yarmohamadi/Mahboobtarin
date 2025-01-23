@@ -3,13 +3,20 @@ import moment from "moment";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FiShare2 } from "react-icons/fi";
 import 'moment/locale/fa';
+import { useRegisterRequest } from "@/hooks/expertHooks/useCalling";
 
 export default function ReqeustOptions({ request }) {
-    const { created_at, province } = request;
+    const { created_at, province, id: requestId } = request;
+    const { mutateRegisterReqeust, isPending } = useRegisterRequest();
     const { provinces, isLoading } = useGetProvinces();
     const provinceLabel = !isLoading && provinces.filter((p) => Number(p.id) === Number(province))[0]?.name;
     moment.locale("fa");
-    
+
+    const registerRequestHandler = () => {
+        mutateRegisterReqeust(requestId);
+    }
+
+
     return (
         <div className="w-full flex items-center justify-between lg:flex-col gap-4 lg:gap-7">
             <div className="lg:w-full text-xs lg:text-sm lg:text-center text-slate-700">
@@ -24,7 +31,7 @@ export default function ReqeustOptions({ request }) {
                 </button>
             </div>
             <div className="lg:w-full">
-                <button className="btn btn--primary w-full">
+                <button onClick={registerRequestHandler} className="btn btn--primary w-full">
                     تایید فراخوان
                 </button>
             </div>
