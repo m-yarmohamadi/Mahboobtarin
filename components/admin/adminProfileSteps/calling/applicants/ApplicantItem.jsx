@@ -1,3 +1,4 @@
+import { useChangeRegisterStatus } from "@/hooks/expertHooks/useCalling";
 import calculateAge from "@/utils/calculateAge";
 import { toPersianDateLong } from "@/utils/toPersianDate";
 import { useRouter } from "next/navigation";
@@ -6,20 +7,37 @@ import { FaCheck } from "react-icons/fa6";
 import { FiUserCheck } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 
-export default function ApplicantItem({ applicant, createdAt }) {
-    const { name, lastname, unique_url_id, birthday, avatar } = applicant;
+export default function ApplicantItem({ applicant, createdAt, id }) {
+    const {
+        name,
+        lastname,
+        unique_url_id,
+        birthday,
+        avatar,
+        expertises,
+        amount_experience_year,
+        followers,
+        honors_description,
+        usergrade,
+        userlanguage
+    } = applicant;
     const age = calculateAge(birthday);
 
     const router = useRouter();
+    const { mutateChangeRegisterStatus, isPending } = useChangeRegisterStatus();
 
     const userDetails = [
         { label: "سطح", value: "--" },
-        { label: "تجربه", value: "--" },
+        { label: "تجربه", value: `${amount_experience_year} سال` },
         { label: "امتیاز", value: "--" },
         { label: "شهر", value: "--" },
         { label: "سن", value: `${age} سال` },
-        { label: "دنبال کننده", value: "--" },
+        { label: "دنبال کننده", value: followers?.length || 0 },
     ]
+
+    const changeRegisterStatusHandler = (status) => {
+        mutateChangeRegisterStatus({ id, status })
+    }
 
     return (
         <div className="w-full bg-slate-200 rounded-lg p-4 grid grid-cols-1 lg:grid-cols-12 gap-3">
@@ -40,9 +58,11 @@ export default function ApplicantItem({ applicant, createdAt }) {
                             <span className="text-sm text-slate-800">
                                 @{unique_url_id}
                             </span>
-                            <span className="text-sm font-medium text-slate-800">
-                                ------ ، ------
-                            </span>
+                            <div className="text-sm font-medium text-slate-800">
+                                {expertises.map((item, index) => (
+                                    <span key={index}>{item.subject}،</span>
+                                ))}
+                            </div>
                         </div>
 
                         <div className="text-xs text-slate-600 hidden lg:block absolute top-4 left-4">
@@ -71,7 +91,7 @@ export default function ApplicantItem({ applicant, createdAt }) {
                                 {toPersianDateLong(createdAt)}
                             </div>
                             <div className="text-slate-700">
-                                --- | --- | سن: {age} سال | امتیاز --- | سابقه : ---
+                                --- | --- | سن: {age} سال | امتیاز --- | سابقه : {amount_experience_year} سال
                             </div>
                         </div>
                     </div>
@@ -79,27 +99,49 @@ export default function ApplicantItem({ applicant, createdAt }) {
                     <div className="w-full hidden lg:grid grid-cols-4 gap-10">
                         <Feature
                             title="تخصص و مهارت"
-                            value="---"
-                        />
+                        >
+                            <div className="flex flex-col gap-1">
+                                {expertises.map((item, index) => (
+                                    <span key={index}>
+                                        {item.subject}
+                                    </span>
+                                ))}
+                            </div>
+                        </Feature>
                         <Feature
                             title="آثار و افتخارات"
-                            value="---"
-                        />
+                        >
+                            {honors_description}
+                        </Feature>
                         <Feature
                             title="تحصیلات"
-                            value="--- "
-                        />
+                        >
+                            <div className="flex flex-col gap-1">
+                                {usergrade.map((item, index) => (
+                                    <span key={index}>
+                                        {item.title} - {item.subject}
+                                    </span>
+                                ))}
+                            </div>
+                        </Feature>
                         <Feature
                             title="زبان و گویش"
-                            value="---"
-                        />
+                        >
+                            <div className="flex flex-col gap-1">
+                                {userlanguage.map((item, index) => (
+                                    <span key={index}>
+                                        {item.title} - {item.subject}
+                                    </span>
+                                ))}
+                            </div>
+                        </Feature>
                     </div>
                 </div>
             </div>
 
             <div className="w-full grid grid-cols-4 gap-4 lg:col-span-2 lg:grid-cols-1">
                 <Buttons type="default" handler={() => router.push(`/${unique_url_id}`)} />
-                <Buttons type="info" />
+                <Buttons type="info" handler={()=>changeRegisterStatusHandler(1)}/>
                 <Buttons type="danger" />
                 <Buttons type="success" />
             </div>
@@ -148,14 +190,14 @@ function Buttons({ type, handler = () => { } }) {
     )
 }
 
-function Feature({ title, value }) {
+function Feature({ title, children }) {
     return (
         <div>
             <div className="font-medium text-primary-01 mb-2">
                 {title}
             </div>
             <div className="text-xs text-slate-800">
-                {value}
+                {children}
             </div>
         </div>
     )

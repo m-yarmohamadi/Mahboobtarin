@@ -13,6 +13,7 @@ export default function Applicants() {
     const params = useParams();
     const [applicants, setApplicants] = useState(initial);
     const [loading, setLoading] = useState(true);
+    const newApplicantsCount = applicants.list.filter((l) => l.created_at === l.updated_at).length;
 
     useEffect(() => {
         async function fetchRegisterList() {
@@ -59,7 +60,7 @@ export default function Applicants() {
                                         متقاضیان جدید
                                     </span>
                                     <span className="text-yellow-500">
-                                        26
+                                        {newApplicantsCount}
                                     </span>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 import {
+  changeRegisterStatusApi,
   getRequestsList,
-  registerListRequestApi,
   registerRequestApi,
 } from "@/services/expertApi/callingService";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -37,4 +37,23 @@ export function useRegisterRequest() {
   });
 
   return { mutateRegisterReqeust, isPending };
+}
+
+export function useChangeRegisterStatus() {
+  const router = useRouter();
+  const { mutate: mutateChangeRegisterStatus, isPending } = useMutation({
+    mutationFn: changeRegisterStatusApi,
+    onSuccess: (res) => {
+      console.log(res);
+    },
+    onError: (error) => {
+      if (error?.response?.status === 401) {
+        toast.error("ابتدا وارد حساب کاربری خود شوید");
+        router.push("/auth");
+        return;
+      }
+    },
+  });
+
+  return { mutateChangeRegisterStatus, isPending };
 }

@@ -68,3 +68,13 @@ export function registerListRequestApi(id) {
     })
     .then(({ data }) => data);
 }
+
+export function changeRegisterStatusApi(data) {
+  return http
+    .post(`/api/v1/dashboard/requests/changestatus`, data, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    })
+    .then(({ data }) => data);
+}
