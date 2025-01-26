@@ -6,7 +6,7 @@ export default function ApplicantsList({ list }) {
     const [tabFilter, setTabFilter] = useState(0);
 
     let filteredList = [];
-    
+
     if (tabFilter === 0) {
         filteredList = list;
     }
@@ -52,6 +52,7 @@ export default function ApplicantsList({ list }) {
                                     applicant={item?.user}
                                     createdAt={item.created_at}
                                     id={item.id}
+                                    isNew={item.created_at === item.updated_at}
                                 />
                             ))}
                         </div>

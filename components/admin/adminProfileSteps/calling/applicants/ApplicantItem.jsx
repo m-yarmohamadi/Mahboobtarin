@@ -7,7 +7,7 @@ import { FaCheck } from "react-icons/fa6";
 import { FiUserCheck } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 
-export default function ApplicantItem({ applicant, createdAt, id }) {
+export default function ApplicantItem({ applicant, createdAt, id, isNew }) {
     const {
         name,
         lastname,
@@ -40,7 +40,7 @@ export default function ApplicantItem({ applicant, createdAt, id }) {
     }
 
     return (
-        <div className="w-full bg-slate-200 rounded-lg p-4 grid grid-cols-1 lg:grid-cols-12 gap-3">
+        <div className={`${isNew ? "bg-slate-200" : "bg-slate-300"} w-full rounded-lg p-4 grid grid-cols-1 lg:grid-cols-12 gap-3`}>
             <div className="lg:col-span-10 lg:flex flex-col gap-7">
                 <div className="flex items-center lg:items-start gap-4">
                     <div className="w-[70px] h-[70px] lg:w-[110px] lg:h-[110px] relative rounded-md overflow-hidden grid grid-rows-2">
@@ -50,7 +50,7 @@ export default function ApplicantItem({ applicant, createdAt, id }) {
                             <img src={avatar && avatar.length > 0 ? avatar[0]?.path : "/images/user.png"} alt="" className="w-full h-full object-cover object-center" />
                         </div>
                     </div>
-                    <div className="lg:bg-slate-300 flex-1 rounded-lg relative lg:h-[110px] lg:px-4 lg:flex items-center">
+                    <div className={`${isNew ? "lg:bg-slate-300" : "lg:bg-slate-200"} flex-1 rounded-lg relative lg:h-[110px] lg:px-4 lg:flex items-center`}>
                         <div className="flex flex-col gap-1 whitespace-nowrap">
                             <h4 className="font-bold text-slate-900 truncate">
                                 {name} {lastname}
@@ -86,7 +86,7 @@ export default function ApplicantItem({ applicant, createdAt, id }) {
 
                 <div>
                     <div className="lg:hidden mt-3">
-                        <div className="w-full bg-slate-300 rounded-lg p-3 text-xs  font-medium">
+                        <div className={`${isNew ? "bg-slate-300" : "bg-slate-200"} w-full  rounded-lg p-3 text-xs font-medium`}>
                             <div className="pb-4 text-slate-600">
                                 {toPersianDateLong(createdAt)}
                             </div>
@@ -140,16 +140,16 @@ export default function ApplicantItem({ applicant, createdAt, id }) {
             </div>
 
             <div className="w-full grid grid-cols-4 gap-4 lg:col-span-2 lg:grid-cols-1">
-                <Buttons type="default" handler={() => router.push(`/${unique_url_id}`)} />
-                <Buttons type="info" handler={() => changeRegisterStatusHandler(1)} />
-                <Buttons type="danger" handler={() => changeRegisterStatusHandler(2)} />
-                <Buttons type="success" handler={() => changeRegisterStatusHandler(3)} />
+                <Buttons type="default" handler={() => router.push(`/${unique_url_id}`)} isNew={isNew} />
+                <Buttons type="info" handler={() => changeRegisterStatusHandler(1)} isNew={isNew} />
+                <Buttons type="danger" handler={() => changeRegisterStatusHandler(2)} isNew={isNew} />
+                <Buttons type="success" handler={() => changeRegisterStatusHandler(3)} isNew={isNew} />
             </div>
         </div>
     )
 }
 
-function Buttons({ type, handler = () => { } }) {
+function Buttons({ type, handler = () => { }, isNew }) {
 
     const btnType = {
         "success": {
@@ -179,14 +179,14 @@ function Buttons({ type, handler = () => { } }) {
     };
 
     return (
-        <div className="flex flex-col items-center gap-2 lg:flex-row lg:bg-slate-300 lg:p-2 lg:rounded-lg cursor-pointer">
-            <button onClick={btnType[type].handler} className={`${btnType[type].classNames} w-10 h-10 rounded-full flex items-center justify-center`}>
+        <button onClick={btnType[type].handler} className={`${isNew ? "lg:bg-slate-300" : "lg:bg-slate-200"} flex flex-col items-center gap-2 lg:flex-row lg:p-2 lg:rounded-lg cursor-pointer`}>
+            <div className={`${btnType[type].classNames} w-10 h-10 rounded-full flex items-center justify-center`}>
                 {btnType[type].icon}
-            </button>
+            </div>
             <div className="text-xs font-bold text-primary-01 flex-1 truncate">
                 {btnType[type].text}
             </div>
-        </div>
+        </button>
     )
 }
 
