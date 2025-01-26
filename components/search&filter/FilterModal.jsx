@@ -8,10 +8,13 @@ import useMainPage from "@/hooks/useMainPage";
 import { FaAngleLeft } from "react-icons/fa6";
 import ExpertiseFilter from "./ExpertieseFilter";
 import { useGetProvinces } from "@/hooks/useCity";
+import { useGetServiceItems } from "@/hooks/expertHooks/useServices";
 
 export default function FilterModal({ open, onClose, searchValuesHandler, searchValues }) {
     const [openFilter, setOpenFilter] = useState();
     const { transformProvinces, isLoading: isGetProvinces } = useGetProvinces();
+    const { serviceItems, isLoadServiceItems } = useGetServiceItems();
+
     const [search, setSearch] = useState({
         expert: searchValues.expert || [],
         service: searchValues.service || [],
@@ -72,6 +75,8 @@ export default function FilterModal({ open, onClose, searchValuesHandler, search
                     name={'service'}
                     title={'نوع خدمت'}
                     search={search}
+                    isLoading={isLoadServiceItems}
+                    data={serviceItems}
                     onSelected={setSearchHandler}
                 />
                 <Filter

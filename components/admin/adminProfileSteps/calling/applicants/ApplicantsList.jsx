@@ -51,7 +51,7 @@ export default function ApplicantsList({ list }) {
                                     key={index}
                                     applicant={item?.user}
                                     createdAt={item.created_at}
-                                    id={item.request_id}
+                                    id={item.id}
                                 />
                             ))}
                         </div>

@@ -141,9 +141,9 @@ export default function ApplicantItem({ applicant, createdAt, id }) {
 
             <div className="w-full grid grid-cols-4 gap-4 lg:col-span-2 lg:grid-cols-1">
                 <Buttons type="default" handler={() => router.push(`/${unique_url_id}`)} />
-                <Buttons type="info" handler={()=>changeRegisterStatusHandler(1)}/>
-                <Buttons type="danger" />
-                <Buttons type="success" />
+                <Buttons type="info" handler={() => changeRegisterStatusHandler(1)} />
+                <Buttons type="danger" handler={() => changeRegisterStatusHandler(2)} />
+                <Buttons type="success" handler={() => changeRegisterStatusHandler(3)} />
             </div>
         </div>
     )

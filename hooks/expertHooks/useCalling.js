@@ -4,7 +4,7 @@ import {
   registerRequestApi,
 } from "@/services/expertApi/callingService";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export function useGetRequests() {
@@ -41,10 +41,13 @@ export function useRegisterRequest() {
 
 export function useChangeRegisterStatus() {
   const router = useRouter();
+  const pathname = usePathname();
+
   const { mutate: mutateChangeRegisterStatus, isPending } = useMutation({
     mutationFn: changeRegisterStatusApi,
     onSuccess: (res) => {
-      console.log(res);
+      toast.success(res?.message[0]);
+      router.replace(pathname, {scroll:false});
     },
     onError: (error) => {
       if (error?.response?.status === 401) {
