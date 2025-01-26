@@ -68,7 +68,7 @@ export default function OrderItem({ status, data }) {
 
                 {status === "3" ?
                     <button onClick={() => changeStatusHandler(4)} className="!w-full btn btn--primary !bg-lime-600">
-                        درصورت تایید کلیک کنید
+                        جهت پرداخت کلیک کنید
                     </button>
                     :
                     <button onClick={() => router.push(`/${data.user.unique_url_id}`)} className="!w-full btn btn--outline !text-primary-01 !border-primary-01">

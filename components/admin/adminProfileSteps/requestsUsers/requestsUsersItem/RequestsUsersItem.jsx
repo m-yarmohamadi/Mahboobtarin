@@ -68,14 +68,14 @@ export default function RequestsUsersItem({ status, data, provinces }) {
 
             {/* status */}
             <OrderItemStatus status={status} isExpert={true} />
-            <Modal open={open} onClose={() => setOpen(false)} title="تغییر وضعیت درخواست">
+            {/* <Modal open={open} onClose={() => setOpen(false)} title="تغییر وضعیت درخواست">
                 <ChangeStatusForm
                     onClose={() => setOpen(false)}
                     onSubmit={(e) => changeStatusHandler(e)}
                     lastSelected={status}
                     isLoading={isPending}
                 />
-            </Modal>
+            </Modal> */}
 
             {/* options */}
             <div className="w-full flex flex-col sm:flex-row gap-2 mt-4">
@@ -98,10 +98,17 @@ export default function RequestsUsersItem({ status, data, provinces }) {
                         در انتظار تایید توسط کاربر متقاضی
                     </div>
                 }
-                {status !== "0" && status !== "3" && status !== "1" &&
-                    <button onClick={() => setOpen(true)} className="!w-full btn btn--outline !text-primary-01 !border-primary-01">
-                        ثبت عملیات توسط شما
-                    </button>
+                {status !== "0" && status !== "3" &&
+                    <div className="!w-full btn btn--outline !text-primary-01 !border-primary-01">
+                        {status === "2" ?
+                            "ثبت عملیات توسط شما"
+                            :
+                            status === "1" ?
+                                "ثبت عملیات توسط کاربر متقاضی"
+                                :
+                                "ثبت عملیات توسط سامانه"
+                        }
+                    </div>
                 }
             </div>
         </div>
