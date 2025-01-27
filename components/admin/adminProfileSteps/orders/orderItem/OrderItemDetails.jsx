@@ -1,4 +1,5 @@
 import { CiCalendar, CiClock2 } from "react-icons/ci";
+import getPriceService from "../../myservices/getPriceService";
 
 export default function OrderItemDetails({ turnData, service }) {
     const turn = turnData && JSON.parse(turnData);
@@ -11,6 +12,10 @@ export default function OrderItemDetails({ turnData, service }) {
                 </span>
                 <span className="text-primary-01 font-semibold">
                     {service?.type}
+                </span>
+                <span className="text-primary-03 ">
+                    ({getPriceService(service?.price_type)})
+
                 </span>
             </div>
             <div className="w-auto flex items-center justify-between gap-5">

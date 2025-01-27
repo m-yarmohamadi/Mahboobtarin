@@ -46,7 +46,7 @@ export default function RequestsUsersItem({ status, data, provinces }) {
                             {data.user.name} {data.user.lastname}
                         </span>
                         <span className="text-xs text-slate-600">
-                            {data.user.gender === "man" ? "مرد" : "زن"} | {calculateAge(data?.user?.birthday)} | {getProvinceLabel}
+                            {data.user.gender === "man" ? "مرد" : "زن"} | {calculateAge(data?.user?.birthday) }ساله | {getProvinceLabel}
                         </span>
                     </div>
                 </div>

@@ -66,11 +66,11 @@ export default function VisitDetails({ date, time, serviceData, type, setDateTim
             {
                 type === "turn" ?
                     <div className="flex flex-col border-t border-slate-200 dark:border-slate-400 pt-4">
-                        <div className="text-primary-01 font-medium mb-2">
+                        <div className="text-primary-01 font-medium ">
                             توضیحات
                         </div>
                         <TextArea
-                            label="شرح مراجعه"
+                            label=""
                             value={descUser}
                             onChange={(e) => setDescUser(e.target.value)}
                         />
