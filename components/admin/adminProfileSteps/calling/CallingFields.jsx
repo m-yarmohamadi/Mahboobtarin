@@ -26,6 +26,9 @@ const hamkariOptions = [
     { value: "", label: "یک گزینه را انتخاب کنید" },
     { value: "تمام وقت", label: "تمام وقت" },
     { value: "پاره وقت", label: "پاره وقت" },
+    { value: "پیمان کاری / پروژه ای", label: "پیمان کاری / پروژه ای" },
+    { value: "کارآموزی", label: "کارآموزی" },
+    { value: "سایر", label: "سایر" },
 ]
 
 const salaryOptions = [
@@ -60,6 +63,7 @@ const militaryStatusOptions = [
     { value: "مشمول", label: "مشمول" },
     { value: "انجام داده", label: "انجام داده" },
     { value: "معافیت دائم", label: "معافیت دائم" },
+    { value: "مهم نیست", label: "مهم نیست" },
 ]
 
 const insuranceOptions = [
@@ -132,6 +136,7 @@ export default function CallingFields({ formik, editPhotos }) {
                     label={'ساعت کاری'}
                     formik={formik}
                     name="time_work"
+                    placeholder={'مثلاٌ 8 الی 16'}
                 />
                 <Select
                     label={'میزان حقوق'}
@@ -155,9 +160,9 @@ export default function CallingFields({ formik, editPhotos }) {
                 />
                 <Input
                     label={'سن'}
-                    required={true}
                     formik={formik}
                     name="age"
+                    placeholder={"مثلاٌ: 20 تا 30 سال"}
                 />
                 <Select
                     label={'بیمه'}

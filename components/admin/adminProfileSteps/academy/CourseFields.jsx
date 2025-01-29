@@ -31,6 +31,7 @@ const placeItems = [
     { value: "", label: "نوع برگزاری دوره را انتخاب کنید" },
     { value: "حضوری", label: "حضوری" },
     { value: "آنلاین", label: "آنلاین" },
+    { value: "آفلاین", label: "آفلاین" },
 ]
 
 export default function CourseFields({ formik, loading }) {

@@ -56,7 +56,7 @@ export default function Magazine() {
                 <img src={banners.top_linkdooni.photo.path} alt="" className="w-full h-full object-cover object-center" />
             </div>
 
-            <div className="md:container mt-14">
+            {/* <div className="md:container mt-14">
                 <TitleItems title={"لینکدونی"} className="!text-lg !border-r-4 !text-textDefault !py-0.5" />
                 <div className="w-full grid grid-cols-1 gap-3 lg:grid-cols-2">
                     <ResourceLinksBox title={'سیاسی'} />
@@ -76,7 +76,7 @@ export default function Magazine() {
                     <ResourceLinksBox title={'سیاسی'} />
                     <ResourceLinksBox title={'سیاسی'} />
                 </div>
-            </div>
+            </div> */}
             <Footer />
         </>
     )
