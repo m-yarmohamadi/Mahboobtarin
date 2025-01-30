@@ -30,7 +30,7 @@ export default function processActivityTimes(activityTimes, today) {
   const currentHour = now.getHours();
   const currentMinute = now.getMinutes();
 
-  const filteredTimes = extractTimes[0]?.times.filter((time) => {
+  const filteredTimes = isRoutine && extractTimes[0]?.times.filter((time) => {
     const [hour, minute] = time.split(":").map(Number);
 
     const selectData = new Date(today).toDateString();
@@ -50,5 +50,5 @@ export default function processActivityTimes(activityTimes, today) {
         : undefined,
     isRoutine,
   };
-  // return { result: extractTimes[0], isRoutine };
+  return { result: extractTimes[0], isRoutine };
 }

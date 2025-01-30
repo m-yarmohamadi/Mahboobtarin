@@ -11,6 +11,7 @@ import { IoIosCalendar } from "react-icons/io";
 import { useDarkMode } from "@/context/DarkModeContext";
 import { MdOutlineTimerOff } from "react-icons/md";
 import processActivityTimes from "../Main/processActivityTimes";
+import CustomeButtonDatePicker from "./CustomeButtonDatePicker";
 
 
 const convertTOEnDateFunc = (date) => {
@@ -19,6 +20,7 @@ const convertTOEnDateFunc = (date) => {
 
 export default function EditAppointmentForm({ onClose, lastSelected, onLastSelected, serviceData }) {
     const [selected, setSelected] = useState(lastSelected);
+    const dedicatedTime = JSON.parse(serviceData.dedicated_time);
     const [date, setDate] = useState(new Date(convertTOEnDateFunc(lastSelected?.date)));
     const convertTOEnDate = convertTOEnDateFunc(date)
     const getTimesOfWeekday = processActivityTimes(serviceData?.activity_time, date);
@@ -41,8 +43,9 @@ export default function EditAppointmentForm({ onClose, lastSelected, onLastSelec
                     onChange={(e) => selectDate(e)}
                     locale={persian_fa}
                     calendar={persian}
-                    minDate={new Date()}
-                    render={<CustomeButtonDatePicker setDate={selectDate} />}
+                    minDate={dedicatedTime.length > 0 ? dedicatedTime[0] : new Date()}
+                    maxDate={dedicatedTime && dedicatedTime[1]}
+                    render={<CustomeButtonDatePicker setDate={selectDate} maxDate={dedicatedTime && dedicatedTime[1]} minDate={dedicatedTime && dedicatedTime[0]} />}
                     calendarPosition="bottom-center"
                     containerClassName="w-full"
                 />
@@ -107,44 +110,53 @@ export default function EditAppointmentForm({ onClose, lastSelected, onLastSelec
     )
 }
 
-function CustomeButtonDatePicker({ openCalendar, value, setDate }) {
-    const convertTOEnDate = moment(toEnglishNumber(value), "jYYYY/jMM/jDD").format("YYYY/MM/DD")
-    const convertToLongDateFa = new Date(convertTOEnDate).toLocaleDateString("fa-IR", { day: "numeric", month: "long", weekday: "long" });
+// function CustomeButtonDatePicker({ openCalendar, value, setDate, maxDate, minDate }) {
+//     const convertTOEnDate = moment(toEnglishNumber(value), "jYYYY/jMM/jDD").format("YYYY/MM/DD")
+//     const convertToLongDateFa = new Date(convertTOEnDate).toLocaleDateString("fa-IR", { day: "numeric", month: "long", weekday: "long" });
 
-    // is today or not
-    const isToday = () => {
-        const today = new Date().toLocaleDateString("fa-IR");
-        const currentDate = new Date(convertTOEnDate).toLocaleDateString("fa-IR");
-        return currentDate <= today;
-    }
+//     // is max date
+//     const isMaxDate = () => {
+//         const convertMaxDate = new Date(maxDate);
+//         const currentDate = new Date(convertTOEnDate);
+//         convertMaxDate.setHours(0, 0, 0, 0);
+//         currentDate.setHours(0, 0, 0, 0);
+//         return currentDate.getTime() === convertMaxDate.getTime() || currentDate > convertMaxDate;
+//     }
 
-    // minus day
-    const descDateHandler = () => {
-        const newDate = new Date(convertTOEnDate);
-        newDate.setDate(newDate.getDate() - 1);
-        setDate(newDate);
-    }
+//     // is today or not
+//     const isToday = () => {
+//         const today = minDate ? new Date(minDate) : new Date();
+//         const currentDate = new Date(convertTOEnDate);
+//         return currentDate <= today;
+//     }
 
-    // plus day
-    const incDateHandler = () => {
-        const newDate = new Date(convertTOEnDate);
-        newDate.setDate(newDate.getDate() + 1);
-        setDate(newDate);
-    }
+//     // minus day
+//     const descDateHandler = () => {
+//         const newDate = new Date(convertTOEnDate);
+//         newDate.setDate(newDate.getDate() - 1);
+//         setDate(newDate);
+//     }
 
-    return (
-        <div className="w-full h-14 flex items-center">
-            <button disabled={isToday()} onClick={descDateHandler} className="w-16 disabled:!opacity-45 h-full rounded-r-md whitespace-nowrap p-3 text-xs text-slate-500 dark:text-slate-700 border border-slate-200">
-                روز قبل
-            </button>
-            <button onClick={openCalendar} className="flex-1 h-full btn !rounded-none gap-2 bg-slate-200 border-y border-slate-200 text-[80%] text-slate-600">
-                <FaRegCalendar className="w-4 h-4" />
-                {isToday() && "امروز، "}
-                {convertToLongDateFa}
-            </button>
-            <button onClick={incDateHandler} className="w-16 h-full rounded-l-md whitespace-nowrap p-3 text-xs text-slate-500 dark:text-slate-700 border border-slate-200">
-                روز بعد
-            </button>
-        </div>
-    )
-}
+//     // plus day
+//     const incDateHandler = () => {
+//         const newDate = new Date(convertTOEnDate);
+//         newDate.setDate(newDate.getDate() + 1);
+//         setDate(newDate);
+//     }
+
+//     return (
+//         <div className="w-full h-14 flex items-center">
+//             <button disabled={isToday()} onClick={descDateHandler} className="w-16 disabled:!opacity-45 h-full rounded-r-md whitespace-nowrap p-3 text-xs text-slate-500 dark:text-slate-700 border border-slate-200">
+//                 روز قبل
+//             </button>
+//             <button onClick={openCalendar} className="flex-1 h-full btn !rounded-none gap-2 bg-slate-200 border-y border-slate-200 text-[80%] text-slate-600">
+//                 <FaRegCalendar className="w-4 h-4" />
+//                 {isToday() && "امروز، "}
+//                 {convertToLongDateFa}
+//             </button>
+//             <button disabled={maxDate && isMaxDate()} onClick={incDateHandler} className="w-16 h-full disabled:!opacity-45 rounded-l-md whitespace-nowrap p-3 text-xs text-slate-500 dark:text-slate-700 border border-slate-200">
+//                 روز بعد
+//             </button>
+//         </div>
+//     )
+// }
