@@ -27,14 +27,20 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
     const getTimesOfWeekday = !isLoading && processActivityTimes(serviceData?.activity_time, date);
     const router = useRouter();
 
-    const onGoSetAppointment = () => {
+    const onGoSetAppointment = (type) => {
+        let seminar;
+        if (type !== "turn") {
+            seminar = { date: getTimesOfWeekday.result.week, time: getTimesOfWeekday.result.time }
+        }
+
         const encodedDetails = encryptData({
             ...selected,
+            ...seminar,
             serviceData,
             expert,
             descriptionUser: "",
             price: serviceData.price,
-            type: "turn",
+            type,
         })
         router.push(`/set-appointment/${encodedDetails}`);
     }
@@ -142,7 +148,7 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
                 <div className="w-full flex items-center gap-2 border-t border-t-slate-300 pt-4 mt-4">
                     {
                         selected ?
-                            <button onClick={onGoSetAppointment} className="btn btn--primary !w-full">
+                            <button onClick={() => onGoSetAppointment("turn")} className="btn btn--primary !w-full">
                                 تایید
                             </button>
                             :
@@ -194,12 +200,9 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
                             </div>
                             :
                             <>
-                                <Link
-                                    href={`/set-appointment?type=seminar&serviceId=${serviceID}&expert=${JSON.stringify({ name: expert.name, lastname: expert.lastname, id: expert.id, img: expert.avatar, expertise: expert?.expertises[0]?.subject, address: expert?.addresses[0]?.address })}&date=${getTimesOfWeekday.result.week}&time=${getTimesOfWeekday.result.time}`}
-                                    className="btn btn--primary !w-full disabled:opacity-30"
-                                >
+                                <button onClick={() => onGoSetAppointment("")} className="btn btn--primary !w-full disabled:opacity-30">
                                     ثبت‌نام
-                                </Link>
+                                </button>
                                 <button onClick={onClose} className="btn btn--outline !w-full">
                                     لغو
                                 </button>

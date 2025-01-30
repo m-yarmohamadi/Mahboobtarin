@@ -33,15 +33,15 @@ export default function VisitDetails({ date, time, serviceData, type, setDateTim
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="flex items-center gap-1 text-slate-600 text-sm">
                                 <CiCalendar className="w-5 h-5 text-slate-500" />
-                                تاریخ از {selected?.date.split(",")[0]}
+                                تاریخ از {date[0]}
 
                                 <div>
-                                    تا {selected?.date.split(",")[1]}
+                                    تا {date[1]}
                                 </div>
                             </div>
                             <div className="flex items-center gap-1 text-slate-600 text-sm">
                                 <HiOutlineClock className="w-5 h-5 text-slate-500" />
-                                ساعت برگزاری: {selected?.time}
+                                ساعت برگزاری: {time}
                             </div>
                         </div>
                 }

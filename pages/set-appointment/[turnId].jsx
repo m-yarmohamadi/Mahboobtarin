@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { FiCheckCircle } from "react-icons/fi";
 
 export default function SetAppointment({ data }) {
-
+    
     return (
         <div className="w-full">
             <Header />
