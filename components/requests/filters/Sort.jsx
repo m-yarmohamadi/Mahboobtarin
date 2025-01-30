@@ -4,16 +4,15 @@ import Select from "@/tools/Select";
 import { useState } from "react";
 import { FaSortAmountDown } from "react-icons/fa";
 
-export default function Sort() {
+export default function Sort({ filter, setFilter }) {
     const [openSort, setOpenSort] = useState(false);
     const sorts = [
-        { value: "near", label: "نزدیک ترین" },
-        { value: "poular", label: "محبوبترین" },
-        { value: "mostVisited", label: "پربازدیدترین" },
-        { value: "suggesstion", label: "پیشنهادی" },
-        { value: "experienced", label: "باتجربه ترین" },
-        { value: "newest", label: "جدیدترین" },
-        { value: "openTurn", label: "دارای نوبت باز" },
+        { value: "محبوبترین", label: "محبوبترین" },
+        { value: "پربازدیدترین", label: "پربازدیدترین" },
+        { value: "پیشنهادی", label: "پیشنهادی" },
+        { value: "باتجربه ترین", label: "باتجربه ترین" },
+        { value: "جدیدترین", label: "جدیدترین" },
+        { value: "دارای نوبت باز", label: "دارای نوبت باز" },
     ];
 
     return (
@@ -32,6 +31,8 @@ export default function Sort() {
                                 key={index}
                                 label={sort.label}
                                 name={'sort'}
+                                checked={filter === sort.value}
+                                onChecked={() => setFilter("type", sort.value)}
                                 id={sort.value}
                             />
                         ))}
@@ -47,6 +48,9 @@ export default function Sort() {
             <div className="hidden lg:block">
                 <Select
                     options={sorts}
+                    value={filter}
+                    name="type"
+                    onChange={(e) => setFilter(e.target.name, e.target.value)}
                 />
             </div>
         </>

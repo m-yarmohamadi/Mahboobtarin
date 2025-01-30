@@ -1,10 +1,11 @@
 import { getMainPage } from "@/services/authService";
 import {
+  filterRequests,
   getAllRequests,
   getCategoryChild,
   getCategoryParents,
 } from "@/services/mainPageService";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export default function useMainPage() {
   const { data, isLoading } = useQuery({
@@ -24,6 +25,7 @@ export default function useMainPage() {
     popular_week,
     new_register,
     what_service,
+    banners,
   } = data?.data || {};
 
   const transformCategories =
@@ -47,6 +49,7 @@ export default function useMainPage() {
     popular_week,
     new_register,
     what_service,
+    banners,
   };
 }
 

@@ -10,7 +10,7 @@ import Cooperation from "./Cooperation";
 import Gender from "./Gender";
 import Address from "./Address";
 
-export default function RequestFilter({ categories }) {
+export default function RequestFilter({ categories, filterObj, changeFilterHandler, setNewData }) {
     const [openSearch, setOpenSearch] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const pathname = usePathname();
@@ -29,19 +29,23 @@ export default function RequestFilter({ categories }) {
                     <div className="w-full flex flex-col gap-4">
                         <Search value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         <div className="h-[250px] overflow-y-auto pl-6">
-                            <RequestExpertise data={categories} searchTerm={searchTerm} />
+                            <RequestExpertise
+                                data={categories}
+                                searchTerm={searchTerm}
+                                setFilter={changeFilterHandler}
+                            />
                         </div>
                     </div>
                 </Modal>
             </div>
             <div className="w-full flex items-center justify-between gap-2">
                 <Filter>
-                    <Address />
-                    <Gender />
-                    <Cooperation />
-                    <PayTypeFilter />
+                    <Address filter={filterObj.location} setFilter={changeFilterHandler} />
+                    <Gender filter={filterObj.gender} setFilter={changeFilterHandler} />
+                    <Cooperation filter={filterObj.collaboration} setFilter={changeFilterHandler} />
+                    <PayTypeFilter filter={filterObj.pyment_type} setFilter={changeFilterHandler} />
                 </Filter>
-                <Sort />
+                <Sort filter={filterObj.type} setFilter={changeFilterHandler} />
             </div>
         </div>
     )

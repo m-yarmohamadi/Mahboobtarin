@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaAngleLeft } from "react-icons/fa6";
 
-export default function RequestExpertise({ data, searchTerm }) {
+export default function RequestExpertise({ data, searchTerm, setFilter }) {
     const filterCategories = (categories) => {
         return categories.filter((category) => {
             const matchCategory = category.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -14,13 +14,20 @@ export default function RequestExpertise({ data, searchTerm }) {
     return (
         <div className="flex flex-col overflow-y-auto">
             {filterCategories(data?.filter((c) => c.parent_id === 0)).map((item) => (
-                <ExpertisesItem key={item.id} id={item.id} label={item.name} cateChildren={item?.children_recursive} searchTerm={searchTerm} />
+                <ExpertisesItem
+                    key={item.id}
+                    id={item.id}
+                    label={item.name}
+                    cateChildren={item?.children_recursive}
+                    searchTerm={searchTerm}
+                    setFilter={setFilter}
+                />
             ))}
         </div>
     );
 }
 
-function ExpertisesItem({ id, label, cateChildren, searchTerm }) {
+function ExpertisesItem({ id, label, cateChildren, searchTerm, setFilter }) {
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
@@ -49,7 +56,7 @@ function ExpertisesItem({ id, label, cateChildren, searchTerm }) {
             <div
                 className='flex items-center justify-between w-full cursor-pointer pb-4'
             >
-                <Link href={`/requests`}>{label}</Link>
+                <button onClick={() => setFilter("category", id)}>{label}</button>
                 {filteredChildren.length > 0 && (
                     <span onClick={toggleOpen} className={`mr-2 ${isOpen ? '-rotate-90' : ''} flex gap-3`}>
                         <FaAngleLeft />
@@ -59,7 +66,14 @@ function ExpertisesItem({ id, label, cateChildren, searchTerm }) {
             {isOpen && filteredChildren.length > 0 && (
                 <div className="px-2">
                     {filteredChildren.map((subItem) => (
-                        <ExpertisesItem key={subItem.id} id={subItem.id} label={subItem.name} cateChildren={subItem?.children_recursive} searchTerm={searchTerm} />
+                        <ExpertisesItem
+                            key={subItem.id}
+                            id={subItem.id}
+                            label={subItem.name}
+                            cateChildren={subItem?.children_recursive}
+                            searchTerm={searchTerm}
+                            setFilter={setFilter}
+                        />
                     ))}
                 </div>
             )}

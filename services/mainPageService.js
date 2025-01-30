@@ -24,6 +24,10 @@ export function getAllRequests() {
   return http.get(`/api/v1/requests/list`).then(({ data }) => data);
 }
 
+export function filterRequests(filters) {
+  return http.post(`/api/v1/requests/filter`, filters).then(({ data }) => data);
+}
+
 export function getTopSearchs() {
   return http.get(`/api/v1/top-search`).then(({ data }) => data);
 }
