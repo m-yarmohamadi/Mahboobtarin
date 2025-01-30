@@ -22,7 +22,7 @@ export function getProductsBestSell() {
 }
 
 export function getShopPage() {
-  return http.get(`/api/v1/shop`).then(({data}) => data);
+  return http.get(`/api/v1/shop`).then(({ data }) => data);
 }
 
 // * expert dashboard *************
@@ -56,4 +56,14 @@ export function getAllProductsApi(qs) {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
   });
+}
+
+export function getOneProductApi(id) {
+  return http
+    .get(`/api/v1/product/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    })
+    .then(({ data }) => data);
 }

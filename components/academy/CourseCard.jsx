@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { HiTrash } from "react-icons/hi2";
+import { MdEdit } from "react-icons/md";
 
 export default function CourseCard({ course, isDelete = false }) {
     const { mutateAsync: mutateDeleteAcademy } = useMutation({ mutationFn: deleteAcademy });
@@ -33,10 +34,13 @@ export default function CourseCard({ course, isDelete = false }) {
     return (
         <div className="relative">
             {isDelete &&
-                <div className="absolute top-5 left-5 z-10">
+                <div className="absolute top-5 left-5 z-10 space-y-2">
                     <button type="button" onClick={deleteAcademyHandler} className="btn btn--danger !p-2">
                         <HiTrash className="w-5 h-5" />
                     </button>
+                    <Link href={`/admin/academy/edit/${course.id}`} className='btn btn--danger !bg-secondary-01 !p-2'>
+                        <MdEdit className='w-5 h-5' />
+                    </Link>
                 </div>
             }
 

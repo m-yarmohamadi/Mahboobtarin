@@ -1,7 +1,8 @@
 import numberWithCommas from "@/utils/numberWithCommas"
 import Link from "next/link"
+import { MdEdit } from "react-icons/md";
 
-export default function ProductCard({ product, user }) {
+export default function ProductCard({ product, user, isEdit = false }) {
     const addDiscount = (item, discount) => {
         return item - ((item * discount) / 100)
     }
@@ -9,7 +10,15 @@ export default function ProductCard({ product, user }) {
     const link = `/products/${product?.id}`;
 
     return (
-        <div className='w-full h-full flex flex-col overflow-hidden bg-white rounded-xl duration-300 border border-slate-300 hover:shadow-md dark:shadow-darkMd'>
+        <div className='w-full relative h-full flex flex-col overflow-hidden bg-white rounded-xl duration-300 border border-slate-300 hover:shadow-md dark:shadow-darkMd'>
+            {isEdit &&
+                <div className="absolute top-5 left-5 z-10 space-y-2">
+                    <Link href={`/admin/products/edit/${product.id}`} className='btn btn--danger !bg-secondary-01 !p-2'>
+                        <MdEdit className='w-5 h-5' />
+                    </Link>
+                </div>
+            }
+
             <Link href={link} className='block border-b border-slate-300 relative'>
                 <div className='aspect-w-10 aspect-h-10'>
                     {product?.photos &&

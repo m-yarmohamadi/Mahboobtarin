@@ -2,23 +2,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import ProductFields from "./ProductFields";
 import { useMutation } from "@tanstack/react-query";
-import { addNewProduct, updloadProductPhotos } from "@/services/productService";
+import { addNewProduct } from "@/services/productService";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 
-const initialValues = {
-    title: "",
-    expiredate: "",
-    status: "",
-    price: "",
-    anbar: "",
-    discount_price: "",
-    description: "",
-    photo_id: [],
-    categories: [],
-    files: []
-};
 const validationSchema = Yup.object({
     title: Yup.string().required("عنوان را وارد کنید"),
     expiredate: Yup.string().required("تاریخ انقضا را وارد کنید"),
@@ -31,10 +19,25 @@ const validationSchema = Yup.object({
     files: Yup.array().required("تصویر را انتخاب کنید").min(1, "تصویر را انتخاب کنید")
 })
 
-
-export default function CreateProductForm() {
+export default function CreateProductForm({ editData }) {
     const { mutateAsync, isPending } = useMutation({ mutationFn: addNewProduct });
     const router = useRouter();
+    const editCategories = editData && editData?.categories.map((category) => ({ value: category.id, label: category.name }))
+    const editPhotos = editData && editData.photos.map((pic) => ({ id: pic.id, file: pic.path, isEdit: true }));
+    const editPhotosIds = editData ? editData.photos.map((pic) => (pic.id)) : [];
+
+    const initialValues = {
+        title: editData?.title || "",
+        expiredate: editData?.expiredate || "",
+        status: editData?.status || "",
+        price: editData?.price || "",
+        anbar: editData?.anbar || "",
+        discount_price: editData?.discount_price || "",
+        description: editData?.description || "",
+        photo_id: editPhotosIds,
+        categories: editCategories || [],
+        files: editPhotos || []
+    };
 
     const onSubmit = async (values) => {
         const transformCategories = formik.values.categories.map((item) => item.value).join(",");
@@ -58,10 +61,18 @@ export default function CreateProductForm() {
             formData.append(key, productData[key]);
         }
 
+        if (editData) {
+            formData.append("id", editData.id);
+        }
+
         try {
             const { data } = await mutateAsync(formData);
             if (data) {
-                toast.success("محصول با موفقیت ثبت شد");
+                if (editData) {
+                    toast.success("محصول با موفقیت ویرایش شد");
+                } else {
+                    toast.success("محصول با موفقیت ثبت شد");
+                }
                 router.replace("/admin/products");
             }
 
@@ -102,7 +113,7 @@ export default function CreateProductForm() {
                 </p>
             </div>
 
-            <ProductFields formik={formik} loading={isPending} />
+            <ProductFields formik={formik} loading={isPending} btnTxt={editData ? "ویرایش" : "ثبت محصول"} />
         </div>
     )
 }

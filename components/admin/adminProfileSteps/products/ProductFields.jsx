@@ -20,7 +20,7 @@ const statusItems = [
     { value: 1, label: "فعال" },
 ]
 
-export default function ProductFields({ formik, loading }) {
+export default function ProductFields({ formik, loading, btnTxt }) {
     const { categories, isGetCategory } = useGetProductCategory();
 
     return (
@@ -89,9 +89,9 @@ export default function ProductFields({ formik, loading }) {
             <div className="w-full border-t border-t-slate-300 pt-4">
                 <div className="w-1/2 gap-3 grid grid-cols-2 ">
                     <button type="submit" className="btn btn--primary">
-                        {loading ? <Loading /> : "ثبت محصول"}
+                        {loading ? <Loading /> : btnTxt}
                     </button>
-                    <button className="btn btn--secondary">
+                    <button type="button" onClick={() => window.history.back()} className="btn btn--secondary">
                         لغو
                     </button>
                 </div>
@@ -178,7 +178,7 @@ function PictureSelector({ formik }) {
                     <div className="flex flex-wrap gap-4">
                         {formik.values.files.map((file) => (
                             <div key={file.id} className="w-24 h-24 rounded-lg overflow-hidden p-1 border border-slate-300 relative">
-                                <img src={URL.createObjectURL(file.file)} alt="" className="w-full h-full object-contain object-center" />
+                                <img src={file?.isEdit ? file.file : URL.createObjectURL(file.file)} alt="" className="w-full h-full object-contain object-center" />
                                 {/* <button onClick={() => formik.setFieldValue("files", formik.values.files.filter((f) => f.id !== file.id))} className="w-5 h-5 flex items-center justify-center rounded-full bg-white shadow-md dark:shadow-darkMd text-error absolute top-2 right-2">
                                     <IoMdClose className="w-4 h-4" />
                                 </button> */}
