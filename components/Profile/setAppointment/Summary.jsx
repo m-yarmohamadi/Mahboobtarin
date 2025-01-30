@@ -28,12 +28,17 @@ export default function Summary({ serviceData, submitHandler, price, setPrice, i
             </div>
 
             {serviceData.price_type !== "free" && serviceData.price_type !== "custom" &&
-                <div>
+                <div className='pb-4'>
                     <Input
                         label={'مبلغ پرداختی خود را وارد کنید'}
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                     />
+                    {Number(price) < 10000 && Number(price) !== 0 && serviceData.price_type === "suggestion" && (
+                        <p className="error_Message">
+                            حداقل مبلغ پیشنهاد 10,000 تومان می باشد
+                        </p>
+                    )}
                 </div>
             }
 
@@ -51,7 +56,7 @@ export default function Summary({ serviceData, submitHandler, price, setPrice, i
                     </div>
                 }
 
-                <button onClick={submitHandler} className='btn btn--primary !w-full !font-medium'>
+                <button onClick={submitHandler} disabled={Number(price) < 10000 && serviceData.price_type === "suggestion"} className='btn btn--primary !w-full !font-medium disabled:opacity-30'>
                     {isLoading ? <Loading width={50} /> : "ثبت سفارش و پرداخت"}
                 </button>
             </div>

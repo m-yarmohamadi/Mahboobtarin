@@ -116,7 +116,7 @@ export default function SearchBox() {
 
                                     <div className="w-full flex flex-wrap gap-2">
                                         {result?.search_expertis.map((item, index) => (
-                                            <Link key={index} href={`/group/${item?.id || "#"}`} className="text-xs whitespace-nowrap font-bold text-slate-800 p-4 border border-slate-300 dark:border-slate-400 rounded-lg">
+                                            <Link key={index} href={`/group/${item?.id || "#"}`} onClick={() => setOpen(false)} className="text-xs whitespace-nowrap font-bold text-slate-800 p-4 border border-slate-300 dark:border-slate-400 rounded-lg">
                                                 {item.name}
                                             </Link>
                                         ))}
@@ -135,7 +135,7 @@ export default function SearchBox() {
 
                                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
                                         {result?.search_users.map((item, index) => (
-                                            <Link key={index} href={item?.unique_url_id || "#"} className="flex items-center gap-2 p-2 border border-slate-300 dark:border-slate-400 rounded-lg">
+                                            <Link key={index} href={item?.unique_url_id || "#"} onClick={() => setOpen(false)} className="flex items-center gap-2 p-2 border border-slate-300 dark:border-slate-400 rounded-lg">
                                                 <div>
                                                     <div className="w-11 h-11 rounded-full overflow-hidden">
                                                         <img

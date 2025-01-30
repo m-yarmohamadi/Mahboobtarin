@@ -1,50 +1,16 @@
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import moment from "jalali-moment";
 import toEnglishNumber from "@/utils/toEnglishNumber";
 import { FaRegCalendar } from "react-icons/fa6";
-import timeSlots from "@/utils/timeSlots";
 import { IoTimeOutline } from "react-icons/io5";
 import { toPersianDateShort } from "@/utils/toPersianDate";
 import { IoIosCalendar } from "react-icons/io";
-import { getServiceProfile } from "@/services/expertApi/specialistServices";
-import Loading from "@/tools/Loading";
 import { useDarkMode } from "@/context/DarkModeContext";
 import { MdOutlineTimerOff } from "react-icons/md";
-import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
-
-
-const processActivityTimes = (activityTimes, currentWeekday) => {
-    const daysMappingEN = {
-        "شنبه": "saturday",
-        "یکشنبه": "sunday",
-        "دوشنبه": "monday",
-        "سه‌شنبه": "tuesday",
-        "چهارشنبه": "wednesday",
-        "پنجشنبه": "thursday",
-        "جمعه": "friday",
-    };
-
-
-    let isRoutine;
-
-    const activityTimeArray = JSON.parse(activityTimes);
-
-    const extractTimes = activityTimeArray.filter((item) => {
-        if (!Array.isArray(item.week)) {
-            isRoutine = true;
-            return item.week === daysMappingEN[currentWeekday] || null;
-        } else {
-            isRoutine = false;
-            return item
-        }
-    })
-
-    return { result: extractTimes[0], isRoutine };
-};
+import processActivityTimes from "../Main/processActivityTimes";
 
 
 const convertTOEnDateFunc = (date) => {
@@ -55,9 +21,7 @@ export default function EditAppointmentForm({ onClose, lastSelected, onLastSelec
     const [selected, setSelected] = useState(lastSelected);
     const [date, setDate] = useState(new Date(convertTOEnDateFunc(lastSelected?.date)));
     const convertTOEnDate = convertTOEnDateFunc(date)
-    const currentWeekday = new Date(convertTOEnDate).toLocaleDateString("fa-IR", { weekday: "long" });
-    const { isDarkMode } = useDarkMode();
-    const getTimesOfWeekday = processActivityTimes(serviceData?.activity_time, currentWeekday);
+    const getTimesOfWeekday = processActivityTimes(serviceData?.activity_time, date);
 
     const selectDate = (date) => {
         setDate(date);
@@ -81,7 +45,6 @@ export default function EditAppointmentForm({ onClose, lastSelected, onLastSelec
                     render={<CustomeButtonDatePicker setDate={selectDate} />}
                     calendarPosition="bottom-center"
                     containerClassName="w-full"
-                    className={isDarkMode && "bg-dark"}
                 />
             </div>
             {

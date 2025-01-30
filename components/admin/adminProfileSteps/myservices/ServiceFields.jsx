@@ -365,9 +365,8 @@ function AddTimeRange({ setTimes, onClose, times, addActivitiesHandler, day, wee
                             time.day === day &&
                             (
                                 !(Number(endValue) <= Number(time.values.start) || Number(start) >= Number(time.values.end)) ||
-                                Number(time.values.start) === Number(endValue) ||
-                                Number(time.values.end) === Number(start) ||
-                                Number(start) > Number(time.values.end)
+                                Number(time.values.start) === Number(endValue)
+                                // Number(time.values.end) === Number(start)
                             )
                         ) {
                             return false;

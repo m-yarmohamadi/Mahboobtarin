@@ -10,52 +10,19 @@ import { IoTimeOutline } from "react-icons/io5";
 import { toPersianDateShort } from "@/utils/toPersianDate";
 import { IoIosCalendar } from "react-icons/io";
 import { MdOutlineTimerOff } from "react-icons/md";
-import { addOrderService, getServiceProfile } from "@/services/expertApi/specialistServices";
+import { getServiceProfile } from "@/services/expertApi/specialistServices";
 import Loading from "@/tools/Loading";
-import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 import { useDarkMode } from "@/context/DarkModeContext";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import { encryptData } from "@/utils/crypto";
-
-const processActivityTimes = (activityTimes, currentWeekday) => {
-    const daysMappingEN = {
-        "شنبه": "saturday",
-        "یکشنبه": "sunday",
-        "دوشنبه": "monday",
-        "سه‌شنبه": "tuesday",
-        "چهارشنبه": "wednesday",
-        "پنجشنبه": "thursday",
-        "جمعه": "friday",
-    };
-
-
-    let isRoutine;
-
-    const activityTimeArray = JSON.parse(activityTimes);
-
-    const extractTimes = activityTimeArray.filter((item) => {
-        if (!Array.isArray(item.week)) {
-            isRoutine = true;
-            return item.week === daysMappingEN[currentWeekday] || null;
-        } else {
-            isRoutine = false;
-            return item
-        }
-    })
-
-    return { result: extractTimes[0], isRoutine };
-};
+import processActivityTimes from "./processActivityTimes";
 
 export default function BookingForm({ onClose, serviceID, userId, expert }) {
     const [selected, setSelected] = useState();
     const [date, setDate] = useState(new Date());
-    const currentWeekday = new Date(date).toLocaleDateString("fa-IR", { weekday: "long" });
     const [serviceData, setServiceData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const { isDarkMode } = useDarkMode();
-    const getTimesOfWeekday = !isLoading && processActivityTimes(serviceData?.activity_time, currentWeekday);
+    const getTimesOfWeekday = !isLoading && processActivityTimes(serviceData?.activity_time, date);
     const dedicatedTime = !isLoading && JSON.parse(serviceData.dedicated_time);
     const router = useRouter();
 
@@ -105,12 +72,11 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
                         onChange={(e) => selectDate(e)}
                         locale={persian_fa}
                         calendar={persian}
-                        minDate={dedicatedTime ? dedicatedTime[0] : new Date()}
+                        minDate={dedicatedTime.length > 0 ? dedicatedTime[0] : new Date()}
                         maxDate={dedicatedTime && dedicatedTime[1]}
                         render={<CustomeButtonDatePicker setDate={selectDate} maxDate={dedicatedTime && dedicatedTime[1]} />}
                         calendarPosition="bottom-center"
                         containerClassName="w-full"
-                        className={isDarkMode && "bg-dark"}
                     />
                 </div>
                 {
@@ -240,7 +206,6 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
         )
     }
 }
-
 
 function CustomeButtonDatePicker({ openCalendar, value, setDate, maxDate }) {
     const convertTOEnDate = moment(toEnglishNumber(value), "jYYYY/jMM/jDD").format("YYYY/MM/DD")
