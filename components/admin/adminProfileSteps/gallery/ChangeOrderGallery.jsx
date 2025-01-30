@@ -20,29 +20,29 @@ export default function ChangeOrderGallery({ onClose, gallery }) {
             ...item,
             ord: String(index),
         }));
-        setOrderGallery(updateOrder)
-
-        const formData = new FormData();
-
-        if (movedItem.src) {
-            formData.append("file", movedItem.src);
-        } else {
-            formData.append("script", movedItem.script);
-        }
-
-        formData.append("title", movedItem.title);
-        formData.append("type", movedItem.type.split("-")[1]);
-        formData.append("id", movedItem.id);
-        formData.append("ord", String(result.destination.index));
+        setOrderGallery(updateOrder);
 
         try {
-            const { data } = await mutateChangeOrder(formData);
+            for (const item of updateOrder) {
+                const originalItem = gallery.find(g => g.id === item.id);
+                if (originalItem && originalItem.ord !== item.ord) {
+                    const formData = new FormData();
+                    if (item.src) {
+                        formData.append("file", item.src);
+                    } else {
+                        formData.append("script", item.script);
+                    }
+                    formData.append("title", item.title);
+                    formData.append("type", item.type.split("-")[1]);
+                    formData.append("id", item.id);
+                    formData.append("ord", item.ord);
 
-            if (data) {
-                queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] });
-                toast.success("ترتیب نمایش ویرایش شد");
+                    await mutateChangeOrder(formData);
+                }
             }
 
+            queryClient.invalidateQueries({ queryKey: ["get-expertise-user-by-id"] });
+            toast.success("ترتیب نمایش ویرایش شد");
         } catch (error) {
             if (error?.response?.status === 401) {
                 window.location.reload();
