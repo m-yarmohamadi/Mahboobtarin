@@ -15,30 +15,14 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/swiper-bundle.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-const sliderImg = [
-  {
-    id: 1,
-    url: "images/Baner002.png",
-    title: "baner01",
-  },
-  {
-    id: 1,
-    url: "images/Baner002.png",
-    title: "baner02",
-  },
-  {
-    id: 1,
-    url: "images/Baner002.png",
-    title: "baner03",
-  },
-  {
-    id: 1,
-    url: "images/Baner002.png",
-    title: "baner04",
-  },
-];
+import useMainPage from "@/hooks/useMainPage";
+
 const Baner02 = () => {
-  const swiperRef = useRef(null);
+  const { banners, isLoading } = useMainPage();
+  const sliderData =
+    !isLoading &&
+    banners.filter((b) => b.position === "slider-services-bottom");
+
   return (
     <div className="py-24">
       <Swiper
@@ -54,17 +38,17 @@ const Baner02 = () => {
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
       >
-        {sliderImg.map((item, index) => {
+        {!isLoading && sliderData?.map((item, index) => {
           return (
             <SwiperSlide key={index}>
-              <div className="w-full relative ">
+              <div className="w-full relative">
                 <img
                   className="w-full h-72 object-cover object-top"
-                  src={item.url}
-                  alt={item.title}
+                  src={item?.photo?.path}
+                  alt={item?.title}
                 />
 
-                <div className="  absolute top-0 right-0 z-10 w-full h-full ">
+                {/* <div className="  absolute top-0 right-0 z-10 w-full h-full ">
                   <div className="  px-8 md:px-0 flex justify-between items-center gap-16 md:gap-32 w-full h-full">
                     <div className="w-full flex justify-center items-center ">
                       <div className="w-full ">
@@ -99,7 +83,7 @@ const Baner02 = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               {/* <button className="custom-button-prev   hover:cursor-pointer left-3">
                 <FaChevronLeft />

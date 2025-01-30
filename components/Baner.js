@@ -100,8 +100,14 @@ const data = [
   },
 ];
 const Baner = () => {
-  const { isLoading, categories, sliders } = useMainPage();
+  const { isLoading, categories, sliders, banners } = useMainPage();
   const [showComplete, setShowComplete] = useState(false);
+  const topBanner =
+    !isLoading &&
+    banners.filter((b) => b.position === "slider-top-right-top")[0];
+  const bottomBanner =
+    !isLoading &&
+    banners.filter((b) => b.position === "slider-top-right-bottom")[0];
 
   return (
     <div className="xs:container ">
@@ -175,7 +181,11 @@ const Baner = () => {
                             dangerouslySetInnerHTML={{ __html: item.icon }}
                           ></div>
                         ) : (
-                          <img src={item.pic} alt="" className="w-[30px] hover:fill-primary-01" />
+                          <img
+                            src={item.pic}
+                            alt=""
+                            className="w-[30px] hover:fill-primary-01"
+                          />
                         )}
                       </div>
                     </span>
@@ -234,15 +244,24 @@ const Baner = () => {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 h-73 ">
-          <div className=" hidden md:block w-full h-full   ">
-            <img
-              className=" object-cover object-left-bottom h-full w-full "
-              src="/images/img001.jpg"
-              alt=""
-            />
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-1 h-73 ">
+          <div className=" hidden md:grid md:col-span-4 grid-rows-2">
+            <div className="aspect-w-16 aspect-h-6">
+              <img
+                className="object-cover object-center h-full w-full"
+                src={topBanner?.photo?.path}
+                alt={topBanner?.title}
+              />
+            </div>
+            <div className="aspect-w-16 aspect-h-6">
+              <img
+                className="object-cover object-center h-full w-full"
+                src={bottomBanner?.photo?.path}
+                alt={bottomBanner?.title}
+              />
+            </div>
           </div>
-          <div className="w-full h-full  col-span-2 row-span-2 ">
+          <div className="w-full h-full md:col-span-8">
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
               className={"h-full rounded-ee-2xl"}
@@ -268,13 +287,6 @@ const Baner = () => {
                   );
                 })}
             </Swiper>
-          </div>
-          <div className="hidden md:block w-full h-full   ">
-            <img
-              className=" object-cover object-left-bottom h-full w-full rounded-es-2xl "
-              src="/images/img003.jpg"
-              alt=""
-            />
           </div>
         </div>
       </div>

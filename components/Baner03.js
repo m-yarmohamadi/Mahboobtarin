@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import useMainPage from "@/hooks/useMainPage";
 const sliderImg = [
   {
     id: 1,
@@ -31,6 +32,10 @@ const sliderImg = [
 ];
 
 const Baner03 = () => {
+  const { banners, isLoading } = useMainPage();
+  const sliderData =
+    !isLoading && banners.filter((b) => b.position === "slider-posts-bottom");
+
   return (
     <div className="py-16">
       <Swiper
@@ -43,17 +48,18 @@ const Baner03 = () => {
         // pagination={{ clickable: true }}
         scrollbar={false}
       >
-        {sliderImg.map((item, index) => {
-          return (
-            <SwiperSlide key={index}>
-              <div>
-                <div className="w-full relative">
-                  <img
-                    className="h-56 w-full object-cover xs:object-left-bottom md:object-center"
-                    src={item.url}
-                    alt={item.title}
-                  />
-                  <div className=" hidden md:block container w-full">
+        {!isLoading &&
+          sliderData.map((item, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <div>
+                  <div className="w-full relative">
+                    <img
+                      className="h-56 w-full object-cover xs:object-left-bottom md:object-center"
+                      src={item?.photo?.path}
+                      alt={item?.title}
+                    />
+                    {/* <div className=" hidden md:block container w-full">
                     <div className="w-full h-full  absolute top-0 right-0 flex justify-between justify-items-center items-center">
                       <div className="ps-8 md:ps-0 w-full text-white flex flex-col justify-center items-center gap-4">
                         <span className="text-2xl md:text-4xl font-extrabold">
@@ -71,12 +77,12 @@ const Baner03 = () => {
                       </div>
                       <div className="w-full"></div>
                     </div>
+                  </div> */}
                   </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          );
-        })}
+              </SwiperSlide>
+            );
+          })}
       </Swiper>
     </div>
   );
