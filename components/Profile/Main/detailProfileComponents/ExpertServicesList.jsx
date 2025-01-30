@@ -8,12 +8,13 @@ import BookingForm from "../BookingForm";
 import { FaClock } from "react-icons/fa";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import numberWithCommas from "@/utils/numberWithCommas";
+import { MdDescription } from "react-icons/md";
 
 export default function ExpertServicesList({ user }) {
     const [showIdeasDetail, setShowIdeasDetail] = useState(1);
     const { isLoadingServices, servicesData } = useGetServicesProfile(user?.id);
     const [modal, setModal] = useState(0);
-    
+
     if (!isLoadingServices && servicesData && servicesData.length) {
         return (
             <div id="services">
@@ -69,17 +70,10 @@ export default function ExpertServicesList({ user }) {
                                             <div className="ps-2 flex flex-col justify-start items-center gap-2 text-slate-600">
                                                 <div className="w-full flex justify-start items-center gap-1">
                                                     <span>
-                                                        <FaClock />
+                                                        <MdDescription />
                                                     </span>
                                                     <span className="text-xs">
-                                                        پاسخ دهی کمتر از 1 ساعت (حداکثر 10 ساعت){" "}
-                                                    </span>
-                                                </div>
-                                                <div className="w-full flex justify-start items-center gap-1">
-                                                    <span>
-                                                        <FaClockRotateLeft />
-                                                    </span>
-                                                    <span className="text-sm">پایان توافقی گفتگو </span>
+                                                        {item?.description}                                                    </span>
                                                 </div>
                                             </div>
                                         )}

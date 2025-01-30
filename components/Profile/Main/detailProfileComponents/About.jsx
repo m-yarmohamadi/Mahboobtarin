@@ -35,7 +35,7 @@ export default function About({ description }) {
                             ref={textRef}
                             dangerouslySetInnerHTML={{ __html: description }}
                             className={`${!showCompleteBio && "line-clamp-5 "
-                                } text-xs sm:text-sm leading-6 font-medium text-slate-800 text-justify whitespace-pre-wrap`}
+                                } text-xs  leading-6 font-medium text-slate-800 text-justify whitespace-pre-wrap`}
                         >
 
                         </div>
@@ -43,7 +43,7 @@ export default function About({ description }) {
                         <p
                             ref={textRef}
                             className={`${!showCompleteBio && "line-clamp-5 "
-                                } text-xs sm:text-sm leading-6 font-medium text-slate-800 text-justify whitespace-pre-wrap`}
+                                } text-xs  leading-6 font-medium text-slate-800 text-justify whitespace-pre-wrap`}
                         >
                             {!isRichText(description) && description}
                         </p>
