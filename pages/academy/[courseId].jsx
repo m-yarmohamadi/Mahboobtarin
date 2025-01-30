@@ -11,15 +11,15 @@ export default function CoursePage() {
         <>
             <Header />
             <div className="w-full container my-10">
-                <CourseDetails />
                 <div className="pt-8 grid grid-cols-1 md:grid-cols-12 gap-8">
-                    <div className="md:col-span-4 lg:col-span-3 order-1 md:order-2">
+                    <div className="md:col-span-6 flex flex-col gap-6">
+                        <CourseDetails />
                         <CourseTeacher />
-                    </div>
-                    <div className="md:col-span-8 lg:col-span-9 order-2 md:order-1 flex flex-col gap-8">
-                        <CourseDescription />
-                        <CoursesList />
+                        {/* <CourseDescription /> */}
                         <CourseComment />
+                    </div>
+                    <div className="md:col-span-6">
+                        <CoursesList />
                     </div>
                 </div>
             </div>

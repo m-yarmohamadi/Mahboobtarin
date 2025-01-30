@@ -69,7 +69,7 @@ function CreateCommentForm({ onClose }) {
                 </span>
                 <div className="flex items-center gap-3">
                     {Array(5).fill({}).map((item, index) => (
-                        <div onClick={() => formik.setFieldValue("star", index + 1)} key={index} className={`cursor-pointer ${index < formik.values.star ? "text-yellow-500" : "text-slate-400"}`}>
+                        <div onClick={() => formik.setFieldValue("star", index + 1)} key={index} className={`cursor-pointer ${index < formik.values.star ? "text-yellow-500" : "text-slate-300 dark:text-slate-400"}`}>
                             <FaStar />
                         </div>
                     ))}
@@ -87,7 +87,7 @@ function CreateCommentForm({ onClose }) {
                             {formik.errors.text}
                         </span>
                     }
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4 pt-4">
                         <button
                             className=" btn btn--primary"
                             type="submit"

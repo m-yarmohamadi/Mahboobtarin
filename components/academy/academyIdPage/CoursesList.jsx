@@ -5,8 +5,8 @@ export default function CoursesList() {
     const [selectedCourse, setSelectedCourse] = useState("");
 
     return (
-        <div className="bg-white px-3 py-6 lg:p-5 rounded-xl w-full">
-            <div className="text-lg lg:text-xl font-bold text-primary-01">
+        <div className="bg-white px-3 py-6 lg:p-5 rounded-xl w-full shadow-2xl">
+            <div className="text-lg lg:text-xl font-bold text-primary-01 pb-4">
                 جلسات
             </div>
             <div>
