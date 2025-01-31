@@ -23,13 +23,13 @@ export default function Share() {
 
             <div className=" flex justify-start items-center text-3xl gap-4 text-slate-500">
                 <button className={`hover:cursor-pointer`}>
-                    <FaInstagram className="w-6 h-6" />
+                    <FaInstagram className="w-6 h-6 text-primary-02" />
                 </button>
                 <button className={`hover:cursor-pointer`}>
-                    <FaTelegram className="w-6 h-6" />
+                    <FaTelegram className="w-6 h-6 text-primary-02" />
                 </button>
                 <button className={`hover:cursor-pointer`} >
-                    <FaTwitter className="w-6 h-6" />
+                    <FaTwitter className="w-6 h-6 text-primary-02" />
                 </button>
             </div>
 

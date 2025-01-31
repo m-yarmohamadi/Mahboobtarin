@@ -88,21 +88,21 @@ const Footer = () => {
                 target="_blank"
                 className={`hover:cursor-pointer`}
               >
-                <FaInstagram className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                <FaInstagram className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-primary-02" />
               </Link>
               <Link
                 href={data?.telegram || "#"}
                 target="_blank"
                 className={`hover:cursor-pointer`}
               >
-                <FaTelegram className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                <FaTelegram className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-primary-02" />
               </Link>
               <Link
                 href={data?.twitter || "#"}
                 target="_blank"
                 className={`hover:cursor-pointer`}
               >
-                <FaTwitter className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                <FaTwitter className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-primary-02" />
               </Link>
             </div>
 
