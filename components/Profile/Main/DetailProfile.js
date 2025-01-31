@@ -191,7 +191,7 @@ const DetailProfile = ({
           <FollowDetails onChangeStep={setStepFollow} userData={userData} />
         </div>
 
-        <div className="md:hidden pt-6">
+        <div className="md:hidden pt-6 sticky top-10 bg-white z-10">
           <MenuDetails
             userData={userData}
             popularList={popularList}
