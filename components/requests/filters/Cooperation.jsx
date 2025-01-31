@@ -2,8 +2,11 @@ import Select from "@/tools/Select";
 
 const options = [
     { value: "", label: "نوع همکاری" },
-    { value: "تمام وقت", label: "تمام وقت" },
-    { value: "پاره وقت", label: "پاره وقت" },
+    { value: "تمام‌وقت", label: "تمام‌وقت" },
+    { value: "پاره‌وقت", label: "پاره‌وقت" },
+    { value: "پروژه‌ای", label: "پروژه‌ای" },
+    { value: "کارآموزی", label: "کارآموزی" },
+    { value: "دورکاری", label: "دورکاری" },
 ]
 
 export default function Cooperation({ filter, setFilter }) {

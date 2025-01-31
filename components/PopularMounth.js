@@ -32,9 +32,9 @@ const PopularMounth = () => {
 
   return (
     <div className="w-full container mx-auto pt-12 ">
-      <div className="w-full text-textDefault px-2 py-4 flex  justify-center items-center justify-items-center font-extrabold text-2xl">
+      {/* <div className="w-full text-textDefault px-2 py-4 flex  justify-center items-center justify-items-center font-extrabold text-2xl">
         محبوب‌ترین‌های ماه
-      </div>
+      </div> */}
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
         // navigation={{

@@ -24,11 +24,11 @@ const genderOptions = [
 
 const hamkariOptions = [
     { value: "", label: "یک گزینه را انتخاب کنید" },
-    { value: "تمام وقت", label: "تمام وقت" },
-    { value: "پاره وقت", label: "پاره وقت" },
-    { value: "پیمان کاری / پروژه ای", label: "پیمان کاری / پروژه ای" },
+    { value: "تمام‌وقت", label: "تمام‌وقت" },
+    { value: "پاره‌وقت", label: "پاره‌وقت" },
+    { value: "پروژه‌ای", label: "پروژه‌ای" },
     { value: "کارآموزی", label: "کارآموزی" },
-    { value: "سایر", label: "سایر" },
+    { value: "دورکاری", label: "دورکاری" },
 ]
 
 const salaryOptions = [
