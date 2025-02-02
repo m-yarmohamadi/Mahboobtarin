@@ -3,8 +3,20 @@ import {
   getAcademyBestSell,
   getAcademyCategoryApi,
   getAllAcademyApi,
+  getAllOrOneAcademy,
 } from "@/services/academyService";
 import { useQuery } from "@tanstack/react-query";
+
+export function useAllOrOneAcademy(id) {  
+  const { data: academyData, isLoading } = useQuery({
+    queryKey: id ? ["all-or-one-academy", id] : ["all-or-one-academy"],
+    queryFn: () => getAllOrOneAcademy(id),
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+  return { academyData, isLoading };
+}
 
 export function useGetAcademyCategory() {
   const { data, isLoading: isGetCategory } = useQuery({

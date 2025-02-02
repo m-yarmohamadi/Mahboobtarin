@@ -5,6 +5,8 @@ import Link from "next/link";
 import { FaLocationDot, FaMoneyBillWave, FaRegClock } from "react-icons/fa6";
 import { useGetCity, useGetProvinces } from "@/hooks/useCity";
 import { FaHandsHelping } from "react-icons/fa";
+import RequestRegisterForm from "@/components/requests/requestSinglePage/RequestRegisterForm";
+import { useState } from "react";
 
 export default function IncomingCalling() {
     const { requests, isGetRequests } = useGetRequests();
@@ -27,6 +29,7 @@ export function IncomingCallingItem({ data, isPublic = false }) {
     const { provinces, isLoading } = useGetProvinces();
     const { transformCity, isLoading: isGetCity } = useGetCity(data.province);
     const { mutateRegisterReqeust, isPending } = useRegisterRequest();
+    const [open, setOpen] = useState(false);
 
     const provinceLabel = !isLoading && provinces.filter((c) => Number(c.id) === Number(data.province))[0]?.name;
     const cityLabel = !isGetCity && transformCity.filter((c) => Number(c.id) === Number(data.city))[0]?.label;
@@ -82,9 +85,12 @@ export function IncomingCallingItem({ data, isPublic = false }) {
                             وضعیت : {data?.status === "1" ? "فعال" : "غیرفعال"}
                         </div>
                         {!isPublic &&
-                            <button onClick={() => registerRequestHandler(data.id)} className="btn btn--primary !text-xs !p-1">
-                                تایید فراخوان
-                            </button>
+                            <>
+                                <button onClick={() => setOpen(true)} className="btn btn--primary !text-xs !p-1">
+                                    تایید فراخوان
+                                </button>
+                                <RequestRegisterForm id={data.id} open={open} onClose={() => setOpen(false)} />
+                            </>
                         }
                     </div>
                 </div>

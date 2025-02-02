@@ -45,17 +45,13 @@ export function deleteRequest(id) {
   );
 }
 
-export function registerRequestApi(id) {
+export function registerRequestApi(data) {
   return http
-    .post(
-      "/api/v1/dashboard/requests/register",
-      { id },
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-      }
-    )
+    .post("/api/v1/dashboard/requests/register", data, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    })
     .then(({ data }) => data);
 }
 

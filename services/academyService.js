@@ -1,6 +1,13 @@
 import http from "./httpService";
 import Cookies from "js-cookie";
 
+export function getAllOrOneAcademy(id) {
+  return http
+    .get(`/api/v1/page/academy${id ? `/${id}` : ""}`)
+    .then(({ data }) => data);
+}
+
+// *--------- dashboard ---------*
 export function addNewAcademy(data) {
   return http.post("/api/v1/dashboard/academy/store", data, {
     headers: {

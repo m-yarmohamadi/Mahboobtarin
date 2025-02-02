@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 
-export default function Categories() {
+export default function Categories({ categories }) {
     return (
         <div className='w-full p-6 bg-slate-200'>
             <div className="md:mx-auto md:container p-6 mt-6">
@@ -25,15 +25,15 @@ export default function Categories() {
                         }}
                         className='course-categories-swiper'
                     >
-                        {Array(16).fill({ img: "/images/hopaLogo.png", title: "نشر هوپا" }).map((item, index) => {
+                        {categories?.map((item, index) => {
                             return (
                                 <SwiperSlide key={index} className="!w-auto !h-auto ml-8">
                                     <div className='flex items-center flex-col justify-center gap-4'>
                                         <div className='w-32 h-32 rounded-full flex items-center justify-center p-6 bg-white'>
-                                            <img src={item.img} alt="" className='w-full' />
+                                            <img src={item.pic} alt={item.name} className='w-full' />
                                         </div>
                                         <div className='text-sm font-medium text-slate-900'>
-                                            {item.title}
+                                            {item.name}
                                         </div>
                                     </div>
                                 </SwiperSlide>

@@ -34,7 +34,7 @@ const placeItems = [
     { value: "آفلاین", label: "آفلاین" },
 ]
 
-export default function CourseFields({ formik, loading }) {
+export default function CourseFields({ formik, loading, btnTxt }) {
     const { categories, isGetCategory } = useGetAcademyCategory();
 
     return (
@@ -109,7 +109,7 @@ export default function CourseFields({ formik, loading }) {
             <div className="w-full border-t border-t-slate-300 pt-4">
                 <div className="w-1/2 gap-3 grid grid-cols-2 ">
                     <button type="submit" className="btn btn--primary">
-                        {loading ? <Loading /> : "ثبت"}
+                        {loading ? <Loading /> : btnTxt}
                     </button>
                     <button className="btn btn--secondary">
                         لغو
@@ -157,7 +157,7 @@ function CoverImage({ formik }) {
                 <div className="aspect-w-16 aspect-h-10">
                     {
                         formik.values.files.length ?
-                            <img src={URL.createObjectURL(formik.values.files[0].file)} alt="" className="w-full h-full object-cover object-center" />
+                            <img src={formik.values.files[0]?.isEdit ? formik.values.files[0]?.file : URL.createObjectURL(formik.values.files[0].file)} alt="" className="w-full h-full object-cover object-center" />
                             :
                             <div className="w-full p-6 cursor-pointer flex flex-col items-center justify-center gap-4">
                                 <FaImage className="w-8 h-8 text-primary-01 " />
@@ -215,7 +215,7 @@ function Lessons({ formik }) {
                                             controls
                                             className='w-full h-full object-cover object-center rounded-xl'>
                                             <source
-                                                src={URL.createObjectURL(item.file)}
+                                                src={item?.isEdit ? item.file : URL.createObjectURL(item.file)}
                                                 type='video/mp4'
                                             />
                                         </video>

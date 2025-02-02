@@ -71,7 +71,7 @@ export default function SettingsOptions() {
                         return 'پیامک';
                     case 'email':
                         return 'ایمیل';
-                    case 'notif':
+                    case 'notification':
                         return 'نوتیفیکیشن';
                     default:
                         return '';
@@ -112,6 +112,7 @@ export default function SettingsOptions() {
                 formik={formik}
             />
             <MultiSelect
+                key={formik.values.notification_type.length}
                 label={'نوع اطلاع رسانی'}
                 options={notifications}
                 placeholder={'بدون اطلاع رسانی'}

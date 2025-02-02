@@ -5,25 +5,13 @@ import 'swiper/css';
 import CourseCard from "./CourseCard";
 import { useGetAcademyBestPrice } from "@/hooks/useAcademy";
 
-export default function Populars() {
-    const { academyList, isLoading } = useGetAcademyBestPrice();
-
-    const course = {
-        img: "/images/img01.jpg",
-        title: "نام دوره",
-        teacher: "نام استاد",
-        numOfStudents: "35",
-        teacherPic: "/images/AliArdam.jpg",
-        price: "312000"
-    }
-
-    if (isLoading) return null;
+export default function Populars({ data }) {
 
     return (
         <div className="md:mx-auto md:container p-4 my-8 bg-white rounded-lg">
             <div className="w-full flex flex-col sm:flex-row gap-6 items-center justify-between mb-6">
                 <h3 className="text-2xl text-slate-800 font-semibold">
-                محبوب‌ترین‌ها
+                    محبوب‌ترین‌ها
                 </h3>
                 <button className='text-primary-01 btn gap-1 !text-sm !py-2'>
                     مشاهده همه
@@ -39,7 +27,7 @@ export default function Populars() {
                 }}
                 className="populars-course-slider"
             >
-                {academyList?.map((item, index) => {
+                {data?.map((item, index) => {
                     return (
                         <SwiperSlide key={index} className="!w-[250px] ml-4">
                             <CourseCard course={item} />

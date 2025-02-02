@@ -3,19 +3,15 @@ import moment from "moment";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FiShare2 } from "react-icons/fi";
 import 'moment/locale/fa';
-import { useRegisterRequest } from "@/hooks/expertHooks/useCalling";
+import { useState } from "react";
+import RequestRegisterForm from "./RequestRegisterForm";
 
 export default function ReqeustOptions({ request }) {
+    const [open, setOpen] = useState(false);
     const { created_at, province, id: requestId } = request;
-    const { mutateRegisterReqeust, isPending } = useRegisterRequest();
     const { provinces, isLoading } = useGetProvinces();
     const provinceLabel = !isLoading && provinces.filter((p) => Number(p.id) === Number(province))[0]?.name;
     moment.locale("fa");
-
-    const registerRequestHandler = () => {
-        mutateRegisterReqeust(requestId);
-    }
-
 
     return (
         <div className="w-full flex items-center justify-between lg:flex-col gap-4 lg:gap-7">
@@ -31,10 +27,11 @@ export default function ReqeustOptions({ request }) {
                 </button>
             </div>
             <div className="lg:w-full">
-                <button onClick={registerRequestHandler} className="btn btn--primary w-full">
+                <button onClick={() => setOpen(true)} className="btn btn--primary w-full">
                     تایید فراخوان
                 </button>
             </div>
+            <RequestRegisterForm id={requestId} open={open} onClose={() => setOpen(false)} />
         </div>
     )
 }

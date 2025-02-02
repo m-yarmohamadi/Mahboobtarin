@@ -4,15 +4,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import CourseCard from "./CourseCard";
 
-export default function Suggestion() {
-    const course = {
-        img: "/images/img01.jpg",
-        title: "نام دوره",
-        teacher: "نام استاد",
-        numOfStudents: "35",
-        teacherPic: "/images/AliArdam.jpg",
-        price: "312000"
-    }
+export default function Suggestion({ data }) {
+    
     return (
         <div className="md:mx-auto md:container p-4 my-8 bg-white rounded-lg">
             <div className="w-full flex flex-col sm:flex-row gap-6 items-center justify-between mb-6">
@@ -33,7 +26,7 @@ export default function Suggestion() {
                 }}
                 className="suggestion-course-slider"
             >
-                {Array(10).fill(course).map((item, index) => {
+                {data?.map((item, index) => {
                     return (
                         <SwiperSlide key={index} className="!w-[250px] ml-4">
                             <CourseCard course={item} />

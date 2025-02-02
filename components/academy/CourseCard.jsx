@@ -44,7 +44,7 @@ export default function CourseCard({ course, isDelete = false }) {
                 </div>
             }
 
-            <Link href={`/academy/${course?.slug}`} className="block  border border-slate-300 dark:border-slate-400 p-2 rounded-lg">
+            <Link href={`/academy/${course?.id}`} className="block  border border-slate-300 dark:border-slate-400 p-2 rounded-lg">
                 <div className="mb-2">
                     <div className="aspect-w-16 aspect-h-10">
                         {course?.photos &&
@@ -69,7 +69,7 @@ export default function CourseCard({ course, isDelete = false }) {
 
                 <div className="mt-3 flex items-center justify-between">
                     <div className="text-sm text-slate-800 font-bold flex items-center gap-1">
-                        {course?.numOfStudents || 0}
+                        {course?.student_count || 0}
                         <span className="text-slate-500 dark:text-slate-700 font-normal">
                             دانشجو
                         </span>

@@ -5,7 +5,6 @@ import { toPersianDateLong } from "@/utils/toPersianDate";
 
 export default function notification() {
     const { notifications, isLoading } = useGetAllNotifs();
-    console.log(notifications);
 
     return (
         <ExpertDashboard>
@@ -19,10 +18,10 @@ export default function notification() {
                         </h1>
                     </div>
 
-                    <div>
+                    <div className="space-y-4">
                         {notifications?.map((item, index) => (
                             <div key={index} className="w-full p-4 border border-slate-300 dark:border-slate-400 rounded-xl">
-                                <div className="flex items-start justify-between gap-2 pb-6">
+                                <div className="flex items-start justify-between gap-2 pb-5">
                                     <span className="text-slate-900 font-semibold">
                                         {item.title}
                                     </span>

@@ -1,10 +1,11 @@
+import discountCalculator from "@/utils/discountCalculator";
 import numberWithCommas from "@/utils/numberWithCommas";
 import Link from "next/link";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { RxTimer } from "react-icons/rx";
 import { TiClipboard } from "react-icons/ti";
 
-export default function CourseDetails() {
+export default function CourseDetails({ course }) {
     return (
         <div className="w-full flex flex-col gap-6">
             <div>
@@ -23,14 +24,14 @@ export default function CourseDetails() {
             <div>
                 <div>
                     <h1 className="mb-2 text-lg lg:text-xl font-bold text-slate-800">
-                        لورم ایپسوم متن ساختگی با تولید سادگی
+                        {course?.title}
                     </h1>
                     <p className="text-sm text-slate-500 leading-7 lg:leading-8">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                        {course?.description}
                     </p>
                 </div>
                 {/* <Details /> */}
-                <CoursePrice />
+                <CoursePrice price={course?.price} discount_price={course?.discount_price} />
                 {/* <Details2 /> */}
             </div>
         </div>
@@ -81,36 +82,40 @@ function Details2() {
     )
 }
 
-function CoursePrice() {
+function CoursePrice({ price, discount_price = 0 }) {
     return (
         <div className="w-full grid grid-cols-5 lg:grid-cols-12 gap-2 mt-6">
-            <div className="col-span-3 p-1.5 border border-error rounded">
-                <div className="w-full h-20 flex flex-col items-center justify-center">
-                    <span className="text-xs text-slate-900">
-                        قیمت اصلی
-                    </span>
-                    <del className="text-2xl font-bold text-error !leading-9 inline-block">
-                        {numberWithCommas(1680000)}
-                    </del>
-                    <span className="text-xs text-slate-900">
-                        تومــــــان
-                    </span>
+            {discount_price &&
+                <div className="col-span-3 p-1.5 border border-error rounded">
+                    <div className="w-full h-20 flex flex-col items-center justify-center">
+                        <span className="text-xs text-slate-900">
+                            قیمت اصلی
+                        </span>
+                        <del className="text-2xl font-bold text-error !leading-9 inline-block">
+                            {numberWithCommas(price)}
+                        </del>
+                        <span className="text-xs text-slate-900">
+                            تومــــــان
+                        </span>
+                    </div>
                 </div>
-            </div>
+            }
 
-            <div className="col-span-2 p-1.5 border border-error rounded">
-                <div className="w-full h-20 flex flex-col items-center justify-center">
-                    <span className="text-xs text-slate-900">
-                        تخفیف دوره
-                    </span>
-                    <span className="text-2xl font-bold text-error !leading-9 inline-block">
-                        30
-                    </span>
-                    <span className="text-xs text-slate-900">
-                        درصــــــد
-                    </span>
+            {discount_price &&
+                <div className="col-span-2 p-1.5 border border-error rounded">
+                    <div className="w-full h-20 flex flex-col items-center justify-center">
+                        <span className="text-xs text-slate-900">
+                            تخفیف دوره
+                        </span>
+                        <span className="text-2xl font-bold text-error !leading-9 inline-block">
+                            {discount_price}
+                        </span>
+                        <span className="text-xs text-slate-900">
+                            درصــــــد
+                        </span>
+                    </div>
                 </div>
-            </div>
+            }
 
             <div className="col-span-full lg:col-span-4 p-1.5 border border-green-600 rounded">
                 <div className="w-full h-20 flex flex-col items-center justify-center">
@@ -118,7 +123,7 @@ function CoursePrice() {
                         مبلغ قابل پرداخت
                     </span>
                     <span className="text-2xl font-bold text-green-600 !leading-9 inline-block">
-                        {numberWithCommas(50000)}
+                        {numberWithCommas(discount_price ? discountCalculator(price, discount_price) : price)}
                     </span>
                     <span className="text-xs text-slate-900">
                         تومــــــان

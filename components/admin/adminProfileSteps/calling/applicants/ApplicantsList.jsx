@@ -51,6 +51,7 @@ export default function ApplicantsList({ list }) {
                                     key={index}
                                     applicant={item?.user}
                                     createdAt={item.created_at}
+                                    show_mobile={item.show_mobile}
                                     id={item.id}
                                     isNew={item.created_at === item.updated_at}
                                 />

@@ -50,3 +50,13 @@ export function changeStatusShopOrdersApi(data) {
     })
     .then(({ data }) => data);
 }
+
+export function sendMessageOrderApi(data) {
+  return http
+    .post("/api/v1/dashboard/order/service/send-message", data, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    })
+    .then(({ data }) => data);
+}

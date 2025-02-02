@@ -5,18 +5,7 @@ import 'swiper/css';
 import CourseCard from "./CourseCard";
 import { useGetAcademyBestSell } from "@/hooks/useAcademy";
 
-export default function Newest() {
-    const { academyList, isLoading } = useGetAcademyBestSell();
-    const course = {
-        img: "/images/img01.jpg",
-        title: "نام دوره",
-        teacher: "نام استاد",
-        numOfStudents: "35",
-        teacherPic: "/images/AliArdam.jpg",
-        price: "312000"
-    }
-
-    if (isLoading) return null;
+export default function Newest({data}) {
 
     return (
         <div className="md:mx-auto md:container p-4 my-8 bg-white rounded-lg">
@@ -38,7 +27,7 @@ export default function Newest() {
                 }}
                 className="newest-course-slider"
             >
-                {academyList?.map((item, index) => {
+                {data?.map((item, index) => {
                     return (
                         <SwiperSlide key={index} className="!w-[250px] ml-4">
                             <CourseCard course={item} />

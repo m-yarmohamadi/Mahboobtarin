@@ -1,7 +1,7 @@
 import Accordion from "@/tools/Accordion"
 import { useState } from "react"
 
-export default function CoursesList() {
+export default function CoursesList({ courses }) {
     const [selectedCourse, setSelectedCourse] = useState("");
 
     return (
@@ -11,11 +11,19 @@ export default function CoursesList() {
             </div>
             <div>
                 <ul>
-                    {Array(7).fill({}).map((item, index) => (
+                    {courses.map((item, index) => (
                         <li key={index}>
-                            <Accordion title={`قسمت ${index + 1}`} selected={selectedCourse === index} setSelected={() => setSelectedCourse(selectedCourse === index ? -1 : index)}>
+                            <Accordion title={item.title} selected={selectedCourse === index} setSelected={() => setSelectedCourse(selectedCourse === index ? -1 : index)}>
                                 <div className="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
-                                    <img src="/images/AliArdam.jpg" alt="" className="w-full h-full object-cover object-center" />
+                                    {/* <img src="/images/AliArdam.jpg" alt="" className="w-full h-full object-cover object-center" /> */}
+                                    <video
+                                        controls
+                                        className='w-full h-full object-cover object-center'>
+                                        <source
+                                            src={item?.path}
+                                            type='video/mp4'
+                                        />
+                                    </video>
                                 </div>
                             </Accordion>
                         </li>

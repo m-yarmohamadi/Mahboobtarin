@@ -9,10 +9,11 @@ import Modal from "@/components/Modal";
 import ChangeStatusForm from "./ChangeStatusForm";
 import { useChangeRequestStatus } from "@/hooks/expertHooks/useRequestsClient";
 import RequestDetailsForm from "./RequestDetailsForm";
+import RequestSendMessageForm from "./RequestSendMessageForm";
 
 
 export default function RequestsUsersItem({ status, data, provinces }) {
-    const [open, setOpen] = useState(false);
+    const [openMsg, setOpenMsg] = useState(false);
     const [openDetails, setOpenDetails] = useState(false);
     const getProvinceLabel = provinces.filter((p) => p.value === Number(data.user?.province_id))[0]?.label;
     const { changeStatusRequest, isPending } = useChangeRequestStatus();
@@ -46,17 +47,20 @@ export default function RequestsUsersItem({ status, data, provinces }) {
                             {data.user.name} {data.user.lastname}
                         </span>
                         <span className="text-xs text-slate-600">
-                            {data.user.gender === "man" ? "مرد" : "زن"} | {calculateAge(data?.user?.birthday) }ساله | {getProvinceLabel}
+                            {data.user.gender === "man" ? "مرد" : "زن"} | {calculateAge(data?.user?.birthday)}ساله | {getProvinceLabel}
                         </span>
                     </div>
                 </div>
                 <OrderItemDetails service={data.service[0]} turnData={data.json_data} />
 
                 <div className="flex md:flex-col items-center md:items-start md:justify-center gap-5 md:gap-2">
-                    <button className="flex items-center gap-1 text-sm font-medium text-primary-01">
+                    <button onClick={() => setOpenMsg(true)} className="flex items-center gap-1 text-sm font-medium text-primary-01">
                         <MdOutlineChat className="w-5 h-5" />
                         ارسال پیام
                     </button>
+                    <Modal title={'ارسال پیام'} open={openMsg} onClose={() => setOpenMsg(false)}>
+                        <RequestSendMessageForm onClose={() => setOpenMsg(false)} order_id={data.order_id}/>
+                    </Modal>
                     {status !== "5" && status !== "1" &&
                         <button onClick={() => changeStatusHandler(2)} className="flex items-center gap-1 text-sm font-medium text-error">
                             <FaRegTrashAlt className="w-4 h-4" />

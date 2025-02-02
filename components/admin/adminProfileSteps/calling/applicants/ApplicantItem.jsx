@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa6";
 import { FiUserCheck } from "react-icons/fi";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdOutlineChat } from "react-icons/md";
 
-export default function ApplicantItem({ applicant, createdAt, id, isNew }) {
+export default function ApplicantItem({ applicant, createdAt, id, isNew, show_mobile }) {
     const {
         name,
         lastname,
@@ -19,7 +19,7 @@ export default function ApplicantItem({ applicant, createdAt, id, isNew }) {
         followers,
         honors_description,
         usergrade,
-        userlanguage
+        userlanguage,
     } = applicant;
     const age = calculateAge(birthday);
 
@@ -58,10 +58,16 @@ export default function ApplicantItem({ applicant, createdAt, id, isNew }) {
                             <span className="text-sm text-slate-800">
                                 @{unique_url_id}
                             </span>
-                            <div className="text-sm font-medium text-slate-800">
+                            <div className="text-sm font-medium text-slate-800 flex items-center gap-1">
                                 {expertises.map((item, index) => (
-                                    <span key={index}>{item.subject}،</span>
+                                    <div key={index} className="group">
+                                        {item.subject}
+                                        <span className="group-last:hidden">،</span>
+                                    </div>
                                 ))}
+                            </div>
+                            <div className="text-sm text-slate-900">
+                                {show_mobile && show_mobile === "1" ? "09365456309" : "شماره پنهان شده"}
                             </div>
                         </div>
 
@@ -139,11 +145,15 @@ export default function ApplicantItem({ applicant, createdAt, id, isNew }) {
                 </div>
             </div>
 
-            <div className="w-full grid grid-cols-4 gap-4 lg:col-span-2 lg:grid-cols-1">
+            <div className="w-full grid auto-cols-fr grid-flow-col lg:grid-flow-row gap-4 lg:col-span-2 lg:grid-cols-1">
                 <Buttons type="default" handler={() => router.push(`/${unique_url_id}`)} isNew={isNew} />
                 <Buttons type="info" handler={() => changeRegisterStatusHandler(1)} isNew={isNew} />
                 <Buttons type="danger" handler={() => changeRegisterStatusHandler(2)} isNew={isNew} />
                 <Buttons type="success" handler={() => changeRegisterStatusHandler(3)} isNew={isNew} />
+                {
+                    show_mobile === "0" &&
+                    <Buttons type="msg" handler={() => router.push(`/${unique_url_id}`)} isNew={isNew} />
+                }
             </div>
         </div>
     )
@@ -174,6 +184,12 @@ function Buttons({ type, handler = () => { }, isNew }) {
             classNames: "bg-fuchsia-600/20 text-fuchsia-600",
             icon: <AiOutlineUser className="w-5 h-5" />,
             text: "پروفایل",
+            handler
+        },
+        "msg": {
+            classNames: "bg-blue-600/20 text-blue-600",
+            icon: <MdOutlineChat className="w-5 h-5" />,
+            text: "ارسال پیام",
             handler
         },
     };

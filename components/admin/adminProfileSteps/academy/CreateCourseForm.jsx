@@ -6,21 +6,6 @@ import { useRouter } from "next/navigation";
 import { addNewAcademy } from "@/services/academyService";
 import { useMutation } from "@tanstack/react-query";
 
-const initialValues = {
-    title: "",
-    expiredate: "",
-    status: "",
-    price: "",
-    anbar: "",
-    discount_price: "",
-    description: "",
-    photo_id: [],
-    video_id: [],
-    categories: [],
-    files: [],
-    videos: [],
-    place_online: "",
-};
 const validationSchema = Yup.object({
     title: Yup.string().required("عنوان را وارد کنید"),
     expiredate: Yup.string().required("مهلت ثبت‌نام را تعیین کنید"),
@@ -39,7 +24,34 @@ const validationSchema = Yup.object({
     }),
 })
 
-export default function CreateCourseForm() {
+export default function CreateCourseForm({ editData }) {
+    const photoId = editData && editData.photos.map((item) => (item.id));
+    const photoFiles = editData && editData.photos.map((item) => ({ id: item.id, file: item.path, isEdit: true }));
+    const videoId = editData && editData.videos.map((item) => (item.id));
+    const videos = editData && editData.videos.map((item) => ({
+        id: item.id,
+        title: item.title,
+        video_type: item.type,
+        free_price: item.free_price,
+        file: item.path,
+        isEdit: true
+    }));
+
+    const initialValues = {
+        title: editData?.title || "",
+        expiredate: editData?.expiredate || "",
+        status: editData?.status || "",
+        price: editData?.price || "",
+        anbar: editData?.anbar || "",
+        discount_price: editData?.discount_price || "",
+        description: editData?.description || "",
+        photo_id: photoId || [],
+        video_id: videoId || [],
+        categories: [],
+        files: photoFiles || [],
+        videos: videos || [],
+        place_online: editData?.place_online || "",
+    };
 
     const { mutateAsync, isPending } = useMutation({ mutationFn: addNewAcademy });
     const router = useRouter();
@@ -69,10 +81,18 @@ export default function CreateCourseForm() {
             formData.append(key, productData[key]);
         }
 
+        if (editData) {
+            formData.append("id", editData.id);
+        }
+
         try {
             const { data } = await mutateAsync(formData);
             if (data) {
-                toast.success("دوره آموزشی با موفقیت ثبت شد");
+                if (editData) {
+                    toast.success("دوره آموزشی با موفقیت ویرایش شد");
+                } else {
+                    toast.success("دوره آموزشی با موفقیت ثبت شد");
+                }
                 router.replace("/admin/academy");
             }
 
@@ -112,14 +132,14 @@ export default function CreateCourseForm() {
         <div>
             <div className="flex flex-col gap-1 items-center border-b border-slate-300 pb-4 mb-5">
                 <h1 className="font-semibold text-slate-800">
-                    افزودن دوره جدید
+                    {editData ? "ویرایش دوره" : "افزودن دوره جدید"}
                 </h1>
                 <p className="text-sm text-slate-500">
                     اطلاعات دوره آموزشی را وارد کنید
                 </p>
             </div>
 
-            <CourseFields formik={formik} loading={isPending} />
+            <CourseFields formik={formik} loading={isPending} btnTxt={editData ? "ویرایش" : "ثبت"} />
         </div>
     )
 }
