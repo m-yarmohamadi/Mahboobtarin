@@ -114,13 +114,27 @@ const Footer = () => {
                   alt=""
                 />
               </div>
+              <a
+                referrerpolicy='origin'
+                target='_blank'
+                href='https://trustseal.enamad.ir/?id=575774&amp;Code=hLCzTHtgNHogPXmSf2V05Utt0rLEAXNp'>
+                <img
+                  referrerpolicy='origin'
+                  src='/images/eNamad.png'
+                  alt='نماد الکترونیک'
+                  className='h-16'
+                  code='hLCzTHtgNHogPXmSf2V05Utt0rLEAXNp' />
+
+              </a>
+
+              {/* <Link href={'https://trustseal.enamad.ir/?id=575774&Code=hLCzTHtgNHogPXmSf2V05Utt0rLEAXNp'}>
               <div className="w-16 p-3 ">
                 <img
                   className=" w-full hover:grayscale"
                   src="/images/eNamad.png"
                   alt=""
                 />
-              </div>
+              </div></Link> */}
               <div className="w-16 p-3 ">
                 <img
                   className=" w-full hover:grayscale"

@@ -139,7 +139,7 @@ export default function ApplicantItem({ applicant, createdAt, id, isNew }) {
                 </div>
             </div>
 
-            <div className="w-full grid grid-cols-4 gap-2 lg:col-span-2 lg:grid-cols-1">
+            <div className="w-full grid grid-cols-5 gap-2 lg:col-span-2 lg:grid-cols-1">
                 <Buttons type="default" handler={() => router.push(`/${unique_url_id}`)} isNew={isNew} />
                 <Buttons type="info" handler={() => changeRegisterStatusHandler(1)} isNew={isNew} />
                 <Buttons type="danger" handler={() => changeRegisterStatusHandler(2)} isNew={isNew} />
