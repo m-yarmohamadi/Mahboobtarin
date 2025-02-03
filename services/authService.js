@@ -9,6 +9,12 @@ export function register(data) {
   return http.post("/api/v1/register", data);
 }
 
+export function uploadDocumentsApi(data) {
+  return http
+    .post("/api/v1/upload-user-documents", data)
+    .then(({ data }) => data);
+}
+
 export function getProfile() {
   return http.get("/api/v1/user", {
     headers: {

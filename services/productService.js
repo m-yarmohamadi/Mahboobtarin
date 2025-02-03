@@ -22,7 +22,7 @@ export function getProductsBestSell() {
 }
 
 export function getShopPage() {
-  return http.get(`/api/v1/shop`).then(({ data }) => data);
+  return http.get(`/api/v1/page/shop`).then(({ data }) => data);
 }
 
 // * expert dashboard *************

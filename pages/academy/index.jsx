@@ -72,7 +72,7 @@ export default function AcademyPage() {
                         <img src="/images/liraglotide.webp" alt="" className="w-full h-full object-cover" />
                     </div> */}
                 </div>
-                <div className="w-full h-[250px] rounded-lg overflow-hidden mt-6">
+                <div className="w-full h-auto rounded-lg overflow-hidden mt-6">
                     <img
                         src={banners["academy-top-footer"]?.photo?.path}
                         alt={banners["academy-top-footer"]?.title}

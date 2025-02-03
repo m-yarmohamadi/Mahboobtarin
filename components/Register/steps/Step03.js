@@ -14,14 +14,14 @@ import InputFileform from "@/tools/InputFileForm";
 import toast from "react-hot-toast";
 import useMainPage from "@/hooks/useMainPage";
 import PictureEditor from "@/components/PictureEditor";
+import DocsExpertUploader from "./DocsExpertUploader";
 
-const Step03 = ({ formik, children, error }) => {
+const Step03 = ({ formik, children, error, userId }) => {
   const [openExpertiseModal, setOpenExpertiseModal] = useState(false);
   const [openGradeModal, setOpenGradeModal] = useState(false);
   const [openLanguageModal, setOpenLanguageModal] = useState(false);
   const { transformCategories, isLoading: isGetCategories } = useMainPage();
   const [profileImg, setProfileImg] = useState(null);
-  console.log(formik.values.expertise);
 
   return (
     <div className="w-full h-full flex flex-col justify-between">
@@ -248,6 +248,8 @@ const Step03 = ({ formik, children, error }) => {
               onCrop={(e) => formik.setFieldValue("picture", e)}
             />
           </div>
+
+          <DocsExpertUploader formikStep3={formik} userId={userId}/>
         </div>
         <div>{children}</div>
       </form>

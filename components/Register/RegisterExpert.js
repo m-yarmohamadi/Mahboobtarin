@@ -63,9 +63,7 @@ const validationSchemaStep1 = Yup.object({
         return false;
       return true;
     }),
-  email: Yup.string()
-    .required("وارد کردن ایمیل اجباری است")
-    .email("لطفاً یک ایمیل معتبر وارد کنید"),
+  email: Yup.string().email("لطفاً یک ایمیل معتبر وارد کنید"),
   unique_url_id: Yup.string()
     .required("وارد کردن نام کاربری اجباری است")
     .min(6, "حداقل 6 کارکتر وارد کنید")
@@ -254,9 +252,13 @@ const RegisterExpert = ({
     password: "",
     confirmPassword: "",
     picture: "",
+    documents_id: [],
+    documents: [],
   };
 
   const submitHandlerStep3 = (values) => {
+    const transformDocumentsId = values.documents_id.join(",");
+
     const step03Data = {
       expertise: values.expertise,
       grade: values.grade,
@@ -264,6 +266,7 @@ const RegisterExpert = ({
       password: values.password,
       confirmPassword: values.confirmPassword,
       avatar: values.picture,
+      documents_id: transformDocumentsId,
       type: "expert",
       step: 3,
       national_code: nationalCode || formikStep1.values.national_code,
@@ -426,7 +429,11 @@ const RegisterExpert = ({
                 </Step02>
               )}
               {step === 3 && (
-                <Step03 formik={formikStep3} error={errorStep3}>
+                <Step03
+                  formik={formikStep3}
+                  error={errorStep3}
+                  userId={userData.id}
+                >
                   <NextPrev prevStep={prevStep} loading={isPending} step={3} />
                 </Step03>
               )}
