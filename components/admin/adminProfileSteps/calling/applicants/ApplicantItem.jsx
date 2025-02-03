@@ -150,10 +150,7 @@ export default function ApplicantItem({ applicant, createdAt, id, isNew, show_mo
                 <Buttons type="info" handler={() => changeRegisterStatusHandler(1)} isNew={isNew} />
                 <Buttons type="danger" handler={() => changeRegisterStatusHandler(2)} isNew={isNew} />
                 <Buttons type="success" handler={() => changeRegisterStatusHandler(3)} isNew={isNew} />
-                {
-                    show_mobile === "0" &&
-                    <Buttons type="msg" isNew={isNew} />
-                }
+                <Buttons type="msg" isNew={isNew} />
             </div>
         </div>
     )
