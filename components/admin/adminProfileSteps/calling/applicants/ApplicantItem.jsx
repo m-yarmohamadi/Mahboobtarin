@@ -20,9 +20,10 @@ export default function ApplicantItem({ applicant, createdAt, id, isNew, show_mo
         honors_description,
         usergrade,
         userlanguage,
+        mobile
     } = applicant;
     const age = calculateAge(birthday);
-
+    
     const router = useRouter();
     const { mutateChangeRegisterStatus, isPending } = useChangeRegisterStatus();
 
@@ -67,7 +68,7 @@ export default function ApplicantItem({ applicant, createdAt, id, isNew, show_mo
                                 ))}
                             </div>
                             <div className="text-sm text-slate-900">
-                                {show_mobile && show_mobile === "1" ? "091200000000" : "شماره پنهان شده"}
+                                {show_mobile && show_mobile === "1" ? mobile : "شماره پنهان شده"}
                             </div>
                         </div>
 

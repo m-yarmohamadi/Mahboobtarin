@@ -12,6 +12,9 @@ export default function RequestRegisterForm({ open, onClose, id }) {
         mutateRegisterReqeust({ id, show_mobile: showMobile }, {
             onSuccess: () => {
                 onClose();
+            },
+            onError:()=>{
+                onClose();
             }
         });
     }

@@ -25,6 +25,7 @@ const validationSchema = Yup.object({
 })
 
 export default function CreateCourseForm({ editData }) {
+    const editCategories = editData && editData.categories.map((item) => ({ value: item.id, label: item.name }));
     const photoId = editData && editData.photos.map((item) => (item.id));
     const photoFiles = editData && editData.photos.map((item) => ({ id: item.id, file: item.path, isEdit: true }));
     const videoId = editData && editData.videos.map((item) => (item.id));
@@ -47,7 +48,7 @@ export default function CreateCourseForm({ editData }) {
         description: editData?.description || "",
         photo_id: photoId || [],
         video_id: videoId || [],
-        categories: [],
+        categories: editCategories || [],
         files: photoFiles || [],
         videos: videos || [],
         place_online: editData?.place_online || "",

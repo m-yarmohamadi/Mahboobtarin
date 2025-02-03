@@ -5,31 +5,37 @@ import { HiOutlineUsers } from "react-icons/hi2";
 import { RxTimer } from "react-icons/rx";
 import { TiClipboard } from "react-icons/ti";
 
-export default function CourseDetails({ course }) {
+export default function CourseDetails({ course, selected, children }) {
     return (
         <div className="w-full flex flex-col gap-6">
             <div>
+                <h1 className="mb-2 text-xl lg:text-2xl font-bold text-primary-01 border-b border-b-slate-400 pb-4">
+                    {course?.title}
+                </h1>
+                <p className="text-sm lg:text-base text-slate-800 leading-7 lg:leading-8">
+                    {course?.description}
+                </p>
+            </div>
+            <div>
                 <div className="aspect-w-16 aspect-h-9">
-                    <video
-                        controls
-                        className='w-full h-full object-cover object-center'>
-                        <source
-                            // src={data.path}
-                            type='video/mp4'
-                        />
-                    </video>
+                    {course.videos.length > 0 ?
+                        <video
+                            controls
+                            className='w-full h-full object-cover object-center rounded-xl'
+                        >
+                            <source
+                                src={selected?.path}
+                                type='video/mp4'
+                            />
+                        </video>
+                        :
+                        <img src={course?.photos[0]?.path} alt={course?.title} className='w-full h-full object-cover object-center rounded-xl' />
+                    }
                 </div>
             </div>
-
+            {children}
             <div>
-                <div>
-                    <h1 className="mb-2 text-lg lg:text-xl font-bold text-slate-800">
-                        {course?.title}
-                    </h1>
-                    <p className="text-sm text-slate-500 leading-7 lg:leading-8">
-                        {course?.description}
-                    </p>
-                </div>
+
                 {/* <Details /> */}
                 <CoursePrice price={course?.price} discount_price={course?.discount_price} />
                 {/* <Details2 /> */}
@@ -86,7 +92,7 @@ function CoursePrice({ price, discount_price = 0 }) {
     return (
         <div className="w-full grid grid-cols-5 lg:grid-cols-12 gap-2 mt-6">
             {discount_price &&
-                <div className="col-span-3 p-1.5 border border-error rounded">
+                <div className="col-span-3 p-1.5 border border-error rounded-xl">
                     <div className="w-full h-20 flex flex-col items-center justify-center">
                         <span className="text-xs text-slate-900">
                             قیمت اصلی
@@ -102,7 +108,7 @@ function CoursePrice({ price, discount_price = 0 }) {
             }
 
             {discount_price &&
-                <div className="col-span-2 p-1.5 border border-error rounded">
+                <div className="col-span-2 p-1.5 border border-error rounded-xl">
                     <div className="w-full h-20 flex flex-col items-center justify-center">
                         <span className="text-xs text-slate-900">
                             تخفیف دوره
@@ -117,7 +123,7 @@ function CoursePrice({ price, discount_price = 0 }) {
                 </div>
             }
 
-            <div className="col-span-full lg:col-span-4 p-1.5 border border-green-600 rounded">
+            <div className="col-span-full lg:col-span-4 p-1.5 border border-green-600 rounded-xl">
                 <div className="w-full h-20 flex flex-col items-center justify-center">
                     <span className="text-xs text-slate-900">
                         مبلغ قابل پرداخت
@@ -131,7 +137,7 @@ function CoursePrice({ price, discount_price = 0 }) {
                 </div>
             </div>
 
-            <div className="col-span-full lg:col-span-3 p-1.5 border border-primary-01 rounded cursor-pointer hover:bg-primary-01 text-primary-01 hover:text-white duration-200">
+            <div className="col-span-full lg:col-span-3 p-1.5 border border-primary-01 rounded-xl cursor-pointer hover:bg-primary-01 text-primary-01 hover:text-white duration-200">
                 <div className="w-full h-20 flex flex-col items-center justify-center">
                     <span className="text-xl font-bold">
                         خرید دوره

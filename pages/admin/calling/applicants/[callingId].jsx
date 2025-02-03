@@ -7,13 +7,14 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaAngleLeft } from "react-icons/fa6";
 
-const initial = { count: 0, list: [] };
+// const initial = { count: 0, list: [] };
+const initial = [];
 
 export default function Applicants() {
     const params = useParams();
     const [applicants, setApplicants] = useState(initial);
     const [loading, setLoading] = useState(true);
-    const newApplicantsCount = applicants.list.filter((l) => l.created_at === l.updated_at).length;
+    const newApplicantsCount = applicants.filter((l) => l.created_at === l.updated_at).length;
 
     useEffect(() => {
         async function fetchRegisterList() {
@@ -52,7 +53,7 @@ export default function Applicants() {
                                         کل متقاضیان
                                     </span>
                                     <span>
-                                        {applicants.count}
+                                        {applicants.length}
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2 text-sm font-medium text-primary-01">
@@ -67,7 +68,7 @@ export default function Applicants() {
                         </div>
 
                         <ApplicantsFilter />
-                        <ApplicantsList list={applicants.list} />
+                        <ApplicantsList list={applicants} />
                     </div>
                     :
                     <LoadingAdmin />

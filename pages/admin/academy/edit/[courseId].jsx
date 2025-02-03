@@ -10,7 +10,7 @@ export default function CourseEdit() {
 
     return (
         <ExpertDashboard>
-            {!isLoading && academyData ? <CreateCourseForm editData={academyData}/> : <LoadingAdmin />}
+            {!isLoading && academyData ? <CreateCourseForm editData={academyData.academy}/> : <LoadingAdmin />}
         </ExpertDashboard>
     )
 }
