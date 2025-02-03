@@ -67,7 +67,7 @@ export default function ApplicantItem({ applicant, createdAt, id, isNew, show_mo
                                 ))}
                             </div>
                             <div className="text-sm text-slate-900">
-                                {show_mobile && show_mobile === "1" ? "09365456309" : "شماره پنهان شده"}
+                                {show_mobile && show_mobile === "1" ? "091200000000" : "شماره پنهان شده"}
                             </div>
                         </div>
 
