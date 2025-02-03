@@ -2,7 +2,7 @@ import { useChangeRegisterStatus } from "@/hooks/expertHooks/useCalling";
 import calculateAge from "@/utils/calculateAge";
 import { toPersianDateLong } from "@/utils/toPersianDate";
 import { useRouter } from "next/navigation";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiFillMessage, AiOutlineUser } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa6";
 import { FiUserCheck } from "react-icons/fi";
 import { MdClose, MdOutlineChat } from "react-icons/md";
@@ -170,19 +170,19 @@ function Buttons({ type, handler = () => { }, isNew }) {
         },
         "danger": {
             classNames: "bg-red-600/20 text-red-600",
-            icon: <MdClose className="w-5 h-5" />,
+            icon: <MdClose className="w-4 h-4" />,
             text: "رد شده",
             handler
         },
         "info": {
             classNames: "bg-cyan-600/20 text-cyan-600",
-            icon: <FiUserCheck className="w-5 h-5" />,
+            icon: <FiUserCheck className="w-4 h-4" />,
             text: "تایید موقت",
             handler
         },
         "default": {
             classNames: "bg-fuchsia-600/20 text-fuchsia-600",
-            icon: <AiOutlineUser className="w-5 h-5" />,
+            icon: <AiOutlineUser className="w-4 h-4" />,
             text: "پروفایل",
             handler
         },
@@ -195,7 +195,7 @@ function Buttons({ type, handler = () => { }, isNew }) {
     };
 
     return (
-        <button onClick={btnType[type].handler} className={`${isNew ? "lg:bg-slate-300" : "lg:bg-slate-200"} flex flex-col items-center gap-2 lg:flex-row lg:p-2 lg:rounded-lg cursor-pointer`}>
+        <button onClick={btnType[type].handler} className={`${isNew ? "lg:bg-slate-300" : "lg:bg-slate-200"} flex flex-col items-center gap-2 lg:flex-row lg:p-1 lg:rounded-md cursor-pointer`}>
             <div className={`${btnType[type].classNames} w-10 h-10 rounded-full flex items-center justify-center`}>
                 {btnType[type].icon}
             </div>

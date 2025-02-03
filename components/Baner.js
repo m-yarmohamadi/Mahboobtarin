@@ -246,20 +246,26 @@ const Baner = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-1 h-73 ">
           <div className=" hidden md:grid md:col-span-4 grid-rows-2">
-            <div className="aspect-w-16 aspect-h-6">
-              <img
-                className="object-cover object-center h-full w-full"
-                src={topBanner?.photo?.path}
-                alt={topBanner?.title}
-              />
-            </div>
-            <div className="aspect-w-16 aspect-h-6">
-              <img
-                className="object-cover object-center h-full w-full"
-                src={bottomBanner?.photo?.path}
-                alt={bottomBanner?.title}
-              />
-            </div>
+            <Link href={'/auth'}>
+              <div className="aspect-w-16 aspect-h-6">
+                <img
+                  className="object-cover object-center h-full w-full"
+                  src={topBanner?.photo?.path}
+                  alt={topBanner?.title}
+                />
+              </div>
+            </Link>
+            <Link href={'/auth'}>
+
+              <div className="aspect-w-16 aspect-h-6">
+                <img
+                  className="object-cover object-center h-full w-full"
+                  src={bottomBanner?.photo?.path}
+                  alt={bottomBanner?.title}
+                />
+              </div>
+            </Link>
+
           </div>
           <div className="w-full h-full md:col-span-8">
             <Swiper
