@@ -152,7 +152,7 @@ export default function ApplicantItem({ applicant, createdAt, id, isNew, show_mo
                 <Buttons type="success" handler={() => changeRegisterStatusHandler(3)} isNew={isNew} />
                 {
                     show_mobile === "0" &&
-                    <Buttons type="msg" handler={() => router.push(`/${unique_url_id}`)} isNew={isNew} />
+                    <Buttons type="msg" isNew={isNew} />
                 }
             </div>
         </div>
