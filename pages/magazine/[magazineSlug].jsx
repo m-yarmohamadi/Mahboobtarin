@@ -33,7 +33,7 @@ export default function MagazineSingle({ post }) {
                 <div className="order-1 lg:order-2 lg:col-span-7">
                     <div className="w-full flex flex-col lg:flex-row-reverse gap-5 lg:gap-14 border-b border-b-slate-400 pb-5 mb-5">
                         <div className="space-y-4 w-full lg:pt-6">
-                            <Url data={{ name: "مجله محبوب ترین", parent_recursive: { name: post.post_category.title } }} />
+                            <Url data={{ name: "مجله محبوب‌ترین", parent_recursive: { name: post.post_category.title } }} />
                             <div>
                                 <img src={post.photo.path} alt={post.title} className="rounded-lg" />
                             </div>

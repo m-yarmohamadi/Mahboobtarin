@@ -31,7 +31,7 @@ const PopularMounth = () => {
   if (isLoading) return null;
 
   return (
-    <div className="w-full container mx-auto pt-40 ">
+    <div className="w-full container mx-auto md:pt-40 ">
       {/* <div className="w-full text-textDefault px-2 py-4 flex  justify-center items-center justify-items-center font-extrabold text-2xl">
         محبوب‌ترین‌های ماه
       </div> */}

@@ -5,7 +5,7 @@ export default function FrequentSearches({ topSearch }) {
     return (
         <div>
             <h4 className="font-bold text-slate-800 pb-5 lg:text-xl lg:text-center">
-                جستجو های پر تکرار
+                جستجو‌های پر تکرار
             </h4>
             <div className="w-full flex items-center gap-5 overflow-x-auto no-scrollbar lg:hidden">
                 {topSearch.map((item, index) => (

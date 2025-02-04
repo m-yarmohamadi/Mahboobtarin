@@ -46,7 +46,7 @@ const dataMenu = [
     },
     {
         id: 4,
-        title: 'درخواست از محبوب ترین',
+        title: 'درخواست از محبوب‌ترین',
         value: '#',
         quanity: '',
         icon: MdOutlineListAlt,

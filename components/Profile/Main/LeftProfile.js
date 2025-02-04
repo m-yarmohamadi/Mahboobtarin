@@ -32,7 +32,7 @@ const LeftProfile = ({ user }) => {
         <div className="w-full px-4 py-6 my-2 bg-slate-200 dark:bg-slate-300 rounded-xl">
           <div className="pb-4">
             <span className=" font-bold text-textDefault">
-             جستجو های پرتکرار
+             جستجو‌های پرتکرار
             </span>
           </div>
           <div className=" flex flex-wrap items-center gap-2 text-xs font-medium">

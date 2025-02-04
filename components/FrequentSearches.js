@@ -20,7 +20,7 @@ const FrequentSearches = () => {
       <div className="w-full lg:h-[45rem] flex flex-col lg:flex-row gap-8 lg:gap-5">
         <div className="lg:w-[65%] flex flex-col overflow-hidden">
           <h4 className="text-slate-800 font-bold text-lg md:text-xl lg:text-2xl text-center mb-3">
-            جستجو های پر تکرار
+            جستجو‌های پر تکرار
           </h4>
           <div className="w-full bg-white md:rounded-lg overflow-hidden scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin flex-1">
             <div className="w-full flex items-center gap-20 md:grid lg:grid-cols-1 xl:grid-cols-2 xl:gap-x-5 overflow-x-auto lg:overflow-hidden scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin p-8">

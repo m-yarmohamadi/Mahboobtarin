@@ -15,14 +15,14 @@ const News = () => {
 
   return (
     <div className=" bg-white py-16">
-      <div className="px-8 pb-8">
+      {/* <div className="px-8 pb-8">
         <button
           className="py-2 px-8 bg-primary-01 text-white text-xl font-bold rounded-lg"
           type=""
         >
           مجله محبوب‌ترین
         </button>
-      </div>
+      </div> */}
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={5}
