@@ -186,7 +186,7 @@ const DetailProfile = ({
         ) : null}
       </div>
 
-      <div className="hidden lg:block pt-6">
+      <div className="hidden lg:block pt-6 lg:pb-16">
         <FollowDetails onChangeStep={setStepFollow} userData={userData} />
       </div>
 
@@ -207,7 +207,7 @@ const DetailProfile = ({
 
       {/* نشانی */}
       {permissions?.phone || permissions?.workAddress ? (
-        <div id="address" className="pt-16">
+        <div id="address" className="pb-16">
           <TitleItems title={"نشانی"} />
           <div className="w-full grid grid-cols-1 gap-2">
             <div className="w-full flex flex-col gap-4">
@@ -348,7 +348,7 @@ const DetailProfile = ({
       </div> */}
 
       {/* نظرات کاربران */}
-      <div id="comments" className="pt-16">
+      <div id="comments" className="pb-16">
         <TitleItems title={"نظرات کاربران"} />
         <div className="w-full ">
           <Comments motekhases_id={userData?.id} userData={userData} />

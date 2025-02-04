@@ -26,7 +26,7 @@ export default function ExpertDescription({ expert_description }) {
 
     if (expert_description) {
         return (
-            <div id="skills" className="pt-16">
+            <div id="skills" className="pb-16">
                 <TitleItems title={"تخصص و مهارت"} />
                 {
                     isRichText(expert_description) ?

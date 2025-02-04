@@ -17,7 +17,7 @@ export default function ExpertServicesList({ user }) {
 
     if (!isLoadingServices && servicesData && servicesData.length) {
         return (
-            <div id="services">
+            <div id="services" className="pb-16 lg:pb-0">
                 <div className="w-full">
                     <TitleItems title={"پلن های خدمات"} />
                     <div className="w-full flex flex-col justify-center items-center gap-2">

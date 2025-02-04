@@ -7,7 +7,7 @@ export default function PopularsList({ userData, popularList }) {
 
     if (popularList && popularList.length)
         return (
-            <div id="populars" className="pt-16">
+            <div id="populars" className="pb-16">
                 <TitleItems
                     title={`محبوب‌ترین‌های ${userData?.name} ${userData?.lastname}`}
                 />

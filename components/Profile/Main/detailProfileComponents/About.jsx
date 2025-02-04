@@ -27,7 +27,7 @@ export default function About({ description }) {
 
     if (description) {
         return (
-            <div id="bio" className="pt-16">
+            <div id="bio" className="pb-16">
                 <TitleItems title={"بیوگرافی"} />
                 {
                     isRichText(description) ?

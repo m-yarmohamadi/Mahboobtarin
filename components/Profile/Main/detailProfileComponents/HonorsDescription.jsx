@@ -26,7 +26,7 @@ export default function HonorsDescription({ honors_description }) {
 
     if (honors_description) {
         return (
-            <div id="honors_description" className="pt-16">
+            <div id="honors_description" className="pb-16">
                 <TitleItems title={"آثار و افتخارات"} />
                 {
                     isRichText(honors_description) ?
