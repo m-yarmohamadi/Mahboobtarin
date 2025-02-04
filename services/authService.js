@@ -9,6 +9,18 @@ export function register(data) {
   return http.post("/api/v1/register", data);
 }
 
+export function refreshTokenApi() {
+  return http.post(
+    "/api/v1/refresh",
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    }
+  );
+}
+
 export function uploadDocumentsApi(data) {
   return http
     .post("/api/v1/upload-user-documents", data)

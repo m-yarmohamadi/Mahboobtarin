@@ -17,7 +17,7 @@ const app = axios.create({
 // 		if (err.response.status === 401 && !originalConfig._retry) {
 // 			originalConfig._retry = true;
 // 			try {
-// 				const { data } = await axios.get(`${BASE_URL}/user/refresh-token`, { withCredentials: true });
+// 				const { data } = await axios.post(`${BASE_URL}/api/v1/refresh`, { withCredentials: true });
 // 				if (data) return app(originalConfig);
 // 			} catch (error) {
 // 				return Promise.reject(err);
