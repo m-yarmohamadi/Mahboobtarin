@@ -107,13 +107,7 @@ const Footer = () => {
             </div>
 
             <div className="grid grid-cols-2 xs:grid-cols-5 justify-items-center items-center w-full gap-x-2">
-              <div className="w-16 p-3 ">
-                <img
-                  className=" w-full hover:grayscale"
-                  src="/images/gardeshgari.png"
-                  alt=""
-                />
-              </div>
+
               <a
                 referrerpolicy='origin'
                 target='_blank'
@@ -149,13 +143,7 @@ const Footer = () => {
                   alt=""
                 />
               </div>
-              <div className="w-16 p-3 ">
-                <img
-                  className=" w-full hover:grayscale"
-                  src="/images/Lisence003.png"
-                  alt=""
-                />
-              </div>
+
             </div>
           </div>
         </div>
