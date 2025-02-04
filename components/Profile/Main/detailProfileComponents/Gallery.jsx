@@ -112,8 +112,6 @@ function Pictures({ gallery, onOpenPopup }) {
 }
 
 function Videos({ gallery, onOpenPopup }) {
-	const video = gallery && gallery.filter((g) => g.type === 'gallery-video');
-
     const video = gallery && gallery.filter((g) => g.type === "gallery-video");
 
     return (
