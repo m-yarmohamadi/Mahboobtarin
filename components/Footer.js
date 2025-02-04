@@ -36,16 +36,16 @@ const Footer = () => {
               <div className="flex flex-col justify-start items-start w-full gap-2">
                 <Link href={"/contact-us"}><span>ارتباط با ما</span></Link>
                 <Link href={"/about"}><span>درباره ما</span></Link>
-                <Link href={"/"}><span>مجله محبوب‌ترین</span></Link>
                 <Link href={"/auth"}><span>ثبت‌نام کاربران</span></Link>
                 <Link href={"/auth"}><span>ثبت‌نام متخصصان</span></Link>
               </div>
               <div className="flex flex-col justify-start items-start w-full gap-2">
                 <Link href={"/faq"}><span>سوالات متداول</span></Link>
-                <Link href={"/group/366"}><span>دسته بندی محبوب‌ترین</span></Link>
-                <Link href={"/"}><span>قوانین و مقررات</span></Link>
-                <Link href={"/"}><span>راهنمای عضویت</span></Link>
-                <Link href={"/"}><span>خط و مشی محبوب‌ترین</span></Link>
+                <Link href={"/"}><span>مجله محبوب‌ترین</span></Link>
+                {/* <Link href={"/group/366"}><span>دسته بندی محبوب‌ترین</span></Link> */}
+                <Link href={"/rules"}><span>قوانین و مقررات</span></Link>
+                <Link href={"/register_help"}><span>راهنمای عضویت</span></Link>
+                {/* <Link href={"/"}><span>خط و مشی محبوب‌ترین</span></Link> */}
               </div>
             </div>
           </div>
