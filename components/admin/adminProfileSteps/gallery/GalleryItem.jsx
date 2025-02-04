@@ -42,7 +42,7 @@ export default function GalleryItem({ data }) {
             )}
             {data.type === 'gallery-video' && (
                 <div className='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden'>
-                    {data.script !== "null" ?
+                    {data.script ?
                         <div dangerouslySetInnerHTML={{ __html: data.script }} className="!w-full !h-full !object-cover"></div>
                         :
                         <video

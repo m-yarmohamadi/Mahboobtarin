@@ -55,7 +55,7 @@ function AllGallery({ gallery, onOpenPopup }) {
                                             alt=""
                                         />
                                         :
-                                        item.script !== "null" ?
+                                        item.script ?
                                             <div dangerouslySetInnerHTML={{ __html: item.script }} className="!w-full !h-full !object-cover"></div>
                                             :
                                             <video
@@ -122,7 +122,7 @@ function Videos({ gallery, onOpenPopup }) {
                     return (
                         <div key={item.id} className="relative" onClick={() => onOpenPopup(item)}>
                             <div className="aspect-w-16 aspect-h-10">
-                                {item.script !== "null" ?
+                                {item.script ?
                                     <div dangerouslySetInnerHTML={{ __html: item.script }} className="!w-full !h-full !object-cover"></div>
                                     :
                                     <video

@@ -14,7 +14,7 @@ const Resume = () => {
         <div className="flex justify-center items-center text-2xl font-bold p-8 text-textDefault">
           چرا محبوب‌ترین؟
         </div>
-        <div className="grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16 items-start justify-items-center text-4xl text-primary-01">
+        <div className="grid xs:grid-cols-2 md:grid-cols-3 lg:auto-cols-fr lg:grid-flow-col  gap-16 items-start justify-items-center text-4xl text-primary-01">
           {why_us?.map((item, index) => (
             <div
               key={index}
