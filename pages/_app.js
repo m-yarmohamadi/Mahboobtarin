@@ -11,10 +11,19 @@ import { useEffect } from "react";
 import { getDashboardSettings } from "@/services/authService";
 import { usePathname } from "next/navigation";
 import CartShopProvider from "@/context/CartContext";
+import { refreshAuthToken } from "@/services/refreshAuthToken";
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }) {
   const pathname = usePathname();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshAuthToken();
+    }, 900000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     async function fetchUserSettings() {
