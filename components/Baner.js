@@ -112,56 +112,6 @@ const Baner = () => {
   return (
     <div className="xs:container ">
       <div className="xs:full md:w-5/6 mx-auto  bg-white  rounded-2xl -mt-16  text-slate-800">
-        {/* <div className="hidden w-full h-full relative justify-evenly items-start py-2 gap-2 text-xs  scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin overflow-auto">
-          <button className="disabled:text-primary-01/30 swiper-categroy-prev flex flex-col justify-center items-center text-primary-01  hover:text-opacity-80 hover:cursor-pointer">
-            <span className="justify-items-center text-3xl p-4 flex justify-center items-center">
-              <FaChevronCircleRight />
-            </span>
-          </button>
-
-          <Swiper
-            modules={[Navigation, Pagination]}
-            slidesPerView={"auto"}
-            autoplay
-
-            navigation={{
-              nextEl: ".swiper-categroy-next",
-              prevEl: ".swiper-categroy-prev",
-            }}
-          >
-            {!isLoading &&
-              categories
-                .filter((c) => c.parent_id === 0)
-                .map((item, index) => {
-                  return (
-                    <SwiperSlide key={index} className="!w-auto !mr-5">
-                      <Link href={`/group/${item.id}`} className="flex flex-col justify-center items-center w-full hover:text-primary-01 hover:cursor-pointer">
-                        <span className="text-3xl p-2">
-                          <div>
-                            {item.icon ? (
-                              <div
-                                dangerouslySetInnerHTML={{ __html: item.icon }}
-                              ></div>
-                            ) : (
-                              <img src={item.pic} alt="" className="w-[30px]" />
-                            )}
-                          </div>
-                        </span>
-                        <span className="lg:text-sm text-center">
-                          {item.name}
-                        </span>
-                      </Link>
-                    </SwiperSlide>
-                  );
-                })}
-          </Swiper>
-
-          <button className="swiper-categroy-next disabled:text-primary-01/30 flex flex-col justify-center items-center text-primary-01  hover:text-opacity-80 hover:cursor-pointer">
-            <span className="justify-items-center text-3xl p-4 flex justify-center items-center">
-              <FaChevronCircleLeft />
-            </span>
-          </button>
-        </div> */}
         <div className="hidden lg:grid grid-cols-11 gap-4 p-4">
           {!isLoading &&
             categories
@@ -244,8 +194,8 @@ const Baner = () => {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-1 h-73 ">
-          <div className=" hidden md:grid md:col-span-4 grid-rows-2">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-1 h-64 md:h-48  ">
+          <div className=" hidden md:grid md:col-span-4 grid-rows-2 ">
             <Link href={'/auth'}>
               <div className="aspect-w-16 aspect-h-6">
                 <img

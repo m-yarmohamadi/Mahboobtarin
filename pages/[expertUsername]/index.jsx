@@ -35,6 +35,10 @@ export default function ProfilePage({ user }) {
                     isLike={user?.is_favorit}
                     isMarked={user?.is_mark}
                     popularList={user?.popular_list}
+                    starsData={user?.stars}
+                    commentsData={user?.comments_count}
+
+          
                 />
             </div>
             <Footer />

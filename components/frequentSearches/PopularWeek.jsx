@@ -52,7 +52,11 @@ function PopularWeekItem({ item }) {
                     href={`/group/${item.id}`}
                     className="text-xs lg:text-sm font-bold text-primary-01 btn !p-0 gap-1 whitespace-nowrap"
                 >
+                    <span>محبوب‌ترین های</span>
+                    &nbsp;
                     {item.name}
+                    &nbsp;                    <span>هفته</span>
+
                     <FaChevronLeft />
                 </Link>
             </div>

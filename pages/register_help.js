@@ -17,20 +17,12 @@ const register_help = () => {
                     </span>
                     <span>راهنمای عضویت</span>
                 </div>
-                {data && data.register_help.map((item, index) => {
-                    return (
                         <div className=' container w-full flex flex-col justify-center items-start gap-4 py-4 text-justify'>
-                            <p className='w-full  flex  flex-col justify-center items-start gap-4 text-justify text-primary-01 font-bold'
-                                dangerouslySetInnerHTML={{ __html: item?.title }}
-                            ></p>
-                            <p className='w-full  flex  flex-col justify-center items-start gap-4 text-justify ps-4'
-                                dangerouslySetInnerHTML={{ __html: item?.description }}
+                            <p className='w-full  flex  flex-col justify-center items-start gap-4 text-justify text-primary-01 '
+                                dangerouslySetInnerHTML={{ __html: data?.register_help }}
                             ></p>
 
                         </div>
-                    )
-                })}
-
             </div>
             <Footer />
         </div>

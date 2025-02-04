@@ -48,7 +48,9 @@ const Followers = [
     },
   ];
   
-export default function OtherExpert() {
+  
+export default function OtherExpert({userForFollow}) {
+    console.log(userForFollow)
     return (
         <div className="w-full pt-6">
             <div className="w-full p-6 bg-slate-200 dark:bg-slate-300 rounded-xl">
@@ -66,10 +68,10 @@ export default function OtherExpert() {
                     </div>
                 </div>
                 <div className="w-full flex flex-col">
-                    {Followers.map((item) => {
+                    {userForFollow?.map((item,index) => {
                         return (
                             <div
-                                key={item.id}
+                                key={index}
                                 className="w-full min-h-full justify-between flex flex-col gap-3 px-2 py-8"
                             >
                                 <div className="w-full flex flex-col items-center sm:flex-row lg:flex-col xl:flex-row gap-2 justify-between">
@@ -77,7 +79,7 @@ export default function OtherExpert() {
                                         <div className="w-12 h-12">
                                             <img
                                                 className="w-full h-full object-cover object-center rounded-[18px]"
-                                                src={item.picUrl}
+                                                src={item?.avatar}
                                                 alt=""
                                             />
                                         </div>
@@ -88,7 +90,7 @@ export default function OtherExpert() {
                                                 <h3 className="text-sm font-bold text-slate-800">
                                                     {item.name}
                                                 </h3>
-                                                {item.ablution === 1 ? (
+                                                {item.is_verify === 1 ? (
                                                     <span className="font-bold text-green-600 text-sm">
                                                         <AiOutlineCheckCircle />
                                                     </span>

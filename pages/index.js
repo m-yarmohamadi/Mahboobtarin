@@ -59,7 +59,7 @@ const Index = () => {
         <Baner04 />
         <LatestRegistrations />
         {/* <Store /> */}
-        <Resume />
+        {/* <Resume /> */}
         <Footer />
       </div>
     </div>

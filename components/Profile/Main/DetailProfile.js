@@ -53,6 +53,8 @@ const DetailProfile = ({
   isLike,
   isMarked,
   popularList,
+  starsData,
+  commentsData
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -167,7 +169,7 @@ const DetailProfile = ({
 
         <span className="flex items-center gap-1 text-xs md:text-sm text-slate-800">
           <FaRegStar className="w-5 h-5 text-yellow-400" />
-          <span>{enToFaNumber("4.90 (از 24 نظر)")}</span>
+          <span>{enToFaNumber(`${starsData} (از ${commentsData} نظر)`)}</span>
         </span>
 
         <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
@@ -285,67 +287,6 @@ const DetailProfile = ({
       {/* لینکدونی */}
       <Linkdoni link_dooni={userData?.link_dooni || []} user={userData} />
 
-      {/* غرفه */}
-      {/* <div id="booth" className="w-full pt-16">
-        <div className="flex justify-between items-end py-2">
-          <TitleItems title={"غرفه"} />
-          <LeftAndRightArrows />
-        </div>
-
-        <div className="w-full">
-          <Swiper
-            modules={[Navigation]}
-            slidesPerView={"auto"}
-            navigation={{
-              nextEl: "#booth-expert-btn-next",
-              prevEl: "#booth-expert-btn-prev",
-            }}
-          >
-            {product.map((item, index) => {
-              return (
-                <SwiperSlide key={index} className="!w-[250px] ml-4">
-                  <div className="border border-slate-300 bg-gradient-to-b  from-blue-100 dark:from-slate-500  to-white overflow-hidden rounded-xl hover:shadow-md dark:shadow-darkMd hover:cursor-pointer">
-                    <div className="border-b border-slate-300 rounded-t-xl bg-gradient-to-tl from-transparent hover:from-blue-100 to-white">
-                      <div className="aspect-w-8 aspect-h-8">
-                        <img
-                          className="w-full h-full object-contain p-6 object-center"
-                          src={item.url}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-col justify-center items-center gap-1 p-2">
-                      <span className="line-clamp-1 font-extrabold truncate">
-                        {item.name}
-                      </span>
-                      <span className="text-xs md:text-sm">{item.ouner}</span>
-                      <span className="line-clamp-1 text-xs text-slate-500">
-                        انتشارات:{item.Publications}
-                      </span>
-                    </div>
-                    <div className="flex justify-between p-4 items-end gap-3">
-                      <div className="py-1 px-2 text-sm bg-primary-01 text-white font-bold rounded-md flex justify-center items-center">
-                        %{PN.convertEnToPe(`${item.Discount}`)}
-                      </div>
-                      <div className=" flex flex-col justify-start items-center">
-                        <del className="text-slate-400">
-                          {numberWithCommas(`${item.Price}`)}
-                        </del>
-                        <span className="font-bold">
-                          {numberWithCommas(
-                            `${DiscountCalculation(item.Price, item.Discount)}`
-                          )}
-                          تومان
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </div>
-      </div> */}
 
       {/* نظرات کاربران */}
       <div id="comments" className="pt-16">
@@ -356,7 +297,7 @@ const DetailProfile = ({
       </div>
 
       <div className="lg:hidden">
-        <OtherExpert />
+        <OtherExpert  />
       </div>
     </>
   );

@@ -17,19 +17,13 @@ const rules = () => {
                     </span>
                     <span>قوانین و مقررات</span>
                 </div>
-                {data && data.rules.map((item, index) => {
-                    return (
                         <div className=' container w-full flex flex-col justify-center items-start gap-4 py-4 text-justify'>
-                            <p className='w-full  flex  flex-col justify-center items-start gap-4 text-justify text-primary-01 font-bold'
-                                dangerouslySetInnerHTML={{ __html: item?.title }}
-                            ></p>
-                            <p className='w-full  flex  flex-col justify-center items-start gap-4 text-justify ps-4'
-                                dangerouslySetInnerHTML={{ __html: item?.description }}
+                            <p className='w-full  flex  flex-col justify-center items-start gap-4 text-justify text-primary-01 '
+                                dangerouslySetInnerHTML={{ __html: data?.rules }}
                             ></p>
 
                         </div>
-                    )
-                })}
+
 
             </div>
             <Footer />
