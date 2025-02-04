@@ -9,22 +9,25 @@ export default function FollowDetails({ onChangeStep, userData }) {
     if (isGetFollowers || isGetFollowings) return null
 
     return (
-        <div className="flex  items-center gap-2 sm:gap-6 whitespace-nowrap">
-            <div onClick={() => user && onChangeStep(2)} className="cursor-pointer flex flex-col justify-center items-center lg:flex-row relative md:p-6">
-                {followings && <span className=" absolute -top-2 -right-2 md:top-3 z-5  md:right-4 text-primary-02 font-bold text-md bg-primary-01 w-5 md:w-6 h-5 md:h-6 flex justify-center items-center rounded-full hover:border border-slate-50">
-                    {followings?.length}
-                </span>}
+        <div className="flex items-center gap-6 whitespace-nowrap">
+            <div onClick={() => user && onChangeStep(2)} className="flex flex-col lg:flex-row gap-2 items-center cursor-pointer">
+                {followings &&
+                    <span className="font-bold lg:text-lg text-slate-900">
+                        {followings?.length}
+                    </span>
+                }
 
-                <span className=" text-xs lg:text-base text-slate-700 border hover:border-dotted border-primary-01  px-2 bg-primary-02 p-1 rounded-md hover:shadow-md ">
+                <span className="text-xs lg:text-sm text-slate-700 font-medium">
                     دنبال شده
                 </span>
             </div>
-            <div onClick={() => user && onChangeStep(1)} className="cursor-pointer flex flex-col justify-center items-center lg:flex-row relative md:p-6">
-
-                {followers && <span className=" absolute -top-2 -right-2 md:top-3 z-5  md:right-4 text-primary-02 font-bold text-md bg-primary-01 w-5 md:w-6 h-5 md:h-6 flex justify-center items-center rounded-full hover:border border-slate-50">
-                    {followers?.length}
-                </span>}
-                <span className=" text-xs lg:text-base text-slate-700 border hover:border-dotted border-primary-01  px-2 bg-primary-02 p-1 rounded-md hover:shadow-md ">
+            <div onClick={() => user && onChangeStep(1)} className="flex flex-col lg:flex-row gap-2 items-center cursor-pointer">
+                {followers &&
+                    <span className="font-bold lg:text-lg text-slate-900">
+                        {followers?.length}
+                    </span>
+                }
+                <span className="text-xs lg:text-sm text-slate-700 font-medium">
                     دنبال کننده
                 </span>
             </div>

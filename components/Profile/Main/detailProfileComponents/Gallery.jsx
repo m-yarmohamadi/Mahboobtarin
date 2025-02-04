@@ -42,50 +42,44 @@ export default function Gallery({ gallery }) {
 function AllGallery({ gallery, onOpenPopup }) {
 	const sortedGallery = gallery.sort((a, b) => Number(b.ord) - Number(a.ord));
 
-	return (
-		<TabGroup.Item>
-			<div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 ">
-				{sortedGallery
-					.filter((c) => c.type !== 'gallery-audio')
-					.map((item) => {
-						return (
-							<div
-								key={item.id}
-								className="relative"
-								onClick={() => onOpenPopup(item)}
-							>
-								<div className="aspect-w-16 aspect-h-10">
-									{item.type === 'gallery-image' ? (
-										<img
-											src={item.path}
-											className=" hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
-											alt=""
-										/>
-									) : item.script !== 'null' ? (
-										<div
-											dangerouslySetInnerHTML={{ __html: item.script }}
-											className="!w-full !h-full !object-cover"
-										></div>
-									) : (
-										<video
-											controls
-											className="hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
-										>
-											<source src={item.path} type="video/mp4" />
-										</video>
-									)}
-								</div>
-								<div className="w-full absolute bottom-0 right-0 flex items-center justify-center py-2 px-4">
-									<div className="w-full bg-black/70 text-[#fff] text-lg p-2 text-center">
-										{item.title}
-									</div>
-								</div>
-							</div>
-						);
-					})}
-			</div>
-		</TabGroup.Item>
-	);
+    return (
+        <TabGroup.Item>
+            <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 ">
+                {sortedGallery.filter((c) => c.type !== "gallery-audio").map((item) => {
+                    return (
+                        <div key={item.id} className="relative" onClick={() => onOpenPopup(item)}>
+                            <div className="aspect-w-16 aspect-h-10">
+                                {
+                                    item.type === "gallery-image" ?
+                                        <img
+                                            src={item.path}
+                                            className=" hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
+                                            alt=""
+                                        />
+                                        :
+                                        item.script ?
+                                            <div dangerouslySetInnerHTML={{ __html: item.script }} className="!w-full !h-full !object-cover"></div>
+                                            :
+                                            <video
+                                                controls
+                                                className="hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
+                                            >
+                                                <source src={item.path} type="video/mp4" />
+                                            </video>
+
+                                }
+                            </div>
+                            <div className="w-full absolute bottom-0 right-0 flex items-center justify-center py-2 px-4">
+                                <div className="w-full bg-black/70 text-[#fff] text-lg p-2 text-center">
+                                    {item.title}
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </TabGroup.Item>
+    )
 }
 
 function Pictures({ gallery, onOpenPopup }) {
@@ -120,38 +114,38 @@ function Pictures({ gallery, onOpenPopup }) {
 function Videos({ gallery, onOpenPopup }) {
 	const video = gallery && gallery.filter((g) => g.type === 'gallery-video');
 
-	return (
-		<TabGroup.Item>
-			<div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 ">
-				{video.map((item) => {
-					return (
-						<div key={item.id} className="relative" onClick={() => onOpenPopup(item)}>
-							<div className="aspect-w-16 aspect-h-10">
-								{item.script !== 'null' ? (
-									<div
-										dangerouslySetInnerHTML={{ __html: item.script }}
-										className="!w-full !h-full !object-cover"
-									></div>
-								) : (
-									<video
-										controls
-										className="hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
-									>
-										<source src={item.path} type="video/mp4" />
-									</video>
-								)}
-							</div>
-							<div className="w-full absolute bottom-0 right-0 flex items-center justify-center py-2 px-4">
-								<div className="w-full bg-black/70 text-[#fff] text-lg p-2 text-center">
-									{item.title}
-								</div>
-							</div>
-						</div>
-					);
-				})}
-			</div>
-		</TabGroup.Item>
-	);
+    const video = gallery && gallery.filter((g) => g.type === "gallery-video");
+
+    return (
+        <TabGroup.Item>
+            <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 ">
+                {video.map((item) => {
+                    return (
+                        <div key={item.id} className="relative" onClick={() => onOpenPopup(item)}>
+                            <div className="aspect-w-16 aspect-h-10">
+                                {item.script ?
+                                    <div dangerouslySetInnerHTML={{ __html: item.script }} className="!w-full !h-full !object-cover"></div>
+                                    :
+                                    <video
+                                        controls
+                                        className="hover:grayscale hover:cursor-pointer object-cover w-full h-full object-center rounded-md"
+                                    >
+                                        <source src={item.path} type="video/mp4" />
+                                    </video>
+                                }
+                            </div>
+                            <div className="w-full absolute bottom-0 right-0 flex items-center justify-center py-2 px-4">
+                                <div className="w-full bg-black/70 text-[#fff] text-lg p-2 text-center">
+                                    {item.title}
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </TabGroup.Item>
+
+    )
 }
 
 function Voices({ gallery, onOpenPopup }) {

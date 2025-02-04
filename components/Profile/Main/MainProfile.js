@@ -12,7 +12,7 @@ const MainProfile = ({ userData, isFollow, isLike, isMarked, popularList }) => {
             <div className="md:col-span-3 w-full ">
               <RightMenu userData={userData} popularList={popularList} />
             </div>
-            <div className=" md:col-span-7 bg-white w-full">
+            <div className="md:col-span-7 bg-white w-full">
               <DetailProfile
                 userData={userData}
                 isFollow={isFollow}

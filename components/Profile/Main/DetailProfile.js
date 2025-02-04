@@ -22,9 +22,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/swiper-bundle.css";
 import numberWithCommas from "@/utils/numberWithCommas";
-import {
-  useLikeOrDislike,
-} from "@/hooks/useDashboard";
+import { useLikeOrDislike } from "@/hooks/useDashboard";
 import Comments from "./Comments";
 import { usePathname, useRouter } from "next/navigation";
 import Linkdoni from "./detailProfileComponents/Linkdoni";
@@ -49,7 +47,6 @@ import FollowsList from "./detailProfileComponents/FollowsList";
 import BookmarkUser from "./detailProfileComponents/BookmarkUser";
 import { useFollow } from "@/hooks/expertHooks/useFollow";
 
-
 const DetailProfile = ({
   userData,
   isFollow,
@@ -72,12 +69,12 @@ const DetailProfile = ({
     provinces.filter((p) => Number(p.id) === Number(userData?.province_id))[0]
       ?.name;
 
-
   const expertFollowHandler = () => {
     followHandler(userData.id, `${userData?.name} ${userData?.lastname}`);
     router.replace(pathname, { scroll: false });
   };
-
+  console.log(userData);
+  
   const expertLikeHandler = () => {
     likeDislikeHandler(userData.id);
     router.replace(pathname, { scroll: false });
@@ -100,112 +97,113 @@ const DetailProfile = ({
   }
 
   return (
-    <div className="w-full">
-      <div id="personalinfo" className="w-full">
-        <div className="w-full flex justify-between lg:justify-normal gap-3 lg:gap-6 -mt-20 md:-mt-16">
-          <div>
-            <div className="w-20 h-20 md:w-24 md:h-24 relative bg-primary-02 rounded-full flex items-center justify-center">
-              <img
-                className={"w-full h-full object-cover  rounded-full"}
-                src={userData?.avatar[0]?.path || "/images/user.png"}
-                alt={`${userData?.name} ${userData?.lastname} `}
-              />
-              <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 bottom-1.5 left-1.5 lg:bottom-2 lg:left-2"></div>
-            </div>
-          </div>
-
-          <div className="lg:w-full flex items-center lg:items-start lg:justify-between gap-2 sm:gap-4 pt-12 md:pt-16">
-            <div className="lg:hidden">
-              <FollowDetails onChangeStep={setStepFollow} userData={userData} />
-            </div>
-
-            <div className="hidden lg:block">
-              <UserData userData={userData} />
-            </div>
-
-            <div className="space-y-4">
-              <button
-                onClick={expertFollowHandler}
-                className={`btn whitespace-nowrap !px-2 !text-xs sm:!text-sm sm:!px-4 ${
-                  isFollow ? "btn--secondary" : "btn--primary"
-                }`}
-              >
-                {isFollow ? "لغو دنبال کردن" : "دنبال کردن"}
-              </button>
-
-              <div className="flex items-center justify-around text-slate-900 lg:hidden">
-                <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
-                <span className="">
-                  <IoShareSocialOutline className="w-5 h-5" />
-                </span>
-              </div>
-            </div>
+    <>
+      <div
+        id="personalinfo"
+        className="w-full flex justify-between lg:justify-normal gap-3 lg:gap-6 -mt-20 md:-mt-16"
+      >
+        <div>
+          <div className="w-20 h-20 md:w-24 md:h-24 relative bg-primary-02 rounded-full flex items-center justify-center">
+            <img
+              className={"w-full h-full object-cover  rounded-full"}
+              src={userData?.avatar[0]?.path || "/images/user.png"}
+              alt={`${userData?.name} ${userData?.lastname} `}
+            />
+            <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 bottom-1.5 left-1.5 lg:bottom-2 lg:left-2"></div>
           </div>
         </div>
 
-        <div className="mt-6 lg:hidden">
-          <UserData userData={userData} />
-        </div>
+        <div className="lg:w-full flex items-center lg:items-start lg:justify-between gap-2 sm:gap-4 pt-12 md:pt-16">
+          <div className="lg:hidden">
+            <FollowDetails onChangeStep={setStepFollow} userData={userData} />
+          </div>
 
-        <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-4 pt-6">
-          <span className="flex items-center w-full gap-4 text-sm md:text-base">
-            <span className="flex justify-center items-center text-slate-800 font-semibold">
-              <HiOutlineLocationMarker className="w-5 h-5" />
-              <span>{getCountryLabel}،</span>
-              <span>{getProvinceLabel}</span>
-            </span>
-          </span>
-          <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
-            <FaRegCalendar className="w-4 h-4 text-slate-800" />
-            <span className="text-slate-600 font-normal">تاریخ پیوستن :</span>
-            {toPersianDateLong(userData?.created_at)}
-          </span>
-          <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
-            <FaRegCalendar className="w-4 h-4 text-slate-800" />
-            <span className="text-slate-600 font-normal">متولد :</span>
-            {toPersianDateLong(userData?.birthday)}
-          </span>
+          <div className="hidden lg:block">
+            <UserData userData={userData} />
+          </div>
 
-          <span className="flex items-center gap-1 text-xs md:text-sm text-slate-800">
-            <FaRegStar className="w-5 h-5 text-yellow-400" />
-            <span>{enToFaNumber("4.90 (از 24 نظر)")}</span>
-          </span>
+          <div className="space-y-4">
+            <button
+              onClick={expertFollowHandler}
+              className={`btn whitespace-nowrap !py-1.5 !px-4 !rounded-full !text-xs sm:!text-sm ${
+                isFollow ? "btn--outline" : "bg-slate-900 !text-slate-100"
+              }`}
+            >
+              {isFollow ? "لغو دنبال کردن" : "دنبال کردن"}
+            </button>
 
-          <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
-            <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
-            <div className="flex items-center gap-1 text-xs text-slate-800">
-              <IoShareSocialOutline className="w-5 h-5" />
-              <span>اشتراک گذاری</span>
+            <div className="flex items-center justify-around text-slate-900 lg:hidden">
+              <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
+              <span className="">
+                <IoShareSocialOutline className="w-5 h-5" />
+              </span>
             </div>
           </div>
-          {userData?.amount_experience_year ? (
-            <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
-              <BiMedal className="w-6 h-6 text-green-600" />
-              <span className="text-slate-600 font-normal">تجربه :</span>
-              {userData?.amount_experience_year} سال
-            </div>
-          ) : null}
         </div>
-
-        <div className="hidden lg:block pt-6">
-          <FollowDetails onChangeStep={setStepFollow} userData={userData} />
-        </div>
-
-        <div className="md:hidden pt-6 sticky top-10 bg-white z-10">
-          <MenuDetails
-            userData={userData}
-            popularList={popularList}
-            permissions={permissions}
-          />
-        </div>
-
-        <div className="lg:hidden pt-6">
-          <ExpertServicesList user={userData} />
-        </div>
-
-        {/* بیوگرافی */}
-        <About description={userData?.description} />
       </div>
+
+      <div className="mt-6 lg:hidden">
+        <UserData userData={userData} />
+      </div>
+
+      <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-4 pt-6">
+        <span className="flex items-center w-full gap-4 text-sm md:text-base">
+          <span className="flex justify-center items-center text-slate-800 font-semibold">
+            <HiOutlineLocationMarker className="w-5 h-5" />
+            <span>{getCountryLabel}،</span>
+            <span>{getProvinceLabel}</span>
+          </span>
+        </span>
+        <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
+          <FaRegCalendar className="w-4 h-4 text-slate-800" />
+          <span className="text-slate-600 font-normal">تاریخ پیوستن :</span>
+          {toPersianDateLong(userData?.created_at)}
+        </span>
+        <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
+          <FaRegCalendar className="w-4 h-4 text-slate-800" />
+          <span className="text-slate-600 font-normal">متولد :</span>
+          {toPersianDateLong(userData?.birthday)}
+        </span>
+
+        <span className="flex items-center gap-1 text-xs md:text-sm text-slate-800">
+          <FaRegStar className="w-5 h-5 text-yellow-400" />
+          <span>{enToFaNumber("4.90 (از 24 نظر)")}</span>
+        </span>
+
+        <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
+          <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
+          <div className="flex items-center gap-1 text-xs text-slate-800">
+            <IoShareSocialOutline className="w-5 h-5" />
+            <span>اشتراک گذاری</span>
+          </div>
+        </div>
+        {userData?.amount_experience_year ? (
+          <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
+            <BiMedal className="w-6 h-6 text-green-600" />
+            <span className="text-slate-600 font-normal">تجربه :</span>
+            {userData?.amount_experience_year} سال
+          </div>
+        ) : null}
+      </div>
+
+      <div className="hidden lg:block pt-6">
+        <FollowDetails onChangeStep={setStepFollow} userData={userData} />
+      </div>
+
+      <div className="md:hidden pt-6 sticky top-[52px] right-0 bg-white z-10 w-full">
+        <MenuDetails
+          userData={userData}
+          popularList={popularList}
+          permissions={permissions}
+        />
+      </div>
+
+      <div className="lg:hidden pt-6">
+        <ExpertServicesList user={userData} />
+      </div>
+
+      {/* بیوگرافی */}
+      <About description={userData?.description} />
 
       {/* نشانی */}
       {permissions?.phone || permissions?.workAddress ? (
@@ -360,7 +358,7 @@ const DetailProfile = ({
       <div className="lg:hidden">
         <OtherExpert />
       </div>
-    </div>
+    </>
   );
 };
 

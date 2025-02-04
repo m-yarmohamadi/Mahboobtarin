@@ -26,6 +26,7 @@ export default function useMainPage() {
     new_register,
     what_service,
     banners,
+    why_us,
   } = data?.data || {};
 
   const transformCategories =
@@ -50,6 +51,7 @@ export default function useMainPage() {
     new_register,
     what_service,
     banners,
+    why_us,
   };
 }
 
