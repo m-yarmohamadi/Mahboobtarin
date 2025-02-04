@@ -24,7 +24,7 @@ export default function Comments({ motekhases_id, userData }) {
         }
 
         getComments();
-    }, [])
+    }, [motekhases_id])
 
     return (
         <div className="pb-4 border border-slate-400 rounded-lg w-full ">

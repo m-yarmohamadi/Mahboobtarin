@@ -35,7 +35,8 @@ export default function FollowsList({ children, stepFollow, onChangeStep, userDa
                 <div className="w-full flex flex-col gap-4">
                     {
                         stepFollow === 1 ?
-                            followers.map((user) => (
+                            followers?.map((user) => (
+                                user.user &&
                                 <UserItem
                                     key={user.id}
                                     userId={user.user.id}
@@ -47,11 +48,12 @@ export default function FollowsList({ children, stepFollow, onChangeStep, userDa
                                 />
                             ))
                             :
-                            followings.map((user) => (
+                            followings?.map((user) => (
+                                user.follower &&
                                 <UserItem
                                     key={user.id}
-                                    userId={user.follower.id}
-                                    userName={`${user.follower.name} ${user.follower.lastname}`}
+                                    userId={user.id}
+                                    userName={`${user.follower?.name} ${user.follower?.lastname}`}
                                     userUrl={user.follower.unique_url_id}
                                     userAvatar={user.follower.avatar}
                                     userExpert={user.follower.expertises || []}
@@ -103,7 +105,7 @@ function UserItem({ userName, userUrl, userExpert, userAvatar, userId, onChangeS
                 </div>
             </div>
             <div>
-                <button onClick={expertFollowHandler} className="btn btn--primary">
+                <button onClick={expertFollowHandler} className={`btn whitespace-nowrap !py-1.5 !px-4 !rounded-full !text-xs sm:!text-sm bg-slate-900 !text-slate-100`}>
                     دنبال کردن
                 </button>
             </div>

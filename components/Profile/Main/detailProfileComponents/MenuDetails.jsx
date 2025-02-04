@@ -1,11 +1,13 @@
+import { useGetServicesProfile } from "@/hooks/expertHooks/useServices";
 import Link from "next/link"
 import { useState } from "react"
 
 export default function MenuDetails({ userData, popularList, permissions }) {
     const [active, setActive] = useState();
+    const { isLoadingServices, servicesData } = useGetServicesProfile(userData?.id);
 
     const items = [
-        { label: "خدمات", link: "#services", isShow: true },
+        { label: "خدمات", link: "#services", isShow: !isLoadingServices && servicesData.length > 0 },
         { label: "بیوگرافی", link: "#bio", isShow: userData?.description },
         { label: "نشانی", link: "#address", isShow: permissions?.phone || permissions?.workAddress ? true : false },
         { label: "تخصص و مهارت", link: "#skills", isShow: userData?.expert_description },

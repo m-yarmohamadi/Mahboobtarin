@@ -34,12 +34,14 @@ export function useGetServiceById(serviceId) {
 
 export function useGetServicesProfile(expertId, serviceId) {
   const { data, isLoading: isLoadingServices } = useQuery({
-    queryKey: ["get-services-profile"],
+    queryKey: expertId
+      ? ["get-services-profile", expertId]
+      : ["get-services-profile"],
     queryFn: () => getServiceProfile(expertId, serviceId),
     retry: false,
     refetchOnWindowFocus: true,
   });
-  
+
   const { data: servicesData } = data || {};
 
   return { servicesData, isLoadingServices };
