@@ -51,7 +51,7 @@ const LoginRegister = ({
 
   return (
     <div
-      className={`flex items-center gap-2 ${
+      className={`w-full flex justify-end items-center gap-2 ${
         isLoading && "opacity-60 blur-sm"
       } duration-150`}
     >
