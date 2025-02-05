@@ -111,6 +111,7 @@ const RegisterExpert = ({
   nationalCodeInitial = "",
   userData,
   otp,
+  setAuthStep,
 }) => {
   const router = useRouter();
   const [nationalCode, setNationalCode] = useState(nationalCodeInitial);
@@ -252,13 +253,9 @@ const RegisterExpert = ({
     password: "",
     confirmPassword: "",
     picture: "",
-    documents_id: [],
-    documents: [],
   };
 
   const submitHandlerStep3 = (values) => {
-    const transformDocumentsId = values.documents_id.join(",");
-
     const step03Data = {
       expertise: values.expertise,
       grade: values.grade,
@@ -266,7 +263,6 @@ const RegisterExpert = ({
       password: values.password,
       confirmPassword: values.confirmPassword,
       avatar: values.picture,
-      documents_id: transformDocumentsId,
       type: "expert",
       step: 3,
       national_code: nationalCode || formikStep1.values.national_code,
@@ -309,21 +305,30 @@ const RegisterExpert = ({
 
   //  ** step 4 form handlers and formik **
   const submitHandlerStep4 = (values) => {
+    const transformDocumentsId = values.documents_id.join(",");
+
     mutateRegister(
       {
         ...defaultDataRegister,
         ...values,
         step: 4,
+        documents_id: transformDocumentsId,
         national_code: nationalCode || formikStep1.values.national_code,
       },
       {
         onSuccess: ({ data }) => {
           if (data) {
-            Cookies.set("accessToken", data.token, { expires: 1 / 48 });
-            setCompleted(true);
-            toast.success(".ثبت‌نام شما با موفقیت تکمیل شد. پس از فعال سازی از طریق پیامک به شما اطلاع داده خواهد شد");
+            if (data?.user?.status === 1) {
+              setAuthStep("notActive");
+            } else {
+              Cookies.set("accessToken", data.token, { expires: 1 / 48 });
+              setCompleted(true);
+            }
+            toast.success(
+              ".ثبت‌نام شما با موفقیت تکمیل شد. پس از فعال سازی از طریق پیامک به شما اطلاع داده خواهد شد"
+            );
             // router.replace(`/${data?.user?.unique_url_id}`);
-            router.replace(`/`);
+            // router.replace(`/`);
           }
         },
         onError: (error) => {
@@ -338,7 +343,7 @@ const RegisterExpert = ({
   };
 
   const formikStep4 = useFormik({
-    initialValues: { FinalApproval: false },
+    initialValues: { FinalApproval: false, documents_id: [], documents: [] },
     onSubmit: submitHandlerStep4,
     validationSchema: Yup.object({
       FinalApproval: Yup.boolean().oneOf(
@@ -430,16 +435,16 @@ const RegisterExpert = ({
                 </Step02>
               )}
               {step === 3 && (
-                <Step03
-                  formik={formikStep3}
-                  error={errorStep3}
-                  userId={userData.id}
-                >
+                <Step03 formik={formikStep3} error={errorStep3}>
                   <NextPrev prevStep={prevStep} loading={isPending} step={3} />
                 </Step03>
               )}
               {step === 4 && (
-                <Step04 formik={formikStep4} error={errorStep4}>
+                <Step04
+                  formik={formikStep4}
+                  error={errorStep4}
+                  userId={userData.id}
+                >
                   <NextPrev prevStep={prevStep} loading={isPending} step={4} />
                 </Step04>
               )}

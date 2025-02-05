@@ -1,5 +1,6 @@
 import LoginForm from "@/components/auth/LoginForm";
 import MobileForm from "@/components/auth/MobileForm";
+import NotActiveStep from "@/components/Register/NotActiveStep";
 import RegisterExpert from "@/components/Register/RegisterExpert";
 import RegisterType from "@/components/Register/RegisterType";
 import RegisterUser from "@/components/Register/RegisterUser";
@@ -20,7 +21,7 @@ export default function AuthPage() {
     const [isRegister, setIsRegisert] = useState();
     const [otp, setOtp] = useState("");
     const phoneNumber = mobile.toString().charAt(0) === "0" ? mobile.slice(1) : mobile.toString();
-    
+
     const isExistsHandler = (e) => {
         e.preventDefault();
         mutateAuthUser({
@@ -34,11 +35,13 @@ export default function AuthPage() {
                 }
             },
             onError: (error) => {
-                if (error?.response?.status=== 301) {
+                if (error?.response?.status === 301) {
                     setAuthStep("login");
                     setIsRegisert(false);
-                } else {
-                    toast.error(enToFaMessages(error?.response?.data?.message[0]));
+                }
+
+                if (error?.response?.status === 401) {
+                    setAuthStep("notActive");
                 }
             }
         })
@@ -88,15 +91,21 @@ export default function AuthPage() {
                         userStep={registerStep}
                         userData={userData}
                         otp={otp}
+                        setAuthStep={setAuthStep}
                     />
                 )
 
             case "user":
                 return (
-                    <RegisterUser 
+                    <RegisterUser
                         mobile={countryCode + phoneNumber}
                         otp={otp}
                     />
+                )
+
+            case "notActive":
+                return (
+                    <NotActiveStep />
                 )
         }
     }
