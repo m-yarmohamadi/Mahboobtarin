@@ -24,7 +24,7 @@ const Baner02 = () => {
     banners.filter((b) => b.position === "slider-services-bottom");
 
   return (
-    <div className="py-24">
+    <div className="py-16">
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={60}
@@ -43,7 +43,7 @@ const Baner02 = () => {
             <SwiperSlide key={index}>
               <div className="w-full relative">
                 <img
-                  className="w-full h-80 md:h-64 object-cover object-center"
+                  className="w-full h-80 object-cover object-center"
                   src={item?.photo?.path}
                   alt={item?.title}
                 />

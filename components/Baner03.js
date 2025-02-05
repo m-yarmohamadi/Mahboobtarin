@@ -37,7 +37,7 @@ const Baner03 = () => {
     !isLoading && banners.filter((b) => b.position === "slider-popularsearch-bottom");
 
   return (
-    <div className="py-16">
+    <div className="pt-16">
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={2000}
@@ -55,7 +55,7 @@ const Baner03 = () => {
                 <div>
                   <div className="w-full relative">
                     <img
-                      className="h-56 w-full object-cover xs:object-left-bottom md:object-center"
+                      className="h-56 w-full object-cover xs:object-center md:object-center"
                       src={item?.photo?.path}
                       alt={item?.title}
                     />

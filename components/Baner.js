@@ -110,8 +110,8 @@ const Baner = () => {
     banners.filter((b) => b.position === "slider-top-right-bottom")[0];
 
   return (
-    <div className="xs:container ">
-      <div className="xs:full md:w-5/6 mx-auto  bg-white  rounded-2xl -mt-16  text-slate-800">
+    <div className="container h-full ">
+      <div className="xs:w-full md:w-5/6 mx-auto  bg-white  rounded-2xl -mt-16  text-slate-800">
         <div className="hidden lg:grid grid-cols-11 gap-4 p-4">
           {!isLoading &&
             categories
@@ -194,7 +194,7 @@ const Baner = () => {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-1 h-64 md:h-48  ">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-1 h-full">
           <div className=" hidden md:grid md:col-span-4 grid-rows-2 ">
             <Link href={'/auth'}>
               <div className="aspect-w-16 aspect-h-6">
@@ -220,7 +220,7 @@ const Baner = () => {
           <div className="w-full h-full md:col-span-8">
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-              className={"h-full rounded-ee-2xl"}
+              className={"h-full rounded-ee-2xl rounded-es-2xl  md:rounded-es-none "}
               spaceBetween={60}
               // navigation
               pagination={{ clickable: true }}
@@ -232,9 +232,9 @@ const Baner = () => {
                 sliders.map((item, index) => {
                   return (
                     <SwiperSlide key={index}>
-                      <div className="w-full h-full ">
+                      <div className="w-full h-full">
                         <img
-                          className="w-full h-full object-cover"
+                          className="w-full h-64 md:h-full object-cover object-center"
                           src={item.photo?.path}
                           alt={item.title}
                         />
