@@ -8,28 +8,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import useMainPage from "@/hooks/useMainPage";
-const sliderImg = [
-  {
-    id: 1,
-    url: "images/Baner004.png",
-    title: "baner01",
-  },
-  {
-    id: 1,
-    url: "images/Baner004.png",
-    title: "baner02",
-  },
-  {
-    id: 1,
-    url: "images/Baner004.png",
-    title: "baner03",
-  },
-  {
-    id: 1,
-    url: "images/Baner004.png",
-    title: "baner04",
-  },
-];
 
 const Baner04 = () => {
   const { banners, isLoading } = useMainPage();
@@ -37,7 +15,7 @@ const Baner04 = () => {
     !isLoading && banners.filter((b) => b.position === "slider-posts-bottom");
 
   return (
-    <div className="pb-16">
+    <div className="">
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={60}
@@ -55,7 +33,7 @@ const Baner04 = () => {
                 <div>
                   <div className="w-full relative">
                     <img
-                      className="h-56 w-full object-cover"
+                      className="h-80 md:h-64 w-full object-cover md:object-center"
                       src={item?.photo?.path}
                       alt={item?.title}
                     />

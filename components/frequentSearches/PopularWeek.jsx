@@ -6,7 +6,7 @@ export default function PopularWeek({ popularWeek }) {
     return (
         <div>
             <h4 className="font-bold text-slate-800 pb-5 lg:text-xl lg:text-center">
-                محبوب ترین های هفته
+                محبوب‌ترین‌های هفته
             </h4>
             <div className="w-full flex items-center gap-5 overflow-x-auto no-scrollbar lg:hidden">
                 {popularWeek.map((item, index) => (
@@ -52,7 +52,11 @@ function PopularWeekItem({ item }) {
                     href={`/group/${item.id}`}
                     className="text-xs lg:text-sm font-bold text-primary-01 btn !p-0 gap-1 whitespace-nowrap"
                 >
+                    <span>محبوب‌ترین های</span>
+                    &nbsp;
                     {item.name}
+                    &nbsp;                    <span>هفته</span>
+
                     <FaChevronLeft />
                 </Link>
             </div>

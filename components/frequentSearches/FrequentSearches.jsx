@@ -5,7 +5,7 @@ export default function FrequentSearches({ topSearch }) {
     return (
         <div>
             <h4 className="font-bold text-slate-800 pb-5 lg:text-xl lg:text-center">
-                جستجو های پر تکرار
+                جستجو‌های پر تکرار
             </h4>
             <div className="w-full flex items-center gap-5 overflow-x-auto no-scrollbar lg:hidden">
                 {topSearch.map((item, index) => (
@@ -44,7 +44,7 @@ function FrequentSearchesItem({ item }) {
                 <div className="text-sm lg:text-base font-bold text-slate-800 whitespace-nowrap">
                     {item.title}
                 </div>
-                <div dangerouslySetInnerHTML={{ __html: item.description }} className="mt-2 text-xs lg:text-sm text-slate-600 font-medium whitespace-nowrap">
+                <div dangerouslySetInnerHTML={{ __html: item.meta_desc }} className="mt-2 text-xs  text-slate-600 font-medium text-justify line-clamp-2">
                 </div>
                 <div className="flex items-center mt-5">
                     {item.metekhases.slice(0, 3).map((pic, index) => (

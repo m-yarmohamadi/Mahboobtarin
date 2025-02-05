@@ -14,15 +14,15 @@ const News = () => {
   if (isLoading) return null;
 
   return (
-    <div className=" bg-white py-16">
-      <div className="px-8 pb-8">
+    <div className=" bg-white pt-16">
+      {/* <div className="px-8 pb-8">
         <button
           className="py-2 px-8 bg-primary-01 text-white text-xl font-bold rounded-lg"
           type=""
         >
           مجله محبوب‌ترین
         </button>
-      </div>
+      </div> */}
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={5}
@@ -53,9 +53,9 @@ const News = () => {
                         className="!min-w-none text-textDefault line-clamp-6"
                       ></div>
                       <Link key={item.id} href={`/magazine/${item.slug}`} className="w-full xs:min-w-full group">
-                      <span className=" text-primary-01 cursor-pointer">
-                        ادامه مطلب...
-                      </span>
+                        <span className=" text-primary-01 cursor-pointer">
+                          ادامه مطلب...
+                        </span>
                       </Link>
                     </div>
                   </div>

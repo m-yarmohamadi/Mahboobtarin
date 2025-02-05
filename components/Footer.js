@@ -36,16 +36,14 @@ const Footer = () => {
               <div className="flex flex-col justify-start items-start w-full gap-2">
                 <Link href={"/contact-us"}><span>ارتباط با ما</span></Link>
                 <Link href={"/about"}><span>درباره ما</span></Link>
-                <Link href={"/"}><span>مجله محبوب‌ترین</span></Link>
                 <Link href={"/auth"}><span>ثبت‌نام کاربران</span></Link>
                 <Link href={"/auth"}><span>ثبت‌نام متخصصان</span></Link>
               </div>
               <div className="flex flex-col justify-start items-start w-full gap-2">
                 <Link href={"/faq"}><span>سوالات متداول</span></Link>
-                <Link href={"/group/366"}><span>دسته بندی محبوب‌ترین</span></Link>
-                <Link href={"/"}><span>قوانین و مقررات</span></Link>
-                <Link href={"/"}><span>راهنمای عضویت</span></Link>
-                <Link href={"/"}><span>خط و مشی محبوب‌ترین</span></Link>
+                <Link href={"/magazine"}><span>مجله محبوب‌ترین</span></Link>
+                <Link href={"/rules"}><span>قوانین و مقررات</span></Link>
+                <Link href={"/register_help"}><span>راهنمای عضویت</span></Link>
               </div>
             </div>
           </div>
@@ -106,15 +104,11 @@ const Footer = () => {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 xs:grid-cols-5 justify-items-center items-center w-full gap-x-2">
-              <div className="w-16 p-3 ">
-                <img
-                  className=" w-full hover:grayscale"
-                  src="/images/gardeshgari.png"
-                  alt=""
-                />
-              </div>
-              <a
+            <div className="w-full flex justify-between justify-items-center items-center w-full gap-x-2">
+
+              <Link
+                className="w-24 p-3 "
+
                 referrerpolicy='origin'
                 target='_blank'
                 href='https://trustseal.enamad.ir/?id=575774&amp;Code=hLCzTHtgNHogPXmSf2V05Utt0rLEAXNp'>
@@ -122,40 +116,26 @@ const Footer = () => {
                   referrerpolicy='origin'
                   src='/images/eNamad.png'
                   alt='نماد الکترونیک'
-                  className='h-16'
+                  className=" w-full hover:grayscale"
                   code='hLCzTHtgNHogPXmSf2V05Utt0rLEAXNp' />
 
-              </a>
+              </Link>
 
-              {/* <Link href={'https://trustseal.enamad.ir/?id=575774&Code=hLCzTHtgNHogPXmSf2V05Utt0rLEAXNp'}>
-              <div className="w-16 p-3 ">
-                <img
-                  className=" w-full hover:grayscale"
-                  src="/images/eNamad.png"
-                  alt=""
-                />
-              </div></Link> */}
-              <div className="w-16 p-3 ">
+              <div className="w-24 p-3 ">
                 <img
                   className=" w-full hover:grayscale"
                   src="/images/samandehi.png"
                   alt=""
                 />
               </div>
-              <div className="w-16 p-3 ">
+              <div className="w-24 p-3 ">
                 <img
                   className=" w-full hover:grayscale"
                   src="/images/Lisence002.png"
                   alt=""
                 />
               </div>
-              <div className="w-16 p-3 ">
-                <img
-                  className=" w-full hover:grayscale"
-                  src="/images/Lisence003.png"
-                  alt=""
-                />
-              </div>
+
             </div>
           </div>
         </div>

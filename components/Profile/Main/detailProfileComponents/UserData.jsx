@@ -8,7 +8,8 @@ export default function UserData({userData}) {
                     {userData?.user_title ||
                         `${userData?.name} ${userData?.lastname}`}
                 </div>
-                <BsFillPatchCheckFill className="w-4 h-4 text-primary-01" />
+                {userData?.is_verify && <BsFillPatchCheckFill className="w-4 h-4 text-primary-01" />}
+                
             </div>
             <span className=" text-xs text-slate-700">
                 {userData?.unique_url_id}@

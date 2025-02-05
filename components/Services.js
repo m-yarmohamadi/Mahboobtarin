@@ -20,7 +20,7 @@ import useMainPage from "@/hooks/useMainPage";
 
 const Services = () => {
   const { what_service, isLoading } = useMainPage();
-  
+
   const data = [
     {
       id: 1,
@@ -61,7 +61,7 @@ const Services = () => {
 
   return (
     <div>
-      <div className="w-full container mx-auto  pt-12 px-0 ">
+      <div className="w-full container mx-auto px-0 ">
         <div className="w-full md:p-2 flex  justify-center items-center font-extrabold text-xl md:text-2xl text-textDefault">
           چه خدماتی به شما ارائه می دهیم؟
         </div>

@@ -100,7 +100,7 @@ export default function Sidebar({ open, onClose }) {
         },
         {
             id: 20,
-            title: 'محبوب ترین های من',
+            title: 'محبوب‌ترین های من',
             value: 'mahbobtarin',
             quanity: '',
             icon: MdOutlineFavoriteBorder,
@@ -114,7 +114,7 @@ export default function Sidebar({ open, onClose }) {
         },
         {
             id: 91,
-            title: 'درخواست از محبوب ترین',
+            title: 'درخواست از محبوب‌ترین',
             value: 'request_services',
             quanity: '',
             icon: FaBlog,
