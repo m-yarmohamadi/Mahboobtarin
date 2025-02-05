@@ -111,7 +111,7 @@ export default function Header({ isShowMobileMenu = true }) {
           className="w-full mx-auto flex max-w-full items-center justify-between p-2"
           aria-label="Global"
         >
-          <div className="flex">
+          <div className="w-1/3 flex">
             <Link href="/">
               <span className="sr-only">محبوب‌ترین</span>
 
@@ -132,8 +132,8 @@ export default function Header({ isShowMobileMenu = true }) {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <PopoverGroup className="hidden lg:flex gap-x-2 lg:gap-x-4">
-            <Popover className="flex justify-center items-center category group">
+          <PopoverGroup className="hidden w-full  lg:flex gap-x-2 lg:gap-x-4">
+            <Popover className=" flex justify-start items-center category group ps-20">
               <button
                 onClick={() => setCateDesk(!cateDesk)}
                 className=" flex justify-center items-center truncate gap-x-1 text-xs xl:text-sm font-semibold leading-6 text-slate-900"

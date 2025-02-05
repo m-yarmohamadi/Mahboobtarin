@@ -207,9 +207,9 @@ const Baner = () => {
             </Link>
             <Link href={'/auth'}>
 
-              <div className="aspect-w-16 aspect-h-6">
+              <div className="aspect-w-16 aspect-h-6 ">
                 <img
-                  className="object-cover object-center h-full w-full"
+                  className="object-cover object-center h-full w-full rounded-es-2xl"
                   src={bottomBanner?.photo?.path}
                   alt={bottomBanner?.title}
                 />

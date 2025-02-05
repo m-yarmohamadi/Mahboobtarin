@@ -321,8 +321,9 @@ const RegisterExpert = ({
           if (data) {
             Cookies.set("accessToken", data.token, { expires: 1 / 48 });
             setCompleted(true);
-            toast.success("ثبت‌نام شما با موفقیت تکمیل شد");
-            router.replace(`/${data?.user?.unique_url_id}`);
+            toast.success(".ثبت‌نام شما با موفقیت تکمیل شد. پس از فعال سازی از طریق پیامک به شما اطلاع داده خواهد شد");
+            // router.replace(`/${data?.user?.unique_url_id}`);
+            router.replace(`/`);
           }
         },
         onError: (error) => {
