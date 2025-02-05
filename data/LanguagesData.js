@@ -1,4 +1,5 @@
 export const LanguagesData = [
+    { id: 1, label: "فارسی", value: "فارسی" },
     { id: 1, label: "اردو", value: "اردو" },
     { id: 2, label: "ارمنی", value: "ارمنی" },
     { id: 3, label: "ازبکی", value: "ازبکی" },

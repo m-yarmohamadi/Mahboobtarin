@@ -15,15 +15,15 @@ const Recommended = () => {
           <RecommendedDoctors key={index} data={item} />
         ))}
       </div>
-      <RecommendedPsychologists />
-      <div className="py-8 w-full flex justify-center items-center">
+      {/* <RecommendedPsychologists /> */}
+      {/* <div className="py-8 w-full flex justify-center items-center">
         <button
           className="py-2 px-8 bg-primary-01 text-white font-semibold rounded-lg"
           type=""
         >
           موارد بیشتر
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
