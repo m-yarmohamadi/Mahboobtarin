@@ -17,19 +17,20 @@ export default function MobileMenu({ user, isLoading }) {
         },
         {
             label: "محبوب‌ترین‌ها",
-            link: "#",
+            link: !isLoading && user ? user?.type === "user" ? "/user/profile" : "/admin/mahbobtarin" : "/auth",
             icon: FaRegHeart,
             activeIcon: FaHeart
         },
         {
             label: "سفارشات",
-            link: "#",
+            link: !isLoading && user ? user?.type === "user" ? "/user/profile" : "/admin/orders" : "/auth",
             icon: FaRegListAlt,
             activeIcon: FaListAlt
         },
         {
             label: "گفتگو",
-            link: "#",
+            link: !isLoading && user ? user?.type === "user" ? "/user/profile" : "/admin/chats" : "/auth",
+
             icon: IoChatboxEllipsesOutline,
             activeIcon: IoChatboxEllipses
         },

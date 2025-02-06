@@ -106,74 +106,7 @@ export default function Header({ isShowMobileMenu = true }) {
 
   return (
     <div className="w-full bg-primary-02 z-50 sticky shadow-md dark:shadow-darkMd  top-0 left-0 right-0 header-primary">
-      <header className=" md:mx-auto md:container">
-        <nav
-          className="w-full mx-auto flex max-w-full items-center justify-between p-2"
-          aria-label="Global"
-        >
-          <div className="w-1/3 flex">
-            <Link href="/">
-              <span className="sr-only">محبوب‌ترین</span>
-
-              <img
-                className="w-40 dark:brightness-200"
-                src={data ? data.logo : "/images/logo.png"}
-                alt=""
-              />
-            </Link>
-          </div>
-          <div className="flex flex-1 justify-end px-4 items-center lg:hidden gap-3">
-            <button
-              type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-slate-700"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <PopoverGroup className="hidden w-full  lg:flex gap-x-2 lg:gap-x-4">
-            <Popover className=" flex justify-start items-center category group ps-20">
-              <button
-                onClick={() => setCateDesk(!cateDesk)}
-                className=" flex justify-center items-center truncate gap-x-1 text-xs xl:text-sm font-semibold leading-6 text-slate-900"
-              >
-                <span className="text-lg text-primary-01">
-                  <FaLayerGroup />
-                </span>
-                دسته بندی ها
-                <ChevronDownIcon
-                  className="h-5 w-5 flex-none text-slate-600"
-                  aria-hidden="true"
-                />
-              </button>
-              <Categories
-                isOpen={cateDesk}
-                setIsOpen={() => setCateDesk(false)}
-                categories={categories}
-                isLoading={isLoading}
-              />
-            </Popover>
-
-            {menu.map((item) => {
-              return (
-                <Link
-                  key={item.id}
-                  href={item?.link || "#"}
-                  className="text-sm xl:text-base whitespace-nowrap py-4 px-2 text-textDefault relative before:duration-200 before:ease-out cursor-pointer before:h-1 before:w-0 before:rounded-t-full hover:before:w-full before:absolute before:-bottom-2 before:right-0 before:bg-primary-01"
-                >
-                  {item.title}
-                </Link>
-              );
-            })}
-          </PopoverGroup>
-          <LoginRegister
-            setOpenRegisterModal={setOpenRegisterModal}
-            handleLogOut={logout}
-            user={user}
-            isLoading={isLoadingUser}
-          />
-        </nav>
+      <header className="w-full md:mx-auto flex justify-center items-between md:container">
         <Dialog
           className={`lg:hidden`}
           open={mobileMenuOpen}
@@ -259,6 +192,76 @@ export default function Header({ isShowMobileMenu = true }) {
             </div>
           </DialogPanel>
         </Dialog>
+        <nav
+          className="w-full max-w-full mx-auto flex  items-center justify-between p-2"
+          aria-label="Global"
+        >
+          <div className="w-2/4 flex">
+            <Link href="/">
+              <span className="sr-only">محبوب‌ترین</span>
+
+              <img
+                className="w-48 dark:brightness-200"
+                src={data ? data.logo : "/images/logo.png"}
+                alt="محبوب‌ترین"
+              />
+            </Link>
+          </div>
+          <div className=" px-4  lg:hidden gap-3">
+            <button
+              type="button"
+              className="w-full inline-flex items-center justify-end rounded-md p-1 text-slate-700"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon className="h-8 w-8" aria-hidden="true" />
+            </button>
+          </div>
+          <PopoverGroup className="hidden lg:w-full  lg:flex gap-x-2 lg:gap-x-4">
+            <Popover className=" flex justify-start items-center category group ps-10">
+              <button
+                onClick={() => setCateDesk(!cateDesk)}
+                className=" flex justify-center items-center truncate gap-x-1 text-xs xl:text-sm font-semibold leading-6 text-slate-900"
+              >
+                <span className="text-lg text-primary-01">
+                  <FaLayerGroup />
+                </span>
+                دسته بندی ها
+                <ChevronDownIcon
+                  className="h-5 w-5 flex-none text-slate-600"
+                  aria-hidden="true"
+                />
+              </button>
+              <Categories
+                isOpen={cateDesk}
+                setIsOpen={() => setCateDesk(false)}
+                categories={categories}
+                isLoading={isLoading}
+              />
+            </Popover>
+
+            {menu.map((item) => {
+              return (
+                <Link
+                  key={item.id}
+                  href={item?.link || "#"}
+                  className="text-sm xl:text-base whitespace-nowrap py-4 px-2 text-textDefault relative before:duration-200 before:ease-out cursor-pointer before:h-1 before:w-0 before:rounded-t-full hover:before:w-full before:absolute before:-bottom-2 before:right-0 before:bg-primary-01"
+                >
+                  {item.title}
+                </Link>
+              );
+            })}
+          </PopoverGroup>
+          <div className="hidden lg:w-full lg:flex">
+          <LoginRegister
+            setOpenRegisterModal={setOpenRegisterModal}
+            handleLogOut={logout}
+            user={user}
+            isLoading={isLoadingUser}
+          />
+          </div>
+        </nav>
+
       </header>
       {isShowMobileMenu && <MobileMenu user={user} isLoading={isLoadingUser} />}
       <RegisterModal

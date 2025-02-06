@@ -22,7 +22,7 @@ export default function MenuDetails({ userData, popularList, permissions }) {
     ]
 
     return (
-        <div className="w-full flex items-center gap-5 overflow-x-auto no-scrollbar border-b border-b-slate-300 dark:border-b-slate-400">
+        <div className="w-full flex items-center gap-5 overflow-x-auto no-scrollbar border-b border-b-slate-300 dark:border-b-slate-400 pt-4 mb-4">
             {items.map((item, index) => (
                 item.isShow &&
                 <Link
