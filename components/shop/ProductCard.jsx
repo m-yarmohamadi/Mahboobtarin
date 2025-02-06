@@ -42,9 +42,9 @@ export default function ProductCard({ product, user, isEdit = false }) {
                 </Link>
                 <div className='space-y-4'>
                     <div className={`w-full flex mt-4 gap-1 ${product?.discount_price ? "justify-between" : "justify-end"} items-center`}>
-                        {product?.discount_price && <span className='text-sm font-bold text-secondary-03 border-2 border-secondary-03  p-2 rounded-md'>{product?.discount_price} %</span>}
+                        {product?.discount_price > 0 && <span className='text-sm font-bold text-secondary-03 border-2 border-secondary-03  p-2 rounded-md'>{product?.discount_price} %</span>}
                         <div className='flex flex-col justify-center items-center'>
-                            {product?.discount_price && <p className='text-md line-through  text-slate-500'>{numberWithCommas(product?.price)} </p>}
+                            {product?.discount_price > 0 && <p className='text-md line-through  text-slate-500'>{numberWithCommas(product?.price)} </p>}
                             <p className='text-lg font-bold text-slate-700 text-left'>{product?.price && numberWithCommas(product?.discount_price ? addDiscount(product?.price, product?.discount_price) : product?.price)} تومان</p>
 
                         </div>

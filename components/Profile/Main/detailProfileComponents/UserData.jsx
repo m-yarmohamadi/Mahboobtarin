@@ -1,6 +1,6 @@
 import { BsFillPatchCheckFill } from "react-icons/bs";
 
-export default function UserData({userData}) {
+export default function UserData({ userData }) {
     return (
         <div className="flex flex-col">
             <div className="flex items-center gap-2">
@@ -8,8 +8,8 @@ export default function UserData({userData}) {
                     {userData?.user_title ||
                         `${userData?.name} ${userData?.lastname}`}
                 </div>
-                {userData?.is_verify && <BsFillPatchCheckFill className="w-4 h-4 text-primary-01" />}
-                
+                {userData?.is_verify === "true" && <BsFillPatchCheckFill className="w-4 h-4 text-primary-01" />}
+
             </div>
             <span className=" text-xs text-slate-700">
                 {userData?.unique_url_id}@

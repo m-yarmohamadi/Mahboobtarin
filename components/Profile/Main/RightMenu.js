@@ -107,13 +107,16 @@ const RightMenu = ({ userData, popularList }) => {
         </Link>
       ) : null}
 
-      <Link
-        href="#booth"
-        className="duration-150 w-full flex justify-start items-center gap-1 hover:bg-primary-01 hover:text-white rounded-se-xl py-4 px-6 cursor-pointer bg-opacity-30"
-      >
-        <FaAngleLeft />
-        <span>غرفه</span>
-      </Link>
+      {userData?.products.length > 0 && (
+        <Link
+          href="#products"
+          className="duration-150 w-full flex justify-start items-center gap-1 hover:bg-primary-01 hover:text-white rounded-se-xl py-4 px-6 cursor-pointer bg-opacity-30"
+        >
+          <FaAngleLeft />
+          <span>غرفه</span>
+        </Link>
+      )}
+      
       <Link
         href="#comments"
         className="duration-150 w-full flex justify-start items-center gap-1 hover:bg-primary-01 hover:text-white rounded-se-xl py-4 px-6 cursor-pointer bg-opacity-30"

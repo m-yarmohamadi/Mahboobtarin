@@ -17,7 +17,7 @@ export default function MenuDetails({ userData, popularList, permissions }) {
         { label: "محبوب‌ترین", link: "#populars", isShow: popularList.length > 0 },
         { label: "گالری", link: "#gallery", isShow: userData.gallery.length > 0 },
         { label: "لینکدونی", link: "#linkdins", isShow: userData?.link_dooni.length > 0 },
-        { label: "غرفه", link: "#booth", isShow: true },
+        { label: "غرفه", link: "#products", isShow: userData?.products.length > 0 },
         { label: "نظر و امتیاز", link: "#comments", isShow: true },
     ]
 

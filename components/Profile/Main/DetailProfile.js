@@ -46,6 +46,7 @@ import MenuDetails from "./detailProfileComponents/MenuDetails";
 import FollowsList from "./detailProfileComponents/FollowsList";
 import BookmarkUser from "./detailProfileComponents/BookmarkUser";
 import { useFollow } from "@/hooks/expertHooks/useFollow";
+import ExpertProducts from "./detailProfileComponents/ExpertProducts";
 
 const DetailProfile = ({
   userData,
@@ -54,7 +55,7 @@ const DetailProfile = ({
   isMarked,
   popularList,
   starsData,
-  commentsData
+  commentsData,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -76,7 +77,7 @@ const DetailProfile = ({
     router.replace(pathname, { scroll: false });
   };
   console.log(userData);
-  
+
   const expertLikeHandler = () => {
     likeDislikeHandler(userData.id);
     router.replace(pathname, { scroll: false });
@@ -287,6 +288,7 @@ const DetailProfile = ({
       {/* لینکدونی */}
       <Linkdoni link_dooni={userData?.link_dooni || []} user={userData} />
 
+      <ExpertProducts products={userData?.products || []} user={userData}/>
 
       {/* نظرات کاربران */}
       <div id="comments" className="pb-16">
@@ -297,7 +299,7 @@ const DetailProfile = ({
       </div>
 
       <div className="lg:hidden">
-        <OtherExpert  />
+        <OtherExpert />
       </div>
     </>
   );

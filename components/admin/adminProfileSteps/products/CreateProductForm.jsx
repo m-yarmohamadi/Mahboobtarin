@@ -32,7 +32,7 @@ export default function CreateProductForm({ editData }) {
         status: editData?.status || "",
         price: editData?.price || "",
         anbar: editData?.anbar || "",
-        discount_price: editData?.discount_price || "",
+        discount_price: editData?.discount_price || 0,
         description: editData?.description || "",
         photo_id: editPhotosIds,
         categories: editCategories || [],
