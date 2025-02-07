@@ -22,7 +22,7 @@ export default function TabGroup({ tabs = [], children, handler, onIndex, classN
                         key={index}
                         type="button"
                         onClick={() => setActiveTab(index)}
-                        className={`${index === activeTab ? " before:h-1 text-primary-01" : " before:h-0 text-slate-900"} text-base whitespace-nowrap px-1 relative before:w-full before:absolute before:-bottom-2 before:right-0 before:rounded-t-full before:duration-100 before:bg-primary-01`}
+                        className={`${index === activeTab ? " before:h-1 text-primary-01" : " before:h-0 text-slate-900"} ${tab?.className} text-base whitespace-nowrap px-1 relative before:w-full before:absolute before:-bottom-2 before:right-0 before:rounded-t-full before:duration-100 before:bg-primary-01`}
                     >
                         {tab.label}
                     </button>

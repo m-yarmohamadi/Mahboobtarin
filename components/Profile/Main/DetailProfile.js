@@ -128,8 +128,9 @@ const DetailProfile = ({
           <div className="space-y-4">
             <button
               onClick={expertFollowHandler}
-              className={`btn whitespace-nowrap !py-1.5 !px-4 !rounded-full !text-xs sm:!text-sm ${isFollow ? "btn--outline" : "bg-slate-900 !text-slate-100"
-                }`}
+              className={`btn whitespace-nowrap !py-1.5 !px-4 !rounded-full !text-xs sm:!text-sm ${
+                isFollow ? "btn--outline" : "bg-slate-900 !text-slate-100"
+              }`}
             >
               {isFollow ? "لغو دنبال کردن" : "دنبال کردن"}
             </button>
@@ -175,12 +176,14 @@ const DetailProfile = ({
 
           <span className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
             <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
-
-
           </span>
-
-
-
+          {userData?.amount_experience_year ? (
+            <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
+              <BiMedal className="w-6 h-6 text-green-600" />
+              <span className="text-slate-600 font-normal">تجربه :</span>
+              {userData?.amount_experience_year} سال
+            </div>
+          ) : null}
 
           <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
             <div className="flex items-center gap-1 text-xs text-slate-800">
@@ -192,14 +195,6 @@ const DetailProfile = ({
 
         <div className="hidden lg:flex justify-between items-center pe-16 pt-6 lg:pb-4">
           <FollowDetails onChangeStep={setStepFollow} userData={userData} />
-          {userData?.amount_experience_year ? (
-            <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
-              <BiMedal className="w-6 h-6 text-green-600" />
-              <span className="text-slate-600 font-normal">تجربه :</span>
-              {userData?.amount_experience_year} سال
-            </div>
-          ) : null}
-
         </div>
       </div>
 
@@ -240,9 +235,9 @@ const DetailProfile = ({
               ) : null}
             </div>
             {userData?.addresses.length &&
-              permissions?.workAddress &&
-              userData?.addresses[0].lat &&
-              userData?.addresses[0].lng ? (
+            permissions?.workAddress &&
+            userData?.addresses[0].lat &&
+            userData?.addresses[0].lng ? (
               <>
                 <div className="py-2">
                   <div className="w-full h-[200px] relative border border-primary-01 rounded-md overflow-hidden">

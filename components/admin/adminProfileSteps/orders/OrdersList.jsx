@@ -30,10 +30,7 @@ export default function OrdersList() {
 
                 <OrdersFilter />
 
-                <TabGroup tabs={[{ label: "محصولات" }, ...tabs]}>
-                    <TabGroup.Item>
-                        <Products />
-                    </TabGroup.Item>
+                <TabGroup tabs={[...tabs, { label: "محصولات" ,className:"lg:!mr-auto"}]}>
                     {tabs.map((tab, index) => (
                         <TabGroup.Item key={index}>
                             <div className="space-y-5">
@@ -47,6 +44,9 @@ export default function OrdersList() {
                             </div>
                         </TabGroup.Item>
                     ))}
+                    <TabGroup.Item>
+                        <Products />
+                    </TabGroup.Item>
                 </TabGroup>
             </div>
         </div>

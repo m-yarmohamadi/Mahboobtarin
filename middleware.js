@@ -33,7 +33,7 @@ export async function middleware(req) {
       "services",
       "products",
       "academy",
-      // "gallery",
+      "gallery",
       "linkdin",
       "comments",
     ],
