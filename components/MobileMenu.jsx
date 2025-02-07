@@ -17,7 +17,7 @@ export default function MobileMenu({ user, isLoading }) {
         },
         {
             label: "محبوب‌ترین‌ها",
-            link: !isLoading && user ? user?.type === "user" ? "/user/profile" : "/admin/mahbobtarin" : "/auth",
+            link: !isLoading && user ? user?.type === "user" ? "/user/profile" : "/admin/bookmarks" : "/auth",
             icon: FaRegHeart,
             activeIcon: FaHeart
         },
