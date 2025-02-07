@@ -128,9 +128,8 @@ const DetailProfile = ({
           <div className="space-y-4">
             <button
               onClick={expertFollowHandler}
-              className={`btn whitespace-nowrap !py-1.5 !px-4 !rounded-full !text-xs sm:!text-sm ${
-                isFollow ? "btn--outline" : "bg-slate-900 !text-slate-100"
-              }`}
+              className={`btn whitespace-nowrap !py-1.5 !px-4 !rounded-full !text-xs sm:!text-sm ${isFollow ? "btn--outline" : "bg-slate-900 !text-slate-100"
+                }`}
             >
               {isFollow ? "لغو دنبال کردن" : "دنبال کردن"}
             </button>
@@ -148,59 +147,60 @@ const DetailProfile = ({
       <div className="mt-6 lg:hidden">
         <UserData userData={userData} />
       </div>
-
-      <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-4 pt-6">
-        <span className="flex items-center w-full gap-4 text-sm md:text-base">
-          <span className="flex justify-center items-center text-slate-800 font-semibold">
-            <HiOutlineLocationMarker className="w-5 h-5" />
-            <span>{getCountryLabel}</span>
-            <pre>، </pre>
-            <span>{getProvinceLabel}</span>
+      <div className="border p-2 rounded-md">
+        <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-4 pt-6 ">
+          <span className="flex items-center w-full gap-4 text-sm md:text-base">
+            <span className="flex justify-center items-center text-slate-800 font-semibold">
+              <HiOutlineLocationMarker className="w-5 h-5" />
+              <span>{getCountryLabel}</span>
+              <pre>، </pre>
+              <span>{getProvinceLabel}</span>
+            </span>
           </span>
-        </span>
-        <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
-          <FaRegCalendar className="w-4 h-4 text-slate-800" />
-          <span className="text-slate-600 font-normal">تاریخ پیوستن :</span>
-          {toPersianDateLong(userData?.created_at)}
-        </span>
-        <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
-          <FaRegCalendar className="w-4 h-4 text-slate-800" />
-          <span className="text-slate-600 font-normal">متولد :</span>
-          {toPersianDateLong(userData?.birthday)}
-        </span>
+          <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
+            <FaRegCalendar className="w-4 h-4 text-slate-800" />
+            <span className="text-slate-600 font-normal">تاریخ پیوستن :</span>
+            {toPersianDateLong(userData?.created_at)}
+          </span>
+          <span className="text-xs flex items-center gap-1 text-slate-800 font-semibold">
+            <FaRegCalendar className="w-4 h-4 text-slate-800" />
+            <span className="text-slate-600 font-normal">متولد :</span>
+            {toPersianDateLong(userData?.birthday)}
+          </span>
 
-        <span className="flex items-center gap-1 text-xs md:text-sm text-slate-800">
-          <FaRegStar className="w-5 h-5 text-yellow-400" />
-          <span>{enToFaNumber(`${starsData} (از ${commentsData} نظر)`)}</span>
-        </span>
+          <span className="flex items-center gap-1 text-xs md:text-sm text-slate-800">
+            <FaRegStar className="w-5 h-5 text-yellow-400" />
+            <span>{enToFaNumber(`${starsData} (از ${commentsData} نظر)`)}</span>
+          </span>
 
-        <span className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
-        <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
+          <span className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
+            <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
 
 
-        </span>
-
+          </span>
 
 
 
-        <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
-          <div className="flex items-center gap-1 text-xs text-slate-800">
-            <IoShareSocialOutline className="w-5 h-5" />
-            <span>اشتراک گذاری</span>
+
+          <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
+            <div className="flex items-center gap-1 text-xs text-slate-800">
+              <IoShareSocialOutline className="w-5 h-5" />
+              <span>اشتراک گذاری</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="hidden lg:flex justify-between items-center pe-20 pt-6 lg:pb-16">
-        <FollowDetails onChangeStep={setStepFollow} userData={userData} />
-        {userData?.amount_experience_year ? (
-          <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
-            <BiMedal className="w-6 h-6 text-green-600" />
-            <span className="text-slate-600 font-normal">تجربه :</span>
-            {userData?.amount_experience_year} سال
-          </div>
-        ) : null}
+        <div className="hidden lg:flex justify-between items-center pe-16 pt-6 lg:pb-4">
+          <FollowDetails onChangeStep={setStepFollow} userData={userData} />
+          {userData?.amount_experience_year ? (
+            <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
+              <BiMedal className="w-6 h-6 text-green-600" />
+              <span className="text-slate-600 font-normal">تجربه :</span>
+              {userData?.amount_experience_year} سال
+            </div>
+          ) : null}
 
+        </div>
       </div>
 
       <div className="md:hidden pt-6 sticky top-[52px] right-0 bg-white z-10 w-full">
@@ -240,9 +240,9 @@ const DetailProfile = ({
               ) : null}
             </div>
             {userData?.addresses.length &&
-            permissions?.workAddress &&
-            userData?.addresses[0].lat &&
-            userData?.addresses[0].lng ? (
+              permissions?.workAddress &&
+              userData?.addresses[0].lat &&
+              userData?.addresses[0].lng ? (
               <>
                 <div className="py-2">
                   <div className="w-full h-[200px] relative border border-primary-01 rounded-md overflow-hidden">
@@ -298,7 +298,7 @@ const DetailProfile = ({
       {/* لینکدونی */}
       <Linkdoni link_dooni={userData?.link_dooni || []} user={userData} />
 
-      <ExpertProducts products={userData?.products || []} user={userData}/>
+      <ExpertProducts products={userData?.products || []} user={userData} />
 
       {/* نظرات کاربران */}
       <div id="comments" className="pb-16">
