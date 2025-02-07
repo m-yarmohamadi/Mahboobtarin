@@ -11,14 +11,17 @@ import AllGallery from './AllGallery';
 
 export default function Gallery() {
 	const { user, isLoading } = useProfile();
+	const { user_level } = user || {};
+	const LIMIT = "Gold";
 	const [open, setOpen] = useState(false);
 
 	const tabs = [
 		{ label: "همه موارد" },
 		{ label: "عکس" },
-		{ label: "فیلم" },
-		{ label: "صوت" }
+		{ label: "فیلم", limit: user_level === LIMIT },
+		{ label: "صوت", limit: user_level === LIMIT }
 	];
+	const limitedTabs = tabs.filter((i) => !i.limit);
 
 
 	if (isLoading) return (
@@ -35,19 +38,24 @@ export default function Gallery() {
 					<div className='text-primary-01 text-sm  h-full flex justify-center items-end'>لطفاً عکس ها و فیلمهای مورد علاقه خود را با یک تیتر کوتاه در این قسمت درج کنید.</div>
 				</div>
 			</div>
-			<TabGroup tabs={tabs}>
+			<TabGroup tabs={limitedTabs}>
 				<TabGroup.Item>
-					<AllGallery user={user}/>
+					<AllGallery user={user} />
 				</TabGroup.Item>
 				<TabGroup.Item>
-					<PictureGallery user={user} />
+					<PictureGallery user={user} LIMIT={LIMIT} />
 				</TabGroup.Item>
-				<TabGroup.Item>
-					<VideoGallery user={user} />
-				</TabGroup.Item>
-				<TabGroup.Item>
-					<VoiceGallery user={user} />
-				</TabGroup.Item>
+				{
+					user_level === LIMIT &&
+					<>
+						<TabGroup.Item>
+							<VideoGallery user={user} />
+						</TabGroup.Item>
+						<TabGroup.Item>
+							<VoiceGallery user={user} />
+						</TabGroup.Item>
+					</>
+				}
 			</TabGroup>
 
 			<Modal

@@ -15,6 +15,7 @@ import { BiSupport } from "react-icons/bi";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
 import { BsChatSquareDots } from "react-icons/bs";
 import { useGetAllNotifs } from "@/hooks/expertHooks/useNotifications";
+import numberWithCommas from "@/utils/numberWithCommas";
 
 
 export default function Sidebar({ open, onClose }) {
@@ -41,6 +42,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'chats',
             quanity: '',
             icon: BsChatSquareDots,
+            limit: ["Bronze"]
         },
         {
             id: 3,
@@ -48,6 +50,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'orders',
             quanity: '',
             icon: MdOutlineListAlt,
+            limit: ["Bronze"]
         },
         {
             id: 9,
@@ -55,6 +58,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'requests_client',
             quanity: '',
             icon: FaRegHandshake,
+            limit: ["Bronze"]
         },
         {
             id: 4,
@@ -62,6 +66,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'calling',
             quanity: '',
             icon: HiOutlineSpeakerphone,
+            limit: ["Bronze", "Silver"]
         },
         {
             id: 5,
@@ -69,6 +74,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'services',
             quanity: '',
             icon: MdOutlineMedicalServices,
+            limit: ["Bronze"]
         },
         {
             id: 18,
@@ -76,6 +82,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'products',
             quanity: '',
             icon: LuBox,
+            limit: ["Bronze"]
         },
         {
             id: 22,
@@ -83,6 +90,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'academy',
             quanity: '',
             icon: LuBookMarked,
+            limit: ["Bronze"]
         },
         {
             id: 6,
@@ -90,6 +98,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'gallery',
             quanity: '',
             icon: RiGalleryLine,
+            limit: ["Bronze", "Silver"]
         },
         {
             id: 7,
@@ -97,6 +106,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'linkdin',
             quanity: '',
             icon: IoNewspaperOutline,
+            limit: ["Bronze", "Silver"]
         },
         {
             id: 20,
@@ -111,6 +121,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'comments',
             quanity: '',
             icon: FaRegCommentDots,
+            limit: ["Bronze"]
         },
         {
             id: 91,
@@ -186,7 +197,38 @@ export default function Sidebar({ open, onClose }) {
 
     const pathname = usePathname();
     const { user, isLoading } = useProfile();
+    const { user_level } = user || {};
     const logout = useLogout();
+
+    const filteredMenu = dataMenu.filter(
+        (d) => !d.limit || !d.limit.includes(user_level)
+    );
+
+    const getLevelOption = (level) => {
+        const levelScore = {
+            Bronze: 1,
+            Silver: 2,
+            Gold: 3,
+        };
+
+        const maxScore = 3;
+        const currentScore = levelScore[level];
+        const percent = ((currentScore / maxScore) * 100).toFixed();
+
+        switch (level) {
+            case "Bronze": return { label: "برنزی", percent }
+                break;
+
+            case "Silver": return { label: "نقره ای", percent }
+                break;
+
+            case "Gold": return { label: "برنزی", percent }
+                break;
+
+            default:
+                break;
+        }
+    }
 
     return (
         <>
@@ -206,18 +248,20 @@ export default function Sidebar({ open, onClose }) {
                         <span className='font-bold'>{user?.name} {user?.lastname}</span>
                         <span>{user?.unique_url_id}</span>
                         <span className='text-sm'>
-                            سطح: <span className='font-bold'>نقره ای</span>
+                            سطح: <span className='font-bold'>{getLevelOption(user_level)?.label}</span>
                         </span>
                     </div>
                     <div className='p-3'>
                         <div className='p-3 bg-white rounded-md'>
-                            <div className=' flex justify-between items-center text-textDefault'>
+                            <div className=' flex justify-between items-center text-textDefault pb-1'>
                                 <span>مانده تا سطح طلایی:</span>
-                                <span>21%</span>
+                                <span>{100 - getLevelOption(user_level)?.percent}%</span>
                             </div>
                             <div className='w-full '>
                                 <div className='w-full bg-slate-300 rounded-full dark:bg-slate-800 flex flex-row-reverse'>
-                                    <div className='bg-primary-01 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full w-1/5'>21%</div>
+                                    <div style={{ width: `${getLevelOption(user_level)?.percent}%` }} className='bg-primary-01 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full'>
+                                        {getLevelOption(user_level)?.percent}%
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -232,8 +276,8 @@ export default function Sidebar({ open, onClose }) {
                         <div className='w-full col-span-7 flex flex-col justify-center items-start text-sm font-bold'>
                             <span >موجودی کیف پول</span>
                             <span>
-                                <span>{200000}</span>
-                                <span>تومان</span>
+                                <span>{numberWithCommas(user?.wallet)}</span>
+                                {Number(user?.wallet) > 0 && <span>تومان</span>}
                             </span>
                         </div>
                         <div className='w-full col-span-3'>
@@ -247,8 +291,8 @@ export default function Sidebar({ open, onClose }) {
                     </div>
                 </div>
 
-                <div>
-                    {dataMenu.map((item, index) => {
+                <div className={`duration-150 ${isLoading ? "opacity-30 blur-sm" : ""}`}>
+                    {filteredMenu.map((item, index) => {
                         return (
                             <Link
                                 key={index}

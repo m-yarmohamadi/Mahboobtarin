@@ -13,7 +13,7 @@ import * as Yup from "yup";
 import { addGallery } from "@/services/expertApi/galleryService";
 import useGetExpertiseUser from "@/hooks/useExpertiseUser";
 
-export default function PictureGallery({ user }) {
+export default function PictureGallery({ user, LIMIT }) {
 	const [open, setOpen] = useState(false);
 	const { data, isLoading: isGetGallery } = useGetExpertiseUser(user?.unique_url_id);
 	const { gallery } = data?.user || {};
@@ -23,14 +23,17 @@ export default function PictureGallery({ user }) {
 
 	return (
 		<div>
-			<div className='w-full flex items-end justify-between mb-7 pb-1'>
-				<button
-					onClick={() => setOpen(true)}
-					className='w-28 btn btn--primary px-3 flex justify-between items-center'>
-					<span>افزودن</span>
-					<FaImages className='w-5 h-5' />
-				</button>
-			</div>
+			{
+				user.user_level === LIMIT && galleryData.length < 3 &&
+				<div className='w-full flex items-end justify-between mb-7 pb-1'>
+					<button
+						onClick={() => setOpen(true)}
+						className='w-28 btn btn--primary px-3 flex justify-between items-center'>
+						<span>افزودن</span>
+						<FaImages className='w-5 h-5' />
+					</button>
+				</div>
+			}
 			<div className='w-full grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-4'>
 				{galleryData?.map((item, index) => (
 					<GalleryItem

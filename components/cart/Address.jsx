@@ -4,25 +4,36 @@ import { LiaShippingFastSolid } from "react-icons/lia";
 import AddressList from "./AddressList";
 import { FaArrowRight } from "react-icons/fa6";
 import { useGetSendMethods } from "@/hooks/useCart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SendMethods from "./SendMethods";
 import { useCartShop } from "@/context/CartContext";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { addOrderShop } from "@/services/cartService";
 import Loading from "@/tools/Loading";
+import PaymentMethods from "./PaymentMethods";
+import { goPaymentShopApi } from "@/services/paymentService";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function Address({ setStep }) {
     const [sendMethod, setSendMethod] = useState("adi");
+    const [payMethod, setPayMethod] = useState();
     const [address, setAddress] = useState();
     const [provinceLabel, setProvinceLabel] = useState();
     const { cartList, resetCart } = useCartShop();
+    const [payData, setPayData] = useState();
     const { mutateAsync: mutateAddOrder, isPending } = useMutation({ mutationFn: addOrderShop });
 
     const submitOrderHandler = async () => {
 
         if (!address) {
             toast.error("آدرس را انتخاب کنید");
+            return
+        }
+
+        if (!payMethod) {
+            toast.error("درگاه پرداخت را انتخاب کنید");
             return
         }
 
@@ -37,7 +48,7 @@ export default function Address({ setStep }) {
         try {
             const { data } = await mutateAddOrder({
                 products,
-                paymentmethod: "online",
+                paymentmethod: payMethod,
                 coupondiscount: "",
                 addressid: address,
                 send_method: sendMethod,
@@ -45,8 +56,9 @@ export default function Address({ setStep }) {
 
             if (data) {
                 toast.success("سفارش شما با موفقیت ثبت شد");
-                setStep(3);
-                resetCart();
+                setPayData({ method: payMethod, orderid: data.orderid });
+                goToPaymentHandler(data.orderid)
+                // resetCart();
             }
 
         } catch (error) {
@@ -58,6 +70,34 @@ export default function Address({ setStep }) {
 
             toast.error("خطایی در ثبت سفارش رخ داده است");
         }
+    }
+
+    const goToPaymentHandler = async (orderid) => {
+        try {
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/dopayment`, { orderid }, {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get("accessToken")}`,
+                }
+            })
+
+            if (data) {
+                window.location.href = data.redirect_to;
+            }
+
+        } catch (error) {
+            toast.error("خطا در درگاه پرداخت!");
+        }
+    }
+
+    if (payData) {
+        return (
+            <div className="w-full h-full fixed top-0 right-0 bg-slate-200/70 backdrop-blur flex flex-col items-center justify-center gap-4 z-50">
+                <Loading />
+                <span className="text-slate-900 font-medium">
+                    در حال انتقال به درگاه پرداخت...
+                </span>
+            </div>
+        )
     }
 
     return (
@@ -75,6 +115,10 @@ export default function Address({ setStep }) {
             </div>
             <div className="w-full grid items-start grid-cols-1 gap-6 lg:grid-cols-12 mt-6">
                 <div className="w-full lg:col-span-8 space-y-6">
+                    <PaymentMethods
+                        selected={payMethod}
+                        onSelected={setPayMethod}
+                    />
                     <AddressList
                         setProvinceLabel={setProvinceLabel}
                         address={address}
@@ -112,7 +156,7 @@ function AddressSammary({ sendMethod, submitOrderHandler, isPending }) {
                     {numberWithCommas(getCartTotal())} <span className="text-xs text-slate-600 font-medium">تومان</span>
                 </div>
             </div>
-            {getCartDiscountTotal() &&
+            {getCartDiscountTotal() > 0 &&
                 <div className="w-full flex items-center justify-between text-error">
                     <span className="text-xs font-medium">
                         سود شما از این خرید

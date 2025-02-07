@@ -8,6 +8,7 @@ import Loading from "@/tools/Loading";
 import { ThreeDots } from "react-loader-spinner";
 import Link from "next/link";
 import { useCartShop } from "@/context/CartContext";
+import discountCalculator from "@/utils/discountCalculator";
 
 export default function CartItems({ cartItems }) {
     return (
@@ -44,10 +45,11 @@ function CartItem({ cartData, qtyItem }) {
                     </h2>
                     <div className="mt-4">
                         <span className="text-xs text-error">
-                            {cartData.discount_price} % تخفیف
+                            {cartData.discount_price > 0 && `${cartData.discount_price}  % تخفیف`}
                         </span>
+                        {cartData?.discount_price > 0 && <p className='text-md line-through  text-slate-500'>{numberWithCommas(cartData?.price)} </p>}
                         <div className="text-lg font-bold text-slate-800">
-                            {numberWithCommas(cartData.price)}
+                            {numberWithCommas(discountCalculator(cartData.price, cartData?.discount_price))}
                             &nbsp;
                             <span className="text-sm font-normal text-slate-500">
                                 تومان

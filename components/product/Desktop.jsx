@@ -8,6 +8,7 @@ import { AiOutlineSafety } from "react-icons/ai";
 import DetailBox from "./DetailBox";
 import RelatedProducts from "./RelatedProducts";
 import Comments from "./Comments";
+import discountCalculator from "@/utils/discountCalculator";
 
 export default function Desktop({ product, relatedProducts }) {
     return (
@@ -36,7 +37,7 @@ export default function Desktop({ product, relatedProducts }) {
                                     <FaChevronLeft className="w-2 h-2" />
                                 </div>
                             </div>
-                            <div>
+                            {/* <div>
                                 <h2 className="text-sm font-semibold text-slate-800 pb-4">
                                     ویژگی ها
                                 </h2>
@@ -66,7 +67,7 @@ export default function Desktop({ product, relatedProducts }) {
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="mt-7 py-4 flex gap-2 border-t border-t-slate-300 dark:border-t-slate-400">
                             <div>
@@ -98,21 +99,25 @@ export default function Desktop({ product, relatedProducts }) {
                             <div className="text-slate-800 font-medium text-xs border-b border-slate-300 pb-4">
                                 عرضه کننده : نام عرضه کننده
                             </div>
-                            <div className="text-slate-800 font-medium text-xs border-b border-slate-300 pb-4">
+                            {/* <div className="text-slate-800 font-medium text-xs border-b border-slate-300 pb-4">
                                 <div className="flex items-center gap-2">
                                     <AiOutlineSafety className="w-5 h-5" />
                                     گارانتی 12 ماهه
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div>
                             <div className="flex item-end justify-between gap-1 mb-3">
-                                <div className="py-1 px-2 text-[#fff] bg-error text-xs rounded-lg">
-                                    {product?.discount_price}  % تخفیف
+                                <div>
+                                    {product?.discount_price > 0 &&
+                                        <div className="py-1 px-2 text-[#fff] bg-error text-xs rounded-lg">
+                                            {product?.discount_price}  % تخفیف
+                                        </div>
+                                    }
                                 </div>
                                 <div className="font-bold text-xl text-slate-900">
-                                    {numberWithCommas(product?.price)}
+                                    {product?.price && numberWithCommas(discountCalculator(product?.price, product?.discount_price))}
                                     &nbsp;
                                     <span className="text-xs text-slate-700">
                                         تومان
@@ -120,7 +125,7 @@ export default function Desktop({ product, relatedProducts }) {
                                 </div>
                             </div>
 
-                            <AddToCart product={product} productId={product.id} inventory={product.anbar}/>
+                            <AddToCart product={product} productId={product.id} inventory={product.anbar} />
                         </div>
                     </div>
                 </div>

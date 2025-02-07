@@ -7,73 +7,56 @@ export async function middleware(req) {
   const API_URL = "https://mahboobtarin.mostafaomrani.ir/api/v1/user";
   let isAuth;
   let userRole;
+  let userLevel = null;
 
-  // if (pathname.startsWith("/profile")) {
-  //   let expertData;
+  try {
+    const res = await fetch(API_URL, {
+      headers: { Authorization: cookie },
+    });
+    const { user } = await res.json();
 
-  //   await fetch(
-  //     `https://mahboobtarin.mostafaomrani.ir/api/v1/users/expertise/list/${
-  //       pathname.split("/")[2]
-  //     }`,
-  //     {
-  //       headers: {
-  //         Authorization: cookie,
-  //       },
-  //     }
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data && data?.message !== "User not found") {
-  //         expertData = data;
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       if (error) expertData = null;
-  //     });
+    if (user) {
+      isAuth = true;
+      userRole = user.type;
+      userLevel = user.user_level;
+    }
+  } catch (error) {
+    isAuth = false;
+  }
 
-  //   if (!expertData) return NextResponse.redirect(new URL("/", url));
-  // }
+  const accessControl = {
+    Bronze: [
+      "chats",
+      "orders",
+      "requests_client",
+      "calling",
+      "services",
+      "products",
+      "academy",
+      // "gallery",
+      "linkdin",
+      "comments",
+    ],
+    Silver: ["calling", "gallery", "linkdin"],
+    Gold: [],
+  };
 
   if (pathname.startsWith("/admin")) {
-    await fetch(API_URL, {
-      headers: {
-        Authorization: cookie,
-      },
-    })
-      .then((res) => res.json())
-      .then(({ user }) => {
-        if (user) {
-          isAuth = true;
-          userRole = user.type;
-        }
-      })
-      .catch((error) => {
-        if (error) isAuth = false;
-      });
-
     if (!isAuth) return NextResponse.redirect(new URL("/auth", url));
     if (isAuth && userRole !== "motekhases") {
       return NextResponse.redirect(new URL("/", url));
     }
+
+    if (
+      accessControl[userLevel].some((path) =>
+        pathname.startsWith(`/admin/${path}`)
+      )
+    ) {
+      return NextResponse.redirect(new URL("/admin/dashboard", url));
+    }
   }
 
   if (pathname.startsWith("/user")) {
-    await fetch(API_URL, {
-      headers: {
-        Authorization: cookie,
-      },
-    })
-      .then((res) => res.json())
-      .then(({ user }) => {
-        if (user) {
-          isAuth = true;
-          userRole = user.type;
-        }
-      })
-      .catch((error) => {
-        if (error) isAuth = false;
-      });
-
     if (!isAuth) return NextResponse.redirect(new URL("/auth", url));
     if (isAuth && userRole !== "user") {
       return NextResponse.redirect(new URL("/", url));
@@ -81,23 +64,22 @@ export async function middleware(req) {
   }
 
   if (pathname.startsWith("/auth")) {
-    await fetch(API_URL, {
-      headers: {
-        Authorization: cookie,
-      },
-    })
-      .then((res) => res.json())
-      .then(({ user }) => {
-        if (user) isAuth = true;
-      })
-      .catch((error) => {
-        if (error) isAuth = false;
-      });
-
     if (isAuth) return NextResponse.redirect(new URL("/admin/dashboard", url));
+  }
+
+  if (pathname.startsWith("/checkout")) {
+    if (!req.nextUrl.searchParams.get("Authority")) {
+      return NextResponse.redirect(new URL("/", url));
+    }
   }
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/profile/:path*", "/auth", "/user/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/profile/:path*",
+    "/auth",
+    "/user/:path*",
+    "/checkout",
+  ],
 };

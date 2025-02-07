@@ -60,7 +60,7 @@ export default function AddressList({ address, setAddress, setProvinceLabel }) {
                 </span>
             </div>
             <div className="mt-4 flex flex-col gap-6 lg:h-auto lg:max-h-[300px] lg:overflow-y-auto lg:pl-6">
-                {addressList.map((item, index) => (
+                {addressList?.map((item, index) => (
                     <div
                         key={index}
                         className="flex cursor-pointer items-start gap-3 border-b border-slate-300 dark:border-slate-400 pb-6 last:pb-0 last:border-0"

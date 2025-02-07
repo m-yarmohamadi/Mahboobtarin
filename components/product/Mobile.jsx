@@ -6,6 +6,7 @@ import { MdOutlineInfo } from "react-icons/md";
 import RelatedProducts from "./RelatedProducts";
 import DetailBox from "./DetailBox";
 import Comments from "./Comments";
+import discountCalculator from "@/utils/discountCalculator";
 
 export default function Mobile({ product, relatedProducts }) {
     return (
@@ -20,11 +21,15 @@ export default function Mobile({ product, relatedProducts }) {
                     <AddToCart product={product} productId={product.id} inventory={product.anbar} />
                 </div>
                 <div className="flex-1 flex flex-col items-end gap-1">
-                    <div className="py-1 px-2 text-[#fff] bg-error text-xs font-bold rounded-lg">
-                        {product?.discount_price} %
+                    <div>
+                        {product?.discount_price > 0 &&
+                            <div className="py-1 px-2 text-[#fff] bg-error text-xs font-bold rounded-lg">
+                                {product?.discount_price} %
+                            </div>
+                        }
                     </div>
                     <div className="font-bold text-slate-900">
-                        {numberWithCommas(product?.price)}
+                        {numberWithCommas(discountCalculator(product?.price, product?.discount_price))}
                         &nbsp;
                         <span className="text-xs text-slate-700">
                             تومان
@@ -65,7 +70,7 @@ export default function Mobile({ product, relatedProducts }) {
                         عرضه کننده :نام عرضه کننده
                     </div>
 
-                    <div className="flex items-center flex-wrap gap-2">
+                    {/* <div className="flex items-center flex-wrap gap-2">
                         <div className="flex flex-col gap-1 bg-slate-200 rounded-xl p-3 text-xs">
                             <span className="text-slate-500">
                                 ویژگی اول
@@ -90,7 +95,7 @@ export default function Mobile({ product, relatedProducts }) {
                                 تست
                             </span>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* <div className="text-xs text-slate-700 leading-6 font-semibold" dangerouslySetInnerHTML={{ __html: product.shortdescription }}>
@@ -118,7 +123,7 @@ export default function Mobile({ product, relatedProducts }) {
             <DetailBox title={'نظرات'}>
                 <Comments comments={product?.comments || []} />
             </DetailBox>
-        </div>
+        </div >
     )
 }
 

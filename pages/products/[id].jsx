@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 
 export default function product({ productData }) {
     const [isLoading, setIsLoading] = useState(true);
-    console.log(productData);
     
     useEffect(() => {
         setIsLoading(false);

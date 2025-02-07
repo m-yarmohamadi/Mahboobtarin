@@ -19,7 +19,7 @@ export default function CartSammary({ cartSammary, setStep }) {
                     {numberWithCommas(getCartTotal())} <span className="text-xs text-slate-600 font-medium">تومان</span>
                 </div>
             </div>
-            {getCartDiscountTotal() && <div className="w-full flex items-center justify-between text-error">
+            {getCartDiscountTotal() > 0 && <div className="w-full flex items-center justify-between text-error">
                 <span className="text-xs font-medium">
                     سود شما از این خرید
                 </span>
