@@ -17,7 +17,7 @@ const LoginComponentByPassword = () => {
   const onSubmit = async (values) => {
     try {
       const { data } = await axios.post(
-        `https://mahboobtarin.mostafaomrani.ir/api/v1/login`,
+        `https://api.mahbubtarin.com//api/v1/login`,
         {
           ...values,
           type: "pass",

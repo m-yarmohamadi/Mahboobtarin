@@ -26,7 +26,7 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "https://mahboobtarin.mostafaomrani.ir/api/v1/login",
+        "https://api.mahbubtarin.com//api/v1/login",
         { username: phone, otp: 0, type: "otp" }
       );
       setLoading(false);
@@ -46,7 +46,7 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "https://mahboobtarin.mostafaomrani.ir/api/v1/login",
+        "https://api.mahbubtarin.com//api/v1/login",
         { username: phone, otp: otp, type: "otp" }
       );
 
