@@ -153,7 +153,8 @@ const DetailProfile = ({
         <span className="flex items-center w-full gap-4 text-sm md:text-base">
           <span className="flex justify-center items-center text-slate-800 font-semibold">
             <HiOutlineLocationMarker className="w-5 h-5" />
-            <span>{getCountryLabel}،</span>
+            <span>{getCountryLabel}</span>
+            <pre>، </pre>
             <span>{getProvinceLabel}</span>
           </span>
         </span>
@@ -173,13 +174,25 @@ const DetailProfile = ({
           <span>{enToFaNumber(`${starsData} (از ${commentsData} نظر)`)}</span>
         </span>
 
+        <span className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
+        <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
+
+
+        </span>
+
+
+
+
         <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
-          <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
           <div className="flex items-center gap-1 text-xs text-slate-800">
             <IoShareSocialOutline className="w-5 h-5" />
             <span>اشتراک گذاری</span>
           </div>
         </div>
+      </div>
+
+      <div className="hidden lg:flex justify-between items-center pe-20 pt-6 lg:pb-16">
+        <FollowDetails onChangeStep={setStepFollow} userData={userData} />
         {userData?.amount_experience_year ? (
           <div className="flex items-center  text-xs md:text-sm text-slate-800 font-semibold">
             <BiMedal className="w-6 h-6 text-green-600" />
@@ -187,10 +200,7 @@ const DetailProfile = ({
             {userData?.amount_experience_year} سال
           </div>
         ) : null}
-      </div>
 
-      <div className="hidden lg:block pt-6 lg:pb-16">
-        <FollowDetails onChangeStep={setStepFollow} userData={userData} />
       </div>
 
       <div className="md:hidden pt-6 sticky top-[52px] right-0 bg-white z-10 w-full">
