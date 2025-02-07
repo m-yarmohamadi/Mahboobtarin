@@ -147,7 +147,7 @@ const DetailProfile = ({
       <div className="mt-6 lg:hidden">
         <UserData userData={userData} />
       </div>
-      <div className="border p-2 rounded-md">
+      <div className="border p-1 rounded-md">
         <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-4 pt-6 ">
           <span className="flex items-center w-full gap-4 text-sm md:text-base">
             <span className="flex justify-center items-center text-slate-800 font-semibold">
