@@ -16,6 +16,7 @@ import { HiOutlineSpeakerphone } from "react-icons/hi";
 import { BsChatSquareDots } from "react-icons/bs";
 import { useGetAllNotifs } from "@/hooks/expertHooks/useNotifications";
 import numberWithCommas from "@/utils/numberWithCommas";
+import toast from "react-hot-toast";
 
 
 export default function Sidebar({ open, onClose }) {
@@ -292,8 +293,8 @@ export default function Sidebar({ open, onClose }) {
                 </div>
 
                 <div className={`duration-150 ${isLoading ? "opacity-30 blur-sm" : ""}`}>
-                    {filteredMenu.map((item, index) => {
-                        return (
+                    {dataMenu.map((item, index) => (
+                        !item?.limit?.includes(user_level) ?
                             <Link
                                 key={index}
                                 href={`/admin/${item.value}`}
@@ -304,8 +305,17 @@ export default function Sidebar({ open, onClose }) {
                                 <span>{item.title}</span>
                                 {item.quanity && <span className='text-textDefault bg-primary-01 w-6 h-6 flex justify-center items-center rounded-full'>{item.quanity}</span>}
                             </Link>
-                        );
-                    })}
+                            :
+                            <button
+                                key={index}
+                                onClick={() => toast.error("شما به این قسمت دسترسی ندارید")}
+                                className={`w-full opacity-50 flex justify-start gap-6 items-center px-2 py-4 text-sm font-medium cursor-pointer text-textDefault ${pathname && pathname.split("/").includes(item.value) && item.value && `!text-secondary-01 font-black shadow-md dark:shadow-darkMd shadow-primary-03 bg-opacity-40 bg-white rounded-md`}`}>
+                                <span>
+                                    {item.icon && <item.icon className="w-6 h-6" />}
+                                </span>
+                                <span>{item.title}</span>
+                            </button>
+                    ))}
                     <button onClick={logout} className={`flex justify-start gap-6 items-center px-2 py-4 cursor-pointer text-sm font-medium text-error`}>
                         <span>
                             <TbLogout className="w-6 h-6" />
