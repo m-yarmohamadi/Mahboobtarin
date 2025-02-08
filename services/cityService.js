@@ -2,7 +2,7 @@ import http from "./httpService";
 
 export function getAllProvinces() {
   return http
-    .get(`/api/v1/ostan/`)
+    .get(`/api/v1/ostan`)
     .then(({ data }) => data);
 }
 
