@@ -1,7 +1,9 @@
+import Loading from "@/tools/Loading";
 import Link from "next/link";
 import { FiCheckCircle } from "react-icons/fi";
 
 export default function ResultAppointment({ data }) {
+
     return (
         data.status !== "pay" ?
             <div className="w-full fixed top-1/2 -translate-y-1/2 right-0 h-screen flex flex-col items-center justify-center">
@@ -22,10 +24,11 @@ export default function ResultAppointment({ data }) {
                 </div>
             </div>
             :
-            <div className="w-full fixed top-1/2 -translate-y-1/2 right-0 h-screen flex flex-col items-center justify-center">
-                <h2 className="pt-4 pb-1 text-primary-01 font-bold">
-                    درگاه پرداخت
-                </h2>
+            <div className="w-full h-full fixed top-0 right-0 bg-slate-200/70 backdrop-blur flex flex-col items-center justify-center gap-4 z-50">
+                <Loading />
+                <span className="text-slate-900 font-medium">
+                    در حال انتقال به درگاه پرداخت...
+                </span>
             </div>
 
     )

@@ -21,7 +21,7 @@ export default function RequestDetailsForm({ onClose, data, children }) {
                         {data?.service[0]?.price_type === "suggestion" ? "مبلغ پیشنهادی کاربر:" : "پرداخت شده:"}
                     </span>
                     <span className="font-semibold">
-                        {numberWithCommas(data?.service[0]?.price)} تومان
+                        {data?.service[0]?.price_type === "suggestion" ? numberWithCommas(data.user_price) : numberWithCommas(data?.service[0]?.price)} تومان
                     </span>
                 </div>
             </div>

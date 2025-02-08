@@ -76,7 +76,6 @@ const DetailProfile = ({
     followHandler(userData.id, `${userData?.name} ${userData?.lastname}`);
     router.replace(pathname, { scroll: false });
   };
-  console.log(userData);
 
   const expertLikeHandler = () => {
     likeDislikeHandler(userData.id);

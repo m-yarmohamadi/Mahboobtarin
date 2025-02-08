@@ -9,9 +9,11 @@ import { useChangeRequestStatus } from "@/hooks/expertHooks/useRequestsClient";
 import Modal from "@/components/Modal";
 import OrederDetailsForm from "./OrederDetailsForm";
 import { useState } from "react";
+import OrderPayment from "./OrderPayment";
 
 export default function OrderItem({ status, data }) {
     const [openDetails, setOpenDetails] = useState(false);
+    const [openPayment, setOpenPayment] = useState(false);
     const { changeStatusRequest } = useChangeRequestStatus();
     const queryClient = useQueryClient();
     const router = useRouter();
@@ -67,9 +69,14 @@ export default function OrderItem({ status, data }) {
                 </Modal>
 
                 {status === "3" ?
-                    <button onClick={() => changeStatusHandler(4)} className="!w-full btn btn--primary !bg-lime-600">
-                        جهت پرداخت کلیک کنید
-                    </button>
+                    <>
+                        <button onClick={() => setOpenPayment(true)} className="!w-full btn btn--primary !bg-lime-600">
+                            جهت پرداخت کلیک کنید
+                        </button>
+                        <Modal open={openPayment} onClose={() => setOpenPayment(false)} title="درگاه پرداخت">
+                            <OrderPayment onClose={() => setOpenPayment(false)} orderId={data.order_id} />
+                        </Modal>
+                    </>
                     :
                     <button onClick={() => router.push(`/${data.user.unique_url_id}`)} className="!w-full btn btn--outline !text-primary-01 !border-primary-01">
                         درخواست مجدد

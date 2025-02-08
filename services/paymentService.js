@@ -12,3 +12,11 @@ export function verifyShopApi(data) {
     },
   });
 }
+
+export function verifyServiceApi(data) {
+  return http.post(`/api/v1/verify-service`, data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}

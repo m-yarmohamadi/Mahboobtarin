@@ -12,7 +12,6 @@ import { useMutation } from "@tanstack/react-query";
 import { addOrderShop } from "@/services/cartService";
 import Loading from "@/tools/Loading";
 import PaymentMethods from "./PaymentMethods";
-import { goPaymentShopApi } from "@/services/paymentService";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -58,7 +57,7 @@ export default function Address({ setStep }) {
                 toast.success("سفارش شما با موفقیت ثبت شد");
                 setPayData({ method: payMethod, orderid: data.orderid });
                 goToPaymentHandler(data.orderid)
-                // resetCart();
+                resetCart();
             }
 
         } catch (error) {

@@ -13,6 +13,10 @@ import toEnglishNumber from "@/utils/toEnglishNumber";
 import { encryptData } from "@/utils/crypto";
 import ResultAppointment from "./ResultAppointment";
 import getPriceService from "@/components/admin/adminProfileSteps/myservices/getPriceService";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { goPaymentService } from "./goPaymentService";
+import Payments from "./Payments";
 
 
 // "pay" status = Go to payment
@@ -26,7 +30,8 @@ export default function Appointment({ data }) {
     const [price, setPrice] = useState(data.price);
     const router = useRouter();
     const { mutateAsync: mutateAddOrder, isPending } = useMutation({ mutationFn: addOrderService });
-
+    const [payMethod, setPayMethod] = useState("");
+    const conditionForPay = data?.serviceData?.price_type === "charity" || data?.serviceData?.price_type === "custom";
 
     const renderStatus = (resPrice) => {
         switch (true) {
@@ -48,10 +53,17 @@ export default function Appointment({ data }) {
     };
 
     const submitOrderHandler = async () => {
+        if (conditionForPay) {
+            if (!payMethod) {
+                toast.error("درگاه پرداخت را انتخاب کنید");
+                return
+            }
+        }
+
         const details = JSON.stringify({
             date: toEnglishNumber(dateTime.date),
             time: dateTime.time,
-            description: descUser
+            description: descUser,
         });
 
         let user_price = ""
@@ -67,8 +79,15 @@ export default function Appointment({ data }) {
                 json_data: details,
                 serice_id: data.serviceData.id.toString(),
                 user_price,
-                type
+                type,
+                paymentmethod: payMethod,
             });
+
+            if (resData) {
+                if (renderStatus(resData.price).status === "pay") {
+                    goPaymentService(resData.order_id);
+                }
+            }
 
             router.replace(`/set-appointment/${encryptData({ order: 2, ...renderStatus(resData.price), orderId: resData.order_id })}`);
 
@@ -122,6 +141,12 @@ export default function Appointment({ data }) {
                                 type={data.type}
                             />
                         </div>
+                        {
+                            conditionForPay &&
+                            <div>
+                                <Payments selected={payMethod} onSelected={setPayMethod} />
+                            </div>
+                        }
                     </div>
                     <div className="lg:col-span-2">
                         <Summary

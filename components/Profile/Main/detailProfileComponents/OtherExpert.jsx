@@ -50,7 +50,6 @@ const Followers = [
   
   
 export default function OtherExpert({userForFollow}) {
-    console.log(userForFollow)
     return (
         <div className="w-full lg:pt-8">
             <div className="w-full p-6 bg-slate-200 dark:bg-slate-300 rounded-xl">
