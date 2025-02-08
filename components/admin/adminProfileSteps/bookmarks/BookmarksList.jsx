@@ -27,7 +27,7 @@ export default function BookmarksList() {
 
                                 <div className="w-full flex flex-col items-center gap-1 ">
                                     <div className="w-full">
-                                        <img src={`${user?.avatar[0]?.path}`} alt={`${user?.name} ${user?.lastname}`} className="w-full h-24 object-cover object-top rounded-xl  border-2 border-primary-02 hover:shadow-md hover:border-white hover:hue-rotate-180 " />
+                                        <img src={user?.avatar.length > 0 ? user?.avatar[0]?.path : "/images/user.png"} alt={`${user?.name} ${user?.lastname}`} className="w-full h-24 object-cover object-top rounded-xl  border-2 border-primary-02 hover:shadow-md hover:border-white hover:hue-rotate-180 " />
                                     </div>
                                     <h3 className="text-sm font-bold text-slate-800 text-center">
                                         {user?.name} {user?.lastname}
