@@ -86,6 +86,8 @@ const Step01 = ({ formik, children }) => {
 						label={'عنوان نمایشی'}
 						formik={formik}
 						type={'text'}
+						smallDesc={'این فیلد مختص مراکز و مجموعه ها می باشد'}
+
 					/>
 
 					<Input
@@ -170,6 +172,8 @@ const Step01 = ({ formik, children }) => {
 						label={'کد معرف'}
 						formik={formik}
 						type={'text'}
+						smallDesc={'اختیاری'}
+
 					/>
 				</div>
 				{children}

@@ -32,7 +32,11 @@ const Step03 = ({ formik, children, error }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full h-full items-start justify-between ">
             <div>
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
-                <div className="font-bold text-textDefault">تخصص</div>
+                <div className="font-bold text-textDefault">
+                  <span>تخصص</span>
+                  <span className="text-xs text-error font-normal">(امکان ثبت موارد متعدد)</span>
+
+                </div>
                 <div>
                   <button
                     onClick={() => setOpenExpertiseModal(!openExpertiseModal)}
@@ -100,7 +104,11 @@ const Step03 = ({ formik, children, error }) => {
 
             <div>
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
-                <div className="font-bold text-textDefault">مقطع تحصیلی</div>
+                <div className="font-bold text-textDefault">
+                  <span>مقطع تحصیلی</span>
+                  <span className="text-xs text-error font-normal">(امکان ثبت موارد متعدد)</span>
+
+                </div>
                 <div>
                   <button
                     onClick={() => setOpenGradeModal(!openGradeModal)}
@@ -156,7 +164,12 @@ const Step03 = ({ formik, children, error }) => {
 
             <div>
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
-                <div className="font-bold text-textDefault">زبان و گویش</div>
+                <div className="font-bold text-textDefault">
+
+                  <span>زبان و گویش</span>
+                  <span className="text-xs text-error font-normal">(امکان ثبت موارد متعدد)</span>
+
+                </div>
                 <div>
                   <button
                     onClick={() => setOpenLanguageModal(!openLanguageModal)}

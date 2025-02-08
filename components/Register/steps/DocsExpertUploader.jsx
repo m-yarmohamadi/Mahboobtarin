@@ -42,7 +42,7 @@ export default function DocsExpertUploader({ formikStep3, userId }) {
             <div className="font-bold text-textDefault flex items-center gap-1.5">
                 مدارک شغلی
                 <span className="text-xs">
-                    (اختیاری)
+                    (در صورتی‌که فعالیت تخصصی شما نیازمند مجوز است، لطفاٌ مدارک خود را بارگزاری کنید. در غیراین صورت بعد از زدن تیک زیر ثبت‌نام خود را نهایی کنید)
                 </span>
             </div>
 

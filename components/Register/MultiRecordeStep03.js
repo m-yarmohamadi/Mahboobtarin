@@ -11,7 +11,11 @@ const MultiRecordeStep03 = ({
   return (
     <div>
       <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
-        <div className="font-bold">تخصص</div>
+        <div className="font-bold">
+          <span>تخصص</span>
+          <span className="text-xs text-error font-normal">(امکان ثبت موارد متعدد)</span>
+
+        </div>
         <div>
           {recordName.length > 2 ? (
             <button
