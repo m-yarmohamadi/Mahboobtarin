@@ -63,7 +63,7 @@ const Services = () => {
     <div>
       <div className="w-full container mx-auto px-0 ">
         <div className="w-full md:p-2 flex  justify-center items-center font-extrabold text-xl md:text-2xl text-textDefault">
-          چه خدماتی به شما ارائه می دهیم؟
+        چرا محبوب‌ترین؟
         </div>
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
@@ -113,9 +113,9 @@ const Services = () => {
                 <div className="w-full flex justify-center justify-items-center items-center">
                   <div className="h-52 w-52    m-4 rounded-2xl shadow-md dark:shadow-darkMd bg-white p-2 z-0">
                     <div className="relative flex justify-center items-center m-4">
-                      <div className="h-40 w-40 flex items-center justify-center hover:cursor-pointer border-4 border-dashed overflow-hidden border-primary-01 border-opacity-35   rounded-full  z-10">
+                      <div className="h-40 w-40 flex items-center justify-center border-4 border-dashed overflow-hidden border-primary-01 border-opacity-35   rounded-full  z-10">
                         <img
-                          className="w-28 h-28 m-auto inset-0 object-contain object-center hover:contrast-50"
+                          className="w-28 h-28 m-auto inset-0 object-contain object-center "
                           src={item.photo.path || ""}
                           alt=""
                         />
@@ -123,7 +123,7 @@ const Services = () => {
                     </div>
                   </div>
                 </div>
-                <span className="flex justify-center items-center font-semibold text-primary-01 hover:font-bold hover:contrast-50 hover:cursor-pointer">
+                <span className="flex justify-center items-center font-normal text-center text-slate-700 xs:px-4 lg:px-2 ">
                   {item.title}
                 </span>
               </SwiperSlide>

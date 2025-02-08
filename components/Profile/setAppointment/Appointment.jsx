@@ -141,14 +141,15 @@ export default function Appointment({ data }) {
                                 type={data.type}
                             />
                         </div>
+                    </div>
+                    <div className="lg:col-span-2">
                         {
                             conditionForPay &&
                             <div>
                                 <Payments selected={payMethod} onSelected={setPayMethod} />
                             </div>
                         }
-                    </div>
-                    <div className="lg:col-span-2">
+
                         <Summary
                             price={price}
                             setPrice={setPrice}

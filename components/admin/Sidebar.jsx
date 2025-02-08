@@ -222,7 +222,7 @@ export default function Sidebar({ open, onClose }) {
             case "Silver": return { label: "نقره ای", percent }
                 break;
 
-            case "Gold": return { label: "برنزی", percent }
+            case "Gold": return { label: "طلایی", percent }
                 break;
 
             default:

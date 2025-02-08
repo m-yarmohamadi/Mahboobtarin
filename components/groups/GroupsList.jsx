@@ -122,8 +122,7 @@ function GroupItem({ user }) {
                             </div>
 
                             <span className="w-full flex justify-center items-center text-slate-700">
-                                مشاوره موفق
-                            </span>
+خدمت موفق                            </span>
                         </div>
                         <div className="px-2 text-xs h-10 flex flex-col items-center justify-center gap-1 rounded-lg bg-slate-200">
                             <div className="flex justify-center items-center gap-1 text-primary-01">

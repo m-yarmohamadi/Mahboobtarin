@@ -58,8 +58,7 @@ const GroupItem = () => {
               </div>
 
               <span className="w-full flex justify-center items-center">
-                مشاوره موفق
-              </span>
+خدمت موفق              </span>
             </div>
             <div className="text-xs bg-primary-05 px-1 py-2 flex flex-col justify-center items-center rounded-md w-20  h-full ">
               <div className="flex justify-center items-center gap-1 text-primary-01">
