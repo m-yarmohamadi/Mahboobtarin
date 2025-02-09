@@ -58,7 +58,7 @@ const GroupItem = () => {
               </div>
 
               <span className="w-full flex justify-center items-center">
-خدمت موفق              </span>
+                خدمت موفق              </span>
             </div>
             <div className="text-xs bg-primary-05 px-1 py-2 flex flex-col justify-center items-center rounded-md w-20  h-full ">
               <div className="flex justify-center items-center gap-1 text-primary-01">
@@ -69,7 +69,7 @@ const GroupItem = () => {
               </div>
 
               <span className="w-full flex justify-center items-center">
-                از {1996} نظر
+                از {1996} نظرک
               </span>
             </div>
             <div className="text-lg bg-primary-05 px-1 py-2 flex justify-center items-center text-center rounded-md w-20  h-full ">

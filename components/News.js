@@ -42,9 +42,13 @@ const News = () => {
               <div className="md:container px-8 md:px-0 grid sm:grid-cols-1 lg:grid-cols-2 md:gap-x-20 ">
                 <div className="flex-1">
                   <div className="text-textDefault  font-semibold text-xl md:text-2xl py-8">
-                    <p className="text-justify border-r-8 border-primary-01 p-2 ">
-                      {item.title}{" "}
-                    </p>
+
+                    <Link key={item.id} href={`/magazine/${item.slug}`} className="w-full xs:min-w-full group">
+
+                      <p className="text-justify border-r-8 border-primary-01 p-2 hover:text-primary-01 ">
+                        {item.title}{" "}
+                      </p>
+                    </Link>
                   </div>
                   <div className="pb-8">
                     <div className=" text-justify text-sm md:text-base leading-7 md:leading-8">
@@ -53,7 +57,7 @@ const News = () => {
                         className="!min-w-none text-textDefault line-clamp-6"
                       ></div>
                       <Link key={item.id} href={`/magazine/${item.slug}`} className="w-full xs:min-w-full group">
-                        <span className=" text-primary-01 cursor-pointer">
+                        <span className=" text-primary-01 cursor-pointer hover:font-medium">
                           ادامه مطلب...
                         </span>
                       </Link>
