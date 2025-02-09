@@ -82,7 +82,7 @@ export default function OtherExpert({ userForFollow }) {
 												<h3 className="text-sm font-bold text-slate-800">
 													{item.name}
 												</h3>
-												{item.is_verify === 1 ? (
+												{item.is_verify === true ? (
 													<span className="font-bold text-green-600 text-sm">
 														<AiOutlineCheckCircle />
 													</span>

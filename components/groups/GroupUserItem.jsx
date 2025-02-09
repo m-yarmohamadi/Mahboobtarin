@@ -74,18 +74,18 @@ export default function GroupUserItem({ user }) {
 				</div>
 				<div className="w-full flex flex-col col-span-4 lg:col-span-9 justify-start items-start gap-2">
 					<div className="w-full grid grid-cols-3 md:grid-cols-6  items-center gap-2">
-						<div className="w-full  flex items-center justify-center gap-2 p-2 rounded-lg bg-primary-02">
+						<div className="w-full truncate flex items-center justify-center gap-2 p-2 rounded-lg bg-primary-02">
 							<FaCalendar className="w-4 h-4 text-slate-700" />
 							<span className="text-xs text-slate-700">
 								{toPersianDateLong(user.created_at)}
 							</span>
 						</div>
-						<div className="w-full  flex items-center justify-center py-2 px-4 rounded-lg bg-primary-02">
+						<div className="w-full truncate flex items-center justify-center py-2 px-4 rounded-lg bg-primary-02">
 							<span className="text-xs text-slate-700">
 								{`${user.folloing_count} دنبال شده` || ''}
 							</span>
 						</div>
-						<div className="w-full  flex items-center justify-center py-2 px-4 rounded-lg bg-primary-02">
+						<div className="w-full truncate flex items-center justify-center py-2 px-4 rounded-lg bg-primary-02">
 							<span className="text-xs text-slate-700">
 								{`${user.follower_count} دنبال کننده` || ''}
 							</span>

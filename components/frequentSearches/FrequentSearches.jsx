@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function FrequentSearches({ topSearch }) {
@@ -32,18 +33,20 @@ function FrequentSearchesItem({ item }) {
     return (
         <div className="p-4 pl-10 lg:py-10 lg:px-0 rounded-2xl bg-white flex items-start gap-4 lg:gap-6 lg:border-b lg:border-b-primary-02 lg:rounded-none">
             <div>
-                <div className="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px]">
+                <Link href={`/group/${item.id}`} className="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] block">
                     <img
                         src={item.picture || ""}
                         alt={item.title}
                         className="w-full h-full object-cover object-center rounded-2xl"
                     />
-                </div>
+                </Link>
             </div>
             <div>
-                <div className="text-sm lg:text-base font-bold text-slate-800 whitespace-nowrap">
-                    {item.title}
-                </div>
+                <Link href={`/group/${item.id}`} className="block">
+                    <h2 className="text-sm lg:text-base font-bold text-slate-800 whitespace-nowrap">
+                        {item.title}
+                    </h2>
+                </Link>
                 <div dangerouslySetInnerHTML={{ __html: item.meta_desc }} className="mt-2 text-xs  text-slate-600 font-medium text-justify line-clamp-2">
                 </div>
                 <div className="flex items-center mt-5">
