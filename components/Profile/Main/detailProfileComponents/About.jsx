@@ -23,7 +23,7 @@ export default function About({ description }) {
 
 	if (description) {
 		return (
-			<div id="bio" className="py-16">
+			<div id="bio" className="pb-16 md:pt-16">
 				<TitleItems title={'بیوگرافی'} />
 				{isRichText(description) ? (
 					<div

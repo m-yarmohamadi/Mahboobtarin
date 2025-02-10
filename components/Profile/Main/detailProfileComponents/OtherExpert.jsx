@@ -64,7 +64,7 @@ export default function OtherExpert({ userForFollow }) {
 						return (
 							<div
 								key={index}
-								className="w-full min-h-full justify-between flex flex-col gap-3 px-2 py-8"
+								className="w-full min-h-full justify-between flex flex-col gap-3 px-2 py-4"
 							>
 								<div className="w-full flex flex-col items-center sm:flex-row lg:flex-col xl:flex-row gap-2 justify-between">
 									<div className="">
