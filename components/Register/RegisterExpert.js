@@ -102,7 +102,7 @@ const validationSchemaStep3 = Yup.object({
       "کلمه عبور و تکرار آن باید یکسان باشند "
     ),
 
-  picture: Yup.string(),
+  picture: Yup.string().required("لطفا تصویر پروفایل را انتخاب کنید"),
 });
 
 const RegisterExpert = ({

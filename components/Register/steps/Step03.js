@@ -34,8 +34,9 @@ const Step03 = ({ formik, children, error }) => {
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
                 <div className="font-bold text-textDefault">
                   <span>تخصص</span>
-                  <span className="text-xs text-error font-normal">(امکان ثبت موارد متعدد)</span>
-
+                  <span className="text-xs text-error font-normal">
+                    (امکان ثبت موارد متعدد)
+                  </span>
                 </div>
                 <div>
                   <button
@@ -106,8 +107,9 @@ const Step03 = ({ formik, children, error }) => {
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
                 <div className="font-bold text-textDefault">
                   <span>مقطع تحصیلی</span>
-                  <span className="text-xs text-error font-normal">(امکان ثبت موارد متعدد)</span>
-
+                  <span className="text-xs text-error font-normal">
+                    (امکان ثبت موارد متعدد)
+                  </span>
                 </div>
                 <div>
                   <button
@@ -165,10 +167,10 @@ const Step03 = ({ formik, children, error }) => {
             <div>
               <div className="w-full flex justify-between items-end border-b-2 border-primary-01 pb-2">
                 <div className="font-bold text-textDefault">
-
                   <span>زبان و گویش</span>
-                  <span className="text-xs text-error font-normal">(امکان ثبت موارد متعدد)</span>
-
+                  <span className="text-xs text-error font-normal">
+                    (امکان ثبت موارد متعدد)
+                  </span>
                 </div>
                 <div>
                   <button
@@ -237,22 +239,27 @@ const Step03 = ({ formik, children, error }) => {
               formik={formik}
             />
 
-            <InputFileform
-              onChange={(e) => {
-                const file = e.target.files[0];
-                const maxFileSize = 2 * 1024 * 1024; // 2MB
+            <div className="space-y-2">
+              <InputFileform
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const maxFileSize = 2 * 1024 * 1024; // 2MB
 
-                if (file && file.size > maxFileSize) {
-                  toast.error("حجم تصویر باید حداکثر 2 مگابایت باشد");
-                  e.target.value = null;
-                } else {
-                  setProfileImg(file);
-                }
-              }}
-              name={"picture"}
-              label="تصویر پروفایل"
-              type={"file"}
-            />
+                  if (file && file.size > maxFileSize) {
+                    toast.error("حجم تصویر باید حداکثر 2 مگابایت باشد");
+                    e.target.value = null;
+                  } else {
+                    setProfileImg(file);
+                  }
+                }}
+                name={"picture"}
+                label="تصویر پروفایل"
+                type={"file"}
+              />
+              {formik?.errors.picture && formik?.touched.picture && (
+                <p className="error_Message">{formik?.errors.picture}</p>
+              )}
+            </div>
             <PictureEditor
               open={profileImg ? true : false}
               onClose={() => setProfileImg(null)}
