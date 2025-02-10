@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 
 export default function ProfilePage({ user }) {
     const [isLoading, setIsLoading] = useState(true);
-    
+    console.log(user);
+
     useEffect(() => {
         setIsLoading(false);
     }, []);
@@ -37,8 +38,7 @@ export default function ProfilePage({ user }) {
                     popularList={user?.popular_list}
                     starsData={user?.stars}
                     commentsData={user?.comments_count}
-
-          
+                    userForFollow={user?.user_for_follow}
                 />
             </div>
             <Footer />

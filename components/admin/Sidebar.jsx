@@ -294,7 +294,7 @@ export default function Sidebar({ open, onClose }) {
 
                 <div className={`duration-150 ${isLoading ? "opacity-30 blur-sm" : ""}`}>
                     {dataMenu.map((item, index) => (
-                        !item?.limit?.includes(user_level) ?
+                        user?.is_verify === true || !item?.limit?.includes(user_level) ?
                             <Link
                                 key={index}
                                 href={`/admin/${item.value}`}

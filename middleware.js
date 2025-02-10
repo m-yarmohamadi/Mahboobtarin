@@ -8,6 +8,7 @@ export async function middleware(req) {
   let isAuth;
   let userRole;
   let userLevel = null;
+  let isVerify = false;
 
   try {
     const res = await fetch(API_URL, {
@@ -19,10 +20,11 @@ export async function middleware(req) {
       isAuth = true;
       userRole = user.type;
       userLevel = user.user_level;
+      isVerify = user.is_verify;
     }
   } catch (error) {
     console.log(error);
-    
+
     isAuth = false;
   }
 
@@ -49,12 +51,14 @@ export async function middleware(req) {
       return NextResponse.redirect(new URL("/", url));
     }
 
-    if (
-      accessControl[userLevel].some((path) =>
-        pathname.startsWith(`/admin/${path}`)
-      )
-    ) {
-      return NextResponse.redirect(new URL("/admin/dashboard", url));
+    if (isVerify !== true) {
+      if (
+        accessControl[userLevel].some((path) =>
+          pathname.startsWith(`/admin/${path}`)
+        )
+      ) {
+        return NextResponse.redirect(new URL("/admin/dashboard", url));
+      }
     }
   }
 
