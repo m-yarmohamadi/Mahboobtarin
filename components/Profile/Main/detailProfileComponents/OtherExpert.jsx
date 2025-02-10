@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { IoPerson } from 'react-icons/io5';
 
@@ -44,7 +45,7 @@ const Followers = [
 	},
 ];
 
-export default function OtherExpert({ userForFollow }) {
+export default function OtherExpert({ userForFollow = [] }) {
 	return (
 		<div className="w-full lg:pt-8">
 			<div className="w-full p-6 bg-slate-200 dark:bg-slate-300 rounded-xl">
@@ -60,7 +61,7 @@ export default function OtherExpert({ userForFollow }) {
 					</div>
 				</div>
 				<div className="w-full flex flex-col">
-					{userForFollow?.map((item, index) => {
+					{userForFollow[0]?.metekhases?.map((item, index) => {
 						return (
 							<div
 								key={index}
@@ -71,8 +72,8 @@ export default function OtherExpert({ userForFollow }) {
 										<div className="w-12 h-12">
 											<img
 												className="w-full h-full object-cover object-center rounded-[18px]"
-												src={item?.avatar}
-												alt=""
+												src={item?.avatar || "/images/user.png"}
+												alt={`${item.name} ${item.lastname}`}
 											/>
 										</div>
 									</div>
@@ -80,7 +81,7 @@ export default function OtherExpert({ userForFollow }) {
 										<div className="flex-1 flex flex-col gap-1 justify-center items-start">
 											<span className="flex justify-start items-center gap-1">
 												<h3 className="text-sm font-bold text-slate-800">
-													{item.name}
+													{item.name} {item.lastname}
 												</h3>
 												{item.is_verify === true ? (
 													<span className="font-bold text-green-600 text-sm">
@@ -95,15 +96,12 @@ export default function OtherExpert({ userForFollow }) {
 												)}
 											</span>
 											<span className="text-slate-500 text-xs">
-												{item.idCloud}
+												{item.unique_url_id}@
 											</span>
 										</div>
-										<button
-											className="w-auto text-xs bg-primary-01 p-2 rounded-md text-white font-bold hover:bg-opacity-95"
-											type=""
-										>
+										<Link href={`/${item.unique_url_id}`} className="w-auto text-xs bg-primary-01 p-2 rounded-md text-white font-bold hover:bg-opacity-95">
 											مشاهده پروفایل
-										</button>
+										</Link>
 									</div>
 								</div>
 								<div className="w-full flex flex-col items-center sm:items-start justify-between gap-2 text-xs">

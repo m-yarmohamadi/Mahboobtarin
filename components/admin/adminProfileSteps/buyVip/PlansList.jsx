@@ -16,7 +16,7 @@ export default function PlansList() {
                 </h1>
             </div>
             <div className="w-full flex flex-col gap-4 max-w-xl mx-auto">
-                {plans.map((plan) => (
+                {plans.planes.map((plan) => (
                     <PlanItem key={plan.id} plan={plan} />
                 ))}
             </div>

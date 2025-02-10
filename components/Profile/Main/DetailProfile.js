@@ -47,6 +47,7 @@ import FollowsList from "./detailProfileComponents/FollowsList";
 import BookmarkUser from "./detailProfileComponents/BookmarkUser";
 import { useFollow } from "@/hooks/expertHooks/useFollow";
 import ExpertProducts from "./detailProfileComponents/ExpertProducts";
+import copyToClipboard from "@/utils/copyToClipboard";
 
 const DetailProfile = ({
   userData,
@@ -56,6 +57,7 @@ const DetailProfile = ({
   popularList,
   starsData,
   commentsData,
+  userForFollow,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -77,9 +79,11 @@ const DetailProfile = ({
     router.replace(pathname, { scroll: false });
   };
 
-  const expertLikeHandler = () => {
-    likeDislikeHandler(userData.id);
-    router.replace(pathname, { scroll: false });
+  const shareUserHandler = () => {
+    copyToClipboard(
+      `${window.location.origin}/${userData?.unique_url_id}`,
+      "لینک اشتراک گذاری کپی شد"
+    );
   };
 
   const permissions = userData?.permissions
@@ -136,9 +140,9 @@ const DetailProfile = ({
 
             <div className="flex items-center justify-around text-slate-900 lg:hidden">
               <BookmarkUser expertiseId={userData.id} isMark={isMarked} />
-              <span className="">
+              <button onClick={shareUserHandler}>
                 <IoShareSocialOutline className="w-5 h-5" />
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -185,10 +189,10 @@ const DetailProfile = ({
           ) : null}
 
           <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
-            <div className="flex items-center gap-1 text-xs text-slate-800">
+            <button onClick={shareUserHandler} className="flex items-center gap-1 text-xs text-slate-800">
               <IoShareSocialOutline className="w-5 h-5" />
               <span>اشتراک گذاری</span>
-            </div>
+            </button>
           </div>
         </div>
 
@@ -303,7 +307,7 @@ const DetailProfile = ({
       </div>
 
       <div className="lg:hidden">
-        <OtherExpert />
+        <OtherExpert userForFollow={userForFollow} />
       </div>
     </>
   );

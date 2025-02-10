@@ -4,7 +4,7 @@ import ExpertServicesList from "./detailProfileComponents/ExpertServicesList";
 import OtherExpert from "./detailProfileComponents/OtherExpert";
 import { getTopSearchs } from "@/services/mainPageService";
 
-const LeftProfile = ({ user }) => {
+const LeftProfile = ({ user, userForFollow }) => {
   const [topSearch, setTopSearch] = useState([]);
 
   useEffect(() => {
@@ -26,13 +26,13 @@ const LeftProfile = ({ user }) => {
         <ExpertServicesList user={user} />
       </div>
       <div className="hidden lg:block">
-        <OtherExpert />
+        <OtherExpert userForFollow={userForFollow}/>
       </div>
       <div className="pt-6">
         <div className="w-full px-4 py-6 my-2 bg-slate-200 dark:bg-slate-300 rounded-xl">
           <div className="pb-4">
             <span className=" font-bold text-textDefault">
-             جستجو‌های پرتکرار
+              جستجو‌های پرتکرار
             </span>
           </div>
           <div className=" flex flex-wrap items-center gap-2 text-xs font-medium">
