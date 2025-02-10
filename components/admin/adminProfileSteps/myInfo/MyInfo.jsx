@@ -40,6 +40,7 @@ export default function MyInfo() {
     const { user, expertise, grade, language, isLoading, address } = useProfile();
     const [passwordModal, setPasswordModal] = useState(false);
     const [profileImg, setProfileImg] = useState(null);
+    const [changeAvatar, setChangeAvatar] = useState(false);
     const getNationality = Countries.filter((c) => c.value === user?.nationality)[0]?.label;
 
     const initialValues = {
@@ -60,7 +61,7 @@ export default function MyInfo() {
         address: user?.address || "",
         specialized_system_code: user?.specialized_system_code || "",
         passport_number: user?.passport_number || "",
-        picture: "",
+        picture: user?.avatar.length ? user?.avatar[0].path : "/images/user.png",
         expert_description: user?.expert_description || "",
         expertise: expertise || [],
         workAddress: address || [],
@@ -169,6 +170,8 @@ export default function MyInfo() {
             .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
         emergency_phone: Yup.string()
             .matches(/^0[0-9]{2,3}-?[0-9]{7,8}$/, "لطفا شماره تلفن معتبر وارد کنید"),
+        picture: Yup.string().required("تصویر پروفایل را انتخاب کنید")
+            .test("not-default", "تصویر پروفایل را انتخاب کنید", value => value !== "/images/user.png"),
     });
 
     const { forgetPasswordMutate, isForgetPassLoadingt } = useForgetPassword();
@@ -259,26 +262,29 @@ export default function MyInfo() {
                             />
                             <img
                                 src={
-                                    formik.values.picture ?
+                                    changeAvatar ?
                                         URL.createObjectURL(formik.values.picture)
                                         :
-                                        user?.avatar.length ?
-                                            user?.avatar[0].path
-                                            :
-                                            "/images/defaultUser.png"
+                                        formik.values.picture
                                 }
                                 alt=''
-                                className={formik.values.picture || user?.avatar.length && "object-cover w-full h-full"}
+                                className={"object-cover w-full h-full"}
                             />
                         </div>
                         <label htmlFor='userProfilePic' className='btn btn--secondary !px-8 cursor-pointer'>
                             ویرایش عکس
                         </label>
+                        {formik?.errors.picture && formik?.touched.picture && (
+                            <p className="error_Message">{formik?.errors.picture}</p>
+                        )}
                         <PictureEditor
                             open={profileImg ? true : false}
                             onClose={() => setProfileImg(null)}
                             image={profileImg}
-                            onCrop={(e) => formik.setFieldValue("picture", e)}
+                            onCrop={(e) => {
+                                formik.setFieldValue("picture", e);
+                                setChangeAvatar(true);
+                            }}
                         />
                     </div>
                     <div className='flex-1'>

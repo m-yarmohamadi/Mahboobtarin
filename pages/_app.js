@@ -22,6 +22,12 @@ export default function App({ Component, pageProps }) {
       refreshAuthToken();
     }, 900000);
 
+    window.RAYCHAT_TOKEN = "142bb050-69f8-42a8-b229-a492f42a6b2d";
+    const script = document.createElement("script");
+    script.src = "https://widget-react.raychat.io/install/widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+
     return () => clearInterval(interval);
   }, []);
 
