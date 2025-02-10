@@ -8,6 +8,6 @@ export function getAllProvinces() {
 
 export function getCity(provinceId) {
   return http
-    .get(`/api/v1/shahr/${provinceId}`)
+    .get(`/api/v1/shahr${provinceId ? `/${provinceId}` : ""}`)
     .then(({ data }) => data);
 }
