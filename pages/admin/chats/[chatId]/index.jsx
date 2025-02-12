@@ -33,7 +33,7 @@ export default function ChatSingle() {
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-sm font-bold text-slate-800 truncate">
-                                            محمدرضا فرامرزی
+                                            نام کاربر
                                         </span>
                                         <span className="text-xs text-slate-600">
                                             آنلاین
@@ -83,7 +83,7 @@ export default function ChatSingle() {
                             <div className="flex items-center gap-2">
                                 <div className="flex flex-col items-end">
                                     <span className="text-sm font-bold text-slate-800">
-                                        محمدرضا فرامرزی
+                                        نام کاربر
                                     </span>
                                     <span className="text-xs text-slate-600">
                                         آنلاین

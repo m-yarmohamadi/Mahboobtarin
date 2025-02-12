@@ -18,7 +18,7 @@ export default function Gallery({ gallery }) {
 
 	if (gallery && gallery.length) {
 		return (
-			<div id="gallery" className="pb-16">
+			<div id="gallery" className="pb-16 scroll-mt-[130px] md:scroll-mt-20">
 				<TitleItems title={'گالری'} />
 				<TabGroup
 					tabs={[{ label: 'همه' }, { label: 'عکس' }, { label: 'فیلم' }, { label: 'صوت' }]}

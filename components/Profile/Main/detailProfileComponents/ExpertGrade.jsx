@@ -7,7 +7,7 @@ export default function ExpertGrade({ grade }) {
 
     if (grade && grade.length) {
         return (
-            <div id="grade" className="pb-16">
+            <div id="grade" className="pb-16 scroll-mt-[130px] md:scroll-mt-20">
                 <TitleItems title={"تحصیلات"} />
                 <div className="rounded-xl overflow-hidden flex flex-col gap-3 text-slate-900 text-sm font-medium">
                     {grade.slice(0, showMore ? grade.length : 10).map((item, index) => (

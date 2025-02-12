@@ -23,13 +23,13 @@ const dataMenu = [
         quanity: '',
         icon: FaRegUser,
     },
-    {
-        id: 50,
-        title: 'گفتگو',
-        value: '#',
-        quanity: '',
-        icon: BsChatSquareDots,
-    },
+    // {
+    //     id: 50,
+    //     title: 'گفتگو',
+    //     value: '#',
+    //     quanity: '',
+    //     icon: BsChatSquareDots,
+    // },
     {
         id: 30,
         title: 'سفارشات',

@@ -10,7 +10,7 @@ export default function Linkdoni({ link_dooni, user }) {
 
     if (link_dooni && link_dooni.length) {
         return (
-            <div id="linkdins" className="pb-16">
+            <div id="linkdins" className="pb-16 scroll-mt-[130px] md:scroll-mt-20">
                 <TitleItems title={"لینکدونی"} />
                 <div className="rounded-xl overflow-hidden">
                     {link_dooni.slice(0, showMore ? link_dooni.length : 10).map((item, index) => {

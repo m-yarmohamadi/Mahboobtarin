@@ -33,7 +33,7 @@ export function ChatMessageTypeChat() {
                 </div>
                 <div className="flex flex-col gap-1">
                     <span className="text-sm font-bold text-slate-800">
-                        محمدرضا فرامرزی
+                        نام کاربر
                     </span>
                     <span className="text-xs text-slate-600">
                         مرد | 25 ساله | تهران

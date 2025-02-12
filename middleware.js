@@ -4,7 +4,9 @@ export async function middleware(req) {
   const url = req.url;
   const pathname = req.nextUrl.pathname;
   const cookie = `Bearer ${req.cookies.get("accessToken")?.value}`;
-  const API_URL = "https://api.mahbubtarin.com/api/v1/user";
+  const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/user`;
+  console.log(API_URL);
+  
   let isAuth;
   let userRole;
   let userLevel = null;

@@ -51,7 +51,7 @@ function ChatItem({ type }) {
                 <div className="w-full flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                         <h4 className="text-sm font-bold text-slate-900">
-                            محمدرضا فرامرزی
+                            نام کاربر
                         </h4>
                         <div className={`${chatStatus[type].classNames} w-7 h-7 rounded-full flex items-center justify-center`}>
                             {chatStatus[type].icon}

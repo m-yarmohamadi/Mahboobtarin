@@ -37,14 +37,14 @@ export default function Sidebar({ open, onClose }) {
             quanity: '',
             icon: FaRegUser,
         },
-        {
-            id: 50,
-            title: 'گفتگو',
-            value: 'chats',
-            quanity: '',
-            icon: BsChatSquareDots,
-            limit: ["Bronze"]
-        },
+        // {
+        //     id: 50,
+        //     title: 'گفتگو',
+        //     value: 'chats',
+        //     quanity: '',
+        //     icon: BsChatSquareDots,
+        //     limit: ["Bronze"]
+        // },
         {
             id: 3,
             title: 'سفارشات',
@@ -138,20 +138,20 @@ export default function Sidebar({ open, onClose }) {
             quanity: '',
             icon: FaRegBookmark,
         },
-        {
-            id: 10,
-            title: 'دنبال کنندگان',
-            value: 'followers',
-            quanity: '',
-            icon: LuUsers2,
-        },
-        {
-            id: 11,
-            title: 'دنبال شونده',
-            value: 'following',
-            quanity: '',
-            icon: LuUsers2,
-        },
+        // {
+        //     id: 10,
+        //     title: 'دنبال کنندگان',
+        //     value: 'followers',
+        //     quanity: '',
+        //     icon: LuUsers2,
+        // },
+        // {
+        //     id: 11,
+        //     title: 'دنبال شونده',
+        //     value: 'following',
+        //     quanity: '',
+        //     icon: LuUsers2,
+        // },
         {
             id: 12,
             title: 'اعلان ها',
@@ -159,13 +159,13 @@ export default function Sidebar({ open, onClose }) {
             quanity: notifications?.length || null,
             icon: MdOutlineNotificationsNone,
         },
-        {
-            id: 13,
-            title: 'آمار',
-            value: 'statistics',
-            quanity: '',
-            icon: FaChartColumn,
-        },
+        // {
+        //     id: 13,
+        //     title: 'آمار',
+        //     value: 'statistics',
+        //     quanity: '',
+        //     icon: FaChartColumn,
+        // },
         {
             id: 14,
             title: 'دعوت از دوستان',

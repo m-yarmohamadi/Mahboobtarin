@@ -8,7 +8,7 @@ export default function ExpertProducts({ products, user }) {
 
     if (products.length > 0) {
         return (
-            <div id="products" className="w-full pb-16">
+            <div id="products" className="w-full pb-16 scroll-mt-[130px] md:scroll-mt-20">
                 <div className="flex justify-between items-end py-2">
                     <TitleItems title={"غرفه"} />
                 </div>

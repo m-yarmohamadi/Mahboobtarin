@@ -106,7 +106,7 @@ const DetailProfile = ({
     <>
       <div
         id="personalinfo"
-        className="w-full flex justify-between lg:justify-normal gap-3 lg:gap-6 -mt-20 md:-mt-16"
+        className="w-full flex justify-between lg:justify-normal gap-3 lg:gap-6 -mt-20 md:-mt-16 scroll-mt-20"
       >
         <div>
           <div className="w-20 h-20 md:w-24 md:h-24 relative bg-primary-02 rounded-full flex items-center justify-center">
@@ -218,7 +218,7 @@ const DetailProfile = ({
 
       {/* نشانی */}
       {permissions?.phone || permissions?.workAddress ? (
-        <div id="address" className="pb-16">
+        <div id="address" className="pb-16 md:pt-16 scroll-mt-[130px] md:scroll-mt-10">
           <TitleItems title={"نشانی"} />
           <div className="w-full grid grid-cols-1 gap-2">
             <div className="w-full flex flex-col gap-4">
@@ -299,7 +299,7 @@ const DetailProfile = ({
       <ExpertProducts products={userData?.products || []} user={userData} />
 
       {/* نظرات کاربران */}
-      <div id="comments" className="pb-16">
+      <div id="comments" className="pb-16 scroll-mt-[130px] md:scroll-mt-20">
         <TitleItems title={"نظرات کاربران"} />
         <div className="w-full ">
           <Comments motekhases_id={userData?.id} userData={userData} />

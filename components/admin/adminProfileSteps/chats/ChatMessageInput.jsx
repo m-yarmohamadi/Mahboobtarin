@@ -1,3 +1,4 @@
+import useChat from "@/hooks/useChat";
 import { FaRegFaceSmile } from "react-icons/fa6";
 import { FiPaperclip } from "react-icons/fi";
 import { HiOutlineVideoCamera } from "react-icons/hi2";
@@ -5,6 +6,8 @@ import { IoCallOutline } from "react-icons/io5";
 import { MdOutlineKeyboardVoice } from "react-icons/md";
 
 export default function ChatMessageInput() {
+    const { sendMessage } = useChat();
+
     return (
         <div className="w-full flex items-center gap-3 p-3 bg-white border-t border-t-slate-300 relative z-10">
             <button>
@@ -20,7 +23,7 @@ export default function ChatMessageInput() {
                     placeholder="پیام ..."
                     className="w-auto appearance-none flex-1 bg-transparent border-0 outline-none text-sm font-medium text-slate-800 placeholder-primary-01"
                 />
-                <button>
+                <button onClick={() => sendMessage(5352, 5431, "test")}>
                     <FaRegFaceSmile className="w-5 h-5 lg:w-6 lg:h-6 text-slate-500" />
                 </button>
             </div>
