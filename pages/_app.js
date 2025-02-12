@@ -59,6 +59,7 @@ export default function App({ Component, pageProps }) {
         <meta property="og:title" content="سامانه جامع محبوب‌ترین"></meta>
         <meta property="og:site_name" content="محبوب‌ترین"></meta>
         <meta property="og:locale" content="fa_IR"></meta>
+        <meta name="samandehi" content="262255343"/>
 
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
