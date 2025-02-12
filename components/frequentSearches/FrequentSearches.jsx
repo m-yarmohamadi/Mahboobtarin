@@ -31,7 +31,7 @@ function FrequentSearchesItem({ item }) {
     };
 
     return (
-        <div className="p-4 pl-10 lg:py-10 lg:px-0 rounded-2xl bg-white flex items-start gap-4 lg:gap-6 lg:border-b lg:border-b-primary-02 lg:rounded-none">
+        <div className="min-w-[272px] lg:min-w-0 p-4 lg:py-10 lg:px-0 rounded-2xl bg-white flex items-start gap-4 lg:gap-6 lg:border-b lg:border-b-primary-02 lg:rounded-none">
             <div>
                 <Link href={`/group/${item.id}`} className="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] block">
                     <img

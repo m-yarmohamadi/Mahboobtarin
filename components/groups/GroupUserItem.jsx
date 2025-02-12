@@ -6,6 +6,7 @@ import { FaCalendar, FaRegBookmark, FaSave, FaShareAlt } from 'react-icons/fa';
 import {
 	FaAngleLeft,
 	FaBattleNet,
+	FaBookmark,
 	FaLocationDot,
 	FaPhoneFlip,
 	FaRegHeart,
@@ -35,6 +36,9 @@ export default function GroupUserItem({ user }) {
 	const expertFollowHandler = () => {
 		followHandler(user.id, `${user?.name} ${user?.lastname}`);
 	};
+
+	console.log(user);
+
 
 	return (
 		<div className="w-full flex flex-col gap-6 p-4 rounded-lg border border-slate-300">
@@ -68,7 +72,7 @@ export default function GroupUserItem({ user }) {
 						className="flex w-fit items-start justify-center py-2 px-4 rounded-lg bg-primary-01"
 					>
 						<span className="w-full text-xs text-slate-100 font-bold ">
-							{'دنبال کردن' || ''}
+							{user.is_follow ? "لغو دنبال کردن" : "دنبال کردن"}
 						</span>
 					</button>
 				</div>
@@ -96,7 +100,7 @@ export default function GroupUserItem({ user }) {
 							onClick={() => bookmarkHandler(user.id)}
 							className=" px-2 h-10  flex items-center justify-center gap-1 rounded-lg bg-slate-200"
 						>
-							<FaRegBookmark className="w-5 h-5 text-slate-700" />
+							{user.is_mark ? <FaBookmark className="w-5 h-5 text-slate-700" /> : <FaRegBookmark className="w-5 h-5 text-slate-700" />}
 						</button>
 						<button
 							onClick={() =>
@@ -113,20 +117,24 @@ export default function GroupUserItem({ user }) {
 							<FaLocationDot className="w-4 h-4 text-slate-700" />
 							<span className="text-xs text-slate-700">{getProvinceLabel || ''}</span>
 						</button>
-						<div className="px-2 text-xs h-10 flex flex-col items-center justify-center gap-1 rounded-lg bg-slate-200">
-							<div className="flex justify-center items-center gap-1 text-primary-01">
-								<span className="flex justify-center items-center">
-									{user.service_count}
-								</span>
-								<span className="flex justify-center items-center">
-									<FaStethoscope />
+						{
+							user.service_count > 0 &&
+
+							<div className="px-2 text-xs h-10 flex flex-col items-center justify-center gap-1 rounded-lg bg-slate-200">
+								<div className="flex justify-center items-center gap-1 text-primary-01">
+									<span className="flex justify-center items-center">
+										{user.service_count}
+									</span>
+									<span className="flex justify-center items-center">
+										<FaStethoscope />
+									</span>
+								</div>
+
+								<span className="w-full flex justify-center items-center text-slate-700">
+									خدمت موفق{' '}
 								</span>
 							</div>
-
-							<span className="w-full flex justify-center items-center text-slate-700">
-								خدمت موفق{' '}
-							</span>
-						</div>
+						}
 						<div className="px-2 text-xs h-10 flex flex-col items-center justify-center gap-1 rounded-lg bg-slate-200">
 							<div className="flex justify-center items-center gap-1 text-primary-01">
 								<span className="flex justify-center items-center">
