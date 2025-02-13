@@ -315,12 +315,6 @@ const RegisterExpert = ({
       national_code: nationalCode || formikStep1.values.national_code,
     };
 
-    if (userData?.isStep4) {
-      if (!otp) {
-        data.verifycode = 0;
-      }
-    }
-
     mutateRegister(data, {
       onSuccess: ({ data }) => {
         if (data && data?.message[0] !== "OTP sent") {
