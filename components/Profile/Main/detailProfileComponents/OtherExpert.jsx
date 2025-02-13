@@ -67,15 +67,13 @@ export default function OtherExpert({ userForFollow = [] }) {
 								key={index}
 								className="w-full min-h-full justify-between flex flex-col gap-3 px-2 py-4"
 							>
-								<div className="w-full flex flex-col items-center sm:flex-row lg:flex-col xl:flex-row gap-2 justify-between">
-									<div className="">
-										<div className="w-12 h-12">
-											<img
-												className="w-full h-full object-cover object-center rounded-[18px]"
-												src={item?.avatar || "/images/user.png"}
-												alt={`${item.name} ${item.lastname}`}
-											/>
-										</div>
+								<div className="w-full flex  items-center  gap-2 justify-between">
+									<div className="w-12 h-12">
+										<img
+											className="w-full h-full object-cover object-center rounded-[18px]"
+											src={item?.avatar || "/images/user.png"}
+											alt={`${item.name} ${item.lastname}`}
+										/>
 									</div>
 									<div className="w-full flex items-center justify-between gap-2">
 										<div className="flex-1 flex flex-col gap-1 justify-center items-start">

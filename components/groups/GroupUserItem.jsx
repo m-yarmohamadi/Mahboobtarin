@@ -41,9 +41,9 @@ export default function GroupUserItem({ user }) {
 
 
 	return (
-		<div className="w-full flex flex-col gap-6 p-4 rounded-lg border border-slate-300">
+		<div className="w-full flex flex-col p-4 rounded-lg border border-slate-300">
 			<div className="w-full lg:grid grid-cols-12  gap-4">
-				<div className="w-full col-span-6 lg:col-span-3 flex lg-flex-col flex-row items-start gap-2">
+				<div className="w-full col-span-6 lg:col-span-4 flex lg-flex-col flex-row items-start justify-between gap-2">
 					<div
 						onClick={() => router.push(`/${user.unique_url_id}`)}
 						className="cursor-pointer flex lg:flex-col gap-2 pb-2"
@@ -69,14 +69,14 @@ export default function GroupUserItem({ user }) {
 					</div>
 					<button
 						onClick={expertFollowHandler}
-						className="flex w-fit items-start justify-center py-2 px-4 rounded-lg bg-primary-01"
+						className="flex w-fit items-start justify-between  py-2 px-4 rounded-lg bg-primary-01"
 					>
 						<span className="w-full text-xs text-slate-100 font-bold ">
 							{user.is_follow ? "لغو دنبال کردن" : "دنبال کردن"}
 						</span>
 					</button>
 				</div>
-				<div className="w-full flex flex-col col-span-4 lg:col-span-9 justify-start items-start gap-2">
+				<div className="w-full flex flex-col col-span-4 lg:col-span-8 justify-start items-start gap-2">
 					<div className="w-full grid grid-cols-3 md:grid-cols-6  items-center gap-2">
 						<div className="w-full truncate flex items-center justify-center gap-2 p-2 rounded-lg bg-primary-02">
 							<FaCalendar className="w-4 h-4 text-slate-700" />

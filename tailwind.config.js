@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export const content = [
-	'./pages/**/*.{js,ts,jsx,tsx,mdx}', 
-	'./components/**/*.{js,ts,jsx,tsx,mdx}', 
+	'./pages/**/*.{js,ts,jsx,tsx,mdx}',
+	'./components/**/*.{js,ts,jsx,tsx,mdx}',
 	'./app/**/*.{js,ts,jsx,tsx,mdx}',
 	'./tools/**/*.{js,ts,jsx,tsx,mdx}'
 ];
@@ -11,7 +11,7 @@ export const darkMode = "class";
 export const theme = {
 	extend: {
 		fontFamily: {
-			sans:  "var(--font-primary)",
+			sans: "var(--font-primary)",
 		},
 		colors: {
 			tertiary: {
@@ -47,14 +47,14 @@ export const theme = {
 			error: 'var(--error)',
 			white: 'var(--white)',
 			textDefault: {
-				DEFAULT: 'var(--text-color)', 
+				DEFAULT: 'var(--text-color)',
 			},
 		},
 		boxShadow: {
-			sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', 
-			md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', 
-			lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', 
-			darkSm: '0 1px 2px 0 rgba(255, 255, 255, 0.1)', 
+			sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+			md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+			lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+			darkSm: '0 1px 2px 0 rgba(255, 255, 255, 0.1)',
 			darkMd: '0 4px 6px -1px rgba(255, 255, 255, 0.1)',
 			darkLg: '0 10px 15px -3px rgba(255, 255, 255, 0.2)',
 		},
@@ -73,5 +73,5 @@ export const plugins = [
 	require('@tailwindcss/aspect-ratio'),
 	require("@tailwindcss/forms")({
 		strategy: 'class',
-	  }),
+	}),
 ];
