@@ -41,7 +41,7 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                 }
             } catch (error) {
                 const { status, data } = error?.response;
-                
+
                 if (status === 500) {
                     toast.error("کد تایید وارد شده نادرست است");
                 }
@@ -63,7 +63,8 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                             setStep(data?.user?.type === "motekhases" ? "expert" : "user");
                             setNationalCodeInitial(data?.user?.national_code);
                             setRegisterStep(Number(data?.user?.step));
-                            setUserData(data?.user);
+                            setUserData({ id: data?.user?.id, isStep4: true });
+                            toast.success("شما تایید موقت شدید. لطفا مدارک خود را آپلود کنید");
                         } else {
                             setStep("register");
                         }

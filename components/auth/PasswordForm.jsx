@@ -9,7 +9,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
-export default function PasswordForm({ onLoginOtp, mobile }) {
+export default function PasswordForm({ onLoginOtp, mobile, setStep, setNationalCodeInitial, setRegisterStep, setUserData }) {
     const [isLoginState, setIsLoginState] = useState(false);
     const { isPending: isEntering, mutateAsync: mutateLoginPassword } = useMutation({ mutationFn: register, });
     const router = useRouter();
@@ -40,7 +40,17 @@ export default function PasswordForm({ onLoginOtp, mobile }) {
                 }
             }
         } catch (error) {
-            console.log(error);
+            const { status, data } = error?.response;
+
+            if (status === 301) {
+                if (data?.status === "2") {
+                    setStep(data?.user?.type === "motekhases" ? "expert" : "user");
+                    setNationalCodeInitial(data?.user?.national_code);
+                    setRegisterStep(Number(data?.user?.step));
+                    setUserData({ id: data?.user?.id, isStep4: true });
+                    toast.success("شما تایید موقت شدید. لطفا مدارک خود را آپلود کنید");
+                }
+            }
 
             formik.setFieldError("password", "خطایی رخ داده است");
         }

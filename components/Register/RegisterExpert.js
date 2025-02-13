@@ -307,39 +307,44 @@ const RegisterExpert = ({
   const submitHandlerStep4 = (values) => {
     const transformDocumentsId = values.documents_id.join(",");
 
-    mutateRegister(
-      {
-        ...defaultDataRegister,
-        ...values,
-        step: 4,
-        documents_id: transformDocumentsId,
-        national_code: nationalCode || formikStep1.values.national_code,
-      },
-      {
-        onSuccess: ({ data }) => {
-          if (data) {
-            if (data?.user?.status === 1) {
-              setAuthStep("notActive");
-            } else {
-              Cookies.set("accessToken", data.token, { expires: 1 / 48 });
-              setCompleted(true);
-            }
-            toast.success(
-              ".ثبت‌نام شما با موفقیت تکمیل شد. پس از فعال سازی از طریق پیامک به شما اطلاع داده خواهد شد"
-            );
-            // router.replace(`/${data?.user?.unique_url_id}`);
-            // router.replace(`/`);
-          }
-        },
-        onError: (error) => {
-          if (error?.response?.data?.status === 422) {
-            setErrorStep2(error?.response?.data?.message);
-          } else {
-            toast.error("خطایی رخ داده است");
-          }
-        },
+    const data = {
+      ...defaultDataRegister,
+      ...values,
+      step: 4,
+      documents_id: transformDocumentsId,
+      national_code: nationalCode || formikStep1.values.national_code,
+    };
+
+    if (userData?.isStep4) {
+      if (!otp) {
+        data.verifycode = 0;
       }
-    );
+    }
+
+    mutateRegister(data, {
+      onSuccess: ({ data }) => {
+        if (data && data?.message[0] !== "OTP sent") {
+          if (data?.user?.status === 1) {
+            setAuthStep("notActive");
+          } else {
+            Cookies.set("accessToken", data.token, { expires: 1 / 48 });
+            setCompleted(true);
+          }
+          toast.success(
+            ".ثبت‌نام شما با موفقیت تکمیل شد. پس از فعال سازی از طریق پیامک به شما اطلاع داده خواهد شد"
+          );
+          // router.replace(`/${data?.user?.unique_url_id}`);
+          // router.replace(`/`);
+        }
+      },
+      onError: (error) => {
+        if (error?.response?.data?.status === 422) {
+          setErrorStep2(error?.response?.data?.message);
+        } else {
+          toast.error("خطایی رخ داده است");
+        }
+      },
+    });
   };
 
   const formikStep4 = useFormik({
@@ -445,7 +450,12 @@ const RegisterExpert = ({
                   error={errorStep4}
                   userId={userData.id}
                 >
-                  <NextPrev prevStep={prevStep} loading={isPending} step={4} />
+                  <NextPrev
+                    prevStep={prevStep}
+                    loading={isPending}
+                    step={4}
+                    isStep4={userData?.isStep4}
+                  />
                 </Step04>
               )}
               {step === 5 && (

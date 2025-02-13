@@ -14,7 +14,7 @@ export default function LoginForm({ otp, setOtp, mobile, onResendOtp, setStep, s
 			<div className='flex items-center justify-center'>
 				<div className='w-full h-auto p-7 bg-white rounded-lg shadow-s max-w-lg gap-7 mx-auto flex items-center justify-center flex-col'>
 					<div className='w-full'>
-                    <Link href="/">
+						<Link href="/">
 							<img
 								src={data?.logo}
 								alt=''
@@ -38,6 +38,10 @@ export default function LoginForm({ otp, setOtp, mobile, onResendOtp, setStep, s
 						/>
 					) : (
 						<PasswordForm
+							setNationalCodeInitial={setNationalCodeInitial}
+							setRegisterStep={setRegisterStep}
+							setUserData={setUserData}
+							setStep={setStep}
 							mobile={mobile}
 							onLoginOtp={(e) => {
 								onResendOtp(e);
