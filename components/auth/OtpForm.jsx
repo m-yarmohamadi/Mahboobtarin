@@ -41,7 +41,7 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                 }
             } catch (error) {
                 const { status, data } = error?.response;
-
+                
                 if (status === 500) {
                     toast.error("کد تایید وارد شده نادرست است");
                 }
@@ -57,7 +57,16 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                         setRegisterStep(Number(data?.user_data?.step));
                         setUserData(data?.user_data);
                     } else {
-                        setStep("register");
+                        console.log(data.status);
+
+                        if (data?.status === "2") {
+                            setStep(data?.user?.type === "motekhases" ? "expert" : "user");
+                            setNationalCodeInitial(data?.user?.national_code);
+                            setRegisterStep(Number(data?.user?.step));
+                            setUserData(data?.user);
+                        } else {
+                            setStep("register");
+                        }
                     }
                     return
                 }

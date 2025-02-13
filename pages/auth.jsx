@@ -41,7 +41,12 @@ export default function AuthPage() {
                 }
 
                 if (error?.response?.status === 401) {
-                    setAuthStep("notActive");
+                    if (error?.response?.data.status === "2") {
+                        setAuthStep("login");
+                        setIsRegisert(false);
+                    } else {
+                        setAuthStep("notActive");
+                    }
                 }
             }
         })
