@@ -6,5 +6,5 @@ const priceTypes = [
 ];
 
 export default function getPriceService(price_type) {
-  return priceTypes.filter((p) => p.value === price_type)[0].label;
+  return priceTypes.filter((p) => p.value === price_type)[0]?.label;
 }
