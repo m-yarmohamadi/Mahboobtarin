@@ -10,7 +10,9 @@ import toPersianTimeShort from "@/utils/toPersianTime";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoWarning } from "react-icons/io5";
 
-export default function MagazineSingle({ post }) {
+export default function MagazineSingle({ postData }) {
+    const { post, similar_post, banners } = postData || {};
+    console.log(postData);
 
     return (
         <>
@@ -18,15 +20,23 @@ export default function MagazineSingle({ post }) {
             <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 pt-4 px-4 md:container">
                 <div className="order-2 lg:order-1 lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
                     <div className="space-y-6">
-                        <div className="w-full h-[500px] bg-green-400 rounded-lg">
-
+                        <div className="w-full">
+                            <img
+                                src={banners?.right_banners_top?.photo?.path}
+                                alt={banners?.right_banners_top?.photo?.title}
+                                className='w-full h-full object-cover object-center rounded-lg'
+                            />
                         </div>
-                        <div className="w-full h-[300px] bg-blue-400 rounded-lg">
-
+                        <div className="w-full">
+                            <img
+                                src={banners?.right_banners_bottom?.photo?.path}
+                                alt={banners?.right_banners_bottom?.photo?.title}
+                                className='w-full h-full object-cover object-center rounded-lg'
+                            />
                         </div>
                     </div>
                     <div className="lg:hidden">
-                        <News />
+                        <News similar_post={similar_post} />
                     </div>
                 </div>
 
@@ -55,15 +65,15 @@ export default function MagazineSingle({ post }) {
                                 <h1 className="text-lg font-bold text-slate-900 pb-3">
                                     {post.title}
                                 </h1>
-                                <p className="text-sm text-slate-700 font-medium leading-6">
-                                    {post.short_desc}
-                                </p>
+                                <div dangerouslySetInnerHTML={{ __html: post.short_desc }} className="text-sm text-slate-700 font-medium leading-6">
+
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div className="space-y-6">
-                        <div dangerouslySetInnerHTML={{__html:post.descriptin}} className="!max-w-none text-sm text-slate-700 font-medium leading-6">
+                        <div dangerouslySetInnerHTML={{ __html: post.descriptin }} className="!max-w-none text-sm text-slate-700 font-medium leading-6">
                         </div>
                         <div>
                             <img src={post.photo.path} alt={post.title} className="rounded-lg" />
@@ -89,7 +99,7 @@ export default function MagazineSingle({ post }) {
                 </div>
 
                 <div className="order-3 hidden lg:block lg:col-span-3">
-                    <News />
+                    <News similar_post={similar_post} />
                 </div>
             </div>
         </>
@@ -108,7 +118,7 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            post: data.post
+            postData: data,
         }
     }
 }
