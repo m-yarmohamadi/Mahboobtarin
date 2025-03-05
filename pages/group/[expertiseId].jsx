@@ -4,6 +4,8 @@ import Header from '@/components/Header';
 import http from '@/services/httpService';
 
 export default function Group({ users, expertiseId }) {    
+    console.log(users);
+    
     return (
         <div>
             <Header />

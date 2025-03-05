@@ -48,12 +48,13 @@ export default function GroupUserItem({ user }) {
 						onClick={() => router.push(`/${user.unique_url_id}`)}
 						className="cursor-pointer flex lg:flex-col gap-2 pb-2"
 					>
-						<div className="w-20 h-20">
+						<div className="w-20 h-20 relative">
 							<img
 								src={user.avatar.length ? user.avatar[0].path : '/images/user.png'}
 								alt={`${user.name} ${user.lastname}`}
 								className="w-full h-full object-cover object-center rounded-full"
 							/>
+							{user?.is_online === 1 && <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 bottom-1.5 left-1.5 lg:bottom-1 lg:left-1"></div>}
 						</div>
 						<div className="flex flex-col gap-1">
 							<h2 className="font-black text-textDefault text-sm">
