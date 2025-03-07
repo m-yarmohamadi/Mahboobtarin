@@ -90,7 +90,7 @@ function CreatePictureForm({ onClose }) {
 
 	const importFileHandler = (e) => {
 		const file = e.target.files[0];
-		const maxImageSizeInMB = 3;
+		const maxImageSizeInMB = 2;
 		const maxImageSizeInBytes = maxImageSizeInMB * 1024 * 1024;
 
 		const fileType = file.type.split('/')[0];

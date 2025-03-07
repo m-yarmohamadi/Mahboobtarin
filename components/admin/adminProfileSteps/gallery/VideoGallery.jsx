@@ -95,7 +95,7 @@ function CreateVideoForm({ onClose }) {
 
     const importFileHandler = (e) => {
         const file = e.target.files[0];
-        const maxVideoSizeInMB = 3;
+        const maxVideoSizeInMB = 10;
         const maxVideoSizeInBytes = maxVideoSizeInMB * 1024 * 1024;
 
         if (file.size > maxVideoSizeInBytes) {

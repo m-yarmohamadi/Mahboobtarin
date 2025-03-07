@@ -21,6 +21,14 @@ export function refreshTokenApi() {
   );
 }
 
+export function logoutApi() {
+  return http.get("/api/v1/logout", {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
 export function uploadDocumentsApi(data) {
   return http
     .post("/api/v1/upload-user-documents", data)

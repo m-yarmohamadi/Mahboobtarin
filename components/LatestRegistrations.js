@@ -71,7 +71,7 @@ const LatestRegistrations = () => {
                         }
                         alt={`${item?.name} ${item?.lastname} `}
                       />
-                      {item?.is_online === 1 && (
+                      {item?.is_online && (
                         <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 -bottom-1 left-0.5 lg:left-0"></div>
                       )}
                     </div>

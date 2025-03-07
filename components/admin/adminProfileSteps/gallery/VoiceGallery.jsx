@@ -96,7 +96,7 @@ function CreateVoiceForm({ onClose }) {
 
     const importFileHandler = (e) => {
         const file = e.target.files[0];
-        const maxVoiceSizeInMB = 3;
+        const maxVoiceSizeInMB = 10;
         const maxVoiceSizeInBytes = maxVoiceSizeInMB * 1024 * 1024;
 
         if (file.size > maxVoiceSizeInBytes) {

@@ -115,7 +115,10 @@ const DetailProfile = ({
               src={userData?.avatar[0]?.path || "/images/user.png"}
               alt={`${userData?.name} ${userData?.lastname} `}
             />
-            <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 bottom-1.5 left-1.5 lg:bottom-2 lg:left-2"></div>
+
+            {userData?.is_online && (
+              <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 bottom-1.5 left-1.5 lg:bottom-2 lg:left-2"></div>
+            )}
           </div>
         </div>
 
@@ -189,7 +192,10 @@ const DetailProfile = ({
           ) : null}
 
           <div className="w-full hidden lg:flex items-center xl:justify-between gap-2 font-bold">
-            <button onClick={shareUserHandler} className="flex items-center gap-1 text-xs text-slate-800">
+            <button
+              onClick={shareUserHandler}
+              className="flex items-center gap-1 text-xs text-slate-800"
+            >
               <IoShareSocialOutline className="w-5 h-5" />
               <span>اشتراک گذاری</span>
             </button>
@@ -218,7 +224,10 @@ const DetailProfile = ({
 
       {/* نشانی */}
       {permissions?.phone || permissions?.workAddress ? (
-        <div id="address" className="pb-16 md:pt-16 scroll-mt-[130px] md:scroll-mt-10">
+        <div
+          id="address"
+          className="pb-16 md:pt-16 scroll-mt-[130px] md:scroll-mt-10"
+        >
           <TitleItems title={"نشانی"} />
           <div className="w-full grid grid-cols-1 gap-2">
             <div className="w-full flex flex-col gap-4">
