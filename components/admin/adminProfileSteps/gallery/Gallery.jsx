@@ -13,7 +13,7 @@ import AllGallery from './AllGallery';
 export default function Gallery() {
 	const { user, isLoading } = useProfile();
 	const { user_level } = user || {};
-	const LIMIT = user_level === "Silver" && { pic: 10, video: 2 };
+	const LIMIT = !user?.is_verify && user_level === "Silver" ? { pic: 10, video: 2 } : { pic: Infinity, video: Infinity };
 	const [open, setOpen] = useState(false);
 
 	const tabs = [
@@ -45,10 +45,10 @@ export default function Gallery() {
 					<PictureGallery user={user} limitCount={LIMIT.pic} />
 				</TabGroup.Item>
 				<TabGroup.Item>
-					<VideoGallery user={user} limitCount={LIMIT.video}/>
+					<VideoGallery user={user} limitCount={LIMIT.video} />
 				</TabGroup.Item>
 				<TabGroup.Item>
-					<VoiceGallery user={user} limitCount={LIMIT.video}/>
+					<VoiceGallery user={user} limitCount={LIMIT.video} />
 				</TabGroup.Item>
 			</TabGroup>
 
