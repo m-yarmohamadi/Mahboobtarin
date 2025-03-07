@@ -14,7 +14,7 @@ import useGetExpertiseUser from "@/hooks/useExpertiseUser";
 import * as Yup from "yup";
 import Input from "@/tools/Input";
 
-export default function VideoGallery({ user }) {
+export default function VideoGallery({ user, limitCount }) {
     const [open, setOpen] = useState(false);
     const { data, isLoading: isGetGallery } = useGetExpertiseUser(user?.unique_url_id);
     const { gallery } = data?.user || {};
@@ -24,14 +24,28 @@ export default function VideoGallery({ user }) {
 
     return (
         <div>
-            <div className='w-full flex items-end justify-between mb-7 pb-1'>
-                <button
-                    onClick={() => setOpen(true)}
-                    className='w-28 btn btn--primary px-3 flex justify-between items-center'>
-                    <span>افزودن</span>
-                    <FaImages className='w-5 h-5' />
-                </button>
-            </div>
+            {
+                galleryData.length < limitCount &&
+                <>
+                    <div className='w-full flex items-end justify-between mb-7 pb-1'>
+                        <button
+                            onClick={() => setOpen(true)}
+                            className='w-28 btn btn--primary px-3 flex justify-between items-center'>
+                            <span>افزودن</span>
+                            <FaImages className='w-5 h-5' />
+                        </button>
+                    </div>
+                    <Modal
+                        open={open}
+                        onClose={() => setOpen(false)}
+                        title='ویدیو جدید'
+                    >
+                        <CreateVideoForm
+                            onClose={() => setOpen(false)}
+                        />
+                    </Modal>
+                </>
+            }
             <div className='w-full grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-4'>
                 {galleryData?.map((item, index) => (
                     <GalleryItem
@@ -41,15 +55,7 @@ export default function VideoGallery({ user }) {
                 ))}
             </div>
 
-            <Modal
-                open={open}
-                onClose={() => setOpen(false)}
-                title='ویدیو جدید'
-            >
-                <CreateVideoForm
-                    onClose={() => setOpen(false)}
-                />
-            </Modal>
+
         </div>
     )
 }
@@ -61,7 +67,7 @@ function CreateVideoForm({ onClose }) {
 
     const onSubmit = async (values, { resetForm }) => {
         const formData = new FormData();
-        
+
         if (values.src) {
             formData.append("file", values.src);
         } else {

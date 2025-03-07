@@ -9,20 +9,19 @@ import VideoGallery from './VideoGallery';
 import VoiceGallery from './VoiceGallery';
 import AllGallery from './AllGallery';
 
+
 export default function Gallery() {
 	const { user, isLoading } = useProfile();
 	const { user_level } = user || {};
-	const LIMIT = "Gold";
+	const LIMIT = user_level === "Silver" && { pic: 10, video: 2 };
 	const [open, setOpen] = useState(false);
 
 	const tabs = [
 		{ label: "همه موارد" },
 		{ label: "عکس" },
-		{ label: "فیلم", limit: user_level === LIMIT },
-		{ label: "صوت", limit: user_level === LIMIT }
+		{ label: "فیلم" },
+		{ label: "صوت" }
 	];
-	const limitedTabs = tabs.filter((i) => !i.limit);
-
 
 	if (isLoading) return (
 		<div className='w-full h-screen lg:h-full flex items-center justify-center'>
@@ -38,24 +37,19 @@ export default function Gallery() {
 					<div className='text-primary-01 text-sm  h-full flex justify-center items-end'>لطفاً عکس ها و فیلمهای مورد علاقه خود را با یک تیتر کوتاه در این قسمت درج کنید.</div>
 				</div>
 			</div>
-			<TabGroup tabs={limitedTabs}>
+			<TabGroup tabs={tabs}>
 				<TabGroup.Item>
 					<AllGallery user={user} />
 				</TabGroup.Item>
 				<TabGroup.Item>
-					<PictureGallery user={user} LIMIT={LIMIT} />
+					<PictureGallery user={user} limitCount={LIMIT.pic} />
 				</TabGroup.Item>
-				{
-					user_level === LIMIT &&
-					<>
-						<TabGroup.Item>
-							<VideoGallery user={user} />
-						</TabGroup.Item>
-						<TabGroup.Item>
-							<VoiceGallery user={user} />
-						</TabGroup.Item>
-					</>
-				}
+				<TabGroup.Item>
+					<VideoGallery user={user} limitCount={LIMIT.video}/>
+				</TabGroup.Item>
+				<TabGroup.Item>
+					<VoiceGallery user={user} limitCount={LIMIT.video}/>
+				</TabGroup.Item>
 			</TabGroup>
 
 			<Modal
