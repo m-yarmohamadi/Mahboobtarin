@@ -54,7 +54,7 @@ export default function GroupUserItem({ user }) {
 								alt={`${user.name} ${user.lastname}`}
 								className="w-full h-full object-cover object-center rounded-full"
 							/>
-							{user?.is_online === 1 && <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 bottom-1.5 left-1.5 lg:bottom-1 lg:left-1"></div>}
+							<div className={`${user?.is_online === 1 ? "bg-green-600" : "bg-red-700"} absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bottom-1.5 left-1.5 lg:bottom-1 lg:left-1`}></div>
 						</div>
 						<div className="flex flex-col gap-1">
 							<h2 className="font-black text-textDefault text-sm">

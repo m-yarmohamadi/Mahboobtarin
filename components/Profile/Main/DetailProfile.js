@@ -116,9 +116,11 @@ const DetailProfile = ({
               alt={`${userData?.name} ${userData?.lastname} `}
             />
 
-            {userData?.is_online && (
-              <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 bottom-1.5 left-1.5 lg:bottom-2 lg:left-2"></div>
-            )}
+            <div
+              className={`${
+                userData?.is_online ? "bg-green-600" : "bg-red-700"
+              } absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bottom-1.5 left-1.5 lg:bottom-2 lg:left-2`}
+            ></div>
           </div>
         </div>
 

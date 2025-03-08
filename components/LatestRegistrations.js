@@ -71,9 +71,7 @@ const LatestRegistrations = () => {
                         }
                         alt={`${item?.name} ${item?.lastname} `}
                       />
-                      {item?.is_online && (
-                        <div className="absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-green-600 -bottom-1 left-0.5 lg:left-0"></div>
-                      )}
+                        <div className={`${item?.is_online ? "bg-green-600" : "bg-red-700"} absolute w-3 h-3 lg:w-4 lg:h-4 rounded-full -bottom-1 left-0.5 lg:left-0`}></div>
                     </div>
                   </div>
                   <span className="pt-2 flex justify-center items-center text-xs font-bold text-primary-01">
