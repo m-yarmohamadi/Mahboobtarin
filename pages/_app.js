@@ -12,6 +12,7 @@ import { getDashboardSettings } from "@/services/authService";
 import { usePathname } from "next/navigation";
 import CartShopProvider from "@/context/CartContext";
 import { refreshAuthToken } from "@/services/refreshAuthToken";
+import ServiceOrderProvider from "@/context/ServiceOrderContext";
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }) {
@@ -59,17 +60,19 @@ export default function App({ Component, pageProps }) {
         <meta property="og:title" content="سامانه جامع محبوب‌ترین"></meta>
         <meta property="og:site_name" content="محبوب‌ترین"></meta>
         <meta property="og:locale" content="fa_IR"></meta>
-        <meta name="samandehi" content="262255343"/>
+        <meta name="samandehi" content="262255343" />
 
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
       <QueryClientProvider client={queryClient}>
         <CartShopProvider>
           <DarkModeProvider>
-            <Toaster />
-            <div className="pb-20 lg:pb-0">
-              <Component {...pageProps} />
-            </div>
+            <ServiceOrderProvider>
+              <Toaster />
+              <div className="pb-20 lg:pb-0">
+                <Component {...pageProps} />
+              </div>
+            </ServiceOrderProvider>
           </DarkModeProvider>
         </CartShopProvider>
       </QueryClientProvider>

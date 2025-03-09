@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 
 export default function ProfilePage({ user }) {
     const [isLoading, setIsLoading] = useState(true);
-    console.log(user);
 
     useEffect(() => {
         setIsLoading(false);

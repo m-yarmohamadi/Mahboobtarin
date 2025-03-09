@@ -1,24 +1,25 @@
-import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Appointment from "@/components/Profile/setAppointment/Appointment";
-import ExpertDetails from "@/components/Profile/setAppointment/ExpertDetails";
-import Summary from "@/components/Profile/setAppointment/Summary";
-import VisitDetails from "@/components/Profile/setAppointment/VisitDetails";
-import useProfile from "@/hooks/useProfile";
-import { getServiceProfile } from "@/services/expertDashboardService";
-import Loading from "@/tools/Loading";
-import { decryptData } from "@/utils/crypto";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useServiceOrderContext } from "@/context/ServiceOrderContext";
+import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FiCheckCircle } from "react-icons/fi";
 
-export default function SetAppointment({ data }) {
-    
+export default function SetAppointment() {
+    const { service } = useServiceOrderContext();
+    const [data, setData] = useState(service);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!data) {
+            router.push('/');
+        }
+    }, [data]);
+
     return (
         <div className="w-full">
             <Header />
-            <Appointment data={data} />
+            {data && <Appointment data={data} setData={setData} />}
             {/* 
 
             {
@@ -60,22 +61,4 @@ export default function SetAppointment({ data }) {
             } */}
         </div>
     )
-}
-
-export async function getServerSideProps(ctx) {
-    const { query, req } = ctx;
-
-    try {
-
-        return {
-            props: {
-                data: decryptData(query.turnId)
-            },
-        };
-
-    } catch (error) {
-        return {
-            notFound: true,
-        };
-    }
 }

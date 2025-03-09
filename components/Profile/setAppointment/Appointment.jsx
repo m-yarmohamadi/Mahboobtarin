@@ -17,13 +17,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { goPaymentService } from "./goPaymentService";
 import Payments from "./Payments";
+import { useServiceOrderContext } from "@/context/ServiceOrderContext";
 
 
 // "pay" status = Go to payment
 // "success" status = only success message
 // "payAfter" status = go to payment after submited expert
 
-export default function Appointment({ data }) {
+export default function Appointment({ data, setData }) {
     const { user, isLoading } = useProfile();
     const [descUser, setDescUser] = useState(data.descriptionUser);
     const [dateTime, setDateTime] = useState({ date: data.date, time: data.time });
@@ -32,6 +33,7 @@ export default function Appointment({ data }) {
     const { mutateAsync: mutateAddOrder, isPending } = useMutation({ mutationFn: addOrderService });
     const [payMethod, setPayMethod] = useState("");
     const conditionForPay = data?.serviceData?.price_type === "charity" || data?.serviceData?.price_type === "custom";
+    const { createService, resetService } = useServiceOrderContext();
 
     const renderStatus = (resPrice) => {
         switch (true) {
@@ -89,7 +91,8 @@ export default function Appointment({ data }) {
                 }
             }
 
-            router.replace(`/set-appointment/${encryptData({ order: 2, ...renderStatus(resData.price), orderId: resData.order_id })}`);
+            setData({ order: 2, ...renderStatus(resData.price), orderId: resData.order_id });
+            resetService();
 
         } catch (error) {
             if (error?.response?.status === 401) {

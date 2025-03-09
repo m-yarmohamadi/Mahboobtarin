@@ -43,9 +43,14 @@ export default function EditAppointmentForm({ onClose, lastSelected, onLastSelec
                     onChange={(e) => selectDate(e)}
                     locale={persian_fa}
                     calendar={persian}
-                    minDate={dedicatedTime.length > 0 ? dedicatedTime[0] : new Date()}
+                    minDate={dedicatedTime.length > 0 ? new Date(dedicatedTime[0]) > new Date() ? dedicatedTime[0] : new Date() : new Date()}
                     maxDate={dedicatedTime && dedicatedTime[1]}
-                    render={<CustomeButtonDatePicker setDate={selectDate} maxDate={dedicatedTime && dedicatedTime[1]} minDate={dedicatedTime && dedicatedTime[0]} />}
+                    render={
+                        <CustomeButtonDatePicker
+                            setDate={selectDate}
+                            maxDate={dedicatedTime && dedicatedTime[1]}
+                            minDate={dedicatedTime && dedicatedTime[0] ? new Date(dedicatedTime[0]) > new Date() ? dedicatedTime[0] : new Date() : new Date()}
+                        />}
                     calendarPosition="bottom-center"
                     containerClassName="w-full"
                 />

@@ -1,5 +1,6 @@
 import ChartLine from "@/tools/ChartLine";
-import { useEffect, useState } from "react"
+import moment from "jalali-moment";
+import { useState } from "react"
 
 const showType = [
     {
@@ -18,34 +19,23 @@ const showType = [
 
 export default function VisitChart({ visits, state }) {
     const [showState, setShowState] = useState("month");
-
-    const generateRandomNumbers = (min, max, count) => {
-        let randomNumbers = [];
-        for (let i = 0; i < count; i++) {
-            let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-            randomNumbers.push(randomNumber);
-        }
-        return randomNumbers;
-    };
+    moment.locale('fa');
 
     let categories = [];
     let data = [];
 
     if (visits) {
         if (showState === "year") {
-            // categories = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
             categories = visits.year.labels
             data = visits.year.data;
         }
 
         if (showState === "month") {
-            // categories = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
-            categories = visits.month.labels.map((item) => (new Date(item).toLocaleDateString("fa", { month: "long" })));
+            categories = visits.month.labels.map((item) => (moment(item, "jYYYY/jMM/jDD").format('jMMMM')));
             data = visits.month.data;
         }
 
         if (showState === "daily") {
-            // categories = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
             categories = visits.week.labels;
             data = visits.week.data;
         }

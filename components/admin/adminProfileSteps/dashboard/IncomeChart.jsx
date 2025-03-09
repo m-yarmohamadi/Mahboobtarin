@@ -1,5 +1,6 @@
 import ChartLine from "@/tools/ChartLine";
 import numberWithCommas from "@/utils/numberWithCommas";
+import moment from "jalali-moment";
 import { useState } from "react"
 
 
@@ -20,15 +21,7 @@ const showType = [
 
 export default function IncomeChart({ incomes, state }) {
     const [showState, setShowState] = useState("month");
-
-    const generateRandomNumbers = (min, max, count) => {
-        let randomNumbers = [];
-        for (let i = 0; i < count; i++) {
-            let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-            randomNumbers.push(randomNumber);
-        }
-        return randomNumbers;
-    };
+    moment.locale('fa');
 
     let categories = [];
     let data = [];
@@ -40,7 +33,7 @@ export default function IncomeChart({ incomes, state }) {
         }
 
         if (showState === "month") {
-            categories = incomes.month.labels.map((item) => (new Date(item).toLocaleDateString("fa", { month: "long" })));
+            categories = incomes.month.labels.map((item) => (moment(item, "jYYYY/jMM/jDD").format('jMMMM')));
             data = incomes.month.data;
         }
 
@@ -60,7 +53,7 @@ export default function IncomeChart({ incomes, state }) {
                     <div className="text-sm text-textDefault">
                         <span className="font-semibold"> درآمد کل:</span>
                         &nbsp;
-                        <span>{numberWithCommas(state)}</span>
+                        <span>{numberWithCommas(state)} تومان</span>
                     </div>
                 </div>
 

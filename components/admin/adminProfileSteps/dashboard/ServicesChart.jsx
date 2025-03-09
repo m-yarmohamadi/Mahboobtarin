@@ -20,15 +20,6 @@ const showType = [
 export default function ServicesChart({ services, state }) {
     const [showState, setShowState] = useState("month");
 
-    const generateRandomNumbers = (min, max, count) => {
-        let randomNumbers = [];
-        for (let i = 0; i < count; i++) {
-            let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-            randomNumbers.push(randomNumber);
-        }
-        return randomNumbers;
-    };
-
     let categories = [];
     let data = [];
 

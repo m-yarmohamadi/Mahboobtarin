@@ -25,9 +25,10 @@ export default function Dashboard() {
         </span>
         <div className="text-sm lg:text-base text-justify text-orange-500 leading-6">
           <span className="font-bold ">توجه: </span>
-          کاربر گرامی! شما با تکمیل دقیق اطلاعات عمومی حساب کاربری‌تان به
-          تحقق اولین دانشنامه‌ی خود ناظر مفاخر، مشاهیر و محبوب‌ترین‌ها یاری می‌رسانید. همچنین شما می‌توانید با فعالیت هرچه بیشتر در این سامانه، سطح
-          کاربری خود را ارتقا داده و از امکانات و خدمات آن بهره‌مند شوید
+          کاربر گرامی! شما با تکمیل دقیق اطلاعات عمومی حساب کاربری‌تان به تحقق
+          اولین دانشنامه‌ی خود ناظر مفاخر، مشاهیر و محبوب‌ترین‌ها یاری
+          می‌رسانید. همچنین شما می‌توانید با فعالیت هرچه بیشتر در این سامانه،
+          سطح کاربری خود را ارتقا داده و از امکانات و خدمات آن بهره‌مند شوید
         </div>
       </div>
 
@@ -73,14 +74,14 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
         <VisitChart
           visits={chart.number_views_pages}
-          state={summary.total_views}
+          state={chart.number_views_pages.total}
         />
         <State summaryData={summary} />
         <ServicesChart
           services={chart.number_successful_services}
-          state={summary.successful_services}
+          state={chart.number_successful_services.total}
         />
-        <IncomeChart incomes={chart.income} state={summary.total_income} />
+        <IncomeChart incomes={chart.income} state={chart.income.total} />
       </div>
     </div>
   );
