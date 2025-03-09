@@ -33,7 +33,7 @@ export default function IncomeChart({ incomes, state }) {
         }
 
         if (showState === "month") {
-            categories = incomes.month.labels.map((item) => (moment(item, "jYYYY/jMM/jDD").format('jMMMM')));
+            categories = incomes.month.labels;
             data = incomes.month.data;
         }
 

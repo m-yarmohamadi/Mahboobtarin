@@ -31,7 +31,7 @@ export default function VisitChart({ visits, state }) {
         }
 
         if (showState === "month") {
-            categories = visits.month.labels.map((item) => (moment(item, "jYYYY/jMM/jDD").format('jMMMM')));
+            categories = visits.month.labels;
             data = visits.month.data;
         }
 

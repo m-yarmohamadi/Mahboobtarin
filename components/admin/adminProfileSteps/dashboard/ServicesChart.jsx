@@ -30,7 +30,7 @@ export default function ServicesChart({ services, state }) {
         }
 
         if (showState === "month") {
-            categories = services.month.labels.map((item) => (new Date(item).toLocaleDateString("fa", { month: "long" })));
+            categories = services.month.labels;
             data = services.month.data;
         }
 
