@@ -67,7 +67,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'calling',
             quanity: '',
             icon: HiOutlineSpeakerphone,
-            limit: ["Bronze", "Silver"]
+            limit: ["Bronze"]
         },
         {
             id: 5,
@@ -99,7 +99,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'gallery',
             quanity: '',
             icon: RiGalleryLine,
-            limit: ["Bronze", "Silver"]
+            limit: ["Bronze"]
         },
         {
             id: 7,
@@ -107,7 +107,7 @@ export default function Sidebar({ open, onClose }) {
             value: 'linkdin',
             quanity: '',
             icon: IoNewspaperOutline,
-            limit: ["Bronze", "Silver"]
+            limit: ["Bronze"]
         },
         {
             id: 20,

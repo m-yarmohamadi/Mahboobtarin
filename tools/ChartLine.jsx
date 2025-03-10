@@ -16,7 +16,7 @@ export default function ChartLine({ titleTooltip, categories, data }) {
             zoom: {
                 enabled: false
             },
-            fontFamily: !isLoading ? settings?.font : "IRANSans"
+            fontFamily: !isLoading ? settings?.font : "IRANSans",
         },
         dataLabels: {
             enabled: false
@@ -56,8 +56,11 @@ export default function ChartLine({ titleTooltip, categories, data }) {
             labels: {
                 style: {
                     colors: "#0693a4"
-                }
-            }
+                },
+                rotateAlways: true, 
+                hideOverlappingLabels: true,
+            },
+
         },
         yaxis: {
             labels: {
@@ -74,6 +77,8 @@ export default function ChartLine({ titleTooltip, categories, data }) {
     }]
 
     return (
-        <ApexChart type="line" options={option} series={series} />
+        <div className="h-[300px]">
+            <ApexChart height={350} type="line" options={option} series={series} />
+        </div>
     )
 }

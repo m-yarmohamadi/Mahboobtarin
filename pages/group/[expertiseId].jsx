@@ -3,12 +3,12 @@ import Groups from '@/components/groups/Groups';
 import Header from '@/components/Header';
 import http from '@/services/httpService';
 
-export default function Group({ users, expertiseId }) {    
-    
+export default function Group({ groupData, expertiseId }) {
+
     return (
         <div>
             <Header />
-            <Groups users={users} expertiseId={expertiseId}/>
+            <Groups groupData={groupData} expertiseId={expertiseId} />
             <Footer />
         </div>
     );
@@ -45,7 +45,7 @@ export async function getServerSideProps(ctx) {
 
         return {
             props: {
-                users: data,
+                groupData: data,
                 expertiseId: query.expertiseId
             },
         };

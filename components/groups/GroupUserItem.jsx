@@ -37,8 +37,6 @@ export default function GroupUserItem({ user }) {
 		followHandler(user.id, `${user?.name} ${user?.lastname}`);
 	};
 
-	console.log(user);
-
 
 	return (
 		<div className="w-full flex flex-col p-4 rounded-lg border border-slate-300">

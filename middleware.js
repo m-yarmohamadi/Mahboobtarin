@@ -43,7 +43,7 @@ export async function middleware(req) {
       "linkdin",
       "comments",
     ],
-    Silver: ["calling", "gallery", "linkdin"],
+    Silver: [],
     Gold: [],
   };
 

@@ -10,9 +10,12 @@ export function addTicket(data) {
 }
 
 export function getTicket(ticketId) {
-  return http.get(`/api/v1/dashboard/support/${ticketId || ""}`, {
-    headers: {
-      Authorization: `Bearer ${Cookies.get("accessToken")}`,
-    },
-  });
+  return http.get(
+    `/api/v1/dashboard/support${ticketId ? `/${ticketId}` : ""}`,
+    {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    }
+  );
 }
