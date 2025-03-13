@@ -31,3 +31,9 @@ export function filterRequests(filters) {
 export function getTopSearchs() {
   return http.get(`/api/v1/top-search`).then(({ data }) => data);
 }
+
+export function sendMsgContactUsApi(data) {
+  return http
+    .post(`/api/v1/page/contact-us-form`, data)
+    .then(({ data }) => data);
+}
