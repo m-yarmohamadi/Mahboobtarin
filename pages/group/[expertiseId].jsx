@@ -2,6 +2,7 @@ import Footer from '@/components/Footer';
 import Groups from '@/components/groups/Groups';
 import Header from '@/components/Header';
 import http from '@/services/httpService';
+import queryString from 'query-string';
 
 export default function Group({ groupData, expertiseId }) {
 
@@ -19,22 +20,12 @@ export async function getServerSideProps(ctx) {
     const { query, req } = ctx;
 
     try {
-        // const userToken = req.cookies.accessToken;
+        const { expertiseId, ...filters } = query;
 
-        // let user;
-
-        // if (userToken) {
-        //     const { data: userData } = await http.get(`/api/v1/user`, {
-        //         headers: {
-        //             Authorization: `Bearer ${userToken}`,
-        //         },
-        //     });
-
-        //     user = userData.user;
-        // }
+        const queryStr = queryString.stringify(filters);
 
         const { data } = await http.get(
-            `/api/v1/users/experts/${query.expertiseId}`
+            `/api/v1/users/experts/${expertiseId}?${queryStr}`
         );
 
         if (!data) {
@@ -46,11 +37,12 @@ export async function getServerSideProps(ctx) {
         return {
             props: {
                 groupData: data,
-                expertiseId: query.expertiseId
+                expertiseId,
             },
         };
 
     } catch (error) {
+        console.error('Error fetching data:', error);
         return {
             notFound: true,
         };

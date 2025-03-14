@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import http from "@/services/httpService";
 import GroupUserItem from "./GroupUserItem";
+import { useSearchParams } from "next/navigation";
+import queryString from "query-string";
 
 export default function Groups({ groupData, expertiseId }) {
     const { categories, isLoading } = useMainPage();
@@ -17,12 +19,14 @@ export default function Groups({ groupData, expertiseId }) {
     const [users, setUsers] = useState(groupData.data);
     const [currentPage, setCurrentPage] = useState(groupData.pagination.current_page);
     const [hasMore, setHasMore] = useState(groupData.pagination.current_page < groupData.pagination.last_page);
+    const searchParams = useSearchParams();
+    const filters = Object.fromEntries(searchParams.entries());
 
     const loadMoreUsers = async () => {
         const nextPage = currentPage + 1;
 
         try {
-            const { data: newData } = await http.get(`/api/v1/users/experts/${expertiseId}?page=${nextPage}`);
+            const { data: newData } = await http.get(`/api/v1/users/experts/${expertiseId}?page=${nextPage}&${queryString.stringify(filters)}`);
             setUsers((prevUsers) => [...prevUsers, ...newData.data]);
             setCurrentPage(nextPage);
             setHasMore(nextPage < newData.pagination.last_page);
@@ -35,7 +39,7 @@ export default function Groups({ groupData, expertiseId }) {
         setUsers(groupData.data);
         setCurrentPage(groupData.pagination.current_page);
         setHasMore(groupData.pagination.current_page < groupData.pagination.last_page);
-    }, [expertiseId])
+    }, [expertiseId, filters?.order])
 
     if (isLoading) return (
         <div className="w-full h-screen flex items-center justify-center">

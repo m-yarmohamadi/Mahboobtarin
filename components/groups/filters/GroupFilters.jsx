@@ -4,9 +4,9 @@ import { FaFilter, FaSortAmountDown } from "react-icons/fa"
 import { FaAngleLeft } from "react-icons/fa6"
 import { IoSearchOutline } from "react-icons/io5"
 import GroupExpertises from "../GroupExpertises";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import RadioButton from "@/tools/RadioButton";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function GroupFilters({ expertiseId, categories }) {
@@ -83,8 +83,13 @@ function Filter() {
 
 function Sort() {
     const [openSort, setOpenSort] = useState(false);
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+    const [selectedSort, setSelectedSort] = useState(searchParams.get("order") || "");
+
     const sorts = [
-        { value: "near", label: "نزدیک ترین" },
+        // { value: "near", label: "نزدیک ترین" },
         { value: "poular", label: "محبوبترین" },
         { value: "mostVisited", label: "پربازدیدترین" },
         { value: "suggesstion", label: "پیشنهادی" },
@@ -93,6 +98,29 @@ function Sort() {
         { value: "openTurn", label: "دارای نوبت باز" },
     ];
 
+    const createQueryString = useCallback((params) => {
+        const urlParams = new URLSearchParams(searchParams);
+
+        Object.keys(params).forEach((key) => {
+            if (params[key]) {
+                urlParams.set(key, params[key]);
+            } else {
+                urlParams.delete(key);
+            }
+        });
+
+        return urlParams.toString();
+    },
+        [searchParams]
+    )
+
+    const submitFilterHandler = () => {
+        const queryString = createQueryString({
+            "order": selectedSort,
+        });
+        setOpenSort(false);
+        router.push(`${pathname}?${queryString}`, { scroll: false });
+    };
     return (
         <div>
             <button onClick={() => setOpenSort(true)} className="border border-secondary-01 p-1 px-2 h-[34px] text-sm rounded-full flex justify-center items-center gap-2 text-secondary-01">
@@ -109,11 +137,13 @@ function Sort() {
                             label={sort.label}
                             name={'sort'}
                             id={sort.value}
+                            checked={selectedSort === sort.value}
+                            onChecked={() => setSelectedSort(sort.value)}
                         />
                     ))}
                 </div>
                 <div className="pt-5">
-                    <button onClick={() => setOpenSort(false)} className="btn btn--primary !w-full">
+                    <button onClick={submitFilterHandler} className="btn btn--primary !w-full">
                         تایید
                     </button>
                 </div>
