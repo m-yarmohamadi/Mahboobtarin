@@ -5,7 +5,7 @@ export const refreshAuthToken = async () => {
   try {
     const { data } = await refreshTokenApi();
     if (data.token) {
-      Cookies.set("accessToken", data.token, { expires: 1 / 48 });
+      Cookies.set("accessToken", data.token, { expires: 2 });
     }
   } catch (error) {
     return null;

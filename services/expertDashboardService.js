@@ -10,7 +10,6 @@ export function getDashboardInfo(data) {
   });
 }
 
-
 // * -------------- expert like --------------
 export function likeOrDislikeApi(motekhases_id) {
   return http.post(
@@ -28,6 +27,14 @@ export function likeOrDislikeApi(motekhases_id) {
 
 export function getPlans() {
   return http.get(`/api/v1/dashboard/plans`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    },
+  });
+}
+
+export function buyPlanApi(data) {
+  return http.post(`/api/v1/dopayment-plan`, data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     },
