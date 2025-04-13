@@ -1,81 +1,66 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 
-let socket;
-
 const useChat = () => {
-  const [socketData, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const userToken = Cookies.get("accessToken");
 
-  const username = "09365456309";
-  const password = "mf5755";
-  const toUser = "989030066309";
+  const socketRef = useRef(null);
+  console.log(messages);
 
   useEffect(() => {
-    socket = io("wss://api.mahbubtarin.com:2024", {
-      transports: ["websocket"],
-    });
+    const socket = new WebSocket(
+      `ws://api.mahbubtarin.com:6001?token=${userToken}`
+    );
+    socketRef.current = socket;
 
-    // socket.emit("authenticate", userToken);
+    socket.onopen = () => {
+      console.log("🟢 اتصال برقرار شد");
+    };
 
-    // socket.on("private-message", (data) => {
-    //   const decodedMessage = decodeURIComponent(escape(atob(data.message)));
-    //   console.log(data);
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setMessages((prev) => [...prev, data]);
+      if (data.type === "online_users") {
+        setOnlineUsers((prev) => [...onlineUsers, ...data.users]);
+      }
+    };
 
-    //   setMessages((prev) => [
-    //     ...prev,
-    //     { sender: data.sender_id, text: decodedMessage },
-    //   ]);
-    // });
-    // console.log(socket);
-    socket.on("connect", () => {
-      console.log("اتصال برقرار شد!");
-      socket.emit("set_username", {
-        username,
-        password,
-      }); // ارسال نام کاربری
-      socket.emit("check_online", toUser);
-    });
-
-    socket.on("private_message", (data) => {
-      console.log(data);
-    });
-
-    // socket.on("connect", () => console.log("✅ سوکت متصل شد!"));
-    // socket.on("connect_error", (err) => console.log("❌ خطای اتصال:", err));
-    // socket.on("disconnect", () => console.log("❌ سوکت قطع شد!"));
-
-    socket.on("error_message", (data) => {
-      console.log(data);
-    });
-
-    setSocket(socket);
-
-    // return () => socket.disconnect();
+    return () => {
+      socket.close();
+    };
   }, []);
-  console.log(socketData);
 
-  const sendMessage = (senderId, receiverId, text) => {
-    // if (socket) {
+  // useEffect(() => {
+  //   if (messagesRef.current) {
+  //     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  //   }
+  // }, [messages]);
 
-    socket.on("online_status", (data) => {
-      console.log(data);
-
-      socket.emit("private_message", { to: toUser, message: "سلام" });
-    });
-
-    // const encodedMessage = btoa(unescape(encodeURIComponent(text)));
-    // socket.emit("private-message", {
-    //   sender_id: senderId,
-    //   receiver_id: receiverId,
-    //   message: encodedMessage,
-    // });
-    // }
+  const sendMessagePublic = (text) => {
+    socketRef.current.send(
+      JSON.stringify({
+        type: "public",
+        message: text,
+      })
+    );
   };
 
-  return { messages, sendMessage };
+  const sendMessagePrivate = (text, reciverId) => {
+    socketRef.current.send(JSON.stringify({
+      type: 'private',
+      to: reciverId,
+      message: text
+    }));
+  };
+
+  const getOnlineUsers = onlineUsers.filter(
+    (user, index, self) => index === self.findIndex((u) => u.id === user.id)
+  );
+
+  return { messages, getOnlineUsers, sendMessagePublic, sendMessagePrivate };
 };
 
 export default useChat;

@@ -2,20 +2,32 @@ import { ChatMessageBox, ChatMessageTypeChat } from "@/components/admin/adminPro
 import ChatMessageInput from "@/components/admin/adminProfileSteps/chats/ChatMessageInput";
 import LayoutChats from "@/components/admin/adminProfileSteps/chats/LayoutChats";
 import Header from "@/components/Header";
+import useChat from "@/hooks/useChat";
+import useProfile from "@/hooks/useProfile";
+import { useEffect, useRef } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { FiSearch } from "react-icons/fi";
 import { HiDotsVertical } from "react-icons/hi";
 import { HiOutlineVideoCamera } from "react-icons/hi2";
-import { IoCallOutline } from "react-icons/io5";
+import { IoCallOutline, IoChatbubbleEllipsesOutline } from "react-icons/io5";
 
 export default function ChatSingle() {
+    const { messages } = useChat();
+    const { user } = useProfile();
+    const messagesRef = useRef(null);
+
+    useEffect(() => {
+        if (messagesRef.current) {
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        }
+    }, [messages]);
+
     return (
         <>
             <div className="lg:hidden -mb-20">
                 <Header isShowMobileMenu={false} />
-                <div className="w-full h-[calc(100vh-53px)] relative">
+                <div className="w-full h-[calc(100vh-64px)] relative">
                     <div className="w-full h-full absolute top-0 right-0 bg-[url('/images/chat-bg.png')] bg-cover bg-center opacity-10"></div>
-
                     <div className="w-full h-full flex flex-col relative z-10">
 
                         {/* user data */}
@@ -59,17 +71,31 @@ export default function ChatSingle() {
                         </div>
 
                         {/* chat */}
-                        <div className="flex-1 flex flex-col items-start overflow-y-auto gap-3 px-2 py-4">
-                            <ChatMessageTypeChat />
-                            <ChatMessageBox />
-                            <ChatMessageBox typeUser="user" />
-                            <ChatMessageBox />
-                            <ChatMessageBox />
-                        </div>
+                        {messages.length > 0 ?
+                            <div ref={messagesRef} className="flex-1 flex flex-col items-start overflow-y-auto gap-3 px-2 py-4">
+                                {messages.map((item, index) => (
+                                    <ChatMessageBox
+                                        key={index}
+                                        data={item}
+                                        typeUser={Number(item?.user?.id) === user?.id || Number(item?.user_id) === user?.id ? "user" : ""}
+                                    />
+                                ))}
+                                {/* <ChatMessageTypeChat /> */}
+                            </div>
+                            :
+                            <div className="flex-1 flex flex-col gap-4 items-center justify-center">
+                                <IoChatbubbleEllipsesOutline className="text-slate-500 w-10 h-10" />
+                                <p className="text-sm font-medium text-slate-500">
+                                    اولین پیام را ارسال کنید!
+                                </p>
+                            </div>
+                        }
+
 
                         {/* message input */}
                         <ChatMessageInput />
                     </div>
+
                 </div>
             </div>
 
@@ -107,13 +133,26 @@ export default function ChatSingle() {
                         </div>
 
                         <div className="w-full h-full flex flex-col">
-                            <div className="w-full flex-1 flex flex-col items-start overflow-y-auto p-4 gap-4 relative z-10">
-                                <ChatMessageTypeChat />
-                                <ChatMessageBox />
-                                <ChatMessageBox />
-                                <ChatMessageBox typeUser="user" />
-                                <ChatMessageBox />
-                            </div>
+                            {messages.length > 0 ?
+                                <div ref={messagesRef} className="w-full flex-1 flex flex-col items-start overflow-y-auto p-4 gap-4 relative z-10">
+                                    {messages.map((item, index) => (
+                                        <ChatMessageBox
+                                            key={index}
+                                            data={item}
+                                            typeUser={Number(item?.user?.id) === user?.id || Number(item?.user_id) === user?.id ? "user" : ""}
+                                        />
+                                    ))}
+                                    {/* <ChatMessageTypeChat /> */}
+                                </div>
+                                :
+                                <div className="flex-1 flex flex-col gap-4 items-center justify-center">
+                                    <IoChatbubbleEllipsesOutline className="text-slate-500 w-10 h-10" />
+                                    <p className="text-sm font-medium text-slate-500">
+                                        اولین پیام را ارسال کنید!
+                                    </p>
+                                </div>
+                            }
+
 
                             <ChatMessageInput />
                         </div>

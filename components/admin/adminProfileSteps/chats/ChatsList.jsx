@@ -1,3 +1,4 @@
+import useChat from "@/hooks/useChat"
 import Link from "next/link"
 import { AiOutlineUser } from "react-icons/ai"
 import { FaCheck } from "react-icons/fa6"
@@ -5,19 +6,26 @@ import { FiUserCheck } from "react-icons/fi"
 import { MdClose } from "react-icons/md"
 
 export default function ChatsList({ className }) {
+    const { getOnlineUsers } = useChat();
+
+    const userTest = { user_id: 5891, name: "test", lastname: "testiii" }
+
     return (
         <div className={`bg-white w-full min-h-[calc(100vh-53px-74px-33px)] lg:min-h-[calc(100vh-120px-68px)] xl:min-h-[calc(100vh-120px-72px)] overflow-y-auto col-span-3 ${className}`}>
-            <div className="w-fullh-full">
-                <ChatItem type={"success"} />
-                <ChatItem type={"danger"} />
+            <div className="w-full h-full">
+                {getOnlineUsers?.map((item, index) => (
+                    <ChatItem type={"info"} data={item} />
+                ))}
+                <ChatItem type={"danger"} data={userTest} />
+                {/* <ChatItem type={"danger"} />
                 <ChatItem type={"info"} />
-                <ChatItem type={"default"} />
+                <ChatItem type={"default"} /> */}
             </div>
         </div>
     )
 }
 
-function ChatItem({ type }) {
+function ChatItem({ type, data }) {
 
     const chatStatus = {
         "success": {
@@ -39,7 +47,7 @@ function ChatItem({ type }) {
     }
 
     return (
-        <Link href={'/admin/chats/id'} className="w-full flex items-center gap-4 px-4">
+        <Link href={`/admin/chats/${data?.user_id}`} className="w-full flex items-center gap-4 px-4">
             <div className="relative">
                 <div className="w-12 h-12">
                     <img src="/images/user.png" alt="user" className="w-full h-full object-cover object-center rounded-full" />
@@ -51,7 +59,7 @@ function ChatItem({ type }) {
                 <div className="w-full flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                         <h4 className="text-sm font-bold text-slate-900">
-                            نام کاربر
+                            {data?.name} {data?.lastname}
                         </h4>
                         <div className={`${chatStatus[type].classNames} w-7 h-7 rounded-full flex items-center justify-center`}>
                             {chatStatus[type].icon}

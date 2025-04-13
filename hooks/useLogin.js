@@ -29,7 +29,7 @@ export default function useLogin() {
 
       if (status === 200) {
         toast.success("با موفقیت وارد شدید");
-        Cookies.set("accessToken", access_token, { expires: 1 / 48 });
+        Cookies.set("accessToken", access_token, { expires: 1  });
         if (user?.type === "user") {
           router.replace(`/`);
         } else {
@@ -60,7 +60,7 @@ export default function useLogin() {
 
       if (status === 200) {
         toast.success("با موفقیت وارد شدید");
-        Cookies.set("accessToken", access_token, { expires: 1 / 48 });
+        Cookies.set("accessToken", access_token, { expires: 1  });
         if (user?.type === "user") {
           router.replace(`/`);
         } else {

@@ -31,7 +31,7 @@ export default function PasswordForm({ onLoginOtp, mobile, setStep, setNationalC
             if (data.status === 200) {
                 toast.success("با موفقیت وارد شدید");
                 setIsLoginState(true);
-                Cookies.set("accessToken", data.access_token, { expires: 1 / 48 });
+                Cookies.set("accessToken", data.access_token, { expires: 1});
 
                 if (data?.user?.type === "user") {
                     router.replace(`/`);

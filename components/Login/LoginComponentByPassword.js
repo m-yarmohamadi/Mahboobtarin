@@ -30,7 +30,7 @@ const LoginComponentByPassword = () => {
         toastFunction(data?.message, "error");
       } else {
         toastFunction(data?.message, "success");
-        Cookies.set("accessToken", data.access_token, { expires: 1 / 48 });
+        Cookies.set("accessToken", data.access_token, { expires: 1 });
         router.replace("/");
       }
     } catch (error) {

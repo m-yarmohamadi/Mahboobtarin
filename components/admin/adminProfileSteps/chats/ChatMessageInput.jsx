@@ -1,12 +1,21 @@
 import useChat from "@/hooks/useChat";
+import { useState } from "react";
 import { FaRegFaceSmile } from "react-icons/fa6";
 import { FiPaperclip } from "react-icons/fi";
 import { HiOutlineVideoCamera } from "react-icons/hi2";
-import { IoCallOutline } from "react-icons/io5";
+import { IoCallOutline, IoSend } from "react-icons/io5";
 import { MdOutlineKeyboardVoice } from "react-icons/md";
 
 export default function ChatMessageInput() {
-    const { sendMessage } = useChat();
+    const { sendMessagePublic, sendMessagePrivate } = useChat();
+    const [messageText, setMessageText] = useState("");
+
+    const sendMessageHandler = () => {
+        if (!messageText) return null;
+
+        sendMessagePrivate(messageText, 5871);
+        setMessageText("");
+    }
 
     return (
         <div className="w-full flex items-center gap-3 p-3 bg-white border-t border-t-slate-300 relative z-10">
@@ -19,14 +28,19 @@ export default function ChatMessageInput() {
                     <FiPaperclip className="w-5 h-5 lg:w-6 lg:h-6 text-slate-500" />
                 </button>
                 <input
+                    value={messageText}
+                    onChange={({ target }) => setMessageText(target.value)}
                     type="text"
                     placeholder="پیام ..."
                     className="w-auto appearance-none flex-1 bg-transparent border-0 outline-none text-sm font-medium text-slate-800 placeholder-primary-01"
                 />
-                <button onClick={() => sendMessage(5352, 5431, "test")}>
+                <button>
                     <FaRegFaceSmile className="w-5 h-5 lg:w-6 lg:h-6 text-slate-500" />
                 </button>
             </div>
+            <button onClick={sendMessageHandler} disabled={!messageText}>
+                <IoSend className={`${messageText ? "text-blue-600" : "text-slate-400"} w-5 h-5 rotate-180 lg:w-6 lg:h-6`} />
+            </button>
 
             <div className="hidden lg:flex items-center gap-4">
                 <button>

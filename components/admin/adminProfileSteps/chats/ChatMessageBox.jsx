@@ -1,21 +1,24 @@
 import numberWithCommas from "@/utils/numberWithCommas"
 import { IoCheckmarkDone } from "react-icons/io5"
 
-export function ChatMessageBox({ typeUser }) {
-    return (
-        <div className={`${typeUser === "user" ? "self-end bg-slate-300 dark:bg-slate-400 !rounded-bl-none" : "bg-white !rounded-br-none"} rounded-2xl !w-auto max-w-[80%] md:max-w-[50%] p-3 relative`}>
-            <div className="mb-4 text-xs font-semibold text-slate-800">
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-            </div>
+export function ChatMessageBox({ typeUser, data }) {
 
-            <div className="w-full flex items-center justify-end text-slate-700 gap-1">
-                <span className="text-[10px]">
-                    13:04
-                </span>
-                <IoCheckmarkDone />
+    if (data.type === "private") {
+        return (
+            <div className={`${typeUser === "user" ? "self-end bg-slate-300 dark:bg-slate-400 !rounded-bl-none" : "bg-white !rounded-br-none"} rounded-2xl !w-auto max-w-[80%] md:max-w-[50%] p-3 relative`}>
+                <div className="mb-4 text-xs font-semibold text-slate-800">
+                    {data?.message}
+                </div>
+
+                <div className="w-full flex items-center justify-end text-slate-700 gap-1">
+                    <span className="text-[10px]">
+                        {data?.created_at && new Date(data?.created_at).toLocaleTimeString("fa-IR", { hour: "2-digit", minute: "2-digit" })}
+                    </span>
+                    <IoCheckmarkDone />
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export function ChatMessageTypeChat() {

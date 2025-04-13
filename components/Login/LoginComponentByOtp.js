@@ -44,7 +44,7 @@ const LoginComponentByOtp = () => {
       });
       if (data.data.status === 200) {
         toastFunction(data.data.message, "success");
-        Cookies.set("accessToken", data.data.access_token, { expires: 1 / 48 });
+        Cookies.set("accessToken", data.data.access_token, { expires: 1 });
         router.replace("/");
       } else {
         toastFunction("خطای ناشناخته", "error");

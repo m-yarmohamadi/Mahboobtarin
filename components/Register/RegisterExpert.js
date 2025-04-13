@@ -321,7 +321,7 @@ const RegisterExpert = ({
           if (data?.user?.status === 1) {
             setAuthStep("notActive");
           } else {
-            Cookies.set("accessToken", data.token, { expires: 1 / 48 });
+            Cookies.set("accessToken", data.token, { expires: 1  });
             setCompleted(true);
           }
           toast.success(
@@ -368,7 +368,7 @@ const RegisterExpert = ({
       {
         onSuccess: ({ data }) => {
           if (data) {
-            Cookies.set("accessToken", data.token, { expires: 1 / 48 });
+            Cookies.set("accessToken", data.token, { expires: 1  });
             setCompleted(true);
             toast.success("ثبت‌نام شما با موفقیت تکمیل شد");
             router.replace(`/`);
