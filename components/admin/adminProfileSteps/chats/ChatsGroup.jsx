@@ -13,11 +13,9 @@ export default function ChatsGroup({ userChat }) {
 
     return (
         <div className="w-full flex items-center justify-between">
-            <TabGroup tabs={tabs} onIndex={(e) => console.log(e)} className={"!gap-0"}>
+            <TabGroup tabs={tabs} className={"!gap-0"}>
 
             </TabGroup>
-
-            
         </div>
     )
 }

@@ -13,6 +13,7 @@ import { usePathname } from "next/navigation";
 import CartShopProvider from "@/context/CartContext";
 import { refreshAuthToken } from "@/services/refreshAuthToken";
 import ServiceOrderProvider from "@/context/ServiceOrderContext";
+import ChatProvider from "@/context/ChatContext";
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }) {
@@ -68,10 +69,12 @@ export default function App({ Component, pageProps }) {
         <CartShopProvider>
           <DarkModeProvider>
             <ServiceOrderProvider>
-              <Toaster />
-              <div className="pb-20 lg:pb-0">
-                <Component {...pageProps} />
-              </div>
+              <ChatProvider>
+                <Toaster />
+                <div className="pb-20 lg:pb-0">
+                  <Component {...pageProps} />
+                </div>
+              </ChatProvider>
             </ServiceOrderProvider>
           </DarkModeProvider>
         </CartShopProvider>

@@ -1,4 +1,6 @@
+import { useChatContext } from "@/context/ChatContext";
 import useChat from "@/hooks/useChat";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { FaRegFaceSmile } from "react-icons/fa6";
 import { FiPaperclip } from "react-icons/fi";
@@ -7,13 +9,14 @@ import { IoCallOutline, IoSend } from "react-icons/io5";
 import { MdOutlineKeyboardVoice } from "react-icons/md";
 
 export default function ChatMessageInput() {
-    const { sendMessagePublic, sendMessagePrivate } = useChat();
+    const { sendMessagePublic, sendMessagePrivate } = useChatContext();
     const [messageText, setMessageText] = useState("");
+    const params = useParams();
 
     const sendMessageHandler = () => {
         if (!messageText) return null;
 
-        sendMessagePrivate(messageText, 5871);
+        sendMessagePrivate(messageText, params?.chatId);
         setMessageText("");
     }
 
@@ -23,7 +26,7 @@ export default function ChatMessageInput() {
                 <MdOutlineKeyboardVoice className="w-6 h-6 text-slate-700 lg:w-7 lg:h-7" />
             </button>
 
-            <div className="w-full flex items-center gap-3 p-2 border border-slate-300 rounded-lg lg:ml-6 lg:p-2.5">
+            <div className="w-full flex items-center gap-3 p-2 border border-slate-300 rounded-lg lg:p-2.5">
                 <button>
                     <FiPaperclip className="w-5 h-5 lg:w-6 lg:h-6 text-slate-500" />
                 </button>

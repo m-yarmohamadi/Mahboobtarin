@@ -38,39 +38,8 @@ import useMainPage, { useCategoryChild } from "@/hooks/useMainPage";
 import { getCategoryChild } from "@/services/mainPageService";
 import MobileMenu from "./MobileMenu";
 import useProfile from "@/hooks/useProfile";
+import { useChatContext } from "@/context/ChatContext";
 
-const products = [
-  {
-    name: "پزشکان",
-    description: "مشاهده بهترین پزشکان در حوزه های مختلف",
-    href: "#",
-    icon: ChartPieIcon,
-  },
-  {
-    name: "هنرمندان",
-    description: "مشاهده بهترین هنرمندان در حوزه های مختلف",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "ورزشکاران",
-    description: "مشاهده بهترین ورزشکاران در حوزه های مختلف",
-    href: "#",
-    icon: FingerPrintIcon,
-  },
-  {
-    name: "خبرنگاران",
-    description: "مشاهده بهترین خبرنگاران در حوزه های مختلف",
-    href: "#",
-    icon: SquaresPlusIcon,
-  },
-  {
-    name: "کارمندان",
-    description: "مشاهده بهترین کارمندان در حوزه های مختلف",
-    href: "#",
-    icon: ArrowPathIcon,
-  },
-];
 const menu = [
   // { id: 1, title: "آموزشگاه", link: "/academy" },
   // { id: 2, title: "محبوب مال", link: "/shop" },
@@ -96,6 +65,7 @@ export default function Header({ isShowMobileMenu = true }) {
   const data = useAllSettings();
   const { categories, isLoading } = useMainPage();
   const { user, isLoading: isLoadingUser } = useProfile();
+  const online = useChatContext();
 
   useEffect(() => {
     const tokenCooke = Cookies.get("accessToken")
@@ -253,15 +223,14 @@ export default function Header({ isShowMobileMenu = true }) {
             })}
           </PopoverGroup>
           <div className="hidden lg:w-full lg:flex">
-          <LoginRegister
-            setOpenRegisterModal={setOpenRegisterModal}
-            handleLogOut={logout}
-            user={user}
-            isLoading={isLoadingUser}
-          />
+            <LoginRegister
+              setOpenRegisterModal={setOpenRegisterModal}
+              handleLogOut={logout}
+              user={user}
+              isLoading={isLoadingUser}
+            />
           </div>
         </nav>
-
       </header>
       {isShowMobileMenu && <MobileMenu user={user} isLoading={isLoadingUser} />}
       <RegisterModal

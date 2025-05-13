@@ -46,15 +46,6 @@ export default function BookingForm({ onClose, serviceID, userId, expert }) {
             price: serviceData.price,
             type,
         })
-        console.log({
-            ...selected,
-            ...seminar,
-            serviceData,
-            expert,
-            descriptionUser: "",
-            price: serviceData.price,
-            type,
-        });
         createService({
             ...selected,
             ...seminar,

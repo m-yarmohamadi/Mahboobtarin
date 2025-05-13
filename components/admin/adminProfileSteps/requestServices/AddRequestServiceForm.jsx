@@ -57,7 +57,7 @@ export default function AddRequestServiceForm() {
         onSubmit,
         validationSchema: Yup.object({
             service: Yup.string("").required("نوع خدمت را انتخاب کنید"),
-            theme: Yup.string("").required("سبک را انتخاب کنید"),
+            // theme: Yup.string("").required("سبک را انتخاب کنید"),
             description : Yup.string("").required("توضیحات را وارد کنید"),
             target: Yup.string("").required("هدف را انتخاب کنید")
         })

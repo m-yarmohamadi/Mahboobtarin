@@ -5,7 +5,6 @@ export async function middleware(req) {
   const pathname = req.nextUrl.pathname;
   const cookie = `Bearer ${req.cookies.get("accessToken")?.value}`;
   const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/user`;
-  console.log(API_URL);
   
   let isAuth;
   let userRole;
