@@ -284,7 +284,6 @@ function UploadPhoto({ formik, editPhotos = [] }) {
 
         try {
             const { data } = await mutateUploadPhotos(formData);
-            console.log(data);
 
             if (data) {
                 formik.setFieldValue("files", [...formik.values.files, { id: Date.now(), file }])

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 export default function RequestsList() {
     const [requests, setReuests] = useState([]);
-    console.log(requests);
 
     useEffect(() => {
         async function fetchHandler() {

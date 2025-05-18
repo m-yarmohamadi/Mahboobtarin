@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react"
 
-export default function TabGroup({ tabs = [], children, handler, onIndex, className }) {
+export default function TabGroup({ tabs = [], children, handler, onIndex, className, classNameContainer }) {
     const [activeTab, setActiveTab] = useState(0);
 
     useEffect(() => {
@@ -16,7 +16,7 @@ export default function TabGroup({ tabs = [], children, handler, onIndex, classN
 
     return (
         <div className={`w-full flex flex-col gap-6 ${className}`}>
-            <div className={`w-full flex items-center gap-6 pb-2 overflow-x-auto no-scrollbar border-b border-slate-300 dark:border-slate-400`}>
+            <div className={`w-full flex items-center gap-6 pb-2 overflow-x-auto no-scrollbar border-b border-slate-300 dark:border-slate-400 ${classNameContainer}`}>
                 {tabs.map((tab, index) => (
                     <button
                         key={index}

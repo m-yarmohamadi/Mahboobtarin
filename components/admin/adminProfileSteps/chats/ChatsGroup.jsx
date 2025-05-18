@@ -13,7 +13,7 @@ export default function ChatsGroup({ userChat }) {
 
     return (
         <div className="w-full flex items-center justify-between">
-            <TabGroup tabs={tabs} className={"!gap-0"}>
+            <TabGroup tabs={tabs} className={"!gap-0"} classNameContainer={"lg:!border-b-0"}>
 
             </TabGroup>
         </div>

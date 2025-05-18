@@ -124,7 +124,6 @@ const UserStep01 = ({ setStepUser, setNationalCode, mobile, otp }) => {
 			type:"user"
 		},{
 			onSuccess:({data})=>{
-				console.log(data);
 				
 				if(data){
 					setStepUser(1);

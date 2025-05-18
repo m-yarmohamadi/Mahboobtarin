@@ -12,7 +12,6 @@ import { IoWarning } from "react-icons/io5";
 
 export default function MagazineSingle({ postData }) {
     const { post, similar_post, banners } = postData || {};
-    console.log(postData);
 
     return (
         <>

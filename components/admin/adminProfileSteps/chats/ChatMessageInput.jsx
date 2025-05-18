@@ -9,7 +9,7 @@ import { IoCallOutline, IoSend } from "react-icons/io5";
 import { MdOutlineKeyboardVoice } from "react-icons/md";
 
 export default function ChatMessageInput() {
-    const { sendMessagePublic, sendMessagePrivate } = useChatContext();
+    const { sendMessagePublic, sendMessagePrivate, startVoiceCall, receiverUser } = useChatContext();
     const [messageText, setMessageText] = useState("");
     const params = useParams();
 
@@ -49,7 +49,7 @@ export default function ChatMessageInput() {
                 <button>
                     <HiOutlineVideoCamera className="w-6 h-6 text-slate-700" />
                 </button>
-                <button>
+                <button onClick={() => startVoiceCall(receiverUser?.id)}>
                     <IoCallOutline className="w-6 h-6 text-slate-700" />
                 </button>
                 <button className="btn btn--primary !p-2 !px-4">

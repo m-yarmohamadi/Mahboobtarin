@@ -14,7 +14,7 @@ import { HiOutlineVideoCamera } from "react-icons/hi2";
 import { IoCallOutline, IoChatbubbleEllipsesOutline } from "react-icons/io5";
 
 export default function Chats() {
-    const { messages, getOnlineUsers } = useChatContext();
+    const { messages, getOnlineUsers, startVoiceCall } = useChatContext();
     const { user } = useProfile();
     const messagesRefMobile = useRef(null);
     const messagesRefDesktop = useRef(null);
@@ -22,7 +22,7 @@ export default function Chats() {
     const getReciverUser = getOnlineUsers.filter((u) => Number(u.id) === Number(params.chatId))[0]
     const { transformProvinces } = useGetProvinces();
     const messagesData = [...getReciverUser?.orders || [], ...messages];
-
+    
     useEffect(() => {
         if (messagesRefMobile.current) {
             messagesRefMobile.current.scrollTop = messagesRefMobile.current.scrollHeight;
@@ -68,7 +68,7 @@ export default function Chats() {
                                 <button>
                                     <HiOutlineVideoCamera className="w-5 h-5" />
                                 </button>
-                                <button>
+                                <button onClick={() => startVoiceCall(getReciverUser?.id)}>
                                     <IoCallOutline className="w-5 h-5" />
                                 </button>
                                 <button>
@@ -118,36 +118,9 @@ export default function Chats() {
 
 
             <div className="hidden lg:block">
-                <LayoutChats>
+                <LayoutChats reciverDetails={getReciverUser}>
                     <div className="w-full h-full relative">
                         <div className="w-full h-full absolute top-0 right-0 bg-[url('/images/chat-bg.png')] bg-cover bg-center opacity-10"></div>
-
-                        <div className="w-auto bg-white flex items-center justify-end p-3 gap-6 whitespace-nowrap fixed top-[126px] left-0">
-                            <div className="flex items-center gap-2">
-                                <div className="flex flex-col items-end">
-                                    <span className="text-sm font-bold text-slate-800">
-                                        {getReciverUser?.name} {getReciverUser?.lastname}
-                                    </span>
-                                    <span className="text-xs text-slate-600">
-                                        آخرین بازدید به تازگی
-                                    </span>
-                                </div>
-                                <div className="relative">
-                                    <div className="w-9 h-9">
-                                        <img src={getReciverUser?.avatar || "/images/user.png"} alt="user" className="w-full h-full object-cover object-center rounded-full" />
-                                    </div>
-                                    {/* <div className="absolute w-2 h-2 rounded-full bg-green-600 border border-white bottom-0.5 left-0.5"></div> */}
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-3 text-slate-800">
-                                <button>
-                                    <FiSearch className="w-6 h-6" />
-                                </button>
-                                <button>
-                                    <HiDotsVertical className="w-5 h-5" />
-                                </button>
-                            </div>
-                        </div>
 
                         <div className="w-full h-full flex flex-col">
                             {messagesData.length > 0 ?

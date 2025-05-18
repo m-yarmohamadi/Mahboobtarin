@@ -57,7 +57,6 @@ export default function OtpForm({ otp, setOtp, isRegister, onLoginPassword, mobi
                         setRegisterStep(Number(data?.user_data?.step));
                         setUserData(data?.user_data);
                     } else {
-                        console.log(data.status);
 
                         if (data?.status === "2") {
                             setStep(data?.user?.type === "motekhases" ? "expert" : "user");

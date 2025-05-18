@@ -12,7 +12,6 @@ const useChat = () => {
 
   const socketRef = useRef(null);
   const currentUserRef = useRef(null);
-  console.log(messages);
 
   useEffect(() => {
     const externalServerURL = "wss://api.mahbubtarin.com:6001";
@@ -26,7 +25,6 @@ const useChat = () => {
     socket.on("current user", (user) => {
       currentUserRef.current = user;
     });
-    console.log(currentUserRef.current);
 
     socket.on("online users", (users) => {
       setOnlineUsers((prev) => [...prev, ...users]);

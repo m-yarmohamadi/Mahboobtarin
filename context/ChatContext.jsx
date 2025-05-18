@@ -3,6 +3,10 @@ import io from "socket.io-client";
 import Cookies from "js-cookie";
 import { createContext } from "react";
 import { useParams } from "next/navigation";
+import useVoiceCall from "@/hooks/useVoiceCall";
+import IncomingVoiceCall from "@/components/admin/adminProfileSteps/chats/voiceCallState/IncomingVoiceCall";
+import CallingVoiceCall from "@/components/admin/adminProfileSteps/chats/voiceCallState/CallingVoiceCall";
+import VoiceCall from "@/components/admin/adminProfileSteps/chats/voiceCallState/VoiceCall";
 
 const ChatContext = createContext(null);
 
@@ -11,10 +15,19 @@ export default function ChatProvider({ children }) {
     const [onlineUsers, setOnlineUsers] = useState([]);
     const userToken = Cookies.get("accessToken");
     const params = useParams();
-
     const socketRef = useRef(null);
     const currentUserRef = useRef(null);
     const receiverUserRef = useRef(null);
+
+    const {
+        answerVoiceCall,
+        caller,
+        endVoiceCall,
+        receiverUser,
+        startVoiceCall,
+        voiceCallState,
+        callLoad
+    } = useVoiceCall(socketRef?.current, onlineUsers);
 
     useEffect(() => {
         const externalServerURL = "wss://api.mahbubtarin.com:6001";
@@ -30,10 +43,12 @@ export default function ChatProvider({ children }) {
         });
 
         socket.on("latest services", (data) => {
-            const mergedArray = [...data?.[0]?.service_provision, ...data?.[1]?.get_service];
+            const mergedArray = [
+                ...(data?.[0]?.service_provision || []),
+                ...(data?.[1]?.get_service || []),
+            ];
             setOnlineUsers((prev) => [...prev, ...mergedArray]);
         });
-
 
         socket.on("private message", ({ from, text, to, name }) => {
             const isOwnMessage = Number(from.id) === Number(currentUserRef?.current?.id);
@@ -52,18 +67,20 @@ export default function ChatProvider({ children }) {
 
         });
 
+
+
+        // ** calls **
     }, []);
-    
+
     useEffect(() => {
         if (!socketRef.current || !params?.chatId || !currentUserRef.current) return;
-        
+
         socketRef.current.emit("get private messages", { targetUserId: params?.chatId });
         socketRef.current.on("get private messages", (messages) => {
             setMessages(messages.map((item) => ({ ...item, isOwnMessage: Number(item?.sender_id) === currentUserRef?.current?.id })));
         });
 
     }, [socketRef.current, params?.chatId, currentUserRef.current]);
-
 
     const sendMessagePublic = (text) => {
         // Add logic if needed
@@ -82,6 +99,36 @@ export default function ChatProvider({ children }) {
         Number(m.receiver_id) === Number(params.chatId)
     )
 
+    const renderVoiceCalls = () => {
+        switch (voiceCallState) {
+            case "isIncoming": return (
+                <IncomingVoiceCall
+                    answer={answerVoiceCall}
+                    caller={caller}
+                    end={endVoiceCall}
+                />
+            )
+
+            case "isConnection": return (
+                <CallingVoiceCall
+                    end={endVoiceCall}
+                    receiverUser={receiverUser}
+                    callLoad={callLoad}
+                />
+            )
+
+            case "isCall": return (
+                <VoiceCall
+                    end={endVoiceCall}
+                    receiverUser={receiverUser}
+                />
+            )
+
+            default:
+                break;
+        }
+    }
+
     return (
         <ChatContext.Provider
             value={{
@@ -89,9 +136,13 @@ export default function ChatProvider({ children }) {
                 getOnlineUsers,
                 sendMessagePublic,
                 sendMessagePrivate,
+                startVoiceCall,
+                endVoiceCall,
+                receiverUser,
                 currentUser: currentUserRef.current
             }}
         >
+            {renderVoiceCalls()}
             {children}
         </ChatContext.Provider>
     );
