@@ -37,14 +37,14 @@ export default function Sidebar({ open, onClose }) {
             quanity: '',
             icon: FaRegUser,
         },
-        // {
-        //     id: 50,
-        //     title: 'گفتگو',
-        //     value: 'chats',
-        //     quanity: '',
-        //     icon: BsChatSquareDots,
-        //     limit: ["Bronze"]
-        // },
+        {
+            id: 50,
+            title: 'گفتگو',
+            value: 'chats',
+            quanity: '',
+            icon: BsChatSquareDots,
+            limit: ["Bronze"]
+        },
         {
             id: 3,
             title: 'سفارشات',

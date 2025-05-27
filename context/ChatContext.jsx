@@ -66,10 +66,6 @@ export default function ChatProvider({ children }) {
             }, ...prev]);
 
         });
-
-
-
-        // ** calls **
     }, []);
 
     useEffect(() => {

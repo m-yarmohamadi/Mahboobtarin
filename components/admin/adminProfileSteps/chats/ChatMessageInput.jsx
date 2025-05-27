@@ -8,7 +8,7 @@ import { HiOutlineVideoCamera } from "react-icons/hi2";
 import { IoCallOutline, IoSend } from "react-icons/io5";
 import { MdOutlineKeyboardVoice } from "react-icons/md";
 
-export default function ChatMessageInput() {
+export default function ChatMessageInput({ isExpert }) {
     const { sendMessagePublic, sendMessagePrivate, startVoiceCall, receiverUser } = useChatContext();
     const [messageText, setMessageText] = useState("");
     const params = useParams();
@@ -46,15 +46,19 @@ export default function ChatMessageInput() {
             </button>
 
             <div className="hidden lg:flex items-center gap-4">
-                <button>
+                {/* <button>
                     <HiOutlineVideoCamera className="w-6 h-6 text-slate-700" />
-                </button>
-                <button onClick={() => startVoiceCall(receiverUser?.id)}>
-                    <IoCallOutline className="w-6 h-6 text-slate-700" />
-                </button>
-                <button className="btn btn--primary !p-2 !px-4">
+                </button> */}
+                {
+                    isExpert && (
+                        <button onClick={() => startVoiceCall(receiverUser?.id)}>
+                            <IoCallOutline className="w-6 h-6 text-slate-700" />
+                        </button>
+                    )
+                }
+                {/* <button className="btn btn--primary !p-2 !px-4">
                     پایان
-                </button>
+                </button> */}
             </div>
         </div>
     )

@@ -15,14 +15,15 @@ import { IoCallOutline, IoChatbubbleEllipsesOutline } from "react-icons/io5";
 
 export default function Chats() {
     const { messages, getOnlineUsers, startVoiceCall } = useChatContext();
-    const { user } = useProfile();
     const messagesRefMobile = useRef(null);
     const messagesRefDesktop = useRef(null);
     const params = useParams();
+    const { user } = useProfile();
+    const isExpert = user?.type === "motekhases";
     const getReciverUser = getOnlineUsers.filter((u) => Number(u.id) === Number(params.chatId))[0]
     const { transformProvinces } = useGetProvinces();
     const messagesData = [...getReciverUser?.orders || [], ...messages];
-    
+
     useEffect(() => {
         if (messagesRefMobile.current) {
             messagesRefMobile.current.scrollTop = messagesRefMobile.current.scrollHeight;
@@ -65,12 +66,16 @@ export default function Chats() {
                                 </div>
                             </div>
                             <div className="flex items-center gap-3 text-slate-800">
-                                <button>
+                                {/* <button>
                                     <HiOutlineVideoCamera className="w-5 h-5" />
-                                </button>
-                                <button onClick={() => startVoiceCall(getReciverUser?.id)}>
-                                    <IoCallOutline className="w-5 h-5" />
-                                </button>
+                                </button> */}
+                                {
+                                    isExpert && (
+                                        <button onClick={() => startVoiceCall(getReciverUser?.id)}>
+                                            <IoCallOutline className="w-5 h-5" />
+                                        </button>
+                                    )
+                                }
                                 <button>
                                     <FiSearch className="w-5 h-5" />
                                 </button>
@@ -151,7 +156,7 @@ export default function Chats() {
                             }
 
 
-                            <ChatMessageInput />
+                            <ChatMessageInput isExpert={isExpert} />
                         </div>
                     </div>
                 </LayoutChats>
